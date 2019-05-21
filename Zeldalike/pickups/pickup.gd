@@ -11,3 +11,6 @@ func area_entered(area):
 	#could later make this a group for multiple items that can pick up pickups
 	if area_parent.name == "sword":
 		body_entered(area_parent.get_parent())
+		
+func body_entered(body):
+	pass
