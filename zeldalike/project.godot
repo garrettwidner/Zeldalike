@@ -19,6 +19,10 @@ config/name="zeldalike"
 run/main_scene="res://player/test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+dir="*res://engine/direction.gd"
+
 [display]
 
 window/size/width=160
