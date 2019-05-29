@@ -1,58 +1,80 @@
 extends KinematicBody2D
 
 var speed : float = 33
-var input : Vector2 = Vector2(0,0)
+var input : Vector2 = dir.NULL
 onready var anim : AnimationPlayer = $anim
-var facingdir : Vector2 = Vector2(0,0)
+var facingdir : Vector2 = dir.DOWN
+
+var movedir : Vector2 = dir.NULL
+var spritedir : String = ""
 
 func _process(delta):
 	set_input()
-	set_facing_dir()
-	animate()
+	set_movedir()
+	set_facingdir()
+	set_spritedir()
 	
 	
-	move_and_slide(input * speed, Vector2(0,-1))
+	if movedir != Vector2(0,0):
+		switch_anim("walk")
+	else:
+		switch_anim("idle")
 	
-	
+	movement_loop()
 	
 func set_input():
-	if Input.is_action_pressed("left"):
+	var LEFT : bool = Input.is_action_pressed("left")
+	var RIGHT : bool = Input.is_action_pressed("right")
+	var UP : bool = Input.is_action_pressed("up")
+	var DOWN : bool = Input.is_action_pressed("down")
+	
+	if LEFT:
 		input.x = -1
-	elif Input.is_action_pressed("right"):
+	elif RIGHT:
 		input.x = 1
 	else:
 		input.x = 0
 	
-	if Input.is_action_pressed("up"):
+	if UP:
 		input.y = -1
-	elif Input.is_action_pressed("down"):
+	elif DOWN:
 		input.y = 1
 	else:
 		input.y = 0
-		
-func set_facing_dir():
+
+func set_movedir():
 	if input.x == 0 and input.y == 0:
-		return null
+		movedir = dir.NULL
 	elif input.x == 1:
-		facingdir = dir.RIGHT
+		movedir = dir.RIGHT
 	elif input.x == -1:
-		facingdir = dir.LEFT
+		movedir = dir.LEFT
 	elif input.y == 1:
-		facingdir = dir.DOWN
+		movedir = dir.DOWN
 	elif input.y == -1: 
-		facingdir = dir.UP
-		
-func animate():
+		movedir = dir.UP
+
+func set_facingdir():
+	if movedir != Vector2(0,0):
+		facingdir = movedir
+
+func set_spritedir():
 	match facingdir:
 		dir.UP:
-			anim.play("walkup")
+			spritedir = "up"
 		dir.DOWN:
-			anim.play("walkdown")
+			spritedir = "down"
 		dir.LEFT:
-			anim.play("walkleft")
+			spritedir = "left"
 		dir.RIGHT:
-			anim.play("walkright")
-	if input.x == 0 and input.y == 0:
-		anim.stop(true)
+			spritedir = "right"
+
+func switch_anim(animation):
+	var nextanim : String = animation + spritedir
+	if anim.current_animation != nextanim:
+		anim.play(nextanim)
+
+func movement_loop():
+	var motion = input.normalized() * speed
+	move_and_slide(motion, Vector2(0,0))
 	
-	pass
