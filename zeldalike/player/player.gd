@@ -1,14 +1,17 @@
 extends "res://engine/entity.gd"
 
 var input : Vector2 = dir.CENTER
+var istrackingenemy : bool = false
 
 func _ready():
-	speed = 33
+	speed = 40
+	TYPE = "PLAYER"
 
 func _process(delta):
 	set_movedir()
-	set_facingdir()
+	set_facedir()
 	set_spritedir()
+	damage_loop()
 	
 	if movedir != Vector2(0,0):
 		switch_anim("walk")
@@ -36,3 +39,14 @@ func set_movedir():
 		movedir.y = 1
 	else:
 		movedir.y = 0
+
+func set_facedir():
+	for body in $sightbox.get_overlapping_bodies():
+		if body.get("TYPE") == "ENEMY":
+			istrackingenemy = true
+			var directiontowards : Vector2 = body.transform.origin - transform.origin
+			facedir = dir.closest_cardinal(directiontowards)
+		else:
+			istrackingenemy = false
+			.set_facedir()
+	
