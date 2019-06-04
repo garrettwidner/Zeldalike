@@ -16,7 +16,7 @@ var health : int = 1
 
 func set_facedir():
 	if movedir.x == 0 and movedir.y == 0:
-		facedir = dir.CENTER
+		return
 	elif movedir.x == 1:
 		facedir = dir.RIGHT
 	elif movedir.x == -1:
@@ -59,7 +59,11 @@ func damage_loop():
 			hitstun_timer = hitstun_amount
 			knockdir = transform.origin - body.transform.origin
 	
-	
-	
+func use_item(item):
+	var newitem = item.instance()
+	newitem.add_to_group(str(newitem.get_name(), self))
+	add_child(newitem)
+	if get_tree().get_nodes_in_group(str(newitem.get_name(), self)).size() > newitem.maxamount:
+		newitem.queue_free()
 	
 	

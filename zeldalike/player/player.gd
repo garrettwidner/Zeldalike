@@ -17,6 +17,11 @@ func _process(delta):
 		switch_anim("walk")
 	else:
 		switch_anim("idle")
+		
+	if Input.is_action_just_pressed("a"):
+		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
+	if Input.is_action_just_pressed("b"):
+		use_item(preload("res://items/sword/sword.tscn"))
 	
 	movement_loop()
 	

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprinkle.png-23a37ceda93e042b456ada7c1a08a7a2.stex"
+path="res://.import/sprinkle.png-c393454fb27e4e4cd4154d2ec6cde7da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/sprinkle.png"
-dest_files=[ "res://.import/sprinkle.png-23a37ceda93e042b456ada7c1a08a7a2.stex" ]
+source_file="res://items/sprinkler/sprinkle.png"
+dest_files=[ "res://.import/sprinkle.png-c393454fb27e4e4cd4154d2ec6cde7da.stex" ]
 
 [params]
 

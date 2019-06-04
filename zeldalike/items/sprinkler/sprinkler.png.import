@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hyssop.png-3d5407ee06bd8af1fdda16475420e088.stex"
+path="res://.import/sprinkler.png-27c02bdb67dda9e552e09451569e0889.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/hyssop.png"
-dest_files=[ "res://.import/hyssop.png-3d5407ee06bd8af1fdda16475420e088.stex" ]
+source_file="res://items/sprinkler/sprinkler.png"
+dest_files=[ "res://.import/sprinkler.png-27c02bdb67dda9e552e09451569e0889.stex" ]
 
 [params]
 
