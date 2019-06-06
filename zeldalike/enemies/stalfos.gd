@@ -7,7 +7,7 @@ var DAMAGE : int = 1
 func _ready():
 	$anim.play("default")
 	movedir = dir.rand()
-	speed = 0
+	speed = 15
 	
 func _physics_process(delta):
 	movement_loop()

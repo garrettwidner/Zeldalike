@@ -53,11 +53,12 @@ func movement_loop():
 func damage_loop():
 	if hitstun_timer > 0:
 		hitstun_timer -= 1
-	for body in $hitbox.get_overlapping_bodies():
+	for area in $hitbox.get_overlapping_areas():
+		var body = area.get_parent()
 		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE:
 			health -= body.get("DAMAGE")
 			hitstun_timer = hitstun_amount
-			knockdir = transform.origin - body.transform.origin
+			knockdir = global_transform.origin - body.global_transform.origin
 	
 func use_item(item):
 	var newitem = item.instance()
