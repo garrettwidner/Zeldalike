@@ -114,10 +114,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [  ]
+"values": [ Vector2( 10, 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rotation_degrees")
@@ -212,7 +212,8 @@ extents = Vector2( 2, 6 )
 
 [node name="sprinkler" type="Node2D"]
 position = Vector2( 10, 3 )
-z_index = -1
+rotation = 1.5708
+z_index = 1
 script = ExtResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]

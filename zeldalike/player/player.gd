@@ -5,6 +5,8 @@ var istrackingenemy : bool = false
 var state = "default"
 var walkspeed = 40
 var runspeed = 65
+var sprinkleoffset : float = 10
+var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
 func _ready():
 	speed = 40
@@ -31,10 +33,34 @@ func state_default():
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
+		add_sprinkle()
+		
 	if Input.is_action_just_pressed("b"):
 		use_item(preload("res://items/sword/sword.tscn"))
 	
 	movement_loop()
+
+func add_sprinkle():
+	var sprinkle = sprinkleresource.instance()
+	print("sprinkle should be created")
+	sprinkle.position = transform.get_origin()
+	sprinkle.position.x += facedir.x * sprinkleoffset
+	sprinkle.position.y += facedir.y * sprinkleoffset
+	if facedir.x == 0:
+		if sprinkle.position.y > position.y:
+			sprinkle.set_z_index(1)
+			print("sprinkled up")
+		elif sprinkle.position.y < position.y:
+			sprinkle.set_z_index(-1)
+			print("sprinkled down")
+	else:
+		sprinkle.set_z_index(0)
+		
+	self.get_parent().add_child(sprinkle)
+	#var sprinklex = transform.get_origin().x + (facedir.x * sprinkleoffset)
+	#var sprinkley = transform.get_origin().y + (facedir.y * sprinkleoffset)
+	#sprinkle.transform.translated(Vector2(sprinklex, sprinkley))
+	#sprinkle.transform.position = Vector2(transform.position.x + ,2)
 
 func state_swing():
 	switch_anim("idle")
