@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://items/sprinkler/sprinkle.gd" type="Script" id=1]
 [ext_resource path="res://items/sprinkler/sprinkle.png" type="Texture" id=2]
@@ -18,6 +18,9 @@ tracks/0/keys = {
 "values": [ Vector2( -2, -3 ), Vector2( 3, -1 ), Vector2( -2, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 8 )
+
 [node name="sprinkle" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -30,3 +33,8 @@ offset = Vector2( -2, 1 )
 [node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 3.0
 anims/fall = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )

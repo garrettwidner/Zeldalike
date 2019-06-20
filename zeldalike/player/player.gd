@@ -42,25 +42,18 @@ func state_default():
 
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
-	print("sprinkle should be created")
 	sprinkle.position = transform.get_origin()
 	sprinkle.position.x += facedir.x * sprinkleoffset
 	sprinkle.position.y += facedir.y * sprinkleoffset
 	if facedir.x == 0:
-		if sprinkle.position.y > position.y:
-			sprinkle.set_z_index(1)
-			print("sprinkled up")
-		elif sprinkle.position.y < position.y:
+		if sprinkle.position.y < position.y:
 			sprinkle.set_z_index(-1)
-			print("sprinkled down")
+		elif sprinkle.position.y > position.y:
+			sprinkle.set_z_index(1)
 	else:
 		sprinkle.set_z_index(0)
 		
 	self.get_parent().add_child(sprinkle)
-	#var sprinklex = transform.get_origin().x + (facedir.x * sprinkleoffset)
-	#var sprinkley = transform.get_origin().y + (facedir.y * sprinkleoffset)
-	#sprinkle.transform.translated(Vector2(sprinklex, sprinkley))
-	#sprinkle.transform.position = Vector2(transform.position.x + ,2)
 
 func state_swing():
 	switch_anim("idle")

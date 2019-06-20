@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tiles/tiles_packed.png" type="Texture" id=1]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://enemies/stalfos.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/seedbed.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enemies/stalfos.tscn" type="PackedScene" id=4]
 
 [sub_resource type="TileSet" id=1]
 0/name = "tiles_packed.png 0"
@@ -437,5 +438,11 @@ texture = ExtResource( 1 )
 vframes = 6
 hframes = 28
 
-[node name="stalfos" parent="." instance=ExtResource( 3 )]
-position = Vector2( 91.1349, 82.3103 )
+[node name="seedbed" parent="." instance=ExtResource( 3 )]
+position = Vector2( 100.702, 91.9047 )
+
+[node name="stalfos" parent="." instance=ExtResource( 4 )]
+position = Vector2( 228.892, 101.371 )
+
+[node name="stalfos2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 215.51, 79.5499 )
