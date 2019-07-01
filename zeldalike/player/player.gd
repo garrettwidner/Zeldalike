@@ -8,6 +8,10 @@ var runspeed = 65
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
+var interacttarget
+var caninteract : bool = false
+var inventory = []
+
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
@@ -98,4 +102,15 @@ func set_facedir():
 		else:
 			istrackingenemy = false
 			.set_facedir()
-	
+			
+func _on_Area2D_body_entered(body, obj):
+	if body.get_name() == "player":
+		caninteract = true
+		interacttarget = obj
+		print("Player's current interact target: " + obj.name)
+
+func _on_Area2D_body_exited(body, obj):
+	if body.get_name() == "player":
+		caninteract = false
+		interacttarget = null
+		print("Player no longer has a target for interaction")

@@ -3,7 +3,7 @@
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Iodan.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 6, 6 )
 
 [sub_resource type="Animation" id=2]
@@ -130,11 +130,11 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 5 ]
 }
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 7, 7 )
-
 [sub_resource type="CircleShape2D" id=11]
 radius = 50.0
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 7, 7 )
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -146,8 +146,7 @@ hframes = 4
 frame = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource( 1 )
+shape = SubResource( 14 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 3.0
@@ -160,15 +159,15 @@ anims/walkleft = SubResource( 7 )
 anims/walkright = SubResource( 8 )
 anims/walkup = SubResource( 9 )
 
-[node name="hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-visible = false
-shape = SubResource( 10 )
-
 [node name="footanim" type="AnimationPlayer" parent="."]
 
 [node name="sightbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sightbox"]
+visible = false
 shape = SubResource( 11 )
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource( 13 )
