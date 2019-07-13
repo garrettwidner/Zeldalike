@@ -1,0 +1,191 @@
+"url_key": "vjz9",
+"title": "story_1",
+"level": "FloodgateTest",
+"data":{
+	"FloodgateInitial":{
+		"0" : {
+			"content": [
+				"The Floodgate is closed. With a trickle of water leaking from the bottom.",
+				{
+					"divert": "1"
+				}
+			],
+			"experiences": {"hasLookedAtFloodgate" : true}
+		},
+		"1" : {
+			"content": [
+				"You look for some way to open it, but the surface is too smooth to grab.",
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"TriedUsingPickaxe":{
+		"0":{
+			"content":[
+				"You tried wedging the pickaxe under the floodgate and pushing up.",
+				{
+					"divert":"1"
+				}
+			],
+			"experiences": {"hasTriedPickaxeOnFloodgate": true}
+		},
+		"1":{
+			"content":[
+				"There's a bit more flow, but you need to hold it there to keep it going.",
+				{
+					"divert":"2"
+				}
+			]
+		},
+		"2":{
+			"content":[
+				"You'll have to try something else."
+				{
+					"isEnd:":true
+				}
+			],
+		}
+		
+	},
+	"PickaxeWithBrick":{
+		"0":{
+			"content":[
+				"Using the pickaxe to open the gate, you jammed the brick underneath."
+				{
+					"divert": "1"
+				}
+			],
+			"experiences": {"hasOpenedFloodgate": true}
+
+		},
+		"1":{
+			"content":[
+				"The brick stayed, and there's a steady flow of water. That seemed to work."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"OuthouseInitial":{
+		"0":{
+			"content":[
+				"A dilapidated outhouse. Looks like it could fall over at any moment."
+				{
+					"isEnd":true
+				}
+			]
+		}
+	},
+	"YouDestroyedOuthouse":{
+		"0":{
+			"content":[
+				"You swing the pickaxe far to the left, then bring it around with a crack on the corner of the outhouse."
+				{
+					"divert": "1"
+				}
+			],
+			"experiences": {"hasDestroyedOuthouse": true }
+		},
+		"1":{
+			"content":[
+				"It crumbles inward."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"TheOuthouseIsDestroyed":{
+		"0":{
+			"content":[
+				"It's the outhouse you destroyed, now a pile of loose bricks and mortar."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"FarmerInitial":{
+		"0":{
+			"content":[
+				"Hello there. Do you think you could open that floodgate so my crops'll get watered?"
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"HeresAPickaxe":{
+		"0":{
+			"content":[
+				"Oh it won't open? Hm. I have a pickaxe, here you go. Try that."
+				{
+					"isEnd":true
+				}
+			]
+		}
+	},
+	"CheckTheOuthouse":{
+		"0":{
+			"content":[
+				"Pickaxe didn't work on the gate? Hm. Maybe you can use it on something else."
+				{
+					"isEnd" : true
+				}
+			]
+		}
+	},
+	"ThankYouSon":{
+		"0":{
+			"content":[
+				"Oh thank you son! You watered my crops. I sure do appreciate it."
+				{
+					"divert": "1"
+				} 
+			],
+			"experiences": {"hasReceivedReward": true}
+		},
+		"1":{
+			"content":[
+				"Here, I'll give you some gold as a reward. Thanks again."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"ThanksAgain":{
+		"0":{
+			"content":[
+				"Hey, thanks again."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
+	"PickupBrick":{
+		"0":{
+			"content":[
+				"There's a loose brick on the ground."
+				{
+					"divert": "1"
+				}
+			],
+			"experiences":{"hasBrick" : true}
+		},
+		"1":{
+			"content":[
+				"You pick it up."
+				{
+					"isEnd":true
+				}
+			]
+		}
+	}
+
+
+}

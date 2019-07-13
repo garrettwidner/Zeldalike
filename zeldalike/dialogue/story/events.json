@@ -1,0 +1,100 @@
+"SceneName": "Scene1",
+"eventTarget": {
+	"Floodgate": {
+		"Start": {
+			"Name": "FloodgateInitial",
+			"Priority": 0,
+			"Flags": { 
+				"default" : true
+			}
+		},
+		"TriedPickaxe": {
+			"Name":"TriedUsingPickaxe",
+			"Priority": 1,
+			"Flags": {
+				"hasPickaxe": true,
+				"hasBrick": false
+			}
+		},
+		"TriedBrick": {
+			"Name:":"PickaxeWithBrick",
+			"Priority": 2,
+			"Flags":{
+				"hasPickaxe": true,
+				"hasBrick": true
+			}
+		}
+	},
+	"Outhouse": {
+		"Start": {
+			"Name" : "OuthouseInitial",
+			"Priority": 0,
+			"Flags": { "default" : true }
+		},
+		"PickaxeOuthouse": {
+			"Name" : "YouDestroyedOuthouse",
+			"Priority": 1,
+			"Flags": { 
+				"hasPickaxe" : true,
+				"hasBrick" : false
+			}
+
+		},
+		"DestroyedOuthouse": {
+			"Name": "TheOuthouseIsDestroyed",
+			"Priority": 2,
+			"Flags": {
+				"hasDestroyedOuthouse" : true
+			}
+		}
+	},
+	"Farmer":{
+		"Start": {
+			"Name": "FarmerInitial",
+			"Priority": 0,
+			"Flags": {
+				"default" : true
+			}
+		},
+		"FarmerAfterLookFloodgate":{
+			"Name": "HeresAPickaxe",
+			"Priority": 1,
+			"Flags": {
+				"hasLookedAtFloodgate": true
+			}
+		},
+		"FarmerAfterTryPickaxe":{
+			"Name:": "CheckTheOuthouse",
+			"Priority": 2,
+			"Flags": {
+				"hasTriedPickaxeOnFloodgate" : true,
+				"hasDestroyedOuthouse" : false
+			}
+		},
+		"FarmerAfterOpenFloodgate":{
+			"Name": "ThankYouSon",
+			"Priority": 3,
+			"Flags": {
+				"hasOpenedFloodgate" : true
+				"hasReceivedReward" : false
+			}
+		}
+		"FarmerAfterReward":{
+			"Name": "ThanksAgain",
+			"Priority":3,
+			"Flags": {
+				"hasOpenedFloodgate": true,
+				"hasReceivedReward": true
+			}
+		}
+	},
+	"Brick":{
+		"Start":{
+			"Name":"PickupBrick",
+			"Priority": 0,
+			"Flags":{
+				"default": true
+			}
+		}
+	}
+}

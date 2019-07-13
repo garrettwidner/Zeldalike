@@ -443,7 +443,7 @@ hframes = 28
 position = Vector2( 100.702, 91.9047 )
 
 [node name="stalfos" parent="." instance=ExtResource( 5 )]
-position = Vector2( 228.892, 101.371 )
+position = Vector2( 72.0982, 95.3101 )
 
 [node name="stalfos2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 215.51, 79.5499 )
