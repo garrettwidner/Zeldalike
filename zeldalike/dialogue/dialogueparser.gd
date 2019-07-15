@@ -21,3 +21,8 @@ func load_file_as_JSON(file_path) -> Dictionary:
 	var filedict = parse_json(file.get_as_text())
 	assert filedict.size() > 0
 	return filedict
+	
+func _process(delta):
+	if Input.is_action_just_pressed("a"):
+		#cycle or start dialogue
+		pass

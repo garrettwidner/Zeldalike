@@ -75,10 +75,10 @@
 			"Name": "ThankYouSon",
 			"Priority": 3,
 			"Flags": {
-				"hasOpenedFloodgate" : true
+				"hasOpenedFloodgate" : true,
 				"hasReceivedReward" : false
 			}
-		}
+		},
 		"FarmerAfterReward":{
 			"Name": "ThanksAgain",
 			"Priority":3,
