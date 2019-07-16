@@ -1,7 +1,7 @@
 extends Node2D
 
 var hasfallen = false
-var brickinstance = preload("res://dialogue_test/brick.tscn")
+var brickresource = preload("res://dialogue_test/brick.tscn")
 
 
 func _ready():
@@ -9,3 +9,5 @@ func _ready():
 	
 func fall():
 	$anim.play("fall")
+	var brick = brickresource.instance()
+	brick.position = $spawnpoint.position
