@@ -4,6 +4,8 @@ var sceneStory = {}
 var events = {}
 var experiences = {}
 
+var panelNode
+
 var isDialogueEvent 
 var initStory
 var currDialogue
@@ -18,17 +20,51 @@ func _ready():
 	events = load_file_as_JSON("dialogue/story/events.json")
 	experiences = load_file_as_JSON("dialogue/story/experiences.json")
 	
+	panelNode = get_node("../dialogue_box")
 	
+	if(panelNode.is_visible()):
+		panelNode.hide()
+	
+func _process(delta):
+	if Input.is_action_just_pressed("a"):
+		#cycle or start dialogue
+		pass
+
+func on_button_pressed(target):
+	if(isEnd):
+		panelNode.hide()
+	var textToShow = ""
+	
+func set_next_dialogue(target):
+	pass
+	
+
+#  ??????????????????   ---- This has been logically completed, it should work
+func init_dialogue(target):
+	
+	isDialogueEvent = false
+	initStory = null
+	currDialogue = null
+	currChoices = []
+	isChoice = false
+	isChoiceDialogue = false
+	isEnd = false
+	
+	var dialogue_branch = choose_dialogue_branch(target)
+	get_node("../" + target).update_experiences(experiences)
+	
+	initStory = sceneStory["data"][dialogue_branch]
+	currDialogue = initStory["0"]["content"]
+	panelNode.get_node("MarginContainer/VBoxContainer/text").set_text(currDialogue[0])
+	
+	#within here, make sure to check whether the story branch has an 'experiences'
+	#field associated with it and if so, flip the experience to true or false depending on specifications
+	
+	pass
 
 func choose_dialogue_branch(target):
 	var possibleBranches = look_up_events(target)
 	var dialogue = choose_dialogue(possibleBranches)
-	
-	#check if contains hasbeenused flag
-	#check if it has no flags, no conditions, meaning it's the default
-	
-	
-	#
 	
 #Returns a dictionary of event information based on the target name
 func look_up_events(target):
@@ -69,25 +105,5 @@ func load_file_as_JSON(file_path) -> Dictionary:
 	assert filedict.size() > 0
 	return filedict
 	
-func _process(delta):
-	if Input.is_action_just_pressed("a"):
-		#cycle or start dialogue
-		pass
+
 		
-func init_dialogue(target):
-	
-	isDialogueEvent = false
-	initStory = null
-	currDialogue = null
-	currChoices = []
-	isChoice = false
-	isChoiceDialogue = false
-	isEnd = false
-	
-	var dialogue_branch = choose_dialogue_branch(target)
-	get_node("../" + target).update_experiences(experiences)
-	
-	#within here, make sure to check whether the story branch has an 'experiences'
-	#field associated with it and if so, flip the experience to true or false depending on specifications
-	
-	pass

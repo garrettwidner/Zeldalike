@@ -23,7 +23,7 @@ position = Vector2( 32, 32 )
 position = Vector2( 66.9789, 112.177 )
 
 [node name="dialogue_box" parent="." instance=ExtResource( 6 )]
-margin_left = 67.8213
-margin_top = 1.14933
-margin_right = 67.8213
-margin_bottom = 1.14933
+margin_left = 0.36039
+margin_top = 73.8806
+margin_right = 0.36039
+margin_bottom = 73.8806
