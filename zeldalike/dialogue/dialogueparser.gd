@@ -9,9 +9,6 @@ var panelNode
 var isDialogueEvent 
 var initStory
 var currDialogue
-var currChoices
-var isChoice
-var isChoiceDialogue
 var isEnd
 
 func _ready():
@@ -36,6 +33,12 @@ func on_button_pressed(target):
 	var textToShow = ""
 	
 func set_next_dialogue(target):
+	if !("isEnd" in currDialogue[1]):
+		var nextDialogue = initStory[currDialogue[1]["divert"]]
+		currDialogue = nextDialogue["content"]
+	else:
+		isEnd = true
+		get_node("../player").set_state_default()
 	pass
 	
 
@@ -45,9 +48,6 @@ func init_dialogue(target):
 	isDialogueEvent = false
 	initStory = null
 	currDialogue = null
-	currChoices = []
-	isChoice = false
-	isChoiceDialogue = false
 	isEnd = false
 	
 	var dialogue_branch = choose_dialogue_branch(target)

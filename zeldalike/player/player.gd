@@ -22,6 +22,8 @@ func _process(delta):
 			state_default()
 		"swing":
 			state_swing()
+		"listen":
+			state_listen()
 	
 func state_default():
 	set_speed()
@@ -44,6 +46,13 @@ func state_default():
 	
 	movement_loop()
 
+func state_swing():
+	switch_anim("idle")
+	damage_loop()
+	
+func state_listen():
+	switch_anim("idle")
+
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
 	sprinkle.position = transform.get_origin()
@@ -59,9 +68,7 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-func state_swing():
-	switch_anim("idle")
-	damage_loop()
+
 	
 func set_speed():
 	if Input.is_action_pressed("c"):
@@ -114,3 +121,12 @@ func _on_Area2D_body_exited(body, obj):
 		caninteract = false
 		interacttarget = null
 		print("Player no longer has a target for interaction")
+
+func set_state_swing():
+	state = "swing"
+
+func set_state_default():
+	state = "default"
+	
+func set_state_listen():
+	state = "listen"
