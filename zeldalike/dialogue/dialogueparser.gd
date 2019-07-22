@@ -11,13 +11,15 @@ var initStory
 var currDialogue
 var isEnd
 
+var currTarget
+
 func _ready():
 	#set_process_input(true)
 	sceneStory = load_file_as_JSON("dialogue/story/story_1.json")
 	events = load_file_as_JSON("dialogue/story/events.json")
 	experiences = load_file_as_JSON("dialogue/story/experiences.json")
 	
-	panelNode = get_node("../dialogue_box")
+	panelNode = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer")
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
@@ -25,12 +27,17 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("a"):
 		#cycle or start dialogue
+		change_panel_dialogue(currTarget)
 		pass
 
-func on_button_pressed(target):
+#  ??????????????????   ---- This has been logically completed, it should work
+func change_panel_dialogue(target):
 	if(isEnd):
 		panelNode.hide()
 	var textToShow = ""
+	set_next_dialogue(currTarget)
+	textToShow = currDialogue[0]
+	panelNode.get_node("text").set_text(textToShow)
 	
 func set_next_dialogue(target):
 	if !("isEnd" in currDialogue[1]):
@@ -49,6 +56,8 @@ func init_dialogue(target):
 	initStory = null
 	currDialogue = null
 	isEnd = false
+	
+	currTarget = target
 	
 	var dialogue_branch = choose_dialogue_branch(target)
 	get_node("../" + target).update_experiences(experiences)
