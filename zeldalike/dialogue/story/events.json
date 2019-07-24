@@ -1,6 +1,7 @@
+{
 "SceneName": "Scene1",
 "eventTarget": {
-	"Floodgate": {
+	"floodgate": {
 		"Beginning": {
 			"Name": "FloodgateInitial",
 			"Type": "Repeat",
@@ -27,7 +28,7 @@
 			}
 		}
 	},
-	"Outhouse": {
+	"outhouse": {
 		"Beginning": {
 			"Name" : "OuthouseInitial",
 			"Type": "Repeat",
@@ -53,7 +54,7 @@
 			}
 		}
 	},
-	"Farmer":{
+	"farmer":{
 		"Beginning": {
 			"Name": "FarmerInitial",
 			"Type": "Start",
@@ -104,7 +105,7 @@
 			}
 		}
 	},
-	"Brick":{
+	"brick":{
 		"Start":{
 			"Name":"PickupBrick",
 			"Type" : "Unique",
@@ -114,4 +115,5 @@
 			}
 		}
 	}
+}
 }

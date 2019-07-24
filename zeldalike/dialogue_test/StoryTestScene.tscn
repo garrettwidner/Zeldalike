@@ -16,9 +16,9 @@ script = ExtResource( 1 )
 position = Vector2( 32, 48 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 104.999, 105.16 )
+position = Vector2( 81.1436, 111.817 )
 
-[node name="doorway" parent="." instance=ExtResource( 4 )]
+[node name="floodgate" parent="." instance=ExtResource( 4 )]
 position = Vector2( 32, 32 )
 
 [node name="farmer" parent="." instance=ExtResource( 5 )]

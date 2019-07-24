@@ -1,11 +1,11 @@
-"url_key": "vjz9",
+{"url_key": "vjz9",
 "title": "story_1",
 "level": "FloodgateTest",
 "data":{
 	"FloodgateInitial":{
 		"0" : {
 			"content": [
-				"The Floodgate is closed. With a trickle of water leaking from the bottom.",
+				"The Floodgate is closed, with a trickle of water leaking from the bottom.",
 				{
 					"divert": "1"
 				}
@@ -118,6 +118,16 @@
 			]
 		}
 	},
+	"FarmerGoodLuck":{
+		"0":{
+			"content":[
+				"Good luck."
+				{
+					"isEnd": true
+				}
+			]
+		}
+	},
 	"HeresAPickaxe":{
 		"0":{
 			"content":[
@@ -186,6 +196,5 @@
 			]
 		}
 	}
-
-
+}
 }

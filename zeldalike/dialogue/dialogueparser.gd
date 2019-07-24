@@ -16,9 +16,9 @@ var currTarget
 
 func _ready():
 	#set_process_input(true)
-	sceneStory = load_file_as_JSON("dialogue/story/story_1.json")
-	events = load_file_as_JSON("dialogue/story/events.json")
-	experiences = load_file_as_JSON("dialogue/story/experiences.json")
+	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
+	events = load_file_as_JSON("res://dialogue/story/events.json")
+	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
 	
 	panelNode = get_node("../dialogue_box/Panel")
 	textContainer = get_node("..dialogue_box/Panel/MarginContainer/VBoxContainer")
@@ -59,17 +59,14 @@ func init_dialogue(target):
 	currDialogue = null
 	isEnd = false
 	
-	print("flip")
-	#TODO: Remove this and fix the functionality
-	return
 	currTarget = target
 	
 	var dialogue_branch = choose_dialogue_branch(target)
-	get_node("../" + target).update_experiences(experiences)
+	get_node("../" + target.name).update_experiences(experiences)
 	
-	initStory = sceneStory["data"][dialogue_branch]
-	currDialogue = initStory["0"]["content"]
-	textContainer.get_node("text").set_text(currDialogue[0])
+	#initStory = sceneStory["data"][dialogue_branch]
+	#currDialogue = initStory["0"]["content"]
+	#textContainer.get_node("text").set_text(currDialogue[0])
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
 	#field associated with it and if so, flip the experience to true or false depending on specifications
@@ -78,11 +75,11 @@ func init_dialogue(target):
 
 func choose_dialogue_branch(target):
 	var possibleBranches = look_up_events(target)
-	var dialogue = choose_dialogue(possibleBranches)
+	#var dialogue = choose_dialogue(possibleBranches)
 	
 #Returns a dictionary of event information based on the target name
 func look_up_events(target):
-	return events["eventTarget"][target]
+	return events["eventTarget"][target.name]
 	
 # returns the name of a dialogue branch from the events file given a target's possible events
 #  ??????????????????   ---- This has been logically completed, it should work
@@ -110,13 +107,15 @@ func choose_dialogue(possibilities):
 			return possibilities[option]["Name"]
 	return null
 	
-func load_file_as_JSON(file_path) -> Dictionary:
+func load_file_as_JSON(file_path):
 	var file = File.new()
 	assert file.file_exists(file_path)
 	
 	file.open(file_path, file.READ)
-	var filedict = parse_json(file.get_as_text())
-	return filedict
-	
+	var filejson = JSON.parse(file.get_as_text())
+	if filejson.error == 0:
+		return filejson.result
+	else:
+		return "JSON error"
 
 		
