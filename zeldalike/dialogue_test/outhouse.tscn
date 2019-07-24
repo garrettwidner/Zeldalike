@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://dialogue_test/outhouse.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=2]
@@ -33,6 +33,11 @@ tracks/0/keys = {
 "values": [ Rect2( 32, 0, 16, 16 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6, 6 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
 [node name="outhouse" type="Node2D" groups=[
 "interactible",
 ]]
@@ -49,3 +54,13 @@ anims/rise = SubResource( 2 )
 
 [node name="spawnpoint" type="Node2D" parent="."]
 position = Vector2( -12.32, 6.49 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 5 )

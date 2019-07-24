@@ -5,6 +5,7 @@ var events = {}
 var experiences = {}
 
 var panelNode
+var textContainer
 
 var isDialogueEvent 
 var initStory
@@ -19,15 +20,16 @@ func _ready():
 	events = load_file_as_JSON("dialogue/story/events.json")
 	experiences = load_file_as_JSON("dialogue/story/experiences.json")
 	
-	panelNode = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer")
+	panelNode = get_node("../dialogue_box/Panel")
+	textContainer = get_node("..dialogue_box/Panel/MarginContainer/VBoxContainer")
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
 	
 func _process(delta):
-	if Input.is_action_just_pressed("a"):
-		#cycle or start dialogue
-		change_panel_dialogue(currTarget)
+	##if Input.is_action_just_pressed("a"):
+		#TODO: Do this from the player, or at least check the player's current state to see if it works.
+		##change_panel_dialogue(currTarget)
 		pass
 
 #  ??????????????????   ---- This has been logically completed, it should work
@@ -37,7 +39,7 @@ func change_panel_dialogue(target):
 	var textToShow = ""
 	set_next_dialogue(currTarget)
 	textToShow = currDialogue[0]
-	panelNode.get_node("text").set_text(textToShow)
+	textContainer.get_node("text").set_text(textToShow)
 	
 func set_next_dialogue(target):
 	if !("isEnd" in currDialogue[1]):
@@ -57,6 +59,9 @@ func init_dialogue(target):
 	currDialogue = null
 	isEnd = false
 	
+	print("flip")
+	#TODO: Remove this and fix the functionality
+	return
 	currTarget = target
 	
 	var dialogue_branch = choose_dialogue_branch(target)
@@ -64,7 +69,7 @@ func init_dialogue(target):
 	
 	initStory = sceneStory["data"][dialogue_branch]
 	currDialogue = initStory["0"]["content"]
-	panelNode.get_node("MarginContainer/VBoxContainer/text").set_text(currDialogue[0])
+	textContainer.get_node("text").set_text(currDialogue[0])
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
 	#field associated with it and if so, flip the experience to true or false depending on specifications
@@ -111,7 +116,6 @@ func load_file_as_JSON(file_path) -> Dictionary:
 	
 	file.open(file_path, file.READ)
 	var filedict = parse_json(file.get_as_text())
-	assert filedict.size() > 0
 	return filedict
 	
 

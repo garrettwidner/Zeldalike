@@ -8,6 +8,8 @@ var runspeed = 65
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
+var dialogueparser
+
 var interacttarget
 var caninteract : bool = false
 var inventory = []
@@ -15,6 +17,7 @@ var inventory = []
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
+	dialogueparser = get_node("../dialogue_parser")
 
 func _process(delta):
 	match state:
@@ -38,8 +41,12 @@ func state_default():
 		switch_anim("idle")
 		
 	if Input.is_action_just_pressed("a"):
-		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
-		add_sprinkle()
+		if caninteract:
+			print("Should be interacting with " + interacttarget.name + "!")
+			dialogueparser.init_dialogue(interacttarget)
+		else:
+			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
+			add_sprinkle()
 		
 	if Input.is_action_just_pressed("b"):
 		use_item(preload("res://items/sword/sword.tscn"))

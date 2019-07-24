@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/farmer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://dialogue_test/dialogue_box.tscn" type="PackedScene" id=6]
+[ext_resource path="res://dialogue/dialogueparser.gd" type="Script" id=7]
+[ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -27,3 +29,9 @@ margin_left = 0.36039
 margin_top = 73.8806
 margin_right = 0.36039
 margin_bottom = 73.8806
+
+[node name="dialogue_parser" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="outhouse" parent="." instance=ExtResource( 8 )]
+position = Vector2( 99.9638, 51.6909 )

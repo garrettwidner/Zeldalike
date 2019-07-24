@@ -8,9 +8,7 @@ func _ready():
 	$anim.play("close")
 	
 func _process(delta):
-	if Input.is_action_just_pressed("a"):
-		print("Testing in doorway script for door to be opened")
-		opendoor()
+	pass
 
 func action(inventory):
 	#not sure if works
