@@ -7,7 +7,14 @@ func _ready():
 	
 func _process(delta):
 	if Input.is_action_pressed("a"):
-		print(events.result)
+		#print(events.result)
+		
+		if typeof(events.result) != TYPE_DICTIONARY:
+			print("load_file_as_JSON() has not yet returned a dictionary")
+		elif typeof(events.result) == TYPE_DICTIONARY:
+			print("load_file_as_JSON() has returned a dictionary")
+			
+		print(events.result["1"])
 
 func load_file_as_JSON(file_path):
 	var file = File.new()

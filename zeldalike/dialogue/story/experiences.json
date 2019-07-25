@@ -4,5 +4,6 @@
 	"hasDestroyedOuthouse": false,
 	"hasLookedAtFloodgate": false,
 	"hasTriedPickaxeOnFloodgate": false,
-	"hasOpenedFloodgate": false
+	"hasOpenedFloodgate": false,
+	"hasReceivedReward": false
 }
