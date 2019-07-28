@@ -14,5 +14,5 @@ func _ready():
 		area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
 		debugcount = debugcount + 1
-		print("Connected interactible #" + String(debugcount) + " name of " + currentnode.name)
+#		print("Connected interactible #" + String(debugcount) + " name of " + currentnode.name)
 		

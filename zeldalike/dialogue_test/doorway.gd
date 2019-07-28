@@ -21,4 +21,5 @@ func opendoor():
 	$anim.play("open")
 	
 func _on_Area2D_body_enter():
-	print("Body entered")
+#	print("Body entered")
+	pass

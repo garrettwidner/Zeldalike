@@ -42,7 +42,7 @@ func state_default():
 		
 	if Input.is_action_just_pressed("a"):
 		if caninteract:
-			print("Should be interacting with " + interacttarget.name + "!")
+#			print("Should be interacting with " + interacttarget.name + "!")
 			dialogueparser.init_dialogue(interacttarget)
 		else:
 			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
@@ -121,13 +121,13 @@ func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
 		caninteract = true
 		interacttarget = obj
-		print("Player's current interact target: " + obj.name)
+#		print("Player's current interact target: " + obj.name)
 
 func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
 		caninteract = false
 		interacttarget = null
-		print("Player no longer has a target for interaction")
+#		print("Player no longer has a target for interaction")
 
 func set_state_swing():
 	state = "swing"

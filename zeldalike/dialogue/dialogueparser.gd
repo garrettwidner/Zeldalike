@@ -20,6 +20,11 @@ func _ready():
 	events = load_file_as_JSON("res://dialogue/story/events.json")
 	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
 	
+	
+	#TODO!!!!!!------ Save events and other editable story files as copies of the original.
+	#                 whenever loading the game, create a copy and write to that to pull from
+	#   			  when the game is finished, you can save this copy as persistent.
+	
 	if(typeof(sceneStory) != TYPE_DICTIONARY):
 		print("ERROR: story file has errors")
 	if(typeof(events) != TYPE_DICTIONARY):
@@ -27,6 +32,8 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
+	print(events["eventTarget"]["farmer"]["Beginning"]["Flags"]["hasBeenUsed"])
+	print("--------")
 	
 	panelNode = get_node("../dialogue_box/Panel")
 	textContainer = get_node("..dialogue_box/Panel/MarginContainer/VBoxContainer")
@@ -70,6 +77,7 @@ func init_dialogue(target):
 	currTarget = target
 	
 	var dialogue_branch = choose_dialogue_branch(target)
+	print(dialogue_branch)
 	get_node("../" + target.name).update_experiences(experiences)
 	
 	if dialogue_branch == null:
@@ -77,7 +85,7 @@ func init_dialogue(target):
 		return
 	
 	initStory = sceneStory["data"][dialogue_branch]
-	print(initStory["0"]["content"][1])
+#	print(initStory["0"]["content"][1])
 	#currDialogue = initStory["0"]["content"]
 	#textContainer.get_node("text").set_text(currDialogue[0])
 	
@@ -89,6 +97,7 @@ func init_dialogue(target):
 func choose_dialogue_branch(target):
 	var possibleBranches = look_up_events(target)
 	var dialogue = choose_dialogue(possibleBranches)
+	return dialogue
 	
 #Returns a dictionary of event information based on the target name
 func look_up_events(target):
@@ -105,8 +114,15 @@ func choose_dialogue(possibilities):
 		var allTrue : bool = true
 		var checkHasBeenUsed = false
 		
+		if possibilities[option]["Name"] == "FarmerInitial":
+			print("allTrue is " + String(allTrue))
+		
 		for key in possibilities[option]["Flags"].keys():
+			if possibilities[option]["Name"] == "FarmerInitial":
+				print(key)
 			if key == "default":
+#				if possibilities[option]["Name"] == "FarmerInitial":
+#					print("default")
 				pass
 			elif key == "hasBeenUsed":
 				if(possibilities[option]["Type"] == "Unique" or possibilities[option]["Type"] == "Start"):
@@ -114,17 +130,26 @@ func choose_dialogue(possibilities):
 			elif experiences.has(key):
 				if experiences[key] != possibilities[option]["Flags"][key]:
 					allTrue = false
+					
 			elif !experiences.has(key):
 				print("Experience needs to be created/reconciled: " + key)
-				
+		
 
-		if checkHasBeenUsed:
+		if checkHasBeenUsed and allTrue:
 			if possibilities[option]["Flags"]["hasBeenUsed"]:
 				allTrue = false
-			elif !possibilities[option]["Flags"]["hasBeenUsed"] and allTrue:
-				possibilities[option]["Flags"]["hasBeenUsed"] = true
-
+			elif !possibilities[option]["Flags"]["hasBeenUsed"]:
+				#Sets hasBeenUsed to true in the events file
+#				for event in events["eventTarget"][currTarget.name]:
+#					if events["eventTarget"][currTarget.name][event]["Name"] == possibilities[option]["Name"]:
+#						events["eventTarget"][currTarget.name][event]["Flags"]["hasBeenUsed"] = true
+				pass
+		
+		if possibilities[option]["Name"] == "FarmerInitial":	
+			print("allTrue is now " + String(allTrue))
+		
 		if allTrue:
+			print("returning " + possibilities[option]["Name"])
 			return possibilities[option]["Name"]
 		
 	return null

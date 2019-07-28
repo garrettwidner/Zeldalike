@@ -14,7 +14,7 @@ func _process(delta):
 		elif typeof(events.result) == TYPE_DICTIONARY:
 			print("load_file_as_JSON() has returned a dictionary")
 			
-		print(events.result["1"])
+#		print(events.result["1"])
 
 func load_file_as_JSON(file_path):
 	var file = File.new()
