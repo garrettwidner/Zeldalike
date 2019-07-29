@@ -6,27 +6,25 @@ var experiences = {}
 
 var panelNode
 var textContainer
+var nameContainer
 
 var isDialogueEvent 
 var initStory
 var currDialogue
 var isEnd
 
+var isRunning = false
+
 var currTarget
+
+signal dialogue_finished
 
 func _ready():
 	#set_process_input(true)
-	
-	
-	
+
 	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
 	events = load_file_as_JSON("res://dialogue/story/events.json")
 	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
-	
-	
-	#TODO!!!!!!------ Save events and other editable story files as copies of the original.
-	#                 whenever loading the game, create a copy and write to that to pull from
-	#   			  when the game is finished, you can save this copy as persistent.
 	
 	if(typeof(sceneStory) != TYPE_DICTIONARY):
 		print("ERROR: story file has errors")
@@ -35,24 +33,22 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-#	print(events["eventTarget"]["farmer"]["Beginning"]["Flags"]["hasBeenUsed"])
-#	print("--------")
-	
 	panelNode = get_node("../dialogue_box/Panel")
-	textContainer = get_node("..dialogue_box/Panel/MarginContainer/VBoxContainer")
+	textContainer = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer/text")
+	nameContainer = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer/name")
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
 	
 func _process(delta):
-	##if Input.is_action_just_pressed("a"):
-		#TODO: Do this from the player, or at least check the player's current state to see if it works.
-		##change_panel_dialogue(currTarget)
+	if isRunning and Input.is_action_just_pressed("a"):
+		#change_panel_dialogue(currTarget)
 		pass
 
 #  ??????????????????   ---- This has been logically completed, it should work
 func change_panel_dialogue(target):
 	if(isEnd):
+		emit_signal("dialogue_finished")
 		panelNode.hide()
 	var textToShow = ""
 	set_next_dialogue(currTarget)
@@ -60,6 +56,7 @@ func change_panel_dialogue(target):
 	textContainer.get_node("text").set_text(textToShow)
 	
 func set_next_dialogue(target):
+	print("set_next_dialogue() is getting called")
 	if !("isEnd" in currDialogue[1]):
 		var nextDialogue = initStory[currDialogue[1]["divert"]]
 		currDialogue = nextDialogue["content"]
@@ -68,7 +65,6 @@ func set_next_dialogue(target):
 		get_node("../player").set_state_default()
 	pass
 	
-
 #  ??????????????????   ---- This has been logically completed, it should work
 func init_dialogue(target):
 	
@@ -77,20 +73,33 @@ func init_dialogue(target):
 	currDialogue = null
 	isEnd = false
 	
+	isRunning = true
+	
 	currTarget = target
 	
 	var dialogue_branch = choose_dialogue_branch(target)
-	print(dialogue_branch)
-	get_node("../" + target.name).update_experiences(experiences)
+	var current_node = get_node("../" + target.name)
+	if current_node.has_method("update_experiences"):
+		current_node.update_experiences(experiences)
 	
 	if dialogue_branch == null:
 		print("ERROR: No dialogue branch found")
 		return
 	
 	initStory = sceneStory["data"][dialogue_branch]
-#	print(initStory["0"]["content"][1])
-	#currDialogue = initStory["0"]["content"]
-	#textContainer.get_node("text").set_text(currDialogue[0])
+	print(initStory["0"]["content"])
+	
+	#TODO: 
+	#      Run through change_panel_dialogue() and set_next_dialogue to work out implementation errors
+	#	   Make it so the dialogue window closes when a dialogue is done
+	#	   Make it so 'experiences' are drawn from to change which dialogue plays
+	#      Make it so items can be added to inventory through dialogue
+	#	   Change it so only init_dialogue() receives target, all others pull from currTarget
+	
+	currDialogue = initStory["0"]["content"]
+	panelNode.show()
+	nameContainer.set_text(target.name)
+	textContainer.set_text(currDialogue)
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
 	#field associated with it and if so, flip the experience to true or false depending on specifications
@@ -138,11 +147,9 @@ func choose_dialogue(possibilities):
 				for event in events["eventTarget"][currTarget.name]:
 					if events["eventTarget"][currTarget.name][event]["Name"] == possibilities[option]["Name"]:
 						events["eventTarget"][currTarget.name][event]["Flags"]["hasBeenUsed"] = true
-						print("isTRUE")
 				pass
 				
 		if allTrue:
-			print("returning " + possibilities[option]["Name"])
 			return possibilities[option]["Name"]
 		
 	return null

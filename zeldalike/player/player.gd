@@ -18,6 +18,7 @@ func _ready():
 	speed = 40
 	TYPE = "PLAYER"
 	dialogueparser = get_node("../dialogue_parser")
+	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 
 func _process(delta):
 	match state:
@@ -27,6 +28,9 @@ func _process(delta):
 			state_swing()
 		"listen":
 			state_listen()
+
+func dialogue_finished():
+	set_state_default()
 	
 func state_default():
 	set_speed()
@@ -43,6 +47,7 @@ func state_default():
 	if Input.is_action_just_pressed("a"):
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
+			set_state_listen()
 			dialogueparser.init_dialogue(interacttarget)
 		else:
 			use_item(preload("res://items/sprinkler/sprinkler.tscn"))

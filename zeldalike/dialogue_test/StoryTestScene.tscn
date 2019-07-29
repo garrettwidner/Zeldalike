@@ -25,10 +25,10 @@ position = Vector2( 32, 32 )
 position = Vector2( 66.9789, 112.177 )
 
 [node name="dialogue_box" parent="." instance=ExtResource( 6 )]
-margin_left = 0.36039
-margin_top = 73.8806
-margin_right = 0.36039
-margin_bottom = 73.8806
+margin_left = 5.90817
+margin_top = 4.53345
+margin_right = 5.90817
+margin_bottom = 4.53345
 
 [node name="dialogue_parser" type="Node" parent="."]
 script = ExtResource( 7 )
