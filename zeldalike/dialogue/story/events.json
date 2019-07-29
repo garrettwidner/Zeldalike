@@ -79,7 +79,7 @@
 			}
 		},
 		"FarmerAfterTryPickaxe":{
-			"Name:": "CheckTheOuthouse",
+			"Name": "CheckTheOuthouse",
 			"Type" : "Unique",
 			"Flags": {
 				"hasTriedPickaxeOnFloodgate" : true,

@@ -16,6 +16,9 @@ var currTarget
 
 func _ready():
 	#set_process_input(true)
+	
+	
+	
 	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
 	events = load_file_as_JSON("res://dialogue/story/events.json")
 	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
@@ -32,8 +35,8 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-	print(events["eventTarget"]["farmer"]["Beginning"]["Flags"]["hasBeenUsed"])
-	print("--------")
+#	print(events["eventTarget"]["farmer"]["Beginning"]["Flags"]["hasBeenUsed"])
+#	print("--------")
 	
 	panelNode = get_node("../dialogue_box/Panel")
 	textContainer = get_node("..dialogue_box/Panel/MarginContainer/VBoxContainer")
@@ -107,22 +110,14 @@ func look_up_events(target):
 	
 	
 # returns the name of a dialogue branch from the events file given a target's possible events
-#  ??????????????????   ---- This has been logically completed, it should work
 func choose_dialogue(possibilities):
 	
 	for option in possibilities:
 		var allTrue : bool = true
 		var checkHasBeenUsed = false
 		
-		if possibilities[option]["Name"] == "FarmerInitial":
-			print("allTrue is " + String(allTrue))
-		
 		for key in possibilities[option]["Flags"].keys():
-			if possibilities[option]["Name"] == "FarmerInitial":
-				print(key)
 			if key == "default":
-#				if possibilities[option]["Name"] == "FarmerInitial":
-#					print("default")
 				pass
 			elif key == "hasBeenUsed":
 				if(possibilities[option]["Type"] == "Unique" or possibilities[option]["Type"] == "Start"):
@@ -140,14 +135,12 @@ func choose_dialogue(possibilities):
 				allTrue = false
 			elif !possibilities[option]["Flags"]["hasBeenUsed"]:
 				#Sets hasBeenUsed to true in the events file
-#				for event in events["eventTarget"][currTarget.name]:
-#					if events["eventTarget"][currTarget.name][event]["Name"] == possibilities[option]["Name"]:
-#						events["eventTarget"][currTarget.name][event]["Flags"]["hasBeenUsed"] = true
+				for event in events["eventTarget"][currTarget.name]:
+					if events["eventTarget"][currTarget.name][event]["Name"] == possibilities[option]["Name"]:
+						events["eventTarget"][currTarget.name][event]["Flags"]["hasBeenUsed"] = true
+						print("isTRUE")
 				pass
-		
-		if possibilities[option]["Name"] == "FarmerInitial":	
-			print("allTrue is now " + String(allTrue))
-		
+				
 		if allTrue:
 			print("returning " + possibilities[option]["Name"])
 			return possibilities[option]["Name"]
