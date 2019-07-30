@@ -9,9 +9,10 @@ var textContainer
 var nameContainer
 
 var isDialogueEvent 
-var initStory
 var currDialogue
+var currText
 var isEnd
+var dialogueNumber = 0
 
 var isRunning = false
 
@@ -51,15 +52,15 @@ func change_panel_dialogue(target):
 		emit_signal("dialogue_finished")
 		panelNode.hide()
 	var textToShow = ""
-	set_next_dialogue(currTarget)
-	textToShow = currDialogue[0]
+	set_next_text(currTarget)
+	textToShow = currText[0]
 	textContainer.get_node("text").set_text(textToShow)
 	
-func set_next_dialogue(target):
-	print("set_next_dialogue() is getting called")
-	if !("isEnd" in currDialogue[1]):
-		var nextDialogue = initStory[currDialogue[1]["divert"]]
-		currDialogue = nextDialogue["content"]
+func set_next_text(target):
+	print("set_next_text() is getting called")
+	if! ("isEnd" in currText.keys()):
+		var nextText = currDialogue[currText[1]["divert"]]
+		currText = nextText["content"]
 	else:
 		isEnd = true
 		get_node("../player").set_state_default()
@@ -69,9 +70,10 @@ func set_next_dialogue(target):
 func init_dialogue(target):
 	
 	isDialogueEvent = false
-	initStory = null
 	currDialogue = null
+	currText = null
 	isEnd = false
+	dialogueNumber = 0
 	
 	isRunning = true
 	
@@ -86,8 +88,8 @@ func init_dialogue(target):
 		print("ERROR: No dialogue branch found")
 		return
 	
-	initStory = sceneStory["data"][dialogue_branch]
-	print(initStory["0"]["content"])
+	currDialogue = sceneStory["data"][dialogue_branch]
+	print(currDialogue[String(dialogueNumber)]["content"])
 	
 	#TODO: 
 	#      Run through change_panel_dialogue() and set_next_dialogue to work out implementation errors
@@ -96,10 +98,10 @@ func init_dialogue(target):
 	#      Make it so items can be added to inventory through dialogue
 	#	   Change it so only init_dialogue() receives target, all others pull from currTarget
 	
-	currDialogue = initStory["0"]["content"]
+	currText = currDialogue["0"]["content"]
 	panelNode.show()
 	nameContainer.set_text(target.name)
-	textContainer.set_text(currDialogue)
+	textContainer.set_text(currText)
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
 	#field associated with it and if so, flip the experience to true or false depending on specifications
