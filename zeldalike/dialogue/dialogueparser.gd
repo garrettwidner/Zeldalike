@@ -10,10 +10,9 @@ var nameContainer
 
 var isDialogueEvent 
 var currDialogue
-var currText
-var isEnd
-var dialogueNumber = 0
+var currBranch
 
+var isActivated = false
 var isRunning = false
 
 var currTarget
@@ -21,8 +20,6 @@ var currTarget
 signal dialogue_finished
 
 func _ready():
-	#set_process_input(true)
-
 	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
 	events = load_file_as_JSON("res://dialogue/story/events.json")
 	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
@@ -42,45 +39,45 @@ func _ready():
 		panelNode.hide()
 	
 func _process(delta):
-	if isRunning and Input.is_action_just_pressed("a"):
-		#change_panel_dialogue(currTarget)
+	if isActivated and Input.is_action_just_pressed("a"):
+		if !isRunning:
+			init_dialogue()
+		else:
+			change_panel_dialogue()
 		pass
 
-#  ??????????????????   ---- This has been logically completed, it should work
-func change_panel_dialogue(target):
-	if(isEnd):
+func activate(target):
+	currTarget = target
+	isActivated = true
+
+func change_panel_dialogue():
+	var nextText = ""
+	set_next_branch()
+	nextText = currBranch["content"]
+	textContainer.set_text(nextText)
+	
+func set_next_branch():
+	if! (currBranch["conditions"].keys().has("isEnd")):
+		var nextBranch = currDialogue[currBranch["conditions"]["divert"]]
+		currBranch = nextBranch
+	else:
 		emit_signal("dialogue_finished")
 		panelNode.hide()
-	var textToShow = ""
-	set_next_text(currTarget)
-	textToShow = currText[0]
-	textContainer.get_node("text").set_text(textToShow)
-	
-func set_next_text(target):
-	print("set_next_text() is getting called")
-	if! ("isEnd" in currText.keys()):
-		var nextText = currDialogue[currText[1]["divert"]]
-		currText = nextText["content"]
-	else:
-		isEnd = true
-		get_node("../player").set_state_default()
+		isRunning = false
+		isActivated = false
 	pass
 	
-#  ??????????????????   ---- This has been logically completed, it should work
-func init_dialogue(target):
+func init_dialogue():
 	
+	print("dialogue initted")
 	isDialogueEvent = false
 	currDialogue = null
-	currText = null
-	isEnd = false
-	dialogueNumber = 0
+	currBranch = null
 	
 	isRunning = true
 	
-	currTarget = target
-	
-	var dialogue_branch = choose_dialogue_branch(target)
-	var current_node = get_node("../" + target.name)
+	var dialogue_branch = choose_dialogue_branch()
+	var current_node = get_node("../" + currTarget.name)
 	if current_node.has_method("update_experiences"):
 		current_node.update_experiences(experiences)
 	
@@ -89,18 +86,16 @@ func init_dialogue(target):
 		return
 	
 	currDialogue = sceneStory["data"][dialogue_branch]
-	print(currDialogue[String(dialogueNumber)]["content"])
+	currBranch = currDialogue["0"]
+	var currText = currBranch["content"]
+	print(currText)
 	
 	#TODO: 
-	#      Run through change_panel_dialogue() and set_next_dialogue to work out implementation errors
-	#	   Make it so the dialogue window closes when a dialogue is done
 	#	   Make it so 'experiences' are drawn from to change which dialogue plays
 	#      Make it so items can be added to inventory through dialogue
-	#	   Change it so only init_dialogue() receives target, all others pull from currTarget
 	
-	currText = currDialogue["0"]["content"]
 	panelNode.show()
-	nameContainer.set_text(target.name)
+	nameContainer.set_text(currTarget.name)
 	textContainer.set_text(currText)
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
@@ -108,17 +103,15 @@ func init_dialogue(target):
 	
 	pass
 
-func choose_dialogue_branch(target):
-	var possibleBranches = look_up_events(target)
+func choose_dialogue_branch():
+	var possibleBranches = look_up_events()
 	var dialogue = choose_dialogue(possibleBranches)
 	return dialogue
 	
 #Returns a dictionary of event information based on the target name
-func look_up_events(target):
-	var eventdict = events["eventTarget"][target.name]
-	#print(eventdict["Beginning"])
+func look_up_events():
+	var eventdict = events["eventTarget"][currTarget.name]
 	return eventdict
-	
 	
 # returns the name of a dialogue branch from the events file given a target's possible events
 func choose_dialogue(possibilities):

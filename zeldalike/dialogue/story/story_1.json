@@ -103,8 +103,15 @@
 			"content":"Hello there. Do you think you could open that floodgate so my crops'll get watered?",
 			"conditions":
 				{
-					"isEnd": true
+					"divert": "1"
 				}
+		},
+		"1":{
+			"content":"The handle's broke so it might take some tinkering.",
+			"conditions":
+			{
+				"isEnd": true
+			}
 		}
 	},
 	"FarmerGoodLuck":{

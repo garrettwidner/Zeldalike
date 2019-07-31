@@ -48,7 +48,7 @@ func state_default():
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
 			set_state_listen()
-			dialogueparser.init_dialogue(interacttarget)
+			dialogueparser.activate(interacttarget)
 		else:
 			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 			add_sprinkle()
