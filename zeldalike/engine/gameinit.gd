@@ -4,7 +4,6 @@ func _ready():
 	var player = get_node("player")
 	var interactibles = get_tree().get_nodes_in_group("interactible")
 	var debugcount = 0
-	print(interactibles.size())
 	for i in range(interactibles.size()):
 		var currentnode = get_node(interactibles[i].get_path())
 		var area2Dnode = currentnode.get_node("Area2D")

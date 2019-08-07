@@ -19,7 +19,7 @@
 			}
 		},
 		"TriedBrick": {
-			"Name:":"PickaxeWithBrick",
+			"Name":"PickaxeWithBrick",
 			"Type": "Unique",
 			"Flags":{
 				"hasPickaxe": true,
@@ -60,14 +60,14 @@
 			"Type": "Start",
 			"Flags": {
 				"default" : true,
-				"hasBeenUsed" : false
+				"hasBeenUsed" : false,
 			}
 		},
 		"BeginningRepeat": {
 			"Name": "FarmerGoodLuck",
 			"Type" : "Repeat",
 			"Flags": {
-				"default" : true
+				"default" : true,
 			}
 		},
 		"FarmerAfterLookFloodgate":{
@@ -75,18 +75,21 @@
 			"Type": "Unique",
 			"Flags": {
 				"hasLookedAtFloodgate": true,
-				"hasBeenUsed" : false
+				"hasBeenUsed" : false,
+				"priority": 2
 			}
 		},
 		"FarmerAfterTryPickaxe":{
 			"Name": "CheckTheOuthouse",
 			"Type" : "Unique",
 			"Flags": {
+				"hasLookedAtFloodgate": true,
 				"hasTriedPickaxeOnFloodgate" : true,
 				"hasDestroyedOuthouse" : false,
 				"hasBeenUsed" : false
-			}
+			},
 		},
+
 		"FarmerAfterOpenFloodgate":{
 			"Name": "ThankYouSon",
 			"Type" : "Unique",

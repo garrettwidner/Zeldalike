@@ -8,7 +8,6 @@ var panelNode
 var textContainer
 var nameContainer
 
-var isDialogueEvent 
 var currDialogue
 var currBranch
 
@@ -18,6 +17,7 @@ var isRunning = false
 var currTarget
 
 signal dialogue_finished
+
 
 func _ready():
 	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
@@ -41,16 +41,16 @@ func _ready():
 func _process(delta):
 	if isActivated and Input.is_action_just_pressed("a"):
 		if !isRunning:
-			init_dialogue()
+			start_dialogue()
 		else:
-			change_panel_dialogue()
+			change_dialogue_branch()
 		pass
 
 func activate(target):
 	currTarget = target
 	isActivated = true
 
-func change_panel_dialogue():
+func change_dialogue_branch():
 	var nextText = ""
 	set_next_branch()
 	nextText = currBranch["content"]
@@ -60,6 +60,8 @@ func set_next_branch():
 	if! (currBranch["conditions"].keys().has("isEnd")):
 		var nextBranch = currDialogue[currBranch["conditions"]["divert"]]
 		currBranch = nextBranch
+		set_experiences_from_dialogue()
+		
 	else:
 		emit_signal("dialogue_finished")
 		panelNode.hide()
@@ -67,10 +69,8 @@ func set_next_branch():
 		isActivated = false
 	pass
 	
-func init_dialogue():
+func start_dialogue():
 	
-	print("dialogue initted")
-	isDialogueEvent = false
 	currDialogue = null
 	currBranch = null
 	
@@ -87,8 +87,9 @@ func init_dialogue():
 	
 	currDialogue = sceneStory["data"][dialogue_branch]
 	currBranch = currDialogue["0"]
+	set_experiences_from_dialogue()
+	
 	var currText = currBranch["content"]
-	print(currText)
 	
 	#TODO: 
 	#	   Make it so 'experiences' are drawn from to change which dialogue plays
@@ -102,6 +103,15 @@ func init_dialogue():
 	#field associated with it and if so, flip the experience to true or false depending on specifications
 	
 	pass
+	
+func set_experiences_from_dialogue():
+	if currBranch.keys().has("experiences"):
+		for experience in currBranch["experiences"]:
+			if experiences.keys().has(experience):
+				experiences[experience] = currBranch["experiences"][experience]
+				print("Experience *" + experience + "* set to " + String(experiences[experience]))
+		pass
+	pass
 
 func choose_dialogue_branch():
 	var possibleBranches = look_up_events()
@@ -113,40 +123,110 @@ func look_up_events():
 	var eventdict = events["eventTarget"][currTarget.name]
 	return eventdict
 	
-# returns the name of a dialogue branch from the events file given a target's possible events
+#Returns the name of a dialogue branch from the events file given a target's possible events
 func choose_dialogue(possibilities):
 	
+	var starts = {}
+	var repeats = {}
+	var uniques = {}
+	
+	var prioritizePriorityOverType = false
+	
 	for option in possibilities:
+		
 		var allTrue : bool = true
 		var checkHasBeenUsed = false
 		
 		for key in possibilities[option]["Flags"].keys():
-			if key == "default":
+			if key == "default" or key == "priority":
 				pass
 			elif key == "hasBeenUsed":
+				#Note: Do NOT remove "Start" designation. Check the tech doc for its usage.
 				if(possibilities[option]["Type"] == "Unique" or possibilities[option]["Type"] == "Start"):
-					checkHasBeenUsed = true
+					if possibilities[option]["Flags"]["hasBeenUsed"]:
+						allTrue = false
 			elif experiences.has(key):
 				if experiences[key] != possibilities[option]["Flags"][key]:
 					allTrue = false
 					
 			elif !experiences.has(key):
 				print("Experience needs to be created/reconciled: " + key)
-		
-
-		if checkHasBeenUsed and allTrue:
-			if possibilities[option]["Flags"]["hasBeenUsed"]:
-				allTrue = false
-			elif !possibilities[option]["Flags"]["hasBeenUsed"]:
-				#Sets hasBeenUsed to true in the events file
-				for event in events["eventTarget"][currTarget.name]:
-					if events["eventTarget"][currTarget.name][event]["Name"] == possibilities[option]["Name"]:
-						events["eventTarget"][currTarget.name][event]["Flags"]["hasBeenUsed"] = true
-				pass
 				
+		#If the current possibility is a valid option, rank it according to its priority
 		if allTrue:
-			return possibilities[option]["Name"]
-		
+			if (possibilities[option]["Type"] == "Unique"):
+				if possibilities[option]["Flags"].keys().has("priority"):
+					uniques[(possibilities[option]["Name"])] = possibilities[option]["Flags"]["priority"]
+				else:
+					uniques[(possibilities[option]["Name"])] = 0
+			elif (possibilities[option]["Type"] == "Repeat"):
+				if possibilities[option]["Flags"].keys().has("priority"):
+					repeats[(possibilities[option]["Name"])] = possibilities[option]["Flags"]["priority"]
+				else:
+					repeats[(possibilities[option]["Name"])] = 0
+			elif (possibilities[option]["Type"] == "Start"):
+				if possibilities[option]["Flags"].keys().has("priority"):
+					starts[(possibilities[option]["Name"])] = possibilities[option]["Flags"]["priority"]
+				else:
+					starts[(possibilities[option]["Name"])] = 0
+					
+	#Keep in mind, highest priority possible is 9, lowest is 0		
+	var highest_priority = ""
+	if !prioritizePriorityOverType:
+		if uniques.size() > 0:
+			for key in uniques.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if uniques[key] > uniques[highest_priority]:
+						highest_priority = key
+		elif starts.size() > 0:
+			for key in starts.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if starts[key] > starts[highest_priority]:
+						highest_priority = key
+		else:
+			for key in repeats.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if repeats[key] > repeats[highest_priority]:
+						highest_priority = key
+	else:
+		if uniques.size() > 0:
+			for key in uniques.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if uniques[key] > uniques[highest_priority]:
+						highest_priority = key
+		if starts.size() > 0:
+			for key in starts.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if starts[key] > starts[highest_priority]:
+						highest_priority = key
+		if repeats.size() > 0:
+			for key in repeats.keys():
+				if highest_priority == "":
+					highest_priority = key
+				else:
+					if repeats[key] > repeats[highest_priority]:
+						highest_priority = key
+	
+	if highest_priority != "":
+		for option in possibilities:
+			if possibilities[option]["Name"] == highest_priority:
+				if possibilities[option]["Flags"].has("hasBeenUsed"):
+					possibilities[option]["Flags"]["hasBeenUsed"] = true
+					print("hasBeenUsed set to true on " + option)
+					pass
+					
+		return highest_priority
+	
 	return null
 	
 func load_file_as_JSON(file_path):
