@@ -218,12 +218,23 @@ func choose_dialogue(possibilities):
 						highest_priority = key
 	
 	if highest_priority != "":
+		var chosenType = ""
+		
+		#set hasBeenUsed flag to true if extant
 		for option in possibilities:
 			if possibilities[option]["Name"] == highest_priority:
 				if possibilities[option]["Flags"].has("hasBeenUsed"):
 					possibilities[option]["Flags"]["hasBeenUsed"] = true
 					print("hasBeenUsed set to true on " + option)
+					
+					chosenType = possibilities[option]["Type"]
 					pass
+		
+		#if chosen dialogue skips over a nonrepeatable start, set hasBeenUsed on that start to true
+		for option in possibilities:
+			if chosenType == "Unique" or chosenType == "Repeat":
+				if possibilities[option]["Type"] == "Start" and possibilities[option]["Flags"].has("default"):
+					possibilities[option]["Flags"]["hasBeenUsed"] = true
 					
 		return highest_priority
 	
