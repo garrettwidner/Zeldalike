@@ -129,7 +129,9 @@
 			"conditions":
 				{
 					"isEnd":true
-				}
+				},
+			"items": {"pickaxe" : true}
+
 		}
 	},
 	"CheckTheOuthouse":{
@@ -155,7 +157,8 @@
 			"conditions":
 				{
 					"isEnd": true
-				}
+				},
+			"items": {"gold" : 37}
 		}
 	},
 	"ThanksAgain":{
@@ -173,15 +176,16 @@
 			"conditions":
 				{
 					"divert": "1"
-				},
-			"experiences":{"hasBrick" : true}
+				}
 		},
 		"1":{
 			"content": "You pick it up.",
 			"conditions":
 				{
 					"isEnd":true
-				}
+				},
+			"experiences":{"hasBrick" : true},
+			"items": {"brick" : true}
 		}
 	}
 }

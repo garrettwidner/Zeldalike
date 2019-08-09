@@ -18,8 +18,12 @@ var currTarget
 
 signal dialogue_finished
 
+var inventory_manager
+
 
 func _ready():
+	#TODO: Get inventory_manager to call on whenever a dialogue gives an item
+	
 	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
 	events = load_file_as_JSON("res://dialogue/story/events.json")
 	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
@@ -112,6 +116,17 @@ func set_experiences_from_dialogue():
 				print("Experience *" + experience + "* set to " + String(experiences[experience]))
 		pass
 	pass
+	
+func set_items_from_dialogue():
+	if currBranch.keys().has("items"):
+		for item_type in currBranch["items"].keys():
+			if item_type == "collectible":
+				pass
+			elif item_type == "usable":
+				pass
+			elif item_type == "gold":
+				pass
+			
 
 func choose_dialogue_branch():
 	var possibleBranches = look_up_events()
@@ -220,13 +235,14 @@ func choose_dialogue(possibilities):
 	if highest_priority != "":
 		var chosenType = ""
 		
-		#set hasBeenUsed flag to true if extant
+		#set hasBeenUsed flag to true if it exists
 		for option in possibilities:
 			if possibilities[option]["Name"] == highest_priority:
 				if possibilities[option]["Flags"].has("hasBeenUsed"):
 					possibilities[option]["Flags"]["hasBeenUsed"] = true
 					print("hasBeenUsed set to true on " + option)
 					
+					#find the chosen dialogue's type
 					chosenType = possibilities[option]["Type"]
 					pass
 		
