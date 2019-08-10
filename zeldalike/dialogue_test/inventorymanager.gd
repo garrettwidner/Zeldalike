@@ -4,16 +4,6 @@ var inventory = {}
 var item_notification_panel
 var item_notification_text
 
-func add_item(type,item):
-	if type == "collectible":
-		pass
-	if type == "usable":
-		pass
-	
-func add_gold(amount):
-	pass
-
-
 func _ready():
 	inventory = load_file_as_JSON("res://dialogue/story/inventory.json")
 	
@@ -25,6 +15,27 @@ func _ready():
 		
 	if item_notification_panel.is_visible():
 		item_notification_panel.hide()
+
+func has(item):
+	if inventory["items"].has(item):
+		return true
+	return false
+
+func add_item(item, type):
+	print(item + " of type " + type + " added to inventory") 
+	
+	inventory["items"][item] = type
+	
+	
+	#TODO: Differentiate by type
+	if type == "collectible":
+		pass
+	if type == "usable":
+		pass
+	
+func add_gold(amount):
+	print("gold added in amount: " + amount)
+	pass
 
 func load_file_as_JSON(file_path):
 	var file = File.new()

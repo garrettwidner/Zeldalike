@@ -9,7 +9,7 @@
 			{
 				"divert" : "1"
 			},
-			"experiences": {"hasLookedAtFloodgate" : true }
+			"experiences": {"lookedAtFloodgate" : true }
 
 		},
 		"1" : {
@@ -28,7 +28,7 @@
 			{
 				"divert":"1"
 			},
-			"experiences": {"hasTriedPickaxeOnFloodgate": true}
+			"experiences": {"triedPickaxeOnFloodgate": true}
 		},
 		"1":{
 			"content": "There's a bit more flow, but you need to hold it there to keep it going.",
@@ -41,7 +41,7 @@
 			"content": "You'll have to try something else.",
 			"conditions":
 				{
-					"isEnd:":true
+					"isEnd":true
 				}
 		}
 	},
@@ -52,7 +52,7 @@
 				{
 					"divert": "1"
 				},
-			"experiences": {"hasOpenedFloodgate": true}
+			"experiences": {"openedFloodgate": true}
 
 		},
 		"1":{
@@ -79,7 +79,7 @@
 				{
 					"divert": "1"
 				},
-			"experiences": {"hasDestroyedOuthouse": true }
+			"experiences": {"destroyedOuthouse": true }
 		},
 		"1":{
 			"content": "It crumbles inward.",
@@ -130,7 +130,7 @@
 				{
 					"isEnd":true
 				},
-			"items": {"pickaxe" : true}
+			"items": {"pickaxe":"collectible"}
 
 		}
 	},
@@ -150,7 +150,7 @@
 				{
 					"divert": "1"
 				},
-			"experiences": {"hasReceivedReward": true}
+			"experiences": {"receivedReward": true}
 		},
 		"1":{
 			"content": "Here, I'll give you some gold as a reward. Thanks again.",
@@ -185,7 +185,7 @@
 					"isEnd":true
 				},
 			"experiences":{"hasBrick" : true},
-			"items": {"brick" : true}
+			"items": {"brick": "collectible"}
 		}
 	}
 }

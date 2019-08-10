@@ -1,9 +1,7 @@
 {
-	"hasBrick" : false,
-	"hasPickaxe": false,
-	"hasDestroyedOuthouse": false,
-	"hasLookedAtFloodgate": false,
-	"hasTriedPickaxeOnFloodgate": false,
-	"hasOpenedFloodgate": false,
-	"hasReceivedReward": false
+	"destroyedOuthouse": false,
+	"lookedAtFloodgate": false,
+	"triedPickaxeOnFloodgate": false,
+	"openedFloodgate": false,
+	"receivedReward": false
 }

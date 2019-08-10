@@ -15,7 +15,7 @@
 			"Flags": {
 				"hasPickaxe": true,
 				"hasBrick": false,
-				"hasBeenUsed": false
+				"alreadyUsed": false
 			}
 		},
 		"TriedBrick": {
@@ -24,7 +24,7 @@
 			"Flags":{
 				"hasPickaxe": true,
 				"hasBrick": true,
-				"hasBeenUsed": false
+				"alreadyUsed": false
 			}
 		}
 	},
@@ -42,7 +42,7 @@
 			"Flags": { 
 				"hasPickaxe" : true,
 				"hasBrick" : false,
-				"hasBeenUsed" : false
+				"alreadyUsed" : false
 			}
 
 		},
@@ -50,7 +50,7 @@
 			"Name": "TheOuthouseIsDestroyed",
 			"Type": "Repeat",
 			"Flags": {
-				"hasDestroyedOuthouse" : true,
+				"destroyedOuthouse" : true,
 			}
 		}
 	},
@@ -60,7 +60,7 @@
 			"Type": "Start",
 			"Flags": {
 				"default" : true,
-				"hasBeenUsed" : false,
+				"alreadyUsed" : false,
 			}
 		},
 		"BeginningRepeat": {
@@ -74,8 +74,8 @@
 			"Name": "HeresAPickaxe",
 			"Type": "Unique",
 			"Flags": {
-				"hasLookedAtFloodgate": true,
-				"hasBeenUsed" : false,
+				"lookedAtFloodgate": true,
+				"alreadyUsed" : false,
 				"priority": 2
 			}
 		},
@@ -83,10 +83,10 @@
 			"Name": "CheckTheOuthouse",
 			"Type" : "Unique",
 			"Flags": {
-				"hasLookedAtFloodgate": true,
-				"hasTriedPickaxeOnFloodgate" : true,
-				"hasDestroyedOuthouse" : false,
-				"hasBeenUsed" : false
+				"lookedAtFloodgate": true,
+				"triedPickaxeOnFloodgate" : true,
+				"destroyedOuthouse" : false,
+				"alreadyUsed" : false
 			},
 		},
 
@@ -94,17 +94,17 @@
 			"Name": "ThankYouSon",
 			"Type" : "Unique",
 			"Flags": {
-				"hasOpenedFloodgate" : true,
-				"hasReceivedReward" : false,
-				"hasBeenUsed" : false
+				"openedFloodgate" : true,
+				"receivedReward" : false,
+				"alreadyUsed" : false
 			}
 		},
 		"FarmerAfterReward":{
 			"Name": "ThanksAgain",
 			"Type" : "Repeat",
 			"Flags": {
-				"hasOpenedFloodgate": true,
-				"hasReceivedReward": true
+				"openedFloodgate": true,
+				"receivedReward": true
 			}
 		}
 	},
@@ -114,7 +114,7 @@
 			"Type" : "Unique",
 			"Flags":{
 				"default": true,
-				"hasBeenUsed" : true
+				"alreadyUsed" : true
 			}
 		}
 	}

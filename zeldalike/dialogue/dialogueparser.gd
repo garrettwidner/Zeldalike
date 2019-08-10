@@ -18,7 +18,7 @@ var currTarget
 
 signal dialogue_finished
 
-var inventory_manager
+var inventorymanager
 
 
 func _ready():
@@ -41,6 +41,8 @@ func _ready():
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
+		
+	inventorymanager = get_node("../inventorymanager")
 	
 func _process(delta):
 	if isActivated and Input.is_action_just_pressed("a"):
@@ -65,6 +67,7 @@ func set_next_branch():
 		var nextBranch = currDialogue[currBranch["conditions"]["divert"]]
 		currBranch = nextBranch
 		set_experiences_from_dialogue()
+		set_items_from_dialogue()
 		
 	else:
 		emit_signal("dialogue_finished")
@@ -92,6 +95,7 @@ func start_dialogue():
 	currDialogue = sceneStory["data"][dialogue_branch]
 	currBranch = currDialogue["0"]
 	set_experiences_from_dialogue()
+	set_items_from_dialogue()
 	
 	var currText = currBranch["content"]
 	
@@ -119,13 +123,11 @@ func set_experiences_from_dialogue():
 	
 func set_items_from_dialogue():
 	if currBranch.keys().has("items"):
-		for item_type in currBranch["items"].keys():
-			if item_type == "collectible":
-				pass
-			elif item_type == "usable":
-				pass
-			elif item_type == "gold":
-				pass
+		for key in currBranch["items"].keys():
+			if key == "gold":
+				inventorymanager.add_gold(currBranch["items"][key])
+			else:
+				inventorymanager.add_item(key, currBranch["items"][key])
 			
 
 func choose_dialogue_branch():
@@ -150,16 +152,23 @@ func choose_dialogue(possibilities):
 	for option in possibilities:
 		
 		var allTrue : bool = true
-		var checkHasBeenUsed = false
+		var checkAlreadyUsed = false
 		
 		for key in possibilities[option]["Flags"].keys():
 			if key == "default" or key == "priority":
 				pass
-			elif key == "hasBeenUsed":
+			elif key == "alreadyUsed":
 				#Note: Do NOT remove "Start" designation. Check the tech doc for its usage.
 				if(possibilities[option]["Type"] == "Unique" or possibilities[option]["Type"] == "Start"):
-					if possibilities[option]["Flags"]["hasBeenUsed"]:
+					if possibilities[option]["Flags"]["alreadyUsed"]:
 						allTrue = false
+			elif key.find("has") == 0:
+				var item = key 
+				item.erase(0,3)
+				item = item.to_lower()
+				
+				if inventorymanager.has(item) != possibilities[option]["Flags"][key]:
+					allTrue = false
 			elif experiences.has(key):
 				if experiences[key] != possibilities[option]["Flags"][key]:
 					allTrue = false
@@ -235,22 +244,22 @@ func choose_dialogue(possibilities):
 	if highest_priority != "":
 		var chosenType = ""
 		
-		#set hasBeenUsed flag to true if it exists
+		#set alreadyUsed flag to true if it exists
 		for option in possibilities:
 			if possibilities[option]["Name"] == highest_priority:
-				if possibilities[option]["Flags"].has("hasBeenUsed"):
-					possibilities[option]["Flags"]["hasBeenUsed"] = true
-					print("hasBeenUsed set to true on " + option)
+				if possibilities[option]["Flags"].has("alreadyUsed"):
+					possibilities[option]["Flags"]["alreadyUsed"] = true
+					print("alreadyUsed set to true on " + option)
 					
 					#find the chosen dialogue's type
 					chosenType = possibilities[option]["Type"]
 					pass
 		
-		#if chosen dialogue skips over a nonrepeatable start, set hasBeenUsed on that start to true
+		#if chosen dialogue skips over a nonrepeatable start, set alreadyUsed on that start to true
 		for option in possibilities:
 			if chosenType == "Unique" or chosenType == "Repeat":
 				if possibilities[option]["Type"] == "Start" and possibilities[option]["Flags"].has("default"):
-					possibilities[option]["Flags"]["hasBeenUsed"] = true
+					possibilities[option]["Flags"]["alreadyUsed"] = true
 					
 		return highest_priority
 	
