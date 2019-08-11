@@ -10,10 +10,14 @@ func _ready():
 func _process(delta):
 	pass
 
-func action(inventory):
-	#not sure if works
-	if inventory.find("brick") != null:
+func update_experiences(experiences, items):
+	if items.has("brick") and items.has("pickaxe"):
 		opendoor()
+
+func action(inventory):
+#	if inventory.find("brick") != null:
+#		opendoor()
+	pass
 		
 func opendoor():
 	isopen = true

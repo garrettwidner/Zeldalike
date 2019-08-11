@@ -20,10 +20,19 @@
 			}
 		}
 	},
+	"FloodgateIsOpen":{
+		"0":{
+			"content": "A steady stream of water is flowing out across the crops.",
+			"conditions":
+			{
+				"isEnd": true
+			}
 
+		}
+	},
 	"TriedUsingPickaxe":{
 		"0":{
-			"content": "You tried wedging the pickaxe under the floodgate and pushing up.",
+			"content": "You try wedging the pickaxe under the floodgate and pushing up.",
 			"conditions": 
 			{
 				"divert":"1"
@@ -47,7 +56,7 @@
 	},
 	"PickaxeWithBrick":{
 		"0":{
-			"content": "Using the pickaxe to open the gate, you jammed the brick underneath.",
+			"content": "Using the pickaxe to open the gate, you jam the brick underneath.",
 			"conditions":
 				{
 					"divert": "1"
@@ -56,7 +65,7 @@
 
 		},
 		"1":{
-			"content": "The brick stayed, and there's a steady flow of water. That seemed to work.",
+			"content": "The brick stays, and there's a steady flow of water. That seemed to work.",
 			"conditions":
 				{
 					"isEnd": true
@@ -65,7 +74,7 @@
 	},
 	"OuthouseInitial":{
 		"0":{
-			"content": "A dilapidated outhouse. Looks like it could fall over at any moment.",
+			"content": "A broken down outhouse. Looks like it could fall over at any moment.",
 			"conditions":
 				{
 					"isEnd":true

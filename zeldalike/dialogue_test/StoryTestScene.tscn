@@ -5,43 +5,45 @@
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/farmer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://dialogue_test/dialogue_box.tscn" type="PackedScene" id=6]
-[ext_resource path="res://dialogue_test/inventorymanager.tscn" type="PackedScene" id=7]
-[ext_resource path="res://dialogue/dialogueparser.gd" type="Script" id=8]
-[ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=9]
-[ext_resource path="res://dialogue_test/item_notification.tscn" type="PackedScene" id=10]
+[ext_resource path="res://dialogue_test/inventorymanager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://dialogue/dialogueparser.gd" type="Script" id=7]
+[ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=8]
+[ext_resource path="res://dialogue_test/item_notification.tscn" type="PackedScene" id=9]
+[ext_resource path="res://dialogue_test/dialogue_box.tscn" type="PackedScene" id=10]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="crops" parent="." instance=ExtResource( 2 )]
-position = Vector2( 32, 48 )
+position = Vector2( 34.7739, 58.5408 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 81.1436, 111.817 )
 
 [node name="floodgate" parent="." instance=ExtResource( 4 )]
-position = Vector2( 32, 32 )
+position = Vector2( 34.7739, 42.5408 )
 
 [node name="farmer" parent="." instance=ExtResource( 5 )]
 position = Vector2( 66.9789, 112.177 )
 
-[node name="dialogue_box" parent="." instance=ExtResource( 6 )]
-margin_left = 5.90817
-margin_top = 4.53345
-margin_right = 5.90817
-margin_bottom = 4.53345
-
-[node name="inventorymanager" parent="." instance=ExtResource( 7 )]
+[node name="inventorymanager" parent="." instance=ExtResource( 6 )]
 
 [node name="dialogue_parser" type="Node" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( 7 )
 
-[node name="outhouse" parent="." instance=ExtResource( 9 )]
+[node name="outhouse" parent="." instance=ExtResource( 8 )]
 position = Vector2( 99.9638, 51.6909 )
 
-[node name="item_notification" parent="." instance=ExtResource( 10 )]
+[node name="dialogue" type="CanvasLayer" parent="."]
+
+[node name="item_notification" parent="dialogue" instance=ExtResource( 9 )]
 margin_left = 25.7013
 margin_top = 120.198
 margin_right = 25.7013
 margin_bottom = 120.198
+
+[node name="dialogue_box" parent="dialogue" instance=ExtResource( 10 )]
+margin_left = 5.90817
+margin_top = 4.53345
+margin_right = 5.90817
+margin_bottom = 4.53345

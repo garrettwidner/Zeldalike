@@ -1,7 +1,10 @@
 extends Node2D
 
+var player
+
+
 func _ready():
-	var player = get_node("player")
+	player = get_node("player")
 	var interactibles = get_tree().get_nodes_in_group("interactible")
 	var debugcount = 0
 	for i in range(interactibles.size()):
@@ -12,6 +15,18 @@ func _ready():
 		var args = Array([currentnode])
 		area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
-		debugcount = debugcount + 1
+#		debugcount = debugcount + 1
 #		print("Connected interactible #" + String(debugcount) + " name of " + currentnode.name)
 		
+		
+func add_interactible(interactible):
+	
+	print(interactible.name)
+	var currentnode = get_node(interactible.name)
+	var area2Dnode = currentnode.get_node("Area2D")
+	if(area2Dnode == null):
+		print("Error: no area2D node found on interactible")
+	var args = Array([currentnode])
+	area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
+	area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
+	print("Added interactible as interactible to scene: " + String(interactible.name))

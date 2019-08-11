@@ -1,6 +1,8 @@
-extends Node2D
+extends "res://objects/object.gd"
 
-func action(inventory):
-	# not sure yet how to really add items to inventory
-	inventory.add("brick")
+
+func update_experiences(experiences, items):
 	queue_free()
+	
+	
+	

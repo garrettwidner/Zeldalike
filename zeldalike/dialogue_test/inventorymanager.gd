@@ -7,8 +7,8 @@ var item_notification_text
 func _ready():
 	inventory = load_file_as_JSON("res://dialogue/story/inventory.json")
 	
-	item_notification_panel = get_node("../item_notification/Panel")
-	item_notification_text = get_node("../item_notification/Panel/MarginContainer/Label")
+	item_notification_panel = get_node("../dialogue/item_notification/Panel")
+	item_notification_text = get_node("../dialogue/item_notification/Panel/MarginContainer/Label")
 	
 	if(typeof(inventory) != TYPE_DICTIONARY):
 		print("ERROR: inventory file has errors")
@@ -20,6 +20,9 @@ func has(item):
 	if inventory["items"].has(item):
 		return true
 	return false
+	
+func get_item_dict():
+	return inventory["items"]
 
 func add_item(item, type):
 	print(item + " of type " + type + " added to inventory") 
@@ -34,7 +37,7 @@ func add_item(item, type):
 		pass
 	
 func add_gold(amount):
-	print("gold added in amount: " + amount)
+	print("gold added in amount: " + String(amount))
 	pass
 
 func load_file_as_JSON(file_path):

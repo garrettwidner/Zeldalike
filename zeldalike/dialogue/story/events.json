@@ -26,6 +26,14 @@
 				"hasBrick": true,
 				"alreadyUsed": false
 			}
+		},
+		"GateIsOpen": {
+			"Name":"FloodgateIsOpen",
+			"Type": "Repeat",
+			"Flags":{
+				"openedFloodgate" : true,
+				"priority":2
+			}
 		}
 	},
 	"outhouse": {
@@ -51,6 +59,7 @@
 			"Type": "Repeat",
 			"Flags": {
 				"destroyedOuthouse" : true,
+				"priority":2
 			}
 		}
 	},
@@ -68,6 +77,7 @@
 			"Type" : "Repeat",
 			"Flags": {
 				"default" : true,
+				"receivedReward": false
 			}
 		},
 		"FarmerAfterLookFloodgate":{
@@ -114,7 +124,6 @@
 			"Type" : "Unique",
 			"Flags":{
 				"default": true,
-				"alreadyUsed" : true
 			}
 		}
 	}

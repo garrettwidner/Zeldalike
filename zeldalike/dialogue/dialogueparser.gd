@@ -35,9 +35,9 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-	panelNode = get_node("../dialogue_box/Panel")
-	textContainer = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer/text")
-	nameContainer = get_node("../dialogue_box/Panel/MarginContainer/VBoxContainer/name")
+	panelNode = get_node("../dialogue/dialogue_box/Panel")
+	textContainer = get_node("../dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
+	nameContainer = get_node("../dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
@@ -86,7 +86,7 @@ func start_dialogue():
 	var dialogue_branch = choose_dialogue_branch()
 	var current_node = get_node("../" + currTarget.name)
 	if current_node.has_method("update_experiences"):
-		current_node.update_experiences(experiences)
+		current_node.update_experiences(experiences, inventorymanager.get_item_dict())
 	
 	if dialogue_branch == null:
 		print("ERROR: No dialogue branch found")
