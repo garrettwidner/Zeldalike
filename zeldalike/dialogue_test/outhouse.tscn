@@ -33,10 +33,11 @@ tracks/0/keys = {
 "values": [ Rect2( 32, 0, 16, 16 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6, 6 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 8 )
 
 [node name="outhouse" type="Node2D" groups=[
 "interactible",
@@ -58,9 +59,9 @@ position = Vector2( -12.32, 6.49 )
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
