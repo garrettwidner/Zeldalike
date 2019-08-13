@@ -1,7 +1,7 @@
 extends Position2D
 
 var grid_size = Vector2()
-var grid_position = Vector2()
+var grid_quadrant = Vector2()
 
 var grid_offset = Vector2()
 
@@ -23,21 +23,22 @@ func _physics_process(delta):
 	pass
 
 func update_grid_position():
-	var x = round(parent.position.x / (grid_size.x - grid_offset.x))
-#	print((grid_size.x - grid_offset.x))
-	var y = round(parent.position.y / (grid_size.y - grid_offset.y))
-	var new_grid_position = Vector2(x, y)
-#	new_grid_position.x += grid_offset.x
-#	new_grid_position.y += grid_offset.y
+	var xQuadrant = grid_size.x
 	
-	if grid_position == new_grid_position:
+	
+	var x = round(parent.position.x / (grid_size.x))
+#	print((grid_size.x - grid_offset.x))
+	var y = round(parent.position.y / (grid_size.y))
+	var new_grid_quadrant = Vector2(x, y)
+	
+	if grid_quadrant == new_grid_quadrant:
 		return
 	
 	
 #	print(String(grid_position))
-	grid_position = new_grid_position
-	position = (grid_position * grid_size) - grid_offset
-	print(position)
+	grid_quadrant = new_grid_quadrant
+	position = (grid_quadrant * grid_size) - grid_offset
+#	print(position)
 	
 	
 	pass
