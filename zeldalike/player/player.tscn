@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Iodan.png" type="Texture" id=2]
+[ext_resource path="res://player/camera/gridsnapper.gd" type="Script" id=3]
+[ext_resource path="res://tiles/Plants.png" type="Texture" id=4]
+[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 6 )
@@ -171,3 +174,41 @@ shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource( 11 )
+
+[node name="gridsnapper" type="Position2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="gridsnapper"]
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+smoothing_enabled = true
+editor_draw_drag_margin = true
+
+[node name="testparameter" type="Sprite" parent="gridsnapper/Camera2D"]
+visible = false
+position = Vector2( 48.7541, 0.35849 )
+texture = ExtResource( 4 )
+
+[node name="testparameter2" type="Sprite" parent="gridsnapper/Camera2D"]
+visible = false
+position = Vector2( -47.6787, 0.35849 )
+texture = ExtResource( 4 )
+
+[node name="testparameter3" type="Sprite" parent="gridsnapper/Camera2D"]
+visible = false
+position = Vector2( 1.43394, -42.3014 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+
+[node name="testparameter4" type="Sprite" parent="gridsnapper/Camera2D"]
+visible = false
+position = Vector2( 0.35849, 44.4523 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+
+[node name="pivot" type="Position2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="cameraoffset" type="Position2D" parent="pivot"]
+position = Vector2( 21.3586, 0 )
