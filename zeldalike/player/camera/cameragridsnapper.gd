@@ -1,29 +1,33 @@
 extends Position2D
 
-
-var cam_start_position = Vector2()
-
 var grid_size = Vector2()
-var grid_offset = Vector2()
-
 var grid_quadrant = Vector2()
 
+onready var player = get_parent()
 
 func _ready():
 	grid_size = get_viewport().get_visible_rect().size
-	
-	grid_offset.x += grid_size.x / 2
-	grid_offset.y += grid_size.y / 2
-	
-	cam_start_position = Vector2(0,0)
-	cam_start_position.x += grid_offset.x
-	cam_start_position.y += grid_offset.y
-	
-	position = cam_start_position
 	set_as_toplevel(true)
 	
-	
 func _physics_process(delta):
-	position = cam_start_position
-	print(position)
+	grid_quadrant = get_camera_quadrant()
+	position_camera()
+	
+func get_camera_quadrant():
+	var quadrant_x = int(player.position.x / grid_size.x)
+	if player.position.x < 0:
+		quadrant_x -= 1
+	var quadrant_y = int(player.position.y / grid_size.y)
+	if player.position.y < 0:
+		quadrant_y -= 1
+
+	return Vector2(quadrant_x, quadrant_y)
+	
+func position_camera():
+	position = grid_size * grid_quadrant
+	
+	
+	
+	
+	
 
