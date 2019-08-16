@@ -80,10 +80,8 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-
-	
 func set_speed():
-	if Input.is_action_pressed("c"):
+	if Input.is_action_pressed("x"):
 		speed = runspeed
 	else:
 		speed = walkspeed
