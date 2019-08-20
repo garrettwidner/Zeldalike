@@ -3,8 +3,8 @@
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Iodan.png" type="Texture" id=2]
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=3]
-[ext_resource path="res://tiles/Plants.png" type="Texture" id=4]
-[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=5]
+[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=4]
+[ext_resource path="res://tiles/Plants.png" type="Texture" id=5]
 [ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=6]
 [ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=7]
 
@@ -184,15 +184,11 @@ script = ExtResource( 3 )
 [node name="cameraoffset" type="Position2D" parent="pivot"]
 position = Vector2( 8, 0 )
 
-[node name="Sprite" type="Sprite" parent="pivot/cameraoffset"]
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 16, 16 )
-
 [node name="cameraholder" type="Position2D" parent="pivot"]
 
 [node name="test_sprite" type="Sprite" parent="pivot/cameraholder"]
-texture = ExtResource( 5 )
+visible = false
+texture = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="pivot/cameraholder"]
 position = Vector2( 8, 0 )
@@ -206,24 +202,24 @@ editor_draw_drag_margin = true
 [node name="testparameter" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 48.7541, 0.35849 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="testparameter2" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( -47.6787, 0.35849 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="testparameter3" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 1.43394, -42.3014 )
 rotation = 1.5708
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="testparameter4" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 0.35849, 44.4523 )
 rotation = 1.5708
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="cameragridsnapper" type="Position2D" parent="."]
 script = ExtResource( 6 )

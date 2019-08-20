@@ -35,7 +35,7 @@ func _physics_process(delta):
 func set_constraints(extents, pos):
 	has_constraints = true
 	constraint_max = Vector2(pos.x + extents.x, pos.y - extents.y)
-	constraint_min = Vector2(pos.x - extents.y, pos.y + extents.y)
+	constraint_min = Vector2(pos.x - extents.x, pos.y + extents.y)
 	
 func update_pivot_angle():
 	var lookangle = parent.facedir.angle()
