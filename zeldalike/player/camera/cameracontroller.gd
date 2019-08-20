@@ -2,8 +2,9 @@ extends Position2D
 
 onready var cameragridsnapper = get_node("../cameragridsnapper")
 onready var camerapivot = get_node("../pivot")
-onready var cameraoffset = get_node("../pivot/cameraoffset")
-onready var camera = get_node("../pivot/cameraoffset/Camera2D")
+#onready var cameraoffset = get_node("../pivot/cameraoffset")
+onready var camera = get_node("../pivot/cameraholder/Camera2D")
+onready var cameraholder = get_node("../pivot/cameraholder")
 
 var isFree = true
 
@@ -50,12 +51,12 @@ func switch_camera_style():
 	
 func switch_to_free():
 	cameragridsnapper.remove_child(camera)
-	cameraoffset.add_child(camera)
+	cameraholder.add_child(camera)
 	camera.position = Vector2(0,0)
 	camstyle = TYPE.FREE
 		
 func switch_to_locked():
-	cameraoffset.remove_child(camera)
+	cameraholder.remove_child(camera)
 	cameragridsnapper.add_child(camera)
 	camera.position = Vector2(grid_size.x / 2, grid_size.y / 2)
 	camstyle = TYPE.LOCKED
