@@ -46,12 +46,12 @@ func get_constrained_camera_location():
 		return
 	
 	var cam_max = Vector2(movement_arm.global_position.x + cam_extents.x, movement_arm.global_position.y - cam_extents.y)
-	var cam_min = Vector2(movement_arm.global_position.x - cam_extents.y, movement_arm.global_position.y + cam_extents.y)
+	var cam_min = Vector2(movement_arm.global_position.x - cam_extents.x, movement_arm.global_position.y + cam_extents.y)
 
 	var correction_y = 0
 	var correction_x = 0
 
-	if cam_max.x > constraint_max.x:
+	if cam_max.x >= constraint_max.x:
 		correction_x = constraint_max.x - cam_extents.x
 	elif cam_min.x < constraint_min.x:
 		correction_x = constraint_min.x + cam_extents.x
