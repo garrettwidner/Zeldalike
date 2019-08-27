@@ -14,6 +14,8 @@ var interacttarget
 var caninteract : bool = false
 var inventory = []
 
+var staticdir
+
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
@@ -59,6 +61,7 @@ func state_default():
 		use_item(preload("res://items/sword/sword.tscn"))
 		
 	if Input.is_action_just_pressed("x"):
+		staticdir = spritedir
 		use_item(preload("res://items/shield/shield.tscn"))
 		pass
 	
@@ -73,10 +76,13 @@ func state_listen():
 	switch_anim("idle")
 	
 func state_block():
-	switch_anim("block")
+	if movedir != Vector2(0,0):
+		switch_anim_static("walk")
+	else:
+		switch_anim_static("idle")
+		
 	set_speed()
 	set_movedir()
-	set_facedir()
 	set_spritedir()
 	movement_loop()
 	hitback_loop()
@@ -129,8 +135,6 @@ func set_facedir():
 	var closestdistance = 0
 	for body in $sightbox.get_overlapping_bodies():
 		if body.get("TYPE") == "ENEMY":
-			#TODO: Make it so enemy
-			
 			
 			istrackingenemy = true
 			var directiontowards : Vector2 = body.transform.origin - transform.origin
@@ -162,3 +166,9 @@ func set_state_listen():
 	
 func set_state_block():
 	state = "block"
+	
+	
+func switch_anim_static(animation):
+	var nextanim : String = animation + staticdir
+	if $anim.current_animation != nextanim:
+		$anim.play(nextanim)
