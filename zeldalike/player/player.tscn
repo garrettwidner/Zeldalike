@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Iodan.png" type="Texture" id=2]
@@ -10,6 +10,66 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 3 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "attackdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "attackleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 15 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "attackright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "attackup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "idledown"
@@ -148,7 +208,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 4
-frame = 13
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -156,6 +216,10 @@ shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 3.0
+anims/attackdown = SubResource( 12 )
+anims/attackleft = SubResource( 13 )
+anims/attackright = SubResource( 14 )
+anims/attackup = SubResource( 15 )
 anims/idledown = SubResource( 2 )
 anims/idleleft = SubResource( 3 )
 anims/idleright = SubResource( 4 )

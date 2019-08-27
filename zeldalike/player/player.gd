@@ -28,6 +28,8 @@ func _process(delta):
 			state_swing()
 		"listen":
 			state_listen()
+		"block":
+			state_block()
 
 func dialogue_finished():
 	set_state_default()
@@ -55,15 +57,31 @@ func state_default():
 		
 	if Input.is_action_just_pressed("b"):
 		use_item(preload("res://items/sword/sword.tscn"))
+		
+	if Input.is_action_just_pressed("x"):
+		use_item(preload("res://items/shield/shield.tscn"))
+		pass
+	
 	
 	movement_loop()
 
 func state_swing():
-	switch_anim("idle")
+	switch_anim("attack")
 	damage_loop()
 	
 func state_listen():
 	switch_anim("idle")
+	
+func state_block():
+	switch_anim("block")
+	set_speed()
+	set_movedir()
+	set_facedir()
+	set_spritedir()
+	movement_loop()
+	hitback_loop()
+	if Input.is_action_just_released("x"):
+		set_state_default()
 
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
@@ -81,10 +99,11 @@ func add_sprinkle():
 	self.get_parent().add_child(sprinkle)
 
 func set_speed():
-	if Input.is_action_pressed("x"):
-		speed = runspeed
-	else:
-		speed = walkspeed
+#	if Input.is_action_pressed("x"):
+#		speed = runspeed
+#	else:
+#		speed = walkspeed
+	speed = walkspeed
 
 func set_movedir():
 	var LEFT : bool = Input.is_action_pressed("left")
@@ -140,3 +159,6 @@ func set_state_default():
 	
 func set_state_listen():
 	state = "listen"
+	
+func set_state_block():
+	state = "block"
