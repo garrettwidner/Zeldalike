@@ -30,13 +30,13 @@ func connect_player_to_interactibles():
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
 	
 		
-#func add_interactible(interactible):
-#	print(interactible.name)
-#	var currentnode = get_node(interactible.name)
-#	var area2Dnode = currentnode.get_node("Area2D")
-#	if(area2Dnode == null):
-#		print("Error: no area2D node found on interactible")
-#	var args = Array([currentnode])
-#	area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
-#	area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
-#	print("Added interactible as interactible to scene: " + String(interactible.name))
+func add_interactible(interactible):
+	print(interactible.name)
+	var currentnode = get_node(interactible.name)
+	var area2Dnode = currentnode.get_node("Area2D")
+	if(area2Dnode == null):
+		print("Error: no area2D node found on interactible")
+	var args = Array([currentnode])
+	area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
+	area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
+	print("Added interactible as interactible to scene: " + String(interactible.name))

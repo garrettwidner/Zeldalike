@@ -53,6 +53,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.358576 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.4
@@ -211,8 +223,8 @@ tracks/3/keys = {
 extents = Vector2( 2, 6 )
 
 [node name="sprinkler" type="Node2D"]
-position = Vector2( 10, 3 )
-rotation = 1.5708
+position = Vector2( 0, 10 )
+rotation = 3.14159
 z_index = 1
 script = ExtResource( 1 )
 
@@ -225,6 +237,7 @@ anims/swingup = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
+position = Vector2( 0, 1 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true

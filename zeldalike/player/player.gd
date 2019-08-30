@@ -16,6 +16,8 @@ var inventory = []
 
 var staticdir
 
+var groundlevel
+
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
