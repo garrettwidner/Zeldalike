@@ -16,11 +16,14 @@ var inventory = []
 
 var staticdir
 
+var original_zindex
+
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
 	dialogueparser = get_node("../dialogue_parser")
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
+	original_zindex = z_index
 
 func _process(delta):
 	match state:
@@ -149,6 +152,9 @@ func _on_Area2D_body_entered(body, obj):
 			caninteract = true
 			interacttarget = obj
 			print("Player's current interact target: " + obj.name)
+		elif obj.is_in_group("zindexchanger"):
+			if(get_collision_layer_bit(obj.ground_level)):
+				z_index = obj.player_z_index
 		
 
 func _on_Area2D_body_exited(body, obj):
@@ -159,6 +165,9 @@ func _on_Area2D_body_exited(body, obj):
 #			print("Player no longer has a target for interaction")
 		elif obj.is_in_group("heightchanger"):
 			change_elevation(obj)
+		elif obj.is_in_group("zindexchanger"):
+			if(get_collision_layer_bit(obj.ground_level)):
+				z_index = original_zindex
 
 func change_elevation(heightchanger):
 	var newheight 
@@ -176,38 +185,6 @@ func change_elevation(heightchanger):
 
 #	print("layer " + String(newheight) + " is " + String(get_collision_layer_bit(newheight)))
 #	print("layer " + String(oldheight) + " is " + String(get_collision_layer_bit(oldheight)))
-	
-	for i in range(20):
-    	print(i, '\t', get_collision_layer_bit(i))
-
-
-
-	pass
-	
-	
-
-
-#func change_elevation(heightchanger):
-#	var newheight
-#	var oldheight
-#	if position.y < heightchanger.position.y:
-#		newheight = heightchanger.aboveheight
-#		oldheight = heightchanger.belowheight
-#	else:
-#		newheight = heightchanger.belowheight
-#		oldheight = heightchanger.aboveheight
-#
-##	print("starting ground layer: " + String(current_ground_layer))
-##	print("changed elevation to: " + String(newheight))
-#
-#	set_collision_layer_bit(oldheight, false)
-#	set_collision_layer_bit(newheight, true)
-#
-##	print("collision on bit 3, upper level: " + String(get_collision_layer_bit(3)))
-##	print("collision on bit 2, lower level: " + String(get_collision_layer_bit(2)))
-#
-#
-#	pass
 
 func set_state_swing():
 	state = "swing"

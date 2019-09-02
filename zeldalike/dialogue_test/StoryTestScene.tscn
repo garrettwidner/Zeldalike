@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
@@ -13,10 +13,12 @@
 [ext_resource path="res://dialogue_test/Mountain_Tileset_Retooling.png" type="Texture" id=11]
 [ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=12]
 [ext_resource path="res://dialogue_test/Lower_Bounds.png" type="Texture" id=13]
-[ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=14]
-[ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=15]
-[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=16]
-[ext_resource path="res://dialogue_test/heightchanger.tscn" type="PackedScene" id=17]
+[ext_resource path="res://dialogue_test/toplevel_sand_fill.png" type="Texture" id=14]
+[ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=15]
+[ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=16]
+[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=17]
+[ext_resource path="res://dialogue_test/heightchanger.tscn" type="PackedScene" id=18]
+[ext_resource path="res://dialogue_test/z_indexchanger.gd" type="Script" id=19]
 
 [sub_resource type="ConvexPolygonShape2D" id=44]
 points = PoolVector2Array( 0, 4, 4, 4, 12, 12, 12, 16 )
@@ -424,6 +426,24 @@ points = PoolVector2Array( 16, 0, 16, 16, 0, 16, 0, 12, 12, 12, 12, 0 )
 } ]
 0/z_index = 0
 
+[sub_resource type="TileSet" id=87]
+0/name = "toplevel_sand_fill.png 0"
+0/texture = ExtResource( 14 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 48 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+
 [sub_resource type="TileSet" id=6]
 0/name = "Sand_Tile.png 0"
 0/texture = ExtResource( 12 )
@@ -447,7 +467,7 @@ points = PoolVector2Array( 0, 0, 12, 0, 16, 4, 16, 16, 0, 16, 0, 12 )
 
 [sub_resource type="TileSet" id=10]
 0/name = "Desert_Tiles_V1.png 0"
-0/texture = ExtResource( 14 )
+0/texture = ExtResource( 15 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 80, 112 )
@@ -528,7 +548,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 
 [sub_resource type="TileSet" id=26]
 0/name = "Edge_Walls.png 0"
-0/texture = ExtResource( 15 )
+0/texture = ExtResource( 16 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 128, 128 )
@@ -636,7 +656,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 
 [sub_resource type="TileSet" id=27]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 16 )
+0/texture = ExtResource( 17 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -655,7 +675,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "2x2 Grass-Dirt Bitmap.png 1"
-1/texture = ExtResource( 16 )
+1/texture = ExtResource( 17 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 48, 16, 16 )
@@ -673,6 +693,12 @@ extents = Vector2( 160, 144 )
 
 [sub_resource type="RectangleShape2D" id=30]
 extents = Vector2( 96, 144 )
+
+[sub_resource type="RectangleShape2D" id=88]
+extents = Vector2( 24, 10 )
+
+[sub_resource type="RectangleShape2D" id=89]
+extents = Vector2( 50, 10 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -729,8 +755,15 @@ collision_mask = 2
 format = 1
 tile_data = PoolIntArray( 917508, 0, 131074, 917509, 0, 2, 917510, 0, 2, 917511, 0, 2, 917512, 0, 2, 917513, 0, 131073, 983044, 0, 65539, 983049, 0, 65536, 1048580, 0, 65539, 1048585, 0, 65536, 1114116, 0, 65539, 1114121, 0, 131072, 1114122, 0, 2, 1114123, 0, 2, 1114124, 0, 131073, 1179652, 0, 65539, 1179660, 0, 65536, 1245188, 0, 65539, 1245196, 0, 65536, 1310724, 0, 65539, 1310732, 0, 65536, 1376260, 0, 65539, 1376268, 0, 65536, 1441796, 0, 65539, 1441799, 0, 131076, 1441801, 0, 4, 1441804, 0, 65536, 1507332, 0, 196609, 1507333, 0, 1, 1507334, 0, 1, 1507335, 0, 196612, 1507337, 0, 65540, 1507338, 0, 1, 1507339, 0, 1, 1507340, 0, 196610 )
 
+[node name="top_sand_fill" type="TileMap" parent="."]
+z_index = -1
+tile_set = SubResource( 87 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 786436, 0, 1, 786437, 0, 131073, 786438, 0, 131073, 786439, 0, 131073, 786440, 0, 131073, 786441, 0, 65537, 851972, 0, 131072, 851973, 0, 131074, 851974, 0, 131074, 851975, 0, 131074, 851976, 0, 131074, 851977, 0, 65536, 917508, 0, 131072, 917509, 0, 131074, 917510, 0, 131074, 917511, 0, 131074, 917512, 0, 131074, 917513, 0, 65536, 983044, 0, 131072, 983045, 0, 131074, 983046, 0, 131074, 983047, 0, 131074, 983048, 0, 131074, 983049, 0, 65538, 983050, 0, 131073, 983051, 0, 131073, 983052, 0, 65537, 1048581, 0, 131074, 1048582, 0, 131074, 1048583, 0, 131074, 1048584, 0, 131074, 1048585, 0, 131074, 1048586, 0, 131074, 1048587, 0, 131074, 1048588, 0, 65536, 1114117, 0, 131074, 1114118, 0, 131074, 1114119, 0, 131074, 1114120, 0, 131074, 1114121, 0, 131074, 1114122, 0, 131074, 1114123, 0, 131074, 1114124, 0, 65536, 1179653, 0, 131074, 1179654, 0, 131074, 1179655, 0, 131074, 1179656, 0, 131074, 1179657, 0, 131074, 1179658, 0, 131074, 1179659, 0, 131074, 1179660, 0, 65536, 1245189, 0, 131074, 1245190, 0, 131074, 1245191, 0, 131074, 1245192, 0, 131074, 1245193, 0, 131074, 1245194, 0, 131074, 1245195, 0, 131074, 1245196, 0, 65536, 1310725, 0, 131074, 1310726, 0, 131074, 1310727, 0, 131074, 1310728, 0, 131074, 1310729, 0, 131074, 1310730, 0, 131074, 1310731, 0, 131074, 1310732, 0, 65536, 1376261, 0, 131074, 1376262, 0, 131074, 1376263, 0, 131074, 1376264, 0, 131074, 1376265, 0, 131074, 1376266, 0, 131074, 1376267, 0, 131074, 1376268, 0, 65536 )
+
 [node name="sand_tiles" type="TileMap" parent="."]
-z_index = -2
+z_index = -3
 tile_set = SubResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -821,8 +854,32 @@ position = Vector2( 896, 144 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CamArea2"]
 shape = SubResource( 30 )
 
-[node name="heightchanger" parent="." instance=ExtResource( 17 )]
+[node name="heightchanger" parent="." instance=ExtResource( 18 )]
 visible = false
 position = Vector2( 135.95, 369.811 )
 aboveheight = 2
 belowheight = 1
+
+[node name="zchanger" type="Node2D" parent="." groups=[
+"zindexchanger",
+]]
+position = Vector2( 221.787, 399.173 )
+script = ExtResource( 19 )
+
+[node name="Area2D" type="Area2D" parent="zchanger"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="zchanger/Area2D"]
+position = Vector2( -36.5593, -137.825 )
+shape = SubResource( 88 )
+
+[node name="zchanger2" type="Node2D" parent="." groups=[
+"zindexchanger",
+]]
+position = Vector2( 151.37, 350.383 )
+script = ExtResource( 19 )
+
+[node name="Area2D" type="Area2D" parent="zchanger2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="zchanger2/Area2D"]
+position = Vector2( -39.4711, -137.178 )
+shape = SubResource( 89 )
