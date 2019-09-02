@@ -110,6 +110,16 @@ x={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="lv1"
+2d_physics/layer_3="lv2"
+2d_physics/layer_4="lv3"
+2d_physics/layer_5="lv4"
+2d_physics/layer_6="player"
+2d_physics/layer_7="enemy"
+
 [rendering]
 
 quality/2d/use_pixel_snap=true

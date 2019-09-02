@@ -16,8 +16,6 @@ var inventory = []
 
 var staticdir
 
-var groundlevel
-
 func _ready():
 	speed = 40
 	TYPE = "PLAYER"
@@ -147,15 +145,69 @@ func set_facedir():
 			
 func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
-		caninteract = true
-		interacttarget = obj
-#		print("Player's current interact target: " + obj.name)
+		if obj.is_in_group("interactible"):
+			caninteract = true
+			interacttarget = obj
+			print("Player's current interact target: " + obj.name)
+		
 
 func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
-		caninteract = false
-		interacttarget = null
-#		print("Player no longer has a target for interaction")
+		if obj.is_in_group("interactible"):
+			caninteract = false
+			interacttarget = null
+#			print("Player no longer has a target for interaction")
+		elif obj.is_in_group("heightchanger"):
+			change_elevation(obj)
+
+func change_elevation(heightchanger):
+	var newheight 
+	var oldheight
+	
+	if position.y < heightchanger.position.y:
+		newheight = heightchanger.aboveheight
+		oldheight = heightchanger.belowheight
+	else:
+		newheight = heightchanger.belowheight
+		oldheight = heightchanger.aboveheight 
+
+	set_collision_layer_bit(newheight, true)
+	set_collision_layer_bit(oldheight, false)
+
+#	print("layer " + String(newheight) + " is " + String(get_collision_layer_bit(newheight)))
+#	print("layer " + String(oldheight) + " is " + String(get_collision_layer_bit(oldheight)))
+	
+	for i in range(20):
+    	print(i, '\t', get_collision_layer_bit(i))
+
+
+
+	pass
+	
+	
+
+
+#func change_elevation(heightchanger):
+#	var newheight
+#	var oldheight
+#	if position.y < heightchanger.position.y:
+#		newheight = heightchanger.aboveheight
+#		oldheight = heightchanger.belowheight
+#	else:
+#		newheight = heightchanger.belowheight
+#		oldheight = heightchanger.aboveheight
+#
+##	print("starting ground layer: " + String(current_ground_layer))
+##	print("changed elevation to: " + String(newheight))
+#
+#	set_collision_layer_bit(oldheight, false)
+#	set_collision_layer_bit(newheight, true)
+#
+##	print("collision on bit 3, upper level: " + String(get_collision_layer_bit(3)))
+##	print("collision on bit 2, lower level: " + String(get_collision_layer_bit(2)))
+#
+#
+#	pass
 
 func set_state_swing():
 	state = "swing"
