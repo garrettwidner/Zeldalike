@@ -24,6 +24,9 @@ func _ready():
 	dialogueparser = get_node("../dialogue_parser")
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
+	
+#	for i in range(20):
+#    	print(i, '\t', get_collision_layer_bit(i))
 
 func _process(delta):
 	match state:
@@ -176,15 +179,19 @@ func change_elevation(heightchanger):
 	if position.y < heightchanger.position.y:
 		newheight = heightchanger.aboveheight
 		oldheight = heightchanger.belowheight
+		z_index = heightchanger.abovez
 	else:
 		newheight = heightchanger.belowheight
 		oldheight = heightchanger.aboveheight 
+		z_index = heightchanger.belowz
 
 	set_collision_layer_bit(newheight, true)
 	set_collision_layer_bit(oldheight, false)
 
 #	print("layer " + String(newheight) + " is " + String(get_collision_layer_bit(newheight)))
 #	print("layer " + String(oldheight) + " is " + String(get_collision_layer_bit(oldheight)))
+#	for i in range(20):
+#    	print(i, '\t', get_collision_layer_bit(i))
 
 func set_state_swing():
 	state = "swing"
