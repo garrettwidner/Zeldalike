@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bottom_bounds.png-87a3ac6002774650f14cc10ba07962ed.stex"
+path="res://.import/shelf_bounds.png-ffc6fa7a1e6000341942ab0be4263001.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dialogue_test/bottom_bounds.png"
-dest_files=[ "res://.import/bottom_bounds.png-87a3ac6002774650f14cc10ba07962ed.stex" ]
+source_file="res://dialogue_test/shelf_bounds.png"
+dest_files=[ "res://.import/shelf_bounds.png-ffc6fa7a1e6000341942ab0be4263001.stex" ]
 
 [params]
 
