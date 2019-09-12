@@ -14,6 +14,10 @@ var interacttarget
 var caninteract : bool = false
 var inventory = []
 
+var isinhoparea = false
+var hoparea
+var clinghandsycorrection = 3
+
 var staticdir
 
 var original_zindex
@@ -24,6 +28,9 @@ func _ready():
 	dialogueparser = get_node("../dialogue_parser")
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
+	
+	print("Player position:")
+	print(global_position)
 	
 #	for i in range(20):
 #    	print(i, '\t', get_collision_layer_bit(i))
@@ -38,6 +45,8 @@ func _process(delta):
 			state_listen()
 		"block":
 			state_block()
+		"cling":
+			state_cling()
 
 func dialogue_finished():
 	set_state_default()
@@ -64,7 +73,10 @@ func state_default():
 			add_sprinkle()
 		
 	if Input.is_action_just_pressed("b"):
-		use_item(preload("res://items/sword/sword.tscn"))
+		if isinhoparea:
+			hoptocling()
+		else:
+			use_item(preload("res://items/sword/sword.tscn"))
 		
 	if Input.is_action_just_pressed("x"):
 		staticdir = spritedir
@@ -95,6 +107,12 @@ func state_block():
 	if Input.is_action_just_released("x"):
 		set_state_default()
 
+func state_cling():
+	switch_anim("cling")
+	if Input.is_action_pressed("up"):
+		pullup()
+	pass
+
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
 	sprinkle.position = transform.get_origin()
@@ -109,6 +127,16 @@ func add_sprinkle():
 		sprinkle.set_z_index(0)
 		
 	self.get_parent().add_child(sprinkle)
+
+func hoptocling():
+	set_collision_layer_bit(hoparea.belowheight, false)
+	position = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
+	set_state_cling()
+	z_index = hoparea.abovez
+	pass
+	
+func pullup():
+	pass
 
 func set_speed():
 #	if Input.is_action_pressed("x"):
@@ -158,6 +186,9 @@ func _on_Area2D_body_entered(body, obj):
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = obj.player_z_index
+		elif obj.is_in_group("hoparea"):
+			isinhoparea = true
+			hoparea = obj
 		
 
 func _on_Area2D_body_exited(body, obj):
@@ -171,6 +202,9 @@ func _on_Area2D_body_exited(body, obj):
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = original_zindex
+		elif obj.is_in_group("hoparea"):
+			isinhoparea = false
+			hoparea = null
 
 func change_elevation(heightchanger):
 	var newheight 
@@ -205,8 +239,17 @@ func set_state_listen():
 func set_state_block():
 	state = "block"
 	
+func set_state_cling():
+	state = "cling"
+	
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir
 	if $anim.current_animation != nextanim:
 		$anim.play(nextanim)
+		
+	
+	
+	
+	
+	

@@ -17,6 +17,7 @@ func _ready():
 	connect_player_to_interactibles()
 	connect_player_to_heightchangers()
 	connect_player_to_zindexchangers()
+	connect_player_to_hopareas()
 	connect_cameracontroller_to_camareas()
 
 func connect_cameracontroller_to_camareas():
@@ -65,6 +66,15 @@ func connect_player_to_zindexchangers():
 		var args = Array([currentnode])
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 		area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
+		
+func connect_player_to_hopareas():
+	player = get_node("player")
+	var hopareas = get_tree().get_nodes_in_group("hoparea")
+	for i in range(hopareas.size()):
+		var currentnode = get_node(hopareas[i].get_path())
+		var args = Array([currentnode])
+		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
+		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		
 func add_interactible(interactible):
 	print(interactible.name)
