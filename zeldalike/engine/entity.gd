@@ -14,6 +14,8 @@ var hitstun_amount : int = 10
 var knock_strength : float = 1.5
 var health : int = 1
 
+var wasdamaged = false
+
 func set_facedir():
 	if movedir.x == 0 and movedir.y == 0:
 		return
@@ -51,11 +53,13 @@ func movement_loop():
 	move_and_slide(motion, dir.CENTER)
 	
 func damage_loop():
+	wasdamaged = false
 	if hitstun_timer > 0:
 		hitstun_timer -= 1
 	for area in $hitbox.get_overlapping_areas():
 		var body = area.get_parent()
 		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE:
+			wasdamaged = true
 			health -= body.get("DAMAGE")
 			hitstun_timer = hitstun_amount
 			knockdir = global_transform.origin - body.global_transform.origin

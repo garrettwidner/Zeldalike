@@ -16,7 +16,15 @@ var inventory = []
 
 var isinhoparea = false
 var hoparea
-var clinghandsycorrection = 3
+var clinghandsycorrection = 00
+var ispullingup
+var ishoppingtocling
+
+var transitionweight
+var transitionspeed = .15
+var transitionstart
+var transitionend
+
 
 var staticdir
 
@@ -47,6 +55,8 @@ func _process(delta):
 			state_block()
 		"cling":
 			state_cling()
+		"transition":
+			state_transition(delta)
 
 func dialogue_finished():
 	set_state_default()
@@ -74,9 +84,14 @@ func state_default():
 		
 	if Input.is_action_just_pressed("b"):
 		if isinhoparea:
-			hoptocling()
+			set_state_transition()
+			switch_anim("crouch")
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))
+
+				
+				#tryhoptocling()
+		
 		
 	if Input.is_action_just_pressed("x"):
 		staticdir = spritedir
@@ -109,9 +124,11 @@ func state_block():
 
 func state_cling():
 	switch_anim("cling")
-	if Input.is_action_pressed("up"):
+	if Input.is_action_just_pressed("b"):
 		pullup()
 	pass
+	
+
 
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
@@ -128,14 +145,47 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-func hoptocling():
-	set_collision_layer_bit(hoparea.belowheight, false)
-	position = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
-	set_state_cling()
-	z_index = hoparea.abovez
+func state_transition(delta):
+	if ishoppingtocling:
+		global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+		
+		transitionweight += transitionspeed
+		if transitionweight >= 1:
+			global_position = transitionend
+			ishoppingtocling = false
+			set_state_cling()
+		pass
+	elif ispullingup:
+		
+		pass
+	else:
+		damage_loop()
+		if wasdamaged:
+			set_state_default()
+		elif Input.is_action_just_released("b"):
+			if isinhoparea:
+				if position.y > hoparea.position.y:
+					#Jumping up on a ledge
+					switch_anim("hop")
+					set_collision_layer_bit(hoparea.belowheight, false)
+					z_index = hoparea.abovez
+					transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
+					transitionstart = position
+					transitionweight = 0
+					ishoppingtocling = true
 	pass
 	
 func pullup():
+	var collisionshape = get_node("CollisionShape2D")
+	var collisionextents = collisionshape.shape.extents
+	var centertocollisionbottom = global_position.y - (collisionshape.global_position.y + collisionextents.y)
+	
+	global_position = Vector2(hoparea.highesthoppoint.x, hoparea.highesthoppoint.y + centertocollisionbottom)
+	set_collision_layer_bit(hoparea.aboveheight, true)
+	
+	set_state_default()
+	
+	
 	pass
 
 func set_speed():
@@ -241,6 +291,9 @@ func set_state_block():
 	
 func set_state_cling():
 	state = "cling"
+	
+func set_state_transition():
+	state = "transition"
 	
 	
 func switch_anim_static(animation):
