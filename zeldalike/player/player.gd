@@ -19,6 +19,7 @@ var hoparea
 var clinghandsycorrection = 00
 var ispullingup
 var ishoppingtocling
+var isinclingcycle = false
 
 var transitionweight
 var transitionspeed = .15
@@ -88,10 +89,6 @@ func state_default():
 			switch_anim("crouch")
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))
-
-				
-				#tryhoptocling()
-		
 		
 	if Input.is_action_just_pressed("x"):
 		staticdir = spritedir
@@ -125,7 +122,9 @@ func state_block():
 func state_cling():
 	switch_anim("cling")
 	if Input.is_action_just_pressed("b"):
-		pullup()
+		switch_anim("pullupstart")
+		set_state_transition()
+		#pullup()
 	pass
 	
 
@@ -156,37 +155,47 @@ func state_transition(delta):
 			set_state_cling()
 		pass
 	elif ispullingup:
-		
+		global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+		transitionweight += transitionspeed
+		if transitionweight >= 1:
+			global_position = transitionend
+			ispullingup = false
+			set_collision_layer_bit(hoparea.aboveheight, true)
+			set_state_default()
+			isinclingcycle = false
 		pass
 	else:
-		damage_loop()
-		if wasdamaged:
-			set_state_default()
-		elif Input.is_action_just_released("b"):
-			if isinhoparea:
-				if position.y > hoparea.position.y:
-					#Jumping up on a ledge
-					switch_anim("hop")
-					set_collision_layer_bit(hoparea.belowheight, false)
-					z_index = hoparea.abovez
-					transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
-					transitionstart = position
-					transitionweight = 0
-					ishoppingtocling = true
+		if !isinclingcycle:
+			damage_loop()
+			if wasdamaged:
+				set_state_default()
+			elif Input.is_action_just_released("b"):
+				if isinhoparea:
+					if position.y > hoparea.position.y:
+						#Jumping up on a ledge
+						isinclingcycle = true
+						switch_anim("hop")
+						set_collision_layer_bit(hoparea.belowheight, false)
+						z_index = hoparea.abovez
+						transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
+						transitionstart = position
+						transitionweight = 0
+						ishoppingtocling = true
+		else:
+			if Input.is_action_just_released("b"):
+				#pulling up
+				switch_anim("pullup")
+				transitionend = get_character_position_after_pullup()
+				transitionstart = position
+				transitionweight = 0
+				ispullingup = true
 	pass
 	
-func pullup():
+func get_character_position_after_pullup():
 	var collisionshape = get_node("CollisionShape2D")
 	var collisionextents = collisionshape.shape.extents
-	var centertocollisionbottom = global_position.y - (collisionshape.global_position.y + collisionextents.y)
-	
-	global_position = Vector2(hoparea.highesthoppoint.x, hoparea.highesthoppoint.y + centertocollisionbottom)
-	set_collision_layer_bit(hoparea.aboveheight, true)
-	
-	set_state_default()
-	
-	
-	pass
+	var centerdisttocollisionbottom = global_position.y - (collisionshape.global_position.y + collisionextents.y)
+	return Vector2(hoparea.highesthoppoint.x, hoparea.highesthoppoint.y + centerdisttocollisionbottom)
 
 func set_speed():
 #	if Input.is_action_pressed("x"):

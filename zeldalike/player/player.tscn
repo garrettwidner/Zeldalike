@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Iodan.png" type="Texture" id=2]
@@ -181,10 +181,25 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 18, 19, 20, 5 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "pullupstartup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 22 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -269,7 +284,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 4
-frame = 21
+frame = 23
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -289,6 +304,7 @@ anims/idleleft = SubResource( 7 )
 anims/idleright = SubResource( 8 )
 anims/idleup = SubResource( 9 )
 anims/pullup = SubResource( 18 )
+anims/pullupstartup = SubResource( 21 )
 anims/walkdown = SubResource( 10 )
 anims/walkleft = SubResource( 11 )
 anims/walkright = SubResource( 12 )
