@@ -4,6 +4,8 @@ export var aboveheight = 1
 export var abovez = 200
 export var belowheight = 0
 export var belowz = 100
+export var canhopup = true
+export var canhopdown = false
 
 onready var hoptop = get_node("hoptop")
 onready var hopbott = get_node("hopbott")

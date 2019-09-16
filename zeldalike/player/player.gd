@@ -57,7 +57,7 @@ func _process(delta):
 		"cling":
 			state_cling()
 		"transition":
-			state_transition(delta)
+			state_transition()
 
 func dialogue_finished():
 	set_state_default()
@@ -127,8 +127,6 @@ func state_cling():
 		#pullup()
 	pass
 	
-
-
 func add_sprinkle():
 	var sprinkle = sprinkleresource.instance()
 	sprinkle.position = transform.get_origin()
@@ -144,25 +142,11 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-func state_transition(delta):
+func state_transition():
 	if ishoppingtocling:
-		global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-		
-		transitionweight += transitionspeed
-		if transitionweight >= 1:
-			global_position = transitionend
-			ishoppingtocling = false
-			set_state_cling()
-		pass
+		continue_ledge_hop()
 	elif ispullingup:
-		global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-		transitionweight += transitionspeed
-		if transitionweight >= 1:
-			global_position = transitionend
-			ispullingup = false
-			set_collision_layer_bit(hoparea.aboveheight, true)
-			set_state_default()
-			isinclingcycle = false
+		continue_ledge_pullup()
 		pass
 	else:
 		if !isinclingcycle:
@@ -172,24 +156,46 @@ func state_transition(delta):
 			elif Input.is_action_just_released("b"):
 				if isinhoparea:
 					if position.y > hoparea.position.y:
-						#Jumping up on a ledge
-						isinclingcycle = true
-						switch_anim("hop")
-						set_collision_layer_bit(hoparea.belowheight, false)
-						z_index = hoparea.abovez
-						transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
-						transitionstart = position
-						transitionweight = 0
-						ishoppingtocling = true
+						start_ledge_hop()
 		else:
 			if Input.is_action_just_released("b"):
-				#pulling up
-				switch_anim("pullup")
-				transitionend = get_character_position_after_pullup()
-				transitionstart = position
-				transitionweight = 0
-				ispullingup = true
+				start_ledge_pullup()
 	pass
+	
+func continue_ledge_hop():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+		global_position = transitionend
+		ishoppingtocling = false
+		set_state_cling()
+		
+func continue_ledge_pullup():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+		global_position = transitionend
+		ispullingup = false
+		set_collision_layer_bit(hoparea.aboveheight, true)
+		set_state_default()
+		isinclingcycle = false
+		
+func start_ledge_hop():
+	isinclingcycle = true
+	switch_anim("hop")
+	set_collision_layer_bit(hoparea.belowheight, false)
+	z_index = hoparea.abovez
+	transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
+	transitionstart = position
+	transitionweight = 0
+	ishoppingtocling = true
+	
+func start_ledge_pullup():
+	switch_anim("pullup")
+	transitionend = get_character_position_after_pullup()
+	transitionstart = position
+	transitionweight = 0
+	ispullingup = true
 	
 func get_character_position_after_pullup():
 	var collisionshape = get_node("CollisionShape2D")
