@@ -20,11 +20,19 @@ var clinghandsycorrection = 00
 var ispullingup
 var ishoppingtocling
 var isinclingcycle = false
+var isinjumpdowncycle = false
 
 var transitionweight
 var transitionspeed = .15
 var transitionstart
 var transitionend
+
+var hopdownspeed = 1
+var hopupspeed = .15
+var hopdownleeway = 2.5
+
+var landingtime = .2
+var landingtimer = 0
 
 
 var staticdir
@@ -38,8 +46,8 @@ func _ready():
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
 	
-	print("Player position:")
-	print(global_position)
+#	print("Player position:")
+#	print(global_position)
 	
 #	for i in range(20):
 #    	print(i, '\t', get_collision_layer_bit(i))
@@ -56,8 +64,12 @@ func _process(delta):
 			state_block()
 		"cling":
 			state_cling()
-		"transition":
-			state_transition()
+		"uptransition":
+			state_uptransition()
+		"downtransition":
+			state_downtransition()
+		"landing":
+			state_landing(delta)
 
 func dialogue_finished():
 	set_state_default()
@@ -84,9 +96,16 @@ func state_default():
 			add_sprinkle()
 		
 	if Input.is_action_just_pressed("b"):
-		if isinhoparea:
-			set_state_transition()
-			switch_anim("crouch")
+		if isinhoparea && position.y > hoparea.position.y && hoparea.canhopup && facedir == dir.UP:
+			set_state_uptransition()
+			transitionspeed = hopupspeed
+			switch_anim("ledgecrouch")
+		elif isinhoparea && position.y < hoparea.position.y && hoparea.canhopdown && facedir == dir.DOWN:
+#			print(abs(position.x - hoparea.position.x))
+			if abs(position.x - hoparea.position.x) < hopdownleeway:
+				set_state_downtransition()
+				transitionspeed = hopdownspeed / hoparea.height
+				switch_anim("ledgecrouch")
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))
 		
@@ -123,7 +142,7 @@ func state_cling():
 	switch_anim("cling")
 	if Input.is_action_just_pressed("b"):
 		switch_anim("pullupstart")
-		set_state_transition()
+		set_state_uptransition()
 		#pullup()
 	pass
 	
@@ -142,7 +161,7 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-func state_transition():
+func state_uptransition():
 	if ishoppingtocling:
 		continue_ledge_hop()
 	elif ispullingup:
@@ -154,12 +173,57 @@ func state_transition():
 			if wasdamaged:
 				set_state_default()
 			elif Input.is_action_just_released("b"):
-				if isinhoparea:
-					if position.y > hoparea.position.y:
-						start_ledge_hop()
+				start_ledge_hop()
 		else:
 			if Input.is_action_just_released("b"):
 				start_ledge_pullup()
+	pass
+	
+func state_downtransition():
+	if !isinjumpdowncycle:
+		damage_loop()
+		if wasdamaged:
+			set_state_default()
+		elif(Input.is_action_just_released("b")):
+			start_down_hop()
+	else:
+		continue_down_hop()
+	
+	pass
+	
+func state_landing(delta):
+	damage_loop()
+	if wasdamaged:
+		set_state_default()
+		return
+	landingtimer += delta
+	if landingtimer >= landingtime:
+		set_state_default()
+	
+	
+func start_down_hop():
+	switch_anim("hop")
+	set_collision_layer_bit(hoparea.aboveheight, false)
+	transitionstart = position
+	transitionend = get_character_position_at_base()
+	isinjumpdowncycle = true
+	transitionweight = 0
+	#testing
+#	global_position = transitionend
+#	set_state_default()
+	pass
+	
+func continue_down_hop():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+		global_position = transitionend
+		set_collision_layer_bit(hoparea.belowheight, true)
+		isinjumpdowncycle = false
+		z_index = hoparea.belowz
+		set_state_landing()
+		switch_anim("landing")
+		landingtimer = 0
 	pass
 	
 func continue_ledge_hop():
@@ -202,6 +266,14 @@ func get_character_position_after_pullup():
 	var collisionextents = collisionshape.shape.extents
 	var centerdisttocollisionbottom = global_position.y - (collisionshape.global_position.y + collisionextents.y)
 	return Vector2(hoparea.highesthoppoint.x, hoparea.highesthoppoint.y + centerdisttocollisionbottom)
+	
+func get_character_position_at_base():
+	var collisionshape = get_node("CollisionShape2D")
+	var collisionextents = collisionshape.shape.extents
+	var centerdisttocollisiontop = global_position.y - (collisionshape.global_position.y - collisionextents.y)
+	var position_at_base = Vector2(hoparea.lowesthoppoint.x, hoparea.lowesthoppoint.y - centerdisttocollisiontop)
+#	hoparea.get_node("Sprite").global_position = position_at_base
+	return position_at_base
 
 func set_speed():
 #	if Input.is_action_pressed("x"):
@@ -247,7 +319,7 @@ func _on_Area2D_body_entered(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = true
 			interacttarget = obj
-			print("Player's current interact target: " + obj.name)
+#			print("Player's current interact target: " + obj.name)
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = obj.player_z_index
@@ -307,9 +379,14 @@ func set_state_block():
 func set_state_cling():
 	state = "cling"
 	
-func set_state_transition():
-	state = "transition"
+func set_state_uptransition():
+	state = "uptransition"
 	
+func set_state_downtransition():
+	state = "downtransition"
+
+func set_state_landing():
+	state = "landing"
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir
