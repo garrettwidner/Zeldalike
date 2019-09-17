@@ -335,7 +335,11 @@ func _on_Area2D_body_exited(body, obj):
 			interacttarget = null
 #			print("Player no longer has a target for interaction")
 		elif obj.is_in_group("heightchanger"):
-			change_elevation(obj)
+			# if you're above the object and your collision layer matches the object's below or vice-versa
+			if((position.y < obj.position.y && get_collision_layer_bit(obj.belowheight)) || 
+			    position.y > obj.position.y && get_collision_layer_bit(obj.aboveheight)):
+				change_elevation(obj)
+				print("Player elevation changed")
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = original_zindex
