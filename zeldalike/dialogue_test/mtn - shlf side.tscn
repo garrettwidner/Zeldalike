@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://dialogue_test/heightchanger.gd" type="Script" id=1]
+[ext_resource path="res://dialogue_test/heightchanger.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 8 )
+
+[node name="mtn - shlf side 1" type="Node2D" groups=[
+"heightchanger",
+]]
+position = Vector2( 184.058, 361.741 )
+z_index = 4096
+script = ExtResource( 1 )
+aboveheight = 3
+abovez = 220
+belowheight = 2
+belowz = 180
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )

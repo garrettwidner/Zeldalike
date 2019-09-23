@@ -336,10 +336,22 @@ func _on_Area2D_body_exited(body, obj):
 #			print("Player no longer has a target for interaction")
 		elif obj.is_in_group("heightchanger"):
 			# if you're above the object and your collision layer matches the object's below or vice-versa
-			if((position.y < obj.position.y && get_collision_layer_bit(obj.belowheight)) || 
-			    position.y > obj.position.y && get_collision_layer_bit(obj.aboveheight)):
+			if(obj.isvertical && 
+				((position.y < obj.position.y && get_collision_layer_bit(obj.belowheight)) || 
+			    position.y > obj.position.y && get_collision_layer_bit(obj.aboveheight))):
 				change_elevation(obj)
-				print("Player elevation changed")
+			#if you're on the left, it's ascending left, and your collision layer matches the object's above
+			#if you're on the right, it's ascending left, and your collison layer matches the object's below
+			elif(!obj.isvertical && obj.aboveisleft &&
+				((position.x < obj.position.x && get_collision_layer_bit(obj.belowheight)) ||
+				position.x > obj.position.x && get_collision_layer_bit(obj.aboveheight))):
+				change_elevation(obj)
+			#if youre on the left, it's ascending right, and your collision layer matches the object's below
+			#if you're on the right, it's ascending right, and your collision layer matches the object's above
+			elif(!obj.isvertical && !obj.aboveisleft &&
+				((position.x < obj.position.x && get_collision_layer_bit(obj.aboveheight)) ||
+				position.x > obj.position.x && get_collision_layer_bit(obj.belowheight))):
+				change_elevation(obj)
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = original_zindex
@@ -350,19 +362,43 @@ func _on_Area2D_body_exited(body, obj):
 func change_elevation(heightchanger):
 	var newheight 
 	var oldheight
+	print("Should change player elevation")
+	if(heightchanger.isvertical):
+		if position.y < heightchanger.position.y:
+			setaboveheight(heightchanger)
+		else:
+			setbelowheight(heightchanger)
 	
-	if position.y < heightchanger.position.y:
-		newheight = heightchanger.aboveheight
-		oldheight = heightchanger.belowheight
-		z_index = heightchanger.abovez
 	else:
-		newheight = heightchanger.belowheight
-		oldheight = heightchanger.aboveheight 
-		z_index = heightchanger.belowz
+		if heightchanger.aboveisleft:
+			if position.x < heightchanger.position.x:
+				setaboveheight(heightchanger)
+			else:
+				setbelowheight(heightchanger)
+		else:
+			if position.x < heightchanger.position.x:
+				setbelowheight(heightchanger)
+			else:
+				setaboveheight(heightchanger)
 
+func setaboveheight(heightchanger):
+	var newheight = heightchanger.aboveheight
+	var oldheight = heightchanger.belowheight
+	z_index = heightchanger.abovez
 	set_collision_layer_bit(newheight, true)
 	set_collision_layer_bit(oldheight, false)
-
+	print("Moved up to " + String(newheight) + " from " + String(oldheight))
+	pass
+	
+func setbelowheight(heightchanger):
+	var newheight = heightchanger.belowheight
+	var oldheight = heightchanger.aboveheight
+	z_index = heightchanger.belowz
+	set_collision_layer_bit(newheight, true)
+	set_collision_layer_bit(oldheight, false)
+	print("Moved down to " + String(newheight) + " from " + String(oldheight))
+	pass
+	
 #	print("layer " + String(newheight) + " is " + String(get_collision_layer_bit(newheight)))
 #	print("layer " + String(oldheight) + " is " + String(get_collision_layer_bit(oldheight)))
 #	for i in range(20):
