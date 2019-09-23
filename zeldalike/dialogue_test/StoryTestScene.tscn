@@ -1,4 +1,4 @@
-[gd_scene load_steps=219 format=2]
+[gd_scene load_steps=221 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
@@ -10,28 +10,30 @@
 [ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=8]
 [ext_resource path="res://dialogue_test/item_notification.tscn" type="PackedScene" id=9]
 [ext_resource path="res://dialogue_test/dialogue_box.tscn" type="PackedScene" id=10]
-[ext_resource path="res://dialogue_test/toplevel_sand_fill.png" type="Texture" id=11]
-[ext_resource path="res://dialogue_test/Mountain_Tileset_Retooling.png" type="Texture" id=12]
-[ext_resource path="res://dialogue_test/stone_bounds.png" type="Texture" id=13]
-[ext_resource path="res://dialogue_test/mountain_bounds.png" type="Texture" id=14]
-[ext_resource path="res://dialogue_test/lower_walls.png" type="Texture" id=15]
-[ext_resource path="res://dialogue_test/shelf_bounds.png" type="Texture" id=16]
-[ext_resource path="res://dialogue_test/ground_level_bounds.png" type="Texture" id=17]
-[ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=18]
-[ext_resource path="res://dialogue_test/heightchanger.gd" type="Script" id=19]
-[ext_resource path="res://dialogue_test/heightchanger.png" type="Texture" id=20]
-[ext_resource path="res://dialogue_test/heightchanger.tscn" type="PackedScene" id=21]
-[ext_resource path="res://dialogue_test/shlf - grnd side.tscn" type="PackedScene" id=22]
-[ext_resource path="res://dialogue_test/grnd -shelf back.tscn" type="PackedScene" id=23]
-[ext_resource path="res://dialogue_test/mtn - shlf side.tscn" type="PackedScene" id=24]
-[ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=25]
-[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=26]
-[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=27]
-[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=28]
+[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://dialogue_test/toplevel_sand_fill.png" type="Texture" id=12]
+[ext_resource path="res://dialogue_test/Mountain_Tileset_Retooling.png" type="Texture" id=13]
+[ext_resource path="res://dialogue_test/stone_bounds.png" type="Texture" id=14]
+[ext_resource path="res://dialogue_test/mountain_bounds.png" type="Texture" id=15]
+[ext_resource path="res://dialogue_test/lower_walls.png" type="Texture" id=16]
+[ext_resource path="res://dialogue_test/shelf_bounds.png" type="Texture" id=17]
+[ext_resource path="res://dialogue_test/ground_level_bounds.png" type="Texture" id=18]
+[ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=19]
+[ext_resource path="res://dialogue_test/heightchanger.gd" type="Script" id=20]
+[ext_resource path="res://dialogue_test/heightchanger.png" type="Texture" id=21]
+[ext_resource path="res://dialogue_test/heightchanger.tscn" type="PackedScene" id=22]
+[ext_resource path="res://dialogue_test/shlf - grnd side.tscn" type="PackedScene" id=23]
+[ext_resource path="res://dialogue_test/grnd -shelf back.tscn" type="PackedScene" id=24]
+[ext_resource path="res://dialogue_test/mtn - shlf side.tscn" type="PackedScene" id=25]
+[ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=26]
+[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=27]
+[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=28]
+[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=29]
+[ext_resource path="res://enemies/stalfos.tscn" type="PackedScene" id=30]
 
 [sub_resource type="TileSet" id=184]
 0/name = "toplevel_sand_fill.png 0"
-0/texture = ExtResource( 11 )
+0/texture = ExtResource( 12 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 48 )
@@ -49,7 +51,7 @@
 
 [sub_resource type="TileSet" id=185]
 0/name = "Mountain_Tileset_Retooling.png 0"
-0/texture = ExtResource( 12 )
+0/texture = ExtResource( 13 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 128, 128 )
@@ -67,7 +69,7 @@
 
 [sub_resource type="TileSet" id=186]
 0/name = "stone_bounds.png 0"
-0/texture = ExtResource( 13 )
+0/texture = ExtResource( 14 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 32, 32 )
@@ -148,7 +150,7 @@ points = PoolVector2Array( 0, 4, 4, 6, 12, 6, 16, 4, 16, 8, 0, 8 )
 
 [sub_resource type="TileSet" id=208]
 0/name = "mountain_bounds.png 0"
-0/texture = ExtResource( 14 )
+0/texture = ExtResource( 15 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 80, 80 )
@@ -292,7 +294,7 @@ points = PoolVector2Array( 0, 4, 4, 6, 12, 6, 16, 4, 16, 8, 0, 8 )
 
 [sub_resource type="TileSet" id=209]
 0/name = "Mountain_Tileset_Retooling.png 0"
-0/texture = ExtResource( 12 )
+0/texture = ExtResource( 13 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 112, 96 )
@@ -406,7 +408,7 @@ points = PoolVector2Array( 4, 16, 0, 0, 8, 0, 8, 16 )
 
 [sub_resource type="TileSet" id=242]
 0/name = "lower_walls.png 0"
-0/texture = ExtResource( 15 )
+0/texture = ExtResource( 16 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 144, 112 )
@@ -712,7 +714,7 @@ points = PoolVector2Array( 16, 8, 4, 8, 4, 16, 0, 16, 0, 4, 16, 4 )
 
 [sub_resource type="TileSet" id=275]
 0/name = "shelf_bounds.png 0"
-0/texture = ExtResource( 16 )
+0/texture = ExtResource( 17 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 112, 96 )
@@ -1018,7 +1020,7 @@ points = PoolVector2Array( 4, 16, 0, 0, 8, 0, 8, 16 )
 
 [sub_resource type="TileSet" id=308]
 0/name = "lower_walls.png 0"
-0/texture = ExtResource( 15 )
+0/texture = ExtResource( 16 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 112, 96 )
@@ -1327,7 +1329,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 12, 12, 12, 12, 4, 16, 4 )
 
 [sub_resource type="TileSet" id=342]
 0/name = "bottom_bounds.png 0"
-0/texture = ExtResource( 17 )
+0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 112, 80 )
@@ -1543,7 +1545,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 12, 12, 12, 12, 4, 16, 4 )
 
 [sub_resource type="TileSet" id=343]
 0/name = "Sand_Tile.png 0"
-0/texture = ExtResource( 18 )
+0/texture = ExtResource( 19 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -1603,7 +1605,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 
 [sub_resource type="TileSet" id=359]
 0/name = "Edge_Walls.png 0"
-0/texture = ExtResource( 25 )
+0/texture = ExtResource( 26 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 128, 128 )
@@ -1711,7 +1713,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 
 [sub_resource type="TileSet" id=360]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 26 )
+0/texture = ExtResource( 27 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -1730,7 +1732,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 12, 12, 16, 0, 16 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "2x2 Grass-Dirt Bitmap.png 1"
-1/texture = ExtResource( 26 )
+1/texture = ExtResource( 27 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 48, 16, 16 )
@@ -1783,7 +1785,7 @@ script = ExtResource( 1 )
 position = Vector2( 39.2926, 26.0062 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 146.01, 337.249 )
+position = Vector2( 121.18, 313.726 )
 z_index = 220
 collision_layer = 9
 
@@ -1814,6 +1816,8 @@ margin_left = 6.0
 margin_top = 5.0
 margin_right = -28.0
 margin_bottom = -64.0
+
+[node name="GUI" parent="dialogue" instance=ExtResource( 11 )]
 
 [node name="mountain_floor" type="TileMap" parent="."]
 z_index = 190
@@ -1857,16 +1861,6 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 786436, 0, 0, 786437, 0, 65536, 786438, 0, 65536, 786439, 0, 65536, 786440, 0, 65536, 786441, 0, 131072, 851972, 0, 65540, 851977, 0, 4, 983050, 0, 65536, 983051, 0, 65536, 983052, 0, 131072, 1048588, 0, 4 )
 
-[node name="shelf_forms" type="TileMap" parent="."]
-visible = false
-z_index = 130
-tile_set = SubResource( 242 )
-cell_size = Vector2( 16, 16 )
-collision_layer = 0
-collision_mask = 0
-format = 1
-tile_data = PoolIntArray( 0, 196608, 0, 1, 1507339, 0, 4, 1441804, 0, 6, 1572878, 0, 65536, 1310732, 0, 65542, 1507341, 0, 196609, 1572874, 0, 196611, 1376269, 0, 851972, 0, 327685, 851973, 0, 131078, 851974, 0, 131078, 851975, 0, 131078, 851976, 0, 131078, 851977, 0, 327686, 851978, 0, 65542, 917505, 0, 131072, 917506, 0, 262144, 917507, 0, 65542, 917508, 0, 327683, 917513, 0, 327684, 983042, 0, 65537, 983043, 0, 65542, 983044, 0, 65539, 983049, 0, 262149, 1048578, 0, 65537, 1048579, 0, 65542, 1048580, 0, 65539, 1048586, 0, 131078, 1048587, 0, 131078, 1048588, 0, 327686, 1048589, 0, 65542, 1048590, 0, 131073, 1114114, 0, 65537, 1114115, 0, 65542, 1114116, 0, 65539, 1114124, 0, 327684, 1114125, 0, 65542, 1114126, 0, 196609, 1179650, 0, 65537, 1179651, 0, 65542, 1179652, 0, 65539, 1179660, 0, 196611, 1179661, 0, 65542, 1179662, 0, 196609, 1245186, 0, 65537, 1245187, 0, 65542, 1245188, 0, 65539, 1245196, 0, 196611, 1245197, 0, 65542, 1245198, 0, 196609, 1310722, 0, 65537, 1310723, 0, 65542, 1310724, 0, 65539, 1310732, 0, 196611, 1310733, 0, 65542, 1310734, 0, 196609, 1376258, 0, 65537, 1376259, 0, 65542, 1376260, 0, 65539, 1376268, 0, 196611, 1376269, 0, 65542, 1376270, 0, 196609, 1441794, 0, 65537, 1441795, 0, 65542, 1441796, 0, 65538, 1441797, 0, 4, 1441798, 0, 4, 1441802, 0, 65540, 1441803, 0, 327682, 1441804, 0, 196610, 1441805, 0, 65542, 1441806, 0, 196609, 1507330, 0, 65537, 1507331, 0, 65542, 1507332, 0, 65542, 1507333, 0, 65542, 1507334, 0, 65542, 1507335, 0, 131073, 1507338, 0, 1, 1507339, 0, 65542, 1507340, 0, 65542, 1507341, 0, 65542, 1507342, 0, 196609, 1572866, 0, 131072, 1572867, 0, 6, 1572868, 0, 262150, 1572869, 0, 6, 1572870, 0, 327681, 1572871, 0, 196608, 1572874, 0, 131072, 1572875, 0, 327681, 1572876, 0, 262150, 1572877, 0, 393216, 1572878, 0, 196608 )
-
 [node name="shelf_forms2" type="TileMap" parent="."]
 z_index = 130
 tile_set = SubResource( 242 )
@@ -1883,16 +1877,6 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 0, 65537, 0, 65537, 0, 0, 1572867, 0, 65537, 1572869, 0, 65537 )
 
-[node name="shelf_collisions" type="TileMap" parent="."]
-visible = false
-z_index = 4096
-tile_set = SubResource( 275 )
-cell_size = Vector2( 16, 16 )
-collision_layer = 0
-collision_mask = 0
-format = 1
-tile_data = PoolIntArray( 786433, 0, 65541, 786434, 0, 65536, 786435, 0, 65536, 786436, 0, 65536, 786437, 0, 65536, 786438, 0, 65536, 786439, 0, 65536, 786440, 0, 65536, 786441, 0, 65536, 786442, 0, 65536, 786443, 0, 5, 851969, 0, 65537, 851972, 0, 131075, 851973, 0, 65536, 851974, 0, 65536, 851975, 0, 65536, 851976, 0, 65536, 851977, 0, 196611, 851979, 0, 196609, 917505, 0, 131072, 917506, 0, 262144, 917508, 0, 4, 917513, 0, 65540, 917515, 0, 196609, 983042, 0, 65537, 983044, 0, 196609, 983049, 0, 65537, 983051, 0, 65538, 983052, 0, 65536, 983053, 0, 65536, 983054, 0, 5, 1048578, 0, 65537, 1048580, 0, 196609, 1048585, 0, 131077, 1048586, 0, 65536, 1048587, 0, 65536, 1048588, 0, 196611, 1048590, 0, 196609, 1114114, 0, 65537, 1114116, 0, 196609, 1114124, 0, 65540, 1114126, 0, 196609, 1179650, 0, 65537, 1179660, 0, 65537, 1179662, 0, 196609, 1245186, 0, 65537, 1245188, 0, 196609, 1245196, 0, 65537, 1245198, 0, 196609, 1310724, 0, 196609, 1310732, 0, 65537, 1310734, 0, 196609, 1376258, 0, 65537, 1376260, 0, 196609, 1376270, 0, 196609, 1441794, 0, 65537, 1441796, 0, 65538, 1441797, 0, 65536, 1441798, 0, 65536, 1441799, 0, 5, 1441802, 0, 65541, 1441804, 0, 196610, 1507330, 0, 65537, 1507335, 0, 196609, 1507338, 0, 65537, 1507342, 0, 196609, 1572866, 0, 131072, 1572867, 0, 6, 1572869, 0, 65542, 1572870, 0, 262148, 1572871, 0, 196608, 1572874, 0, 131072, 1572875, 0, 6, 1572877, 0, 65542, 1572878, 0, 196608 )
-
 [node name="shelf_collisions2" type="TileMap" parent="."]
 visible = false
 z_index = 4096
@@ -1902,16 +1886,6 @@ collision_layer = 0
 collision_mask = 4
 format = 1
 tile_data = PoolIntArray( 851969, 0, 65537, 851972, 0, 131075, 851973, 0, 65536, 851974, 0, 65536, 851975, 0, 65536, 851976, 0, 65536, 851977, 0, 196611, 851979, 0, 196609, 917505, 0, 131072, 917506, 0, 262144, 917508, 0, 4, 917513, 0, 65540, 917515, 0, 196609, 983042, 0, 65537, 983044, 0, 196609, 983049, 0, 65537, 983051, 0, 65538, 983052, 0, 65536, 983053, 0, 65536, 983054, 0, 5, 1048578, 0, 65537, 1048580, 0, 196609, 1048585, 0, 131077, 1048586, 0, 65536, 1048587, 0, 65536, 1048588, 0, 196611, 1048590, 0, 196609, 1114114, 0, 65537, 1114116, 0, 196609, 1114124, 0, 65540, 1114126, 0, 196609, 1179650, 0, 65537, 1179660, 0, 65537, 1179662, 0, 196609, 1245186, 0, 65537, 1245188, 0, 196609, 1245196, 0, 65537, 1245198, 0, 196609, 1310724, 0, 196609, 1310732, 0, 65537, 1310734, 0, 196609, 1376258, 0, 65537, 1376260, 0, 196609, 1376270, 0, 196609, 1441794, 0, 65537, 1441796, 0, 65538, 1441797, 0, 65536, 1441798, 0, 65536, 1441799, 0, 5, 1441802, 0, 65541, 1441804, 0, 196610, 1507330, 0, 65537, 1507335, 0, 196609, 1507338, 0, 65537, 1507342, 0, 196609, 1572866, 0, 131072, 1572867, 0, 6, 1572869, 0, 65542, 1572870, 0, 262148, 1572871, 0, 196608, 1572874, 0, 131072, 1572875, 0, 6, 1572877, 0, 65542, 1572878, 0, 196608 )
-
-[node name="shelf_pass" type="TileMap" parent="."]
-visible = false
-z_index = 170
-tile_set = SubResource( 308 )
-cell_size = Vector2( 16, 16 )
-collision_layer = 0
-collision_mask = 0
-format = 1
-tile_data = PoolIntArray( 0, 196608, 0, 1, 1507339, 0, 4, 1441804, 0, 6, 1572878, 0, 65536, 1310732, 0, 65542, 1507341, 0, 196609, 1572874, 0, 196611, 1376269, 0, 786433, 0, 0, 786434, 0, 131078, 786435, 0, 131078, 786436, 0, 131078, 786437, 0, 131078, 786438, 0, 131078, 786439, 0, 131078, 786440, 0, 131078, 786441, 0, 131078, 786442, 0, 131078, 786443, 0, 65536, 851969, 0, 1, 851970, 0, 65542, 851971, 0, 65542, 851972, 0, 65542, 851973, 0, 65542, 851974, 0, 65542, 851975, 0, 65542, 851976, 0, 65542, 851977, 0, 65542, 851978, 0, 65542, 851979, 0, 131073, 917509, 0, 196614, 917510, 0, 196614, 917511, 0, 196614, 917512, 0, 196614, 917514, 0, 65542, 917515, 0, 196609, 983050, 0, 65542, 983051, 0, 5, 983052, 0, 131078, 983053, 0, 131078, 983054, 0, 65536, 1048585, 0, 196611, 1048586, 0, 65542, 1048587, 0, 65542, 1048588, 0, 65542, 1048589, 0, 65542, 1048590, 0, 131073, 1114122, 0, 196614, 1114123, 0, 196614 )
 
 [node name="shelf_pass2" type="TileMap" parent="."]
 z_index = 170
@@ -1966,14 +1940,14 @@ editor/display_folded = true
 visible = false
 position = Vector2( 135.95, 369.811 )
 z_index = 4096
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 aboveheight = 3
 abovez = 220
 belowheight = 1
 belowz = 150
 
 [node name="Sprite" type="Sprite" parent="mtn - grnd 1"]
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 
 [node name="Area2D" type="Area2D" parent="mtn - grnd 1"]
 editor/display_folded = true
@@ -1988,21 +1962,21 @@ editor/display_folded = true
 visible = false
 position = Vector2( 72.0847, 393.34 )
 z_index = 4096
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 aboveheight = 2
 abovez = 180
 belowheight = 1
 belowz = 150
 
 [node name="Sprite" type="Sprite" parent="shlf - grnd 1"]
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 
 [node name="Area2D" type="Area2D" parent="shlf - grnd 1"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shlf - grnd 1/Area2D"]
 shape = SubResource( 368 )
 
-[node name="shlf - grnd 2" parent="." instance=ExtResource( 21 )]
+[node name="shlf - grnd 2" parent="." instance=ExtResource( 22 )]
 visible = false
 position = Vector2( 199.815, 393.606 )
 z_index = 4096
@@ -2011,19 +1985,19 @@ abovez = 180
 belowheight = 1
 belowz = 150
 
-[node name="shlf - grnd side 1" parent="." instance=ExtResource( 22 )]
+[node name="shlf - grnd side 1" parent="." instance=ExtResource( 23 )]
 visible = false
 
-[node name="shlf - grnd side 2" parent="." instance=ExtResource( 22 )]
+[node name="shlf - grnd side 2" parent="." instance=ExtResource( 23 )]
 visible = false
 position = Vector2( 42.953, 328.444 )
 aboveisleft = false
 
-[node name="grnd -shelf back" parent="." instance=ExtResource( 23 )]
+[node name="grnd -shelf back" parent="." instance=ExtResource( 24 )]
 visible = false
 position = Vector2( 104.069, 206.555 )
 
-[node name="mtn - shlf 1" parent="." instance=ExtResource( 21 )]
+[node name="mtn - shlf 1" parent="." instance=ExtResource( 22 )]
 visible = false
 position = Vector2( 184.058, 361.741 )
 z_index = 4096
@@ -2032,18 +2006,18 @@ abovez = 220
 belowheight = 2
 belowz = 180
 
-[node name="mtn - shlf side 1" parent="." instance=ExtResource( 24 )]
+[node name="mtn - shlf side 1" parent="." instance=ExtResource( 25 )]
 visible = false
 position = Vector2( 200.149, 343.969 )
 isvertical = false
 
-[node name="mtn - shlf side 2" parent="." instance=ExtResource( 24 )]
+[node name="mtn - shlf side 2" parent="." instance=ExtResource( 25 )]
 visible = false
 position = Vector2( 72.624, 296.418 )
 isvertical = false
 aboveisleft = false
 
-[node name="mtn - shlf 2" parent="." instance=ExtResource( 21 )]
+[node name="mtn - shlf 2" parent="." instance=ExtResource( 22 )]
 visible = false
 position = Vector2( 87.994, 361.475 )
 z_index = 4096
@@ -2135,7 +2109,7 @@ shape = SubResource( 363 )
 editor/display_folded = true
 position = Vector2( 103.792, 393.914 )
 z_index = 4096
-script = ExtResource( 27 )
+script = ExtResource( 28 )
 aboveheight = 2
 abovez = 180
 belowheight = 1
@@ -2144,7 +2118,7 @@ canhopdown = true
 
 [node name="Sprite" type="Sprite" parent="hop_shelf_both"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both"]
@@ -2168,7 +2142,7 @@ shape = SubResource( 183 )
 editor/display_folded = true
 position = Vector2( 184.088, 394.046 )
 z_index = 4096
-script = ExtResource( 27 )
+script = ExtResource( 28 )
 aboveheight = 2
 abovez = 180
 belowheight = 1
@@ -2177,7 +2151,7 @@ canhopdown = true
 
 [node name="Sprite" type="Sprite" parent="hop_shelf_both2"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both2"]
@@ -2200,7 +2174,7 @@ shape = SubResource( 183 )
 ]]
 position = Vector2( 216, 394.046 )
 z_index = 4096
-script = ExtResource( 27 )
+script = ExtResource( 28 )
 aboveheight = 2
 abovez = 180
 belowheight = 1
@@ -2210,7 +2184,7 @@ canhopdown = true
 
 [node name="Sprite" type="Sprite" parent="hop_shelf_down"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_down"]
@@ -2234,7 +2208,7 @@ shape = SubResource( 183 )
 editor/display_folded = true
 position = Vector2( 103.966, 362.07 )
 z_index = 4096
-script = ExtResource( 27 )
+script = ExtResource( 28 )
 aboveheight = 3
 abovez = 220
 belowheight = 2
@@ -2243,7 +2217,7 @@ canhopdown = true
 
 [node name="Sprite" type="Sprite" parent="hop_mount_both"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_both"]
@@ -2267,7 +2241,7 @@ shape = SubResource( 366 )
 editor/display_folded = true
 position = Vector2( 152, 362 )
 z_index = 4096
-script = ExtResource( 27 )
+script = ExtResource( 28 )
 aboveheight = 3
 abovez = 220
 belowheight = 1
@@ -2277,7 +2251,7 @@ canhopdown = true
 
 [node name="Sprite" type="Sprite" parent="hop_mount_down"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_down"]
@@ -2295,3 +2269,7 @@ position = Vector2( 0, 22.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_down/hopbott"]
 shape = SubResource( 3 )
+
+[node name="stalfos" parent="." instance=ExtResource( 30 )]
+position = Vector2( 94.1148, 336.092 )
+collision_layer = 9

@@ -26,11 +26,6 @@ func _physics_process(delta):
 	var newcamlocation = get_constrained_camera_location()
 	if newcamlocation != null:
 		camera_holder.global_position = newcamlocation
-#	camera.position = movement_arm.position
-#	if has_constraints:
-#		camera.position = get_constrained_camera_location()
-#	else:
-#		camera.position = movement_arm.global_position
 	
 func set_constraints(extents, pos):
 	has_constraints = true
@@ -60,8 +55,6 @@ func get_constrained_camera_location():
 		correction_y = constraint_max.y + cam_extents.y
 	elif cam_min.y > constraint_min.y:
 		correction_y = constraint_min.y - cam_extents.y
-	
-	
 	
 	var unconstrained_position = movement_arm.global_position
 	

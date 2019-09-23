@@ -33,6 +33,7 @@ playback_speed = 4.0
 anims/default = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+z_index = 4096
 texture = ExtResource( 2 )
 flip_h = true
 __meta__ = {

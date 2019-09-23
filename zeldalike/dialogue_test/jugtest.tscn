@@ -125,19 +125,19 @@ anims/tilted = SubResource( 5 )
 [node name="Sprite" type="Sprite" parent="Position2D"]
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 48, 0, 16, 32 )
+region_rect = Rect2( 48, 32, 16, 32 )
 
 [node name="Sprite2" type="Sprite" parent="Position2D"]
 position = Vector2( 16, 0 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 48, 0, 16, 32 )
+region_rect = Rect2( 48, 32, 16, 32 )
 
 [node name="Sprite3" type="Sprite" parent="Position2D"]
 position = Vector2( -16, 0 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 48, 0, 16, 32 )
+region_rect = Rect2( 48, 32, 16, 32 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 0.8

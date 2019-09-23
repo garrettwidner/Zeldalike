@@ -12,7 +12,10 @@ var spritedir : String = "down"
 var hitstun_timer : int = 0
 var hitstun_amount : int = 10
 var knock_strength : float = 1.5
-var health : int = 1
+export var health : int = 50
+export var maxhealth : int = 50
+
+signal health_changed
 
 var wasdamaged = false
 
@@ -60,7 +63,11 @@ func damage_loop():
 		var body = area.get_parent()
 		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE:
 			wasdamaged = true
-			health -= body.get("DAMAGE")
+			var damage = body.get("DAMAGE")
+			health -= damage
+			emit_signal("health_changed", health, damage)
+			print(health)
+			
 			hitstun_timer = hitstun_amount
 			knockdir = global_transform.origin - body.global_transform.origin
 

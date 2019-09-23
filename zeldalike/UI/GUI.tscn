@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/healthbar.tscn" type="PackedScene" id=1]
+
+[node name="GUI" type="MarginContainer"]
+anchor_right = 1.0
+custom_constants/margin_right = 2
+custom_constants/margin_top = 0
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 2.0
+margin_right = 158.0
+
+[node name="bars" type="VBoxContainer" parent="HBoxContainer"]
+
+[node name="healthbar" parent="HBoxContainer/bars" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+
+[node name="counters" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 4.0
+margin_right = 4.0

@@ -324,6 +324,8 @@ extents = Vector2( 1, 1 )
 collision_layer = 3
 collision_mask = 0
 script = ExtResource( 1 )
+health = 9
+maxhealth = 20
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -384,7 +386,6 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="pivot/cameraholder"]
-editor/display_folded = true
 position = Vector2( 8, 0 )
 current = true
 drag_margin_h_enabled = false
