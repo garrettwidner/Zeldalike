@@ -19,16 +19,8 @@ func _ready():
 	connect_player_to_zindexchangers()
 	connect_player_to_hopareas()
 	connect_cameracontroller_to_camareas()
+	connect_player_to_sun_areas()
 
-func connect_cameracontroller_to_camareas():
-	cameracontroller = get_node("player/cameracontroller")
-	var camareas = get_tree().get_nodes_in_group("camarea")
-	for i in range(camareas.size()):
-		var currentnode = get_node(camareas[i].get_path())
-		var args = Array([currentnode])
-		currentnode.connect("body_entered", cameracontroller, "_on_Area2D_body_entered", args)
-		currentnode.connect("body_exited", cameracontroller, "_on_Area2D_body_exited", args)
-	
 func connect_player_to_interactibles():
 	player = get_node("player")
 	var interactibles = get_tree().get_nodes_in_group("interactible")
@@ -86,3 +78,21 @@ func add_interactible(interactible):
 	area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered",args)
 	area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
 	print("Added interactible as interactible to scene: " + String(interactible.name))
+	
+func connect_cameracontroller_to_camareas():
+	cameracontroller = get_node("player/cameracontroller")
+	var camareas = get_tree().get_nodes_in_group("camarea")
+	for i in range(camareas.size()):
+		var currentnode = get_node(camareas[i].get_path())
+		var args = Array([currentnode])
+		currentnode.connect("body_entered", cameracontroller, "_on_Area2D_body_entered", args)
+		currentnode.connect("body_exited", cameracontroller, "_on_Area2D_body_exited", args)
+
+func connect_player_to_sun_areas():
+	player = get_node("player")
+	var sun_areas = get_tree().get_nodes_in_group("sun_area")
+	for i in range(sun_areas.size()):
+		var currentnode = get_node(sun_areas[i].get_path())
+		var args = Array([currentnode])
+		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
+		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)

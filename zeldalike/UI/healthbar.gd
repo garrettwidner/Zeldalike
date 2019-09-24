@@ -6,6 +6,7 @@ onready var tween = $updatetween
 
 var player
 
+
 export (Color) var healthy_color = Color.green
 export (Color) var caution_color = Color.yellow
 export (Color) var danger_color = Color.red
@@ -19,13 +20,15 @@ func _ready():
 	health_bar.max_value = player.maxhealth
 	health_under.value = player.health
 	health_under.max_value = player.maxhealth
+	
+	
 
 
 func _on_health_updated(health, change):
 	print("health bar took " + String(change) + " damage.")
 	health_bar.value = health
 	
-	tween.interpolate_property(health_under, "value", health_bar.value, health, 0.4, Tween.TRANS_SINE, Tween.EASE_OUT, 0.4)
+	tween.interpolate_property(health_under, "value", health_bar.value, health, 0.2, Tween.TRANS_SINE, Tween.EASE_OUT, 0.2)
 	tween.start()
 	
 	_assign_color(health)

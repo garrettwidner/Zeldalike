@@ -34,6 +34,10 @@ var hopdownleeway = 2.5
 var landingtime = .2
 var landingtimer = 0
 
+var sun_area
+var is_in_sun_area = false
+var damage_hold = 0
+var sun_damage_increment = .25
 
 var staticdir
 
@@ -55,31 +59,32 @@ func _ready():
 func _process(delta):
 	match state:
 		"default":
-			state_default()
+			state_default(delta)
 		"swing":
-			state_swing()
+			state_swing(delta)
 		"listen":
-			state_listen()
+			state_listen(delta)
 		"block":
-			state_block()
+			state_block(delta)
 		"cling":
-			state_cling()
+			state_cling(delta)
 		"uptransition":
-			state_uptransition()
+			state_uptransition(delta)
 		"downtransition":
-			state_downtransition()
+			state_downtransition(delta)
 		"landing":
 			state_landing(delta)
 
 func dialogue_finished():
 	set_state_default()
 	
-func state_default():
+func state_default(delta):
 	set_speed()
 	set_movedir()
 	set_facedir()
 	set_spritedir()
 	damage_loop()
+	sun_damage_loop(delta)
 	
 	if movedir != Vector2(0,0):
 		switch_anim("walk")
@@ -117,14 +122,14 @@ func state_default():
 	
 	movement_loop()
 
-func state_swing():
+func state_swing(delta):
 	switch_anim("attack")
 	damage_loop()
 	
-func state_listen():
+func state_listen(delta):
 	switch_anim("idle")
 	
-func state_block():
+func state_block(delta):
 	if movedir != Vector2(0,0):
 		switch_anim_static("walk")
 	else:
@@ -138,7 +143,7 @@ func state_block():
 	if Input.is_action_just_released("x"):
 		set_state_default()
 
-func state_cling():
+func state_cling(delta):
 	switch_anim("cling")
 	if Input.is_action_just_pressed("b"):
 		switch_anim("pullupstart")
@@ -161,7 +166,7 @@ func add_sprinkle():
 		
 	self.get_parent().add_child(sprinkle)
 
-func state_uptransition():
+func state_uptransition(delta):
 	if ishoppingtocling:
 		continue_ledge_hop()
 	elif ispullingup:
@@ -179,7 +184,7 @@ func state_uptransition():
 				start_ledge_pullup()
 	pass
 	
-func state_downtransition():
+func state_downtransition(delta):
 	if !isinjumpdowncycle:
 		damage_loop()
 		if wasdamaged:
@@ -314,6 +319,35 @@ func set_facedir():
 			istrackingenemy = false
 			.set_facedir()
 			
+func sun_damage_loop(delta):
+	if !is_in_sun_area:
+		return
+	
+	var damage_done = sun_area.get_damage()
+	var damage = damage_done * delta
+	damage_hold += damage
+	print(damage_hold)
+	
+	if damage_hold >= sun_damage_increment:
+		damage_hold = sun_damage_increment
+	
+		wasdamaged = true
+		health -= damage_hold
+		print("Health is now: " + String(health))
+		emit_signal("health_changed", health, damage)
+		damage_hold = 0
+		
+	
+	
+#	print(delta)
+#	print(damage)
+	
+#	wasdamaged = true
+#	health -= damage
+#	emit_signal("health_changed", health, damage)
+	
+	pass
+			
 func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
@@ -326,6 +360,10 @@ func _on_Area2D_body_entered(body, obj):
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = true
 			hoparea = obj
+		elif obj.is_in_group("sun_area"):
+			sun_area = obj
+			is_in_sun_area = true
+			damage_hold = 0
 		
 
 func _on_Area2D_body_exited(body, obj):
@@ -358,6 +396,9 @@ func _on_Area2D_body_exited(body, obj):
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = false
 			hoparea = null
+		elif obj.is_in_group("sun_area"):
+			is_in_sun_area = false
+			sun_area = null
 
 func change_elevation(heightchanger):
 	var newheight 

@@ -12,8 +12,8 @@ var spritedir : String = "down"
 var hitstun_timer : int = 0
 var hitstun_amount : int = 10
 var knock_strength : float = 1.5
-export var health : int = 50
-export var maxhealth : int = 50
+export var health : float = 3
+export var maxhealth : float = 3
 
 signal health_changed
 

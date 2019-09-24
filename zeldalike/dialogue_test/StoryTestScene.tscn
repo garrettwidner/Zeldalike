@@ -1,4 +1,4 @@
-[gd_scene load_steps=221 format=2]
+[gd_scene load_steps=224 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
@@ -30,6 +30,8 @@
 [ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=28]
 [ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=29]
 [ext_resource path="res://enemies/stalfos.tscn" type="PackedScene" id=30]
+[ext_resource path="res://objects/sun_area.gd" type="Script" id=31]
+[ext_resource path="res://objects/sun_crystal.tscn" type="PackedScene" id=32]
 
 [sub_resource type="TileSet" id=184]
 0/name = "toplevel_sand_fill.png 0"
@@ -1778,6 +1780,9 @@ extents = Vector2( 8, 0.5 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 0.5 )
 
+[sub_resource type="RectangleShape2D" id=369]
+extents = Vector2( 30, 30 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -1788,6 +1793,7 @@ position = Vector2( 39.2926, 26.0062 )
 position = Vector2( 121.18, 313.726 )
 z_index = 220
 collision_layer = 9
+health = 50.0
 
 [node name="floodgate" parent="." instance=ExtResource( 4 )]
 position = Vector2( 39.2926, 10.0062 )
@@ -2273,3 +2279,20 @@ shape = SubResource( 3 )
 [node name="stalfos" parent="." instance=ExtResource( 30 )]
 position = Vector2( 94.1148, 336.092 )
 collision_layer = 9
+
+[node name="sun_area" type="Area2D" parent="." groups=[
+"sun_area",
+]]
+position = Vector2( 112.704, 239.581 )
+z_index = 220
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 31 )
+reduction_per_mute = 0.075
+base_damage = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sun_area"]
+shape = SubResource( 369 )
+
+[node name="sun_crystal" parent="sun_area" instance=ExtResource( 32 )]
+position = Vector2( -11.603, 4.32486 )
