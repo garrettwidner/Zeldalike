@@ -306,16 +306,17 @@ func set_movedir():
 		movedir.y = 0
 
 func set_facedir():
-	var closestdistance = 0
-	for body in $sightbox.get_overlapping_bodies():
-		if body.get("TYPE") == "ENEMY":
-			
-			istrackingenemy = true
-			var directiontowards : Vector2 = body.transform.origin - transform.origin
-			facedir = dir.closest_cardinal(directiontowards)
-		else:
-			istrackingenemy = false
-			.set_facedir()
+#	var closestdistance = 0
+#	for body in $sightbox.get_overlapping_bodies():
+#		if body.get("TYPE") == "ENEMY":
+#
+#			istrackingenemy = true
+#			var directiontowards : Vector2 = body.transform.origin - transform.origin
+#			facedir = dir.closest_cardinal(directiontowards)
+#		else:
+#			istrackingenemy = false
+#			.set_facedir()
+	.set_facedir()
 			
 func sun_damage_loop(delta):
 	if !is_in_sun_area:
