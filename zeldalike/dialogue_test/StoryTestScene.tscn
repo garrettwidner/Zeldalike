@@ -2277,7 +2277,11 @@ position = Vector2( 0, 22.4 )
 shape = SubResource( 3 )
 
 [node name="stalfos" parent="." instance=ExtResource( 30 )]
-position = Vector2( 94.1148, 336.092 )
+position = Vector2( 121.627, 224.234 )
+collision_layer = 9
+
+[node name="stalfos2" parent="." instance=ExtResource( 30 )]
+position = Vector2( 177.375, 277.448 )
 collision_layer = 9
 
 [node name="sun_area" type="Area2D" parent="." groups=[

@@ -20,17 +20,18 @@ func _ready():
 	health_bar.max_value = player.maxhealth
 	health_under.value = player.health
 	health_under.max_value = player.maxhealth
+	_assign_color(player.health)
+	
+	#connects tween_completed on tween object with _on_tween_completed on self.
+#	tween.connect("tween_completed", self, "_on_tween_completed")
 	
 	
 
 
 func _on_health_updated(health, change):
-	print("health bar took " + String(change) + " damage.")
 	health_bar.value = health
-	
-	tween.interpolate_property(health_under, "value", health_bar.value, health, 0.2, Tween.TRANS_SINE, Tween.EASE_OUT, 0.2)
+	tween.interpolate_property(health_under, "value", health_bar.value, health, 0.2 , Tween.TRANS_SINE, Tween.EASE_OUT, 0.2)
 	tween.start()
-	
 	_assign_color(health)
 	
 func on_max_health_updated(max_health):

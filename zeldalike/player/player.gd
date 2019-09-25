@@ -36,8 +36,6 @@ var landingtimer = 0
 
 var sun_area
 var is_in_sun_area = false
-var damage_hold = 0
-var sun_damage_increment = .25
 
 var staticdir
 
@@ -323,28 +321,12 @@ func sun_damage_loop(delta):
 	if !is_in_sun_area:
 		return
 	
+	
 	var damage_done = sun_area.get_damage()
 	var damage = damage_done * delta
-	damage_hold += damage
-	print(damage_hold)
-	
-	if damage_hold >= sun_damage_increment:
-		damage_hold = sun_damage_increment
-	
-		wasdamaged = true
-		health -= damage_hold
-		print("Health is now: " + String(health))
-		emit_signal("health_changed", health, damage)
-		damage_hold = 0
-		
-	
-	
-#	print(delta)
-#	print(damage)
-	
-#	wasdamaged = true
-#	health -= damage
-#	emit_signal("health_changed", health, damage)
+	wasdamaged = true
+	health -= damage
+	emit_signal("health_changed", health, damage)
 	
 	pass
 			
@@ -363,7 +345,6 @@ func _on_Area2D_body_entered(body, obj):
 		elif obj.is_in_group("sun_area"):
 			sun_area = obj
 			is_in_sun_area = true
-			damage_hold = 0
 		
 
 func _on_Area2D_body_exited(body, obj):
