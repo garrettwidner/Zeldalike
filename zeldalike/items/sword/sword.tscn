@@ -42,6 +42,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 9 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "swingleft"
@@ -109,9 +121,9 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "swingright"
-length = 0.4
+length = 1.2
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:z_index")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -119,35 +131,35 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 10, 3 ) ]
+"update": 1,
+"values": [ 1 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 0
+tracks/1/path = NodePath("Sprite:visible")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 90.0 ]
+"update": 1,
+"values": [ true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath(".:z_index")
-tracks/2/interp = 0
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 6, 7, 8, 9, 10, 11 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:visible")
+tracks/3/path = NodePath(".:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -155,20 +167,8 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite:flip_h")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ Vector2( 10, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -239,7 +239,7 @@ tracks/4/keys = {
 extents = Vector2( 2, 6 )
 
 [node name="sword" type="Node2D"]
-position = Vector2( 0, 10 )
+position = Vector2( 11, 1 )
 z_index = 1
 script = ExtResource( 1 )
 
@@ -251,9 +251,11 @@ anims/swingright = SubResource( 3 )
 anims/swingup = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
+frame = 6
 __meta__ = {
 "_edit_lock_": true
 }
