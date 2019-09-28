@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
-[ext_resource path="res://player/Iodan.png" type="Texture" id=2]
+[ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=3]
 [ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=4]
 [ext_resource path="res://tiles/Plants.png" type="Texture" id=5]
