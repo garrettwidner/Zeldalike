@@ -29,6 +29,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "attackleft"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -36,10 +37,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15 ]
+"values": [ 54, 55, 56, 57, 58, 59 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -60,6 +61,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "attackup"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -67,10 +69,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 7 ]
+"values": [ 60, 61, 62, 63, 64, 65 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -333,7 +335,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 52
+frame = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )

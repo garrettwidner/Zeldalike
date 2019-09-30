@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://items/sword/sword.gd" type="Script" id=1]
-[ext_resource path="res://items/sword/sword_swipe.png" type="Texture" id=2]
+[ext_resource path="res://items/sword/sword_recalibrator.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "swingdown"
@@ -52,59 +52,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 9 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "swingleft"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -10, 3 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 270.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"values": [ Vector2( 0, 5 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:flip_h")
@@ -116,7 +64,71 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "swingleft"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -6, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
 "values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15, 16, 17 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -168,12 +180,36 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10, 1 ) ]
+"values": [ Vector2( 5, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite:flip_h")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "swingup"
-length = 0.4
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -184,7 +220,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -10 ) ]
+"values": [ Vector2( 0, -7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rotation_degrees")
@@ -199,7 +235,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath(".:z_index")
+tracks/2/path = NodePath("Sprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -208,19 +244,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ -1 ]
+"values": [ true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:visible")
+tracks/3/path = NodePath("Sprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ 18, 19, 20, 21, 22, 23 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:flip_h")
@@ -239,7 +275,7 @@ tracks/4/keys = {
 extents = Vector2( 2, 6 )
 
 [node name="sword" type="Node2D"]
-position = Vector2( 11, 1 )
+position = Vector2( -6, 0 )
 z_index = 1
 script = ExtResource( 1 )
 
@@ -255,7 +291,7 @@ visible = false
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
-frame = 6
+frame = 17
 __meta__ = {
 "_edit_lock_": true
 }
