@@ -26,6 +26,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 42, 43, 44, 45, 46, 47 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("anim:playback_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4.5, 4.0 ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "attackleft"
@@ -41,6 +53,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 54, 55, 56, 57, 58, 59 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("anim:playback_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4.5, 4.0 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -58,6 +82,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 48, 49, 50, 51, 52, 53 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("anim:playback_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4.5, 4.0 ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "attackup"
@@ -73,6 +109,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 60, 61, 62, 63, 64, 65 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("anim:playback_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4.5, 4.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -335,14 +383,14 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 66
+frame = 42
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-playback_speed = 4.0
+playback_speed = 3.0
 anims/attackdown = SubResource( 2 )
 anims/attackleft = SubResource( 3 )
 anims/attackright = SubResource( 4 )
