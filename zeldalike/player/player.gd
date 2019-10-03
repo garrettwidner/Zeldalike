@@ -336,7 +336,7 @@ func _on_Area2D_body_entered(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = true
 			interacttarget = obj
-#			print("Player's current interact target: " + obj.name)
+			print("Player's current interact target: " + obj.name)
 		elif obj.is_in_group("zindexchanger"):
 			if(get_collision_layer_bit(obj.ground_level)):
 				z_index = obj.player_z_index
@@ -353,7 +353,7 @@ func _on_Area2D_body_exited(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = false
 			interacttarget = null
-#			print("Player no longer has a target for interaction")
+			print("Player no longer has a target for interaction")
 		elif obj.is_in_group("heightchanger"):
 			# if you're above the object and your collision layer matches the object's below or vice-versa
 			if(obj.isvertical && 

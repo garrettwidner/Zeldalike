@@ -1790,9 +1790,8 @@ script = ExtResource( 1 )
 position = Vector2( 39.2926, 26.0062 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 121.18, 313.726 )
+position = Vector2( 35.4027, 167.504 )
 z_index = 220
-collision_layer = 9
 health = 50.0
 
 [node name="floodgate" parent="." instance=ExtResource( 4 )]
