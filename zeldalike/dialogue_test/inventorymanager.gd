@@ -5,7 +5,7 @@ var item_notification_panel
 var item_notification_text
 
 func _ready():
-	inventory = load_file_as_JSON("res://dialogue/story/inventory.json")
+	inventory = load_file_as_JSON("res://dialogue/data/inventory.json")
 	
 	item_notification_panel = get_node("../dialogue/item_notification/Panel")
 	item_notification_text = get_node("../dialogue/item_notification/Panel/MarginContainer/Label")

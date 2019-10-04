@@ -23,10 +23,13 @@ var inventorymanager
 
 func _ready():
 	#TODO: Get inventory_manager to call on whenever a dialogue gives an item
+	var scene_name = get_tree().get_current_scene().scene_name
 	
-	sceneStory = load_file_as_JSON("res://dialogue/story/story_1.json")
-	events = load_file_as_JSON("res://dialogue/story/events.json")
-	experiences = load_file_as_JSON("res://dialogue/story/experiences.json")
+	
+	
+	sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
+	events = load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
+	experiences = load_file_as_JSON("res://dialogue/data/experiences.json")
 	
 	if(typeof(sceneStory) != TYPE_DICTIONARY):
 		print("ERROR: story file has errors")

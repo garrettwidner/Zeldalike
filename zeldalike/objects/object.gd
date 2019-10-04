@@ -8,6 +8,7 @@ func _ready():
 #called just before dialogue commences. Never used to modify items or experiences, only references them
 func update_experiences(experiences, items):
 	pass
+
 #called upon pressing interact button
 func action(inventory):
 	pass

@@ -2,6 +2,7 @@ extends Node2D
 
 var player
 var cameracontroller
+export var scene_name : String = "Level"
 
 enum COLL_LAYER{
 	default = 0,
