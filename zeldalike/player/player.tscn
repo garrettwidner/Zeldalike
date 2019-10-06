@@ -13,7 +13,6 @@ extents = Vector2( 4, 3 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "attackdown"
-length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -21,27 +20,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 42, 43, 44, 45, 46, 47 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("anim:playback_speed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 4.5, 4.0 ]
+"values": [ 42, 44, 45, 47 ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "attackleft"
-length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -49,27 +35,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 54, 55, 56, 57, 58, 59 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("anim:playback_speed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 4.5, 4.0 ]
+"values": [ 54, 56, 57, 59 ]
 }
 
 [sub_resource type="Animation" id=4]
 resource_name = "attackright"
-length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -77,27 +50,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 48, 49, 50, 51, 52, 53 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("anim:playback_speed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 4.5, 4.0 ]
+"values": [ 48, 50, 51, 53 ]
 }
 
 [sub_resource type="Animation" id=5]
 resource_name = "attackup"
-length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -105,22 +65,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 60, 61, 62, 63, 64, 65 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("anim:playback_speed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 4.5, 4.0 ]
+"values": [ 60, 62, 63, 65 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -138,7 +86,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=7]
 resource_name = "hopdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -153,8 +101,7 @@ tracks/0/keys = {
 "values": [ 40 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "hopup"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -168,7 +115,7 @@ tracks/0/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -182,7 +129,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -196,7 +143,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -210,7 +157,7 @@ tracks/0/keys = {
 "values": [ 9 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -224,7 +171,7 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=13]
 resource_name = "landingdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -239,7 +186,7 @@ tracks/0/keys = {
 "values": [ 41 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=14]
 resource_name = "ledgecrouchdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -254,8 +201,7 @@ tracks/0/keys = {
 "values": [ 39 ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "ledgecrouchup"
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -269,8 +215,7 @@ tracks/0/keys = {
 "values": [ 21 ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "pullup"
+[sub_resource type="Animation" id=16]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -284,8 +229,7 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 5 ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "pullupstartup"
+[sub_resource type="Animation" id=17]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -297,54 +241,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 22 ]
-}
-
-[sub_resource type="Animation" id=15]
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 1 ]
-}
-
-[sub_resource type="Animation" id=16]
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 12, 13, 14, 13 ]
-}
-
-[sub_resource type="Animation" id=17]
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 9 ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -360,16 +256,64 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
+"values": [ 0, 1, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 13 ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 9 ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
 "values": [ 4, 5, 6, 5 ]
 }
 
-[sub_resource type="CircleShape2D" id=19]
+[sub_resource type="CircleShape2D" id=22]
 radius = 50.0
 
-[sub_resource type="RectangleShape2D" id=20]
+[sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 7, 7 )
 
-[sub_resource type="RectangleShape2D" id=21]
+[sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 1, 1 )
 
 [node name="player" type="KinematicBody2D"]
@@ -383,34 +327,34 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 42
+frame = 53
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-playback_speed = 3.0
+playback_speed = 3.5
 anims/attackdown = SubResource( 2 )
 anims/attackleft = SubResource( 3 )
 anims/attackright = SubResource( 4 )
 anims/attackup = SubResource( 5 )
 anims/clingup = SubResource( 6 )
-anims/hopdown = SubResource( 23 )
-anims/hopup = SubResource( 7 )
-anims/idledown = SubResource( 8 )
-anims/idleleft = SubResource( 9 )
-anims/idleright = SubResource( 10 )
-anims/idleup = SubResource( 11 )
-anims/landingdown = SubResource( 24 )
-anims/ledgecrouchdown = SubResource( 22 )
-anims/ledgecrouchup = SubResource( 14 )
-anims/pullup = SubResource( 12 )
-anims/pullupstartup = SubResource( 13 )
-anims/walkdown = SubResource( 15 )
-anims/walkleft = SubResource( 16 )
-anims/walkright = SubResource( 17 )
-anims/walkup = SubResource( 18 )
+anims/hopdown = SubResource( 7 )
+anims/hopup = SubResource( 8 )
+anims/idledown = SubResource( 9 )
+anims/idleleft = SubResource( 10 )
+anims/idleright = SubResource( 11 )
+anims/idleup = SubResource( 12 )
+anims/landingdown = SubResource( 13 )
+anims/ledgecrouchdown = SubResource( 14 )
+anims/ledgecrouchup = SubResource( 15 )
+anims/pullup = SubResource( 16 )
+anims/pullupstartup = SubResource( 17 )
+anims/walkdown = SubResource( 18 )
+anims/walkleft = SubResource( 19 )
+anims/walkright = SubResource( 20 )
+anims/walkup = SubResource( 21 )
 
 [node name="footanim" type="AnimationPlayer" parent="."]
 
@@ -418,12 +362,12 @@ anims/walkup = SubResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sightbox"]
 visible = false
-shape = SubResource( 19 )
+shape = SubResource( 22 )
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 20 )
+shape = SubResource( 23 )
 
 [node name="pivot" type="Position2D" parent="."]
 script = ExtResource( 3 )
@@ -478,6 +422,6 @@ script = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hopchecker"]
 position = Vector2( 0, -16 )
-shape = SubResource( 21 )
+shape = SubResource( 24 )
 
 [node name="Tester" type="Sprite" parent="."]
