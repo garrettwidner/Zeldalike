@@ -331,11 +331,10 @@ anims/swingright = SubResource( 3 )
 anims/swingup = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
-frame = 23
+frame = 18
 __meta__ = {
 "_edit_lock_": true
 }

@@ -1789,7 +1789,7 @@ scene_name = "StoryTestScene"
 position = Vector2( 39.2926, 26.0062 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 35.4027, 167.504 )
+position = Vector2( 108.258, 296.553 )
 z_index = 220
 health = 50.0
 

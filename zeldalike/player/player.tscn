@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://tiles/Plants.png" type="Texture" id=5]
 [ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=6]
 [ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=7]
+[ext_resource path="res://player/heat_lines.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 3 )
@@ -316,8 +317,25 @@ extents = Vector2( 7, 7 )
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 1, 1 )
 
+[sub_resource type="Animation" id=25]
+resource_name = "heat"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
 [node name="player" type="KinematicBody2D"]
-collision_layer = 3
+collision_layer = 9
 collision_mask = 0
 script = ExtResource( 1 )
 health = 25.0
@@ -425,3 +443,15 @@ position = Vector2( 0, -16 )
 shape = SubResource( 24 )
 
 [node name="Tester" type="Sprite" parent="."]
+
+[node name="heat_lines" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.462745 )
+position = Vector2( 0, -11 )
+texture = ExtResource( 8 )
+hframes = 3
+frame = 2
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="anim" type="AnimationPlayer" parent="heat_lines"]
+anims/heat = SubResource( 25 )

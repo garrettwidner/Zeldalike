@@ -36,6 +36,9 @@ var landingtimer = 0
 
 var sun_area
 var is_in_sun_area = false
+onready var heat_lines = get_node("heat_lines")
+signal on_entered_sun_area
+signal on_exited_sun_area
 
 var staticdir
 
@@ -47,7 +50,9 @@ func _ready():
 	dialogueparser = get_node("../dialogue_parser")
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
+	emit_signal("on_exited_sun_area")
 	
+	heat_lines.get_node("anim").play("heat")
 #	print("Player position:")
 #	print(global_position)
 	
@@ -322,7 +327,6 @@ func sun_damage_loop(delta):
 	if !is_in_sun_area:
 		return
 	
-	
 	var damage_done = sun_area.get_damage()
 	var damage = damage_done * delta
 	wasdamaged = true
@@ -346,6 +350,9 @@ func _on_Area2D_body_entered(body, obj):
 		elif obj.is_in_group("sun_area"):
 			sun_area = obj
 			is_in_sun_area = true
+			heat_lines.visible = true
+			emit_signal("on_entered_sun_area")
+			
 		
 
 func _on_Area2D_body_exited(body, obj):
@@ -380,7 +387,9 @@ func _on_Area2D_body_exited(body, obj):
 			hoparea = null
 		elif obj.is_in_group("sun_area"):
 			is_in_sun_area = false
+			heat_lines.visible = false
 			sun_area = null
+			emit_signal("on_exited_sun_area")
 
 func change_elevation(heightchanger):
 	var newheight 
