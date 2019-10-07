@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=6]
 [ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=7]
 [ext_resource path="res://player/heat_lines.png" type="Texture" id=8]
+[ext_resource path="res://player/heat_lines.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 3 )
@@ -445,13 +446,13 @@ shape = SubResource( 24 )
 [node name="Tester" type="Sprite" parent="."]
 
 [node name="heat_lines" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
 texture = ExtResource( 8 )
 hframes = 3
 frame = 2
 region_rect = Rect2( 0, 0, 16, 16 )
+script = ExtResource( 9 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 25 )

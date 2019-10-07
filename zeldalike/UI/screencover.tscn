@@ -4,7 +4,7 @@
 [ext_resource path="res://UI/screencover.gd" type="Script" id=2]
 
 [node name="screencover" type="Sprite"]
-modulate = Color( 1, 1, 1, 0.160784 )
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -40, -40 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 1 )

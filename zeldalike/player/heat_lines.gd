@@ -1,7 +1,8 @@
 extends Sprite
 
-var brightopacity = .3
-var normalopacity = 0
+var invisible_alpha = 0.0
+var visible_alpha = 0.4
+
 
 var transitionstart : float = 0
 var transitionend : float = 0
@@ -14,15 +15,15 @@ var player
 
 func _ready():
 	player = get_node("/root/Level/player")
-	player.connect("on_entered_sun_area", self, "increase_brightness")
-	player.connect("on_exited_sun_area", self, "decrease_brightness")
+	player.connect("on_entered_sun_area", self, "appear")
+	player.connect("on_exited_sun_area", self, "disappear")
+	get_node("anim").play("heat")
 	visible = true
 	modulate.a = 0
-
+	
 func _process(delta):
 	if istransitioning:
 		var newmodulate = transitionstart + (transitionend - transitionstart) * transitionweight
-		
 		modulate.a = newmodulate
 		transitionweight += transitionspeed
 		
@@ -32,16 +33,17 @@ func _process(delta):
 		
 	pass
 	
-func increase_brightness():
+func appear():
 	transitionstart = modulate.a
-	transitionend = brightopacity
+	transitionend = visible_alpha
 	transitionweight = 0
 	istransitioning = true
 	pass
 	
-func decrease_brightness():
+func disappear():
 	transitionstart = modulate.a
-	transitionend = normalopacity
+	transitionend = invisible_alpha
 	transitionweight = 0
 	istransitioning = true
 	pass
+	
