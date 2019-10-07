@@ -101,7 +101,7 @@ func state_default(delta):
 			add_sprinkle()
 		
 	if Input.is_action_just_pressed("b"):
-		if isinhoparea && position.y > hoparea.position.y && hoparea.canhopup && facedir == dir.UP:
+		if check_hop_validity():
 			set_state_uptransition()
 			transitionspeed = hopupspeed
 			switch_anim("ledgecrouch")
@@ -121,6 +121,57 @@ func state_default(delta):
 	
 	
 	movement_loop()
+#		if isinhoparea && position.y > hoparea.position.y && hoparea.canhopup && facedir == dir.UP:
+
+func check_hop_validity():
+	var already_hopping = false
+	if isinhoparea:
+		#character is below
+		if position.y > hoparea.position.y:
+			if hoparea.updirection == dir.DOWN:
+				if facedir == dir.UP && hoparea.canhopdown:
+					print("can hop down")
+					already_hopping = true
+			elif hoparea.updirection == dir.UP:
+				if facedir == dir.UP && hoparea.canhopup:
+					print("can hop up")
+					already_hopping = true
+		#character is above
+		elif position.y < hoparea.position.y && !already_hopping:
+			if hoparea.updirection == dir.DOWN:
+				if facedir == dir.DOWN && hoparea.canhopup:
+					print("can hop up")
+					already_hopping = true
+			elif hoparea.updirection == dir.UP:
+				if facedir == dir.DOWN && hoparea.canhopdown:
+					print("can hop down") 
+					already_hopping = true
+		#character is to the right
+		if position.x > hoparea.position.x && !already_hopping:
+			if hoparea.updirection == dir.LEFT:
+				if facedir == dir.LEFT && hoparea.canhopup:
+					print("can hop up")
+					already_hopping = true
+			elif hoparea.updirection == dir.RIGHT:
+				if facedir == dir.LEFT && hoparea.canhopdown:
+					print("can hop down")
+					already_hopping = true
+		#character is to the left
+		if position.x < hoparea.position.x && !already_hopping:
+			if hoparea.updirection == dir.LEFT:
+				if facedir == dir.RIGHT && hoparea.canhopdown:
+					print("can hop down")
+					already_hopping = true
+			elif hoparea.updirection == dir.RIGHT:
+				if facedir == dir.RIGHT && hoparea.canhopup:
+					print("can hop up")
+					already_hopping = true
+			pass
+					
+	return false
+	
+func get_hop_info():
+	pass
 
 func state_swing(delta):
 	switch_anim("attack")
@@ -208,7 +259,6 @@ func state_landing(delta):
 	
 func start_down_hop():
 	switch_anim("hop")
-	set_collision_layer_bit(hoparea.aboveheight, false)
 	transitionstart = position
 	transitionend = get_character_position_at_base()
 	isinjumpdowncycle = true
@@ -223,9 +273,7 @@ func continue_down_hop():
 	transitionweight += transitionspeed
 	if transitionweight >= 1:
 		global_position = transitionend
-		set_collision_layer_bit(hoparea.belowheight, true)
 		isinjumpdowncycle = false
-		z_index = hoparea.belowz
 		set_state_landing()
 		switch_anim("landing")
 		landingtimer = 0
@@ -245,15 +293,12 @@ func continue_ledge_pullup():
 	if transitionweight >= 1:
 		global_position = transitionend
 		ispullingup = false
-		set_collision_layer_bit(hoparea.aboveheight, true)
 		set_state_default()
 		isinclingcycle = false
 		
 func start_ledge_hop():
 	isinclingcycle = true
 	switch_anim("hop")
-	set_collision_layer_bit(hoparea.belowheight, false)
-	z_index = hoparea.abovez
 	transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
 	transitionstart = position
 	transitionweight = 0
@@ -337,10 +382,10 @@ func _on_Area2D_body_entered(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = true
 			interacttarget = obj
-			print("Player's current interact target: " + obj.name)
-		elif obj.is_in_group("zindexchanger"):
-			if(get_collision_layer_bit(obj.ground_level)):
-				z_index = obj.player_z_index
+#			print("Player's current interact target: " + obj.name)
+#		elif obj.is_in_group("zindexchanger"):
+#			if(get_collision_layer_bit(obj.ground_level)):
+#				z_index = obj.player_z_index
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = true
 			hoparea = obj
@@ -356,28 +401,10 @@ func _on_Area2D_body_exited(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = false
 			interacttarget = null
-			print("Player no longer has a target for interaction")
-		elif obj.is_in_group("heightchanger"):
-			# if you're above the object and your collision layer matches the object's below or vice-versa
-			if(obj.isvertical && 
-				((position.y < obj.position.y && get_collision_layer_bit(obj.belowheight)) || 
-			    position.y > obj.position.y && get_collision_layer_bit(obj.aboveheight))):
-				change_elevation(obj)
-			#if you're on the left, it's ascending left, and your collision layer matches the object's above
-			#if you're on the right, it's ascending left, and your collison layer matches the object's below
-			elif(!obj.isvertical && obj.aboveisleft &&
-				((position.x < obj.position.x && get_collision_layer_bit(obj.belowheight)) ||
-				position.x > obj.position.x && get_collision_layer_bit(obj.aboveheight))):
-				change_elevation(obj)
-			#if youre on the left, it's ascending right, and your collision layer matches the object's below
-			#if you're on the right, it's ascending right, and your collision layer matches the object's above
-			elif(!obj.isvertical && !obj.aboveisleft &&
-				((position.x < obj.position.x && get_collision_layer_bit(obj.aboveheight)) ||
-				position.x > obj.position.x && get_collision_layer_bit(obj.belowheight))):
-				change_elevation(obj)
-		elif obj.is_in_group("zindexchanger"):
-			if(get_collision_layer_bit(obj.ground_level)):
-				z_index = original_zindex
+#			print("Player no longer has a target for interaction")
+#		elif obj.is_in_group("zindexchanger"):
+#			if(get_collision_layer_bit(obj.ground_level)):
+#				z_index = original_zindex
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = false
 			hoparea = null
@@ -385,51 +412,6 @@ func _on_Area2D_body_exited(body, obj):
 			is_in_sun_area = false
 			sun_area = null
 			emit_signal("on_exited_sun_area")
-
-func change_elevation(heightchanger):
-	var newheight 
-	var oldheight
-	print("Should change player elevation")
-	if(heightchanger.isvertical):
-		if position.y < heightchanger.position.y:
-			setaboveheight(heightchanger)
-		else:
-			setbelowheight(heightchanger)
-	
-	else:
-		if heightchanger.aboveisleft:
-			if position.x < heightchanger.position.x:
-				setaboveheight(heightchanger)
-			else:
-				setbelowheight(heightchanger)
-		else:
-			if position.x < heightchanger.position.x:
-				setbelowheight(heightchanger)
-			else:
-				setaboveheight(heightchanger)
-
-func setaboveheight(heightchanger):
-	var newheight = heightchanger.aboveheight
-	var oldheight = heightchanger.belowheight
-	z_index = heightchanger.abovez
-	set_collision_layer_bit(newheight, true)
-	set_collision_layer_bit(oldheight, false)
-	print("Moved up to " + String(newheight) + " from " + String(oldheight))
-	pass
-	
-func setbelowheight(heightchanger):
-	var newheight = heightchanger.belowheight
-	var oldheight = heightchanger.aboveheight
-	z_index = heightchanger.belowz
-	set_collision_layer_bit(newheight, true)
-	set_collision_layer_bit(oldheight, false)
-	print("Moved down to " + String(newheight) + " from " + String(oldheight))
-	pass
-	
-#	print("layer " + String(newheight) + " is " + String(get_collision_layer_bit(newheight)))
-#	print("layer " + String(oldheight) + " is " + String(get_collision_layer_bit(oldheight)))
-#	for i in range(20):
-#    	print(i, '\t', get_collision_layer_bit(i))
 
 func set_state_swing():
 	state = "swing"
