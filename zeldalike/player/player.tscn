@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -85,11 +85,41 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 17 ]
+"values": [ 18 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "crouchdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 39 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "crouchup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
 }
 
 [sub_resource type="Animation" id=7]
-resource_name = "hopdown"
+resource_name = "falldown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -103,7 +133,8 @@ tracks/0/keys = {
 "values": [ 40 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=17]
+resource_name = "hangup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -114,7 +145,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 16 ]
+"values": [ 19 ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -173,8 +204,23 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "jumpup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 17 ]
+}
+
 [sub_resource type="Animation" id=13]
-resource_name = "landingdown"
+resource_name = "landdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -186,63 +232,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 41 ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "ledgecrouchdown"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 39 ]
-}
-
-[sub_resource type="Animation" id=15]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 21 ]
-}
-
-[sub_resource type="Animation" id=16]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 18, 19, 20, 5 ]
-}
-
-[sub_resource type="Animation" id=17]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 22 ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -346,7 +335,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 53
+frame = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -359,17 +348,16 @@ anims/attackleft = SubResource( 3 )
 anims/attackright = SubResource( 4 )
 anims/attackup = SubResource( 5 )
 anims/clingup = SubResource( 6 )
-anims/hopdown = SubResource( 7 )
-anims/hopup = SubResource( 8 )
+anims/crouchdown = SubResource( 14 )
+anims/crouchup = SubResource( 15 )
+anims/falldown = SubResource( 7 )
+anims/hangup = SubResource( 17 )
 anims/idledown = SubResource( 9 )
 anims/idleleft = SubResource( 10 )
 anims/idleright = SubResource( 11 )
 anims/idleup = SubResource( 12 )
-anims/landingdown = SubResource( 13 )
-anims/ledgecrouchdown = SubResource( 14 )
-anims/ledgecrouchup = SubResource( 15 )
-anims/pullup = SubResource( 16 )
-anims/pullupstartup = SubResource( 17 )
+anims/jumpup = SubResource( 8 )
+anims/landdown = SubResource( 13 )
 anims/walkdown = SubResource( 18 )
 anims/walkleft = SubResource( 19 )
 anims/walkright = SubResource( 20 )
@@ -450,7 +438,7 @@ modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
 texture = ExtResource( 8 )
 hframes = 3
-frame = 2
+frame = 1
 region_rect = Rect2( 0, 0, 16, 16 )
 script = ExtResource( 9 )
 

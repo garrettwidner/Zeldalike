@@ -30,6 +30,9 @@ var transitionend
 var hopdownspeed = 1
 var hopupspeed = .15
 var hopdownleeway = 2.5
+var current_hop_direction = null
+var is_current_hop_upward = null
+
 
 var landingtime = .2
 var landingtimer = 0
@@ -102,15 +105,15 @@ func state_default(delta):
 		
 	if Input.is_action_just_pressed("b"):
 		if check_hop_validity():
-			set_state_uptransition()
-			transitionspeed = hopupspeed
-			switch_anim("ledgecrouch")
-		elif isinhoparea && position.y < hoparea.position.y && hoparea.canhopdown && facedir == dir.DOWN:
-#			print(abs(position.x - hoparea.position.x))
-			if abs(position.x - hoparea.position.x) < hopdownleeway:
+			if is_current_hop_upward:
+				set_state_uptransition()
+				print("Setting state as uptransition")
+				transitionspeed = hopupspeed
+				switch_anim("crouch")
+			else:
 				set_state_downtransition()
 				transitionspeed = hopdownspeed / hoparea.height
-				switch_anim("ledgecrouch")
+				switch_anim("crouch")
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))
 		
@@ -121,7 +124,6 @@ func state_default(delta):
 	
 	
 	movement_loop()
-#		if isinhoparea && position.y > hoparea.position.y && hoparea.canhopup && facedir == dir.UP:
 
 func check_hop_validity():
 	var already_hopping = false
@@ -130,45 +132,60 @@ func check_hop_validity():
 		if position.y > hoparea.position.y:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.UP && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
+					is_current_hop_upward = false
+					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.UP && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
+					is_current_hop_upward = true
+					
 					already_hopping = true
 		#character is above
 		elif position.y < hoparea.position.y && !already_hopping:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.DOWN && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
+					is_current_hop_upward = true
+					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.DOWN && hoparea.canhopdown:
-					print("can hop down") 
+#					print("can hop down") 
+					is_current_hop_upward = false
+					
 					already_hopping = true
 		#character is to the right
 		if position.x > hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.LEFT && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
+					is_current_hop_upward = true
+					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.LEFT && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
+					is_current_hop_upward = false
+					
 					already_hopping = true
 		#character is to the left
 		if position.x < hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.RIGHT && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
+					is_current_hop_upward = false
+					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.RIGHT && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
+					is_current_hop_upward = true
 					already_hopping = true
 			pass
 					
-	return false
+	return already_hopping
 	
 func get_hop_info():
 	pass
@@ -197,7 +214,7 @@ func state_block(delta):
 func state_cling(delta):
 	switch_anim("cling")
 	if Input.is_action_just_pressed("b"):
-		switch_anim("pullupstart")
+		switch_anim("hang")
 		set_state_uptransition()
 		#pullup()
 	pass
@@ -222,7 +239,6 @@ func state_uptransition(delta):
 		continue_ledge_hop()
 	elif ispullingup:
 		continue_ledge_pullup()
-		pass
 	else:
 		if !isinclingcycle:
 			damage_loop()
@@ -258,7 +274,8 @@ func state_landing(delta):
 	
 	
 func start_down_hop():
-	switch_anim("hop")
+	switch_anim("fall")
+	print("starting downward fall")
 	transitionstart = position
 	transitionend = get_character_position_at_base()
 	isinjumpdowncycle = true
@@ -275,7 +292,7 @@ func continue_down_hop():
 		global_position = transitionend
 		isinjumpdowncycle = false
 		set_state_landing()
-		switch_anim("landing")
+		switch_anim("land")
 		landingtimer = 0
 	pass
 	
@@ -298,14 +315,14 @@ func continue_ledge_pullup():
 		
 func start_ledge_hop():
 	isinclingcycle = true
-	switch_anim("hop")
+	switch_anim("jump")
 	transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
 	transitionstart = position
 	transitionweight = 0
 	ishoppingtocling = true
 	
 func start_ledge_pullup():
-	switch_anim("pullup")
+#	switch_anim("pullup")
 	transitionend = get_character_position_after_pullup()
 	transitionstart = position
 	transitionweight = 0
