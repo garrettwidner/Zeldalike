@@ -518,22 +518,22 @@ extents = Vector2( 8, 0.5 )
 [sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 8, 0.5 )
 
-[sub_resource type="RectangleShape2D" id=60]
+[sub_resource type="RectangleShape2D" id=58]
 extents = Vector2( 8, 48 )
 
-[sub_resource type="RectangleShape2D" id=61]
+[sub_resource type="RectangleShape2D" id=59]
 extents = Vector2( 8, 40 )
 
+[sub_resource type="RectangleShape2D" id=60]
+extents = Vector2( 8, 0.5 )
+
+[sub_resource type="RectangleShape2D" id=61]
+extents = Vector2( 8, 0.5 )
+
 [sub_resource type="RectangleShape2D" id=62]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=63]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=59]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=58]
+[sub_resource type="RectangleShape2D" id=63]
 extents = Vector2( 8, 8 )
 
 [node name="Level" type="Node2D"]
@@ -671,7 +671,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2"]
-shape = SubResource( 60 )
+shape = SubResource( 58 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -712,7 +712,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3"]
-shape = SubResource( 61 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -724,7 +724,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3/hoptop"]
-shape = SubResource( 62 )
+shape = SubResource( 60 )
 
 [node name="hopbott" type="Area2D" parent="downward_hoparea3"]
 position = Vector2( 0, 39.5 )
@@ -733,7 +733,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3/hopbott"]
-shape = SubResource( 63 )
+shape = SubResource( 61 )
 
 [node name="downward_hoparea4" type="Area2D" parent="." groups=[
 "hoparea",
@@ -753,7 +753,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4"]
-shape = SubResource( 61 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -765,7 +765,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4/hoptop"]
-shape = SubResource( 62 )
+shape = SubResource( 60 )
 
 [node name="hopbott" type="Area2D" parent="downward_hoparea4"]
 position = Vector2( 0, 39.5 )
@@ -774,7 +774,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4/hopbott"]
-shape = SubResource( 63 )
+shape = SubResource( 61 )
 
 [node name="downward_hoparea5" type="Area2D" parent="." groups=[
 "hoparea",
@@ -794,7 +794,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5"]
-shape = SubResource( 61 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -806,7 +806,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5/hoptop"]
-shape = SubResource( 62 )
+shape = SubResource( 60 )
 
 [node name="hopbott" type="Area2D" parent="downward_hoparea5"]
 position = Vector2( 0, 39.5 )
@@ -815,7 +815,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5/hopbott"]
-shape = SubResource( 63 )
+shape = SubResource( 61 )
 
 [node name="rightward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",
@@ -833,7 +833,7 @@ texture = ExtResource( 10 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea"]
-shape = SubResource( 59 )
+shape = SubResource( 62 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -875,7 +875,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea"]
-shape = SubResource( 58 )
+shape = SubResource( 63 )
 __meta__ = {
 "_edit_lock_": true
 }
