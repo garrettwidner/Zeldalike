@@ -28,7 +28,10 @@ var transitionstart
 var transitionend
 
 var hopdownspeed = 1
-var hopupspeed = .15
+var pullupspeed = .20
+var uphopupspeed = .15
+var sidehopupspeed = .08
+var downhopupspeed = .09
 var hopdownleeway = 2.5
 var current_hop_direction = null
 var is_current_hop_upward = null
@@ -108,7 +111,12 @@ func state_default(delta):
 			if is_current_hop_upward:
 				set_state_uptransition()
 				print("Setting state as uptransition")
-				transitionspeed = hopupspeed
+				if facedir == dir.RIGHT || facedir == dir.LEFT:
+					transitionspeed = sidehopupspeed
+				elif facedir == dir.UP:
+					transitionspeed = uphopupspeed
+				else:
+					transitionspeed = downhopupspeed
 				switch_anim("crouch")
 			else:
 				set_state_downtransition()
@@ -324,6 +332,7 @@ func start_ledge_hop():
 func start_ledge_pullup():
 #	switch_anim("pullup")
 	transitionend = hoparea.highesthoppoint
+	transitionspeed = pullupspeed
 	transitionstart = position
 	transitionweight = 0
 	ispullingup = true
