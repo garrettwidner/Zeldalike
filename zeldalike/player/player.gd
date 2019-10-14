@@ -132,13 +132,13 @@ func check_hop_validity():
 		if position.y > hoparea.position.y:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.UP && hoparea.canhopdown:
-#					print("can hop down")
+					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.UP && hoparea.canhopup:
-#					print("can hop up")
+					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
@@ -146,13 +146,13 @@ func check_hop_validity():
 		elif position.y < hoparea.position.y && !already_hopping:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.DOWN && hoparea.canhopup:
-#					print("can hop up")
+					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.DOWN && hoparea.canhopdown:
-#					print("can hop down") 
+					print("can hop down") 
 					is_current_hop_upward = false
 					
 					already_hopping = true
@@ -160,13 +160,13 @@ func check_hop_validity():
 		if position.x > hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.LEFT && hoparea.canhopup:
-#					print("can hop up")
+					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.LEFT && hoparea.canhopdown:
-#					print("can hop down")
+					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
@@ -174,13 +174,13 @@ func check_hop_validity():
 		if position.x < hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.RIGHT && hoparea.canhopdown:
-#					print("can hop down")
+					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.RIGHT && hoparea.canhopup:
-#					print("can hop up")
+					print("can hop up")
 					is_current_hop_upward = true
 					already_hopping = true
 			pass
@@ -277,7 +277,7 @@ func start_down_hop():
 	switch_anim("fall")
 	print("starting downward fall")
 	transitionstart = position
-	transitionend = get_character_position_at_base()
+	transitionend = hoparea.lowesthoppoint
 	isinjumpdowncycle = true
 	transitionweight = 0
 	#testing
@@ -323,24 +323,10 @@ func start_ledge_hop():
 	
 func start_ledge_pullup():
 #	switch_anim("pullup")
-	transitionend = get_character_position_after_pullup()
+	transitionend = hoparea.highesthoppoint
 	transitionstart = position
 	transitionweight = 0
 	ispullingup = true
-	
-func get_character_position_after_pullup():
-	var collisionshape = get_node("CollisionShape2D")
-	var collisionextents = collisionshape.shape.extents
-	var centerdisttocollisionbottom = global_position.y - (collisionshape.global_position.y + collisionextents.y)
-	return Vector2(hoparea.highesthoppoint.x, hoparea.highesthoppoint.y + centerdisttocollisionbottom)
-	
-func get_character_position_at_base():
-	var collisionshape = get_node("CollisionShape2D")
-	var collisionextents = collisionshape.shape.extents
-	var centerdisttocollisiontop = global_position.y - (collisionshape.global_position.y - collisionextents.y)
-	var position_at_base = Vector2(hoparea.lowesthoppoint.x, hoparea.lowesthoppoint.y - centerdisttocollisiontop)
-#	hoparea.get_node("Sprite").global_position = position_at_base
-	return position_at_base
 
 func set_speed():
 #	if Input.is_action_pressed("x"):

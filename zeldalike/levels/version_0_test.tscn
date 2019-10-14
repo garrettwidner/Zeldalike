@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://objects/sun_crystal.png" type="Texture" id=7]
 [ext_resource path="res://objects/sun_area.tscn" type="PackedScene" id=8]
 [ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=9]
-[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=10]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -509,32 +508,8 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=55]
+[sub_resource type="RectangleShape2D" id=64]
 extents = Vector2( 8, 7 )
-
-[sub_resource type="RectangleShape2D" id=56]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=57]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=58]
-extents = Vector2( 8, 48 )
-
-[sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 8, 40 )
-
-[sub_resource type="RectangleShape2D" id=60]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=61]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=62]
-extents = Vector2( 8, 8 )
-
-[sub_resource type="RectangleShape2D" id=63]
-extents = Vector2( 8, 8 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -576,324 +551,134 @@ texture = ExtResource( 7 )
 [node name="upward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",
 ]]
-position = Vector2( 600.371, 212.021 )
+position = Vector2( 600.139, 210.977 )
 rotation = 3.14159
 z_index = 4096
 script = ExtResource( 9 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
-[node name="Sprite" type="Sprite" parent="upward_hoparea"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="upward_hoparea"]
-shape = SubResource( 55 )
+position = Vector2( 0, -1 )
+shape = SubResource( 64 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="hoptop" type="Area2D" parent="upward_hoparea"]
-position = Vector2( 0, -6.5 )
+[node name="hoptop" type="Position2D" parent="upward_hoparea"]
+position = Vector2( 0, -8 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="upward_hoparea/hoptop"]
-shape = SubResource( 56 )
+[node name="hopbott" type="Position2D" parent="upward_hoparea"]
+position = Vector2( 0, 9 )
 
-[node name="hopbott" type="Area2D" parent="upward_hoparea"]
-position = Vector2( 0, 6.5 )
+[node name="hopcling" type="Position2D" parent="upward_hoparea"]
+position = Vector2( 0, -5 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="upward_hoparea/hopbott"]
-shape = SubResource( 57 )
-
-[node name="downward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 600.573, 299.429 )
-z_index = 4096
-script = ExtResource( 9 )
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="downward_hoparea"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea"]
-shape = SubResource( 55 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Area2D" parent="downward_hoparea"]
-position = Vector2( 0, -6.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea/hoptop"]
-shape = SubResource( 56 )
-
-[node name="hopbott" type="Area2D" parent="downward_hoparea"]
-position = Vector2( 0, 6.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea/hopbott"]
-shape = SubResource( 57 )
-
-[node name="downward_hoparea2" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 296.098, 180.292 )
-z_index = 4096
-script = ExtResource( 9 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="downward_hoparea2"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2"]
-shape = SubResource( 58 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Area2D" parent="downward_hoparea2"]
-position = Vector2( 0, -47.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2/hoptop"]
-shape = SubResource( 56 )
-
-[node name="hopbott" type="Area2D" parent="downward_hoparea2"]
-position = Vector2( 0, 47.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2/hopbott"]
-shape = SubResource( 57 )
-
-[node name="downward_hoparea3" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 184.585, 252.705 )
-z_index = 4096
-script = ExtResource( 9 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="downward_hoparea3"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3"]
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Area2D" parent="downward_hoparea3"]
-position = Vector2( 0, -39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3/hoptop"]
-shape = SubResource( 60 )
-
-[node name="hopbott" type="Area2D" parent="downward_hoparea3"]
-position = Vector2( 0, 39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea3/hopbott"]
-shape = SubResource( 61 )
-
-[node name="downward_hoparea4" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 200.411, 252.705 )
-z_index = 4096
-script = ExtResource( 9 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="downward_hoparea4"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4"]
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Area2D" parent="downward_hoparea4"]
-position = Vector2( 0, -39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4/hoptop"]
-shape = SubResource( 60 )
-
-[node name="hopbott" type="Area2D" parent="downward_hoparea4"]
-position = Vector2( 0, 39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea4/hopbott"]
-shape = SubResource( 61 )
-
-[node name="downward_hoparea5" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 216.446, 252.731 )
-z_index = 4096
-script = ExtResource( 9 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="downward_hoparea5"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5"]
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Area2D" parent="downward_hoparea5"]
-position = Vector2( 0, -39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5/hoptop"]
-shape = SubResource( 60 )
-
-[node name="hopbott" type="Area2D" parent="downward_hoparea5"]
-position = Vector2( 0, 39.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea5/hopbott"]
-shape = SubResource( 61 )
 
 [node name="rightward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",
 ]]
-position = Vector2( 653.179, 280.016 )
+position = Vector2( 652.787, 280.4 )
 rotation = -1.5708
 z_index = 4096
 script = ExtResource( 9 )
 updirection = Vector2( -1, 0 )
 canhopdown = true
 
-[node name="Sprite" type="Sprite" parent="rightward_hoparea"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea"]
-shape = SubResource( 62 )
+position = Vector2( 0, -1 )
+shape = SubResource( 64 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="hoptop" type="Area2D" parent="rightward_hoparea"]
-position = Vector2( 0, -7.5 )
+[node name="hoptop" type="Position2D" parent="rightward_hoparea"]
+position = Vector2( 0, -8 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea/hoptop"]
-shape = SubResource( 56 )
-
-[node name="hopbott" type="Area2D" parent="rightward_hoparea"]
-position = Vector2( 0, 7.5 )
+[node name="hopbott" type="Position2D" parent="rightward_hoparea"]
+position = Vector2( 0, 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea/hopbott"]
-shape = SubResource( 57 )
+[node name="hopcling" type="Position2D" parent="rightward_hoparea"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="leftward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",
 ]]
-position = Vector2( 562.96, 262.733 )
+position = Vector2( 563.103, 263.459 )
 rotation = 1.5708
 z_index = 4096
 script = ExtResource( 9 )
 updirection = Vector2( 1, 0 )
 canhopdown = true
 
-[node name="Sprite" type="Sprite" parent="leftward_hoparea"]
-visible = false
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 16, 16 )
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea"]
-shape = SubResource( 63 )
+position = Vector2( 0, -1 )
+shape = SubResource( 64 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="hoptop" type="Area2D" parent="leftward_hoparea"]
-position = Vector2( 0, -7.5 )
+[node name="hoptop" type="Position2D" parent="leftward_hoparea"]
+position = Vector2( 0, -8 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea/hoptop"]
-shape = SubResource( 56 )
-
-[node name="hopbott" type="Area2D" parent="leftward_hoparea"]
-position = Vector2( 0, 7.5 )
+[node name="hopbott" type="Position2D" parent="leftward_hoparea"]
+position = Vector2( 0, 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea/hopbott"]
-shape = SubResource( 57 )
+[node name="hopcling" type="Position2D" parent="leftward_hoparea"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="downward_hoparea" type="Area2D" parent="." groups=[
+"hoparea",
+]]
+position = Vector2( 599.976, 300.782 )
+z_index = 4096
+script = ExtResource( 9 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 64 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="downward_hoparea"]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopbott" type="Position2D" parent="downward_hoparea"]
+position = Vector2( 0, 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopcling" type="Position2D" parent="downward_hoparea"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
