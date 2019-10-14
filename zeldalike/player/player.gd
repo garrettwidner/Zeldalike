@@ -16,7 +16,6 @@ var inventory = []
 
 var isinhoparea = false
 var hoparea
-var clinghandsycorrection = 00
 var ispullingup
 var ishoppingtocling
 var isinclingcycle = false
@@ -28,9 +27,10 @@ var transitionstart
 var transitionend
 
 var hopdownspeed = 1
-var pullupspeed = .20
+var sidepullupspeed = .09
+var verticalpullupspeed = .20
 var uphopupspeed = .15
-var sidehopupspeed = .08
+var sidehopupspeed = .09
 var downhopupspeed = .09
 var hopdownleeway = 2.5
 var current_hop_direction = null
@@ -296,6 +296,7 @@ func start_down_hop():
 func continue_down_hop():
 	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
 	transitionweight += transitionspeed
+	switch_anim("jumpdown")
 	if transitionweight >= 1:
 		global_position = transitionend
 		isinjumpdowncycle = false
@@ -308,6 +309,7 @@ func continue_ledge_hop():
 	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
 	transitionweight += transitionspeed
 	if transitionweight >= 1:
+		print("Stopped ledge hop")
 		global_position = transitionend
 		ishoppingtocling = false
 		set_state_cling()
@@ -323,16 +325,19 @@ func continue_ledge_pullup():
 		
 func start_ledge_hop():
 	isinclingcycle = true
-	switch_anim("jump")
-	transitionend = Vector2(hoparea.clingpoint.x, hoparea.clingpoint.y + clinghandsycorrection)
+	switch_anim("jumpup")
+	transitionend = hoparea.clingpoint
 	transitionstart = position
 	transitionweight = 0
 	ishoppingtocling = true
 	
 func start_ledge_pullup():
-#	switch_anim("pullup")
+	switch_anim("pullup")
 	transitionend = hoparea.highesthoppoint
-	transitionspeed = pullupspeed
+	if facedir == dir.RIGHT || facedir == dir.LEFT:
+		transitionspeed = sidepullupspeed
+	else:
+		transitionspeed = verticalpullupspeed
 	transitionstart = position
 	transitionweight = 0
 	ispullingup = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -369,7 +369,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=39]
-resource_name = "jumpdown"
+resource_name = "jumpdowndown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -384,7 +384,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=40]
-resource_name = "jumpleft"
+resource_name = "jumpdownleft"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -399,7 +400,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=41]
-resource_name = "jumpright"
+resource_name = "jumpdownright"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -413,7 +415,68 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 
+[sub_resource type="Animation" id=43]
+resource_name = "jumpdownup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 17 ]
+}
+
+[sub_resource type="Animation" id=46]
+resource_name = "jumpupdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 29 ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "jumpupleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 22 ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "jumpupright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 26 ]
+}
+
 [sub_resource type="Animation" id=15]
+resource_name = "jumpupup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -484,6 +547,21 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 34 ]
+}
+
+[sub_resource type="Animation" id=42]
+resource_name = "pullupright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 36 ]
 }
 
 [sub_resource type="Animation" id=20]
@@ -586,7 +664,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 33
+frame = 30
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -618,14 +696,19 @@ anims/idledown = SubResource( 11 )
 anims/idleleft = SubResource( 12 )
 anims/idleright = SubResource( 13 )
 anims/idleup = SubResource( 14 )
-anims/jumpdown = SubResource( 39 )
-anims/jumpleft = SubResource( 40 )
-anims/jumpright = SubResource( 41 )
-anims/jumpup = SubResource( 15 )
+anims/jumpdowndown = SubResource( 39 )
+anims/jumpdownleft = SubResource( 40 )
+anims/jumpdownright = SubResource( 41 )
+anims/jumpdownup = SubResource( 43 )
+anims/jumpupdown = SubResource( 46 )
+anims/jumpupleft = SubResource( 44 )
+anims/jumpupright = SubResource( 45 )
+anims/jumpupup = SubResource( 15 )
 anims/landdown = SubResource( 16 )
 anims/landleft = SubResource( 17 )
 anims/landright = SubResource( 18 )
 anims/landup = SubResource( 19 )
+anims/pullupright = SubResource( 42 )
 anims/walkdown = SubResource( 20 )
 anims/walkleft = SubResource( 21 )
 anims/walkright = SubResource( 22 )
