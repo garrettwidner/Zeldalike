@@ -599,18 +599,12 @@ __meta__ = {
 
 [node name="hoptop" type="Position2D" parent="rightward_hoparea"]
 position = Vector2( 0, -8 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="hopbott" type="Position2D" parent="rightward_hoparea"]
 position = Vector2( 0, 6 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="hopcling" type="Position2D" parent="rightward_hoparea"]
-position = Vector2( -0.283417, -2.63831 )
+position = Vector2( 3, 0 )
 
 [node name="leftward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",
@@ -631,18 +625,12 @@ __meta__ = {
 
 [node name="hoptop" type="Position2D" parent="leftward_hoparea"]
 position = Vector2( 0, -8 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="hopbott" type="Position2D" parent="leftward_hoparea"]
 position = Vector2( 0, 6 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="hopcling" type="Position2D" parent="leftward_hoparea"]
-position = Vector2( -2.55063, 0 )
+position = Vector2( -3, 0 )
 
 [node name="downward_hoparea" type="Area2D" parent="." groups=[
 "hoparea",

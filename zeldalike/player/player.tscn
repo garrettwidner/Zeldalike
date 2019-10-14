@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -442,7 +442,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 29 ]
+"values": [ 38 ]
 }
 
 [sub_resource type="Animation" id=44]
@@ -549,6 +549,36 @@ tracks/0/keys = {
 "values": [ 34 ]
 }
 
+[sub_resource type="Animation" id=48]
+resource_name = "pullupdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 39 ]
+}
+
+[sub_resource type="Animation" id=47]
+resource_name = "pullupleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 33 ]
+}
+
 [sub_resource type="Animation" id=42]
 resource_name = "pullupright"
 tracks/0/type = "value"
@@ -561,7 +591,22 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 36 ]
+"values": [ 32 ]
+}
+
+[sub_resource type="Animation" id=49]
+resource_name = "pullupup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 34 ]
 }
 
 [sub_resource type="Animation" id=20]
@@ -664,7 +709,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 30
+frame = 38
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -708,7 +753,10 @@ anims/landdown = SubResource( 16 )
 anims/landleft = SubResource( 17 )
 anims/landright = SubResource( 18 )
 anims/landup = SubResource( 19 )
+anims/pullupdown = SubResource( 48 )
+anims/pullupleft = SubResource( 47 )
 anims/pullupright = SubResource( 42 )
+anims/pullupup = SubResource( 49 )
 anims/walkdown = SubResource( 20 )
 anims/walkleft = SubResource( 21 )
 anims/walkright = SubResource( 22 )
