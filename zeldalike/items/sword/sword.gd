@@ -1,7 +1,7 @@
 extends Node2D
 
 var TYPE : String = ""
-const DAMAGE : int = 0
+const DAMAGE : int = 1
 
 #how many of each item can be active in scene at once (ex 3 bombs)
 var maxamount : int = 1

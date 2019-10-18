@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy_death.png-d7cb3471769b1b49c9977117004f4996.stex"
+path="res://.import/stalfaux.png-97536241a408a92b04e8474b102c9719.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/enemy_death.png"
-dest_files=[ "res://.import/enemy_death.png-d7cb3471769b1b49c9977117004f4996.stex" ]
+source_file="res://enemies/stalfos/stalfaux.png"
+dest_files=[ "res://.import/stalfaux.png-97536241a408a92b04e8474b102c9719.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/demite_hurt.png-6acf9e43cdd610818dc43c5b27739afc.stex"
+path="res://.import/demite.png-164d6352e8b774564e5a06641104ef82.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/demite_hurt.png"
-dest_files=[ "res://.import/demite_hurt.png-6acf9e43cdd610818dc43c5b27739afc.stex" ]
+source_file="res://enemies/demite/demite.png"
+dest_files=[ "res://.import/demite.png-164d6352e8b774564e5a06641104ef82.stex" ]
 
 [params]
 

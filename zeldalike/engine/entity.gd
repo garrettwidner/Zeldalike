@@ -66,7 +66,6 @@ func damage_loop():
 			var damage = body.get("DAMAGE")
 			health -= damage
 			emit_signal("health_changed", health, damage)
-			print("Entity took damage: " + String(health))
 			
 			hitstun_timer = hitstun_amount
 			knockdir = global_transform.origin - body.global_transform.origin

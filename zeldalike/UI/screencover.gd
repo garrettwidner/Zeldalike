@@ -16,6 +16,8 @@ func _ready():
 	player = get_node("/root/Level/player")
 	player.connect("on_entered_sun_area", self, "increase_brightness")
 	player.connect("on_exited_sun_area", self, "decrease_brightness")
+	player.connect("on_entered_sun", self, "increase_brightness")
+	player.connect("on_exited_sun", self, "decrease_brightness")
 	visible = true
 	modulate.a = 0
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/demite.png-1e9088c5b7a7b25838f09fa8ef1fc198.stex"
+path="res://.import/enemy_death.png-fecfad75db84ea7e617f38e17e1cd76b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/demite.png"
-dest_files=[ "res://.import/demite.png-1e9088c5b7a7b25838f09fa8ef1fc198.stex" ]
+source_file="res://enemies/stalfos/enemy_death.png"
+dest_files=[ "res://.import/enemy_death.png-fecfad75db84ea7e617f38e17e1cd76b.stex" ]
 
 [params]
 

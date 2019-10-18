@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stalfaux_hurt.png-8a45ae0b5325df38e0925dc37fc9bdd3.stex"
+path="res://.import/demite_hurt.png-52d009cd8c0ca4a39b94e3d5c05afcac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/stalfaux_hurt.png"
-dest_files=[ "res://.import/stalfaux_hurt.png-8a45ae0b5325df38e0925dc37fc9bdd3.stex" ]
+source_file="res://enemies/demite/demite_hurt.png"
+dest_files=[ "res://.import/demite_hurt.png-52d009cd8c0ca4a39b94e3d5c05afcac.stex" ]
 
 [params]
 

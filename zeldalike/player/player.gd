@@ -45,16 +45,27 @@ var is_in_sun_area = false
 signal on_entered_sun_area
 signal on_exited_sun_area
 
+var shade_area
+var is_in_shade_area = false
+signal on_entered_shade_area
+signal on_exited_shade_area
+
+var sun_intensity
+
+
 var staticdir
 
 var original_zindex
 
 func _ready():
-	speed = 40
+	speed = 42
 	TYPE = "PLAYER"
 	dialogueparser = get_node("../dialogue_parser")
 	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
+	
+	var sun = get_node("/root/Level/sun")
+	sun_intensity = sun.intensity
 	
 #	print("Player position:")
 #	print(global_position)
@@ -383,14 +394,26 @@ func set_facedir():
 	.set_facedir()
 			
 func sun_damage_loop(delta):
-	if !is_in_sun_area:
-		return
+	var current_damage = sun_intensity
+	var change = 0
+	if is_in_shade_area:
+		change -= shade_area.reduction
+	if is_in_sun_area:
+		change += sun_area.magnification
 	
-	var damage_done = sun_area.get_damage()
-	var damage = damage_done * delta
-	wasdamaged = true
-	health -= damage
-	emit_signal("health_changed", health, damage)
+	current_damage *= change
+	
+	#TODO: Check if this change is enough to warrant notifying listeners 
+	#(IE a change from 1.2 to 2.3, not 1.2 to 19.)
+
+#	if !is_in_sun_area:
+#		return
+#
+#	var damage_done = sun_area.magnification
+#	var damage = damage_done * delta
+#	wasdamaged = true
+#	health -= damage
+#	emit_signal("health_changed", health, damage)
 	
 	pass
 			
