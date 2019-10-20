@@ -40,18 +40,11 @@ var is_current_hop_upward = null
 var landingtime = .2
 var landingtimer = 0
 
-var sun_area
-var is_in_sun_area = false
-signal on_entered_sun_area
-signal on_exited_sun_area
-
-var shade_area
-var is_in_shade_area = false
-signal on_entered_shade_area
-signal on_exited_shade_area
-
-var sun_intensity
-
+var sun_drain_damping = 0.2
+var sun_areas = {}
+var sun_base_strength
+var sun_previous_total_strength = 0
+signal on_sun_strength_changed
 
 var staticdir
 
@@ -65,7 +58,7 @@ func _ready():
 	original_zindex = z_index
 	
 	var sun = get_node("/root/Level/sun")
-	sun_intensity = sun.intensity
+	sun_base_strength = sun.strength
 	
 #	print("Player position:")
 #	print(global_position)
@@ -121,7 +114,7 @@ func state_default(delta):
 		if check_hop_validity():
 			if is_current_hop_upward:
 				set_state_uptransition()
-				print("Setting state as uptransition")
+#				print("Setting state as uptransition")
 				if facedir == dir.RIGHT || facedir == dir.LEFT:
 					transitionspeed = sidehopupspeed
 				elif facedir == dir.UP:
@@ -151,13 +144,13 @@ func check_hop_validity():
 		if position.y > hoparea.position.y:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.UP && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.UP && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
@@ -165,13 +158,13 @@ func check_hop_validity():
 		elif position.y < hoparea.position.y && !already_hopping:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.DOWN && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.DOWN && hoparea.canhopdown:
-					print("can hop down") 
+#					print("can hop down") 
 					is_current_hop_upward = false
 					
 					already_hopping = true
@@ -179,13 +172,13 @@ func check_hop_validity():
 		if position.x > hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.LEFT && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.LEFT && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
@@ -193,13 +186,13 @@ func check_hop_validity():
 		if position.x < hoparea.position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.RIGHT && hoparea.canhopdown:
-					print("can hop down")
+#					print("can hop down")
 					is_current_hop_upward = false
 					
 					already_hopping = true
 			elif hoparea.updirection == dir.RIGHT:
 				if facedir == dir.RIGHT && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
 					is_current_hop_upward = true
 					already_hopping = true
 			pass
@@ -294,7 +287,7 @@ func state_landing(delta):
 	
 func start_down_hop():
 	switch_anim("fall")
-	print("starting downward fall")
+#	print("starting downward fall")
 	transitionstart = position
 	transitionend = hoparea.lowesthoppoint
 	isinjumpdowncycle = true
@@ -320,7 +313,7 @@ func continue_ledge_hop():
 	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
 	transitionweight += transitionspeed
 	if transitionweight >= 1:
-		print("Stopped ledge hop")
+#		print("Stopped ledge hop")
 		global_position = transitionend
 		ishoppingtocling = false
 		set_state_cling()
@@ -394,17 +387,23 @@ func set_facedir():
 	.set_facedir()
 			
 func sun_damage_loop(delta):
-	var current_damage = sun_intensity
+	var sun_current_strength = sun_base_strength
 	var change = 0
-	if is_in_shade_area:
-		change -= shade_area.reduction
-	if is_in_sun_area:
-		change += sun_area.magnification
+	for sun_area in sun_areas.values():
+		change += sun_area.modification
 	
-	current_damage *= change
+	sun_current_strength += change
 	
-	#TODO: Check if this change is enough to warrant notifying listeners 
-	#(IE a change from 1.2 to 2.3, not 1.2 to 19.)
+#	print(sun_current_strength)
+	
+	take_sun_damage(sun_current_strength, delta)
+	
+	if sun_current_strength != sun_previous_total_strength:
+		emit_signal("on_sun_strength_changed", sun_current_strength)
+		sun_previous_total_strength = sun_current_strength
+	
+#	print("Current sun damage: " + String(current_damage))
+	
 
 #	if !is_in_sun_area:
 #		return
@@ -414,9 +413,14 @@ func sun_damage_loop(delta):
 #	wasdamaged = true
 #	health -= damage
 #	emit_signal("health_changed", health, damage)
-	
-	pass
-			
+
+func take_sun_damage(sun_strength, delta):
+	var damage = sun_strength * delta * sun_drain_damping
+	wasdamaged = true
+	health -= damage
+#	print(damage)
+	emit_signal("health_changed", health, damage)
+
 func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
@@ -430,12 +434,8 @@ func _on_Area2D_body_entered(body, obj):
 			isinhoparea = true
 			hoparea = obj
 		elif obj.is_in_group("sun_area"):
-			sun_area = obj
-			is_in_sun_area = true
-			emit_signal("on_entered_sun_area")
+			sun_areas[obj.get_instance_id()] = obj
 			
-		
-
 func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
@@ -449,9 +449,11 @@ func _on_Area2D_body_exited(body, obj):
 			isinhoparea = false
 			hoparea = null
 		elif obj.is_in_group("sun_area"):
-			is_in_sun_area = false
-			sun_area = null
-			emit_signal("on_exited_sun_area")
+			var erasure_successful = sun_areas.erase(obj.get_instance_id())
+#			if erasure_successful:
+#				print("Successfully removed sun area from dictionary")
+#			else:
+#				print("Had some problem removing sun area from dictionary")
 
 func set_state_swing():
 	state = "swing"

@@ -1,3 +1,3 @@
 extends Area2D
 
-export var magnification : float = .1 
+export var modification : float = .1 

@@ -1,7 +1,12 @@
 extends Sprite
 
-var brightopacity = .3
-var normalopacity = 0
+var bright3 = .75
+var bright2 = .5
+var bright1 = .25
+var bright0 = 0
+
+var current_brightness_level : int = 0
+var max_brightness_level : int = 3
 
 var transitionstart : float = 0
 var transitionend : float = 0
@@ -14,14 +19,17 @@ var player
 
 func _ready():
 	player = get_node("/root/Level/player")
-	player.connect("on_entered_sun_area", self, "increase_brightness")
-	player.connect("on_exited_sun_area", self, "decrease_brightness")
-	player.connect("on_entered_sun", self, "increase_brightness")
-	player.connect("on_exited_sun", self, "decrease_brightness")
+	player.connect("on_sun_strength_changed", self, "on_sun_changed")
+
 	visible = true
-	modulate.a = 0
+	modulate.a = get_brightness_value()
 
 func _process(delta):
+#	if Input.is_action_just_pressed("a"):
+#		increase_brightness()
+#	elif Input.is_action_just_pressed("b"):
+#		decrease_brightness()
+	
 	if istransitioning:
 		var newmodulate = transitionstart + (transitionend - transitionstart) * transitionweight
 		
@@ -30,20 +38,57 @@ func _process(delta):
 		
 		if transitionweight >= 1:
 			istransitioning = false
-		
-		
 	pass
 	
+func on_sun_changed(new_strength):
+	print("Screencover notified that sun changed")
+	var base_strength = floor(new_strength)
+	if base_strength > current_brightness_level:
+		set_brightness_level(base_strength)
+		increase_brightness()
+	elif base_strength < current_brightness_level:
+		set_brightness_level(base_strength)
+		decrease_brightness()
+
 func increase_brightness():
+#	change_brightness_level(1)
+	var new_brightness = get_brightness_value()
 	transitionstart = modulate.a
-	transitionend = brightopacity
+	transitionend = new_brightness
 	transitionweight = 0
 	istransitioning = true
 	pass
 	
 func decrease_brightness():
+#	change_brightness_level(-1)
+	var new_brightness = get_brightness_value()
 	transitionstart = modulate.a
-	transitionend = normalopacity
+	transitionend = new_brightness
 	transitionweight = 0
 	istransitioning = true
 	pass
+	
+func change_brightness_level(change):
+	current_brightness_level += change
+	constrain_brightness_level()
+		
+func set_brightness_level(new):
+	current_brightness_level = new
+	constrain_brightness_level()
+	
+func constrain_brightness_level():
+	if current_brightness_level > max_brightness_level:
+		current_brightness_level = max_brightness_level
+	elif current_brightness_level < 0:
+		current_brightness_level = 0
+	
+func get_brightness_value():
+	match current_brightness_level:
+		0:
+			return bright0
+		1:
+			return bright1
+		2: 
+			return bright2
+		3:
+			return bright3

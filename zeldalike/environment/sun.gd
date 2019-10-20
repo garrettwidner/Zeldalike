@@ -1,3 +1,3 @@
 extends Node
 
-export var intensity : int = 1
+export var strength : int = 1

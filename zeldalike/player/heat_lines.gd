@@ -15,8 +15,7 @@ var player
 
 func _ready():
 	player = get_node("/root/Level/player")
-	player.connect("on_entered_sun_area", self, "appear")
-	player.connect("on_exited_sun_area", self, "disappear")
+	player.connect("on_sun_strength_changed", self, "on_sun_changed")
 	get_node("anim").play("heat")
 	visible = true
 	modulate.a = 0
@@ -29,9 +28,12 @@ func _process(delta):
 		
 		if transitionweight >= 1:
 			istransitioning = false
-		
-		
-	pass
+	
+func on_sun_changed(new_strength):
+	if new_strength > 0:
+		appear()
+	else:
+		disappear()
 	
 func appear():
 	transitionstart = modulate.a
