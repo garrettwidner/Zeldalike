@@ -15,7 +15,9 @@ var player
 
 func _ready():
 	player = get_node("/root/Level/player")
-	player.connect("on_sun_strength_changed", self, "on_sun_changed")
+	if player != null:
+		player.connect("on_sun_strength_changed", self, "on_sun_changed")
+		
 	get_node("anim").play("heat")
 	visible = true
 	modulate.a = 0

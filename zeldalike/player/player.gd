@@ -40,6 +40,7 @@ var is_current_hop_upward = null
 var landingtime = .2
 var landingtimer = 0
 
+var sun
 var sun_drain_damping = 0.2
 var sun_areas = {}
 var sun_base_strength
@@ -54,11 +55,13 @@ func _ready():
 	speed = 42
 	TYPE = "PLAYER"
 	dialogueparser = get_node("../dialogue_parser")
-	dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
+	if dialogueparser != null:
+		dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	original_zindex = z_index
 	
-	var sun = get_node("/root/Level/sun")
-	sun_base_strength = sun.strength
+	sun = get_node("/root/Level/sun")
+	if sun != null:
+		sun_base_strength = sun.strength
 	
 #	print("Player position:")
 #	print(global_position)
@@ -387,32 +390,26 @@ func set_facedir():
 	.set_facedir()
 			
 func sun_damage_loop(delta):
-	var sun_current_strength = sun_base_strength
-	var change = 0
-	for sun_area in sun_areas.values():
-		change += sun_area.modification
-	
-	sun_current_strength += change
-	
-#	print(sun_current_strength)
-	
-	take_sun_damage(sun_current_strength, delta)
-	
-	if sun_current_strength != sun_previous_total_strength:
-		emit_signal("on_sun_strength_changed", sun_current_strength)
-		sun_previous_total_strength = sun_current_strength
-	
-#	print("Current sun damage: " + String(current_damage))
+	if sun != null:
+		var sun_current_strength = sun_base_strength
+		var change = 0
+		for sun_area in sun_areas.values():
+			change += sun_area.modification
+		
+		sun_current_strength += change
+		
+	#	print(sun_current_strength)
+		
+		take_sun_damage(sun_current_strength, delta)
+		
+		if sun_current_strength != sun_previous_total_strength:
+			emit_signal("on_sun_strength_changed", sun_current_strength)
+			sun_previous_total_strength = sun_current_strength
 	
 
-#	if !is_in_sun_area:
-#		return
-#
-#	var damage_done = sun_area.magnification
-#	var damage = damage_done * delta
-#	wasdamaged = true
-#	health -= damage
-#	emit_signal("health_changed", health, damage)
+	
+
+
 
 func take_sun_damage(sun_strength, delta):
 	var damage = sun_strength * delta * sun_drain_damping
