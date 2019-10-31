@@ -1,4 +1,4 @@
-extends Node
+extends "res://objects/knockable.gd"
 
 export(NodePath) var triggerable_1
 export(NodePath) var triggerable_2
@@ -42,13 +42,16 @@ func _ready():
 	
 	pass
 	
-func _process(delta):
-	if Input.is_action_just_pressed("a"):
-		if !is_unblocked:
-			unblock_spring()
-		
-		
-	pass
+#func _process(delta):
+#	if Input.is_action_just_pressed("a"):
+#		if !is_unblocked:
+#			unblock_spring()
+#
+#
+#	pass
+	
+func get_knocked(knocked_by):
+	unblock_spring()
 	
 func unblock_spring():
 	
