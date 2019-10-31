@@ -73,7 +73,7 @@ tracks/0/keys = {
 "values": [ 60, 62, 63, 65 ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=6]
 resource_name = "clingdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -88,7 +88,7 @@ tracks/0/keys = {
 "values": [ 30 ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=7]
 resource_name = "clingleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -103,7 +103,7 @@ tracks/0/keys = {
 "values": [ 22 ]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id=8]
 resource_name = "clingright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -118,8 +118,7 @@ tracks/0/keys = {
 "values": [ 26 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "clingup"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -133,8 +132,7 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "crouchdown"
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -148,7 +146,7 @@ tracks/0/keys = {
 "values": [ 39 ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=11]
 resource_name = "crouchleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -163,7 +161,7 @@ tracks/0/keys = {
 "values": [ 20 ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=12]
 resource_name = "crouchright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -178,8 +176,7 @@ tracks/0/keys = {
 "values": [ 24 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "crouchup"
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -193,7 +190,7 @@ tracks/0/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -207,7 +204,7 @@ tracks/0/keys = {
 "values": [ 40 ]
 }
 
-[sub_resource type="Animation" id=33]
+[sub_resource type="Animation" id=15]
 resource_name = "fallleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -222,7 +219,7 @@ tracks/0/keys = {
 "values": [ 21 ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=16]
 resource_name = "fallright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -237,7 +234,7 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=17]
 resource_name = "fallup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -252,7 +249,7 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=18]
 resource_name = "hangdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -267,7 +264,7 @@ tracks/0/keys = {
 "values": [ 31 ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=19]
 resource_name = "hangleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -282,7 +279,7 @@ tracks/0/keys = {
 "values": [ 23 ]
 }
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id=20]
 resource_name = "hangright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -297,8 +294,7 @@ tracks/0/keys = {
 "values": [ 27 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "hangup"
+[sub_resource type="Animation" id=21]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -312,7 +308,7 @@ tracks/0/keys = {
 "values": [ 19 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=22]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -326,7 +322,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=23]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -340,7 +336,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=24]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -354,7 +350,7 @@ tracks/0/keys = {
 "values": [ 9 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=25]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -368,7 +364,7 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=39]
+[sub_resource type="Animation" id=26]
 resource_name = "jumpdowndown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -383,7 +379,7 @@ tracks/0/keys = {
 "values": [ 29 ]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="Animation" id=27]
 resource_name = "jumpdownleft"
 length = 0.2
 tracks/0/type = "value"
@@ -399,7 +395,7 @@ tracks/0/keys = {
 "values": [ 21 ]
 }
 
-[sub_resource type="Animation" id=41]
+[sub_resource type="Animation" id=28]
 resource_name = "jumpdownright"
 length = 0.2
 tracks/0/type = "value"
@@ -415,7 +411,7 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 
-[sub_resource type="Animation" id=43]
+[sub_resource type="Animation" id=29]
 resource_name = "jumpdownup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -430,7 +426,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=46]
+[sub_resource type="Animation" id=30]
 resource_name = "jumpupdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -445,7 +441,7 @@ tracks/0/keys = {
 "values": [ 38 ]
 }
 
-[sub_resource type="Animation" id=44]
+[sub_resource type="Animation" id=31]
 resource_name = "jumpupleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -460,7 +456,7 @@ tracks/0/keys = {
 "values": [ 22 ]
 }
 
-[sub_resource type="Animation" id=45]
+[sub_resource type="Animation" id=32]
 resource_name = "jumpupright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -475,8 +471,7 @@ tracks/0/keys = {
 "values": [ 26 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "jumpupup"
+[sub_resource type="Animation" id=33]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -490,7 +485,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=34]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -504,8 +499,7 @@ tracks/0/keys = {
 "values": [ 41 ]
 }
 
-[sub_resource type="Animation" id=17]
-resource_name = "landleft"
+[sub_resource type="Animation" id=35]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -519,8 +513,7 @@ tracks/0/keys = {
 "values": [ 33 ]
 }
 
-[sub_resource type="Animation" id=18]
-resource_name = "landright"
+[sub_resource type="Animation" id=36]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -534,8 +527,7 @@ tracks/0/keys = {
 "values": [ 32 ]
 }
 
-[sub_resource type="Animation" id=19]
-resource_name = "landup"
+[sub_resource type="Animation" id=37]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -549,7 +541,7 @@ tracks/0/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id=38]
 resource_name = "pullupdown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -564,7 +556,7 @@ tracks/0/keys = {
 "values": [ 39 ]
 }
 
-[sub_resource type="Animation" id=47]
+[sub_resource type="Animation" id=39]
 resource_name = "pullupleft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -579,7 +571,7 @@ tracks/0/keys = {
 "values": [ 33 ]
 }
 
-[sub_resource type="Animation" id=42]
+[sub_resource type="Animation" id=40]
 resource_name = "pullupright"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -594,7 +586,7 @@ tracks/0/keys = {
 "values": [ 32 ]
 }
 
-[sub_resource type="Animation" id=49]
+[sub_resource type="Animation" id=41]
 resource_name = "pullupup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -609,7 +601,7 @@ tracks/0/keys = {
 "values": [ 34 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=42]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -625,7 +617,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=43]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -641,7 +633,7 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 13 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=44]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -657,7 +649,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 9 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=45]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -673,16 +665,16 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 5 ]
 }
 
-[sub_resource type="CircleShape2D" id=24]
+[sub_resource type="CircleShape2D" id=46]
 radius = 50.0
 
-[sub_resource type="RectangleShape2D" id=25]
+[sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 7, 7 )
 
-[sub_resource type="RectangleShape2D" id=26]
+[sub_resource type="RectangleShape2D" id=48]
 extents = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=49]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -699,7 +691,6 @@ tracks/0/keys = {
 }
 
 [node name="player" type="KinematicBody2D"]
-collision_layer = 9
 collision_mask = 0
 script = ExtResource( 1 )
 health = 25.0
@@ -721,46 +712,46 @@ anims/attackdown = SubResource( 2 )
 anims/attackleft = SubResource( 3 )
 anims/attackright = SubResource( 4 )
 anims/attackup = SubResource( 5 )
-anims/clingdown = SubResource( 28 )
-anims/clingleft = SubResource( 29 )
-anims/clingright = SubResource( 30 )
-anims/clingup = SubResource( 6 )
-anims/crouchdown = SubResource( 7 )
-anims/crouchleft = SubResource( 31 )
-anims/crouchright = SubResource( 32 )
-anims/crouchup = SubResource( 8 )
-anims/falldown = SubResource( 9 )
-anims/fallleft = SubResource( 33 )
-anims/fallright = SubResource( 34 )
-anims/fallup = SubResource( 35 )
-anims/hangdown = SubResource( 36 )
-anims/hangleft = SubResource( 37 )
-anims/hangright = SubResource( 38 )
-anims/hangup = SubResource( 10 )
-anims/idledown = SubResource( 11 )
-anims/idleleft = SubResource( 12 )
-anims/idleright = SubResource( 13 )
-anims/idleup = SubResource( 14 )
-anims/jumpdowndown = SubResource( 39 )
-anims/jumpdownleft = SubResource( 40 )
-anims/jumpdownright = SubResource( 41 )
-anims/jumpdownup = SubResource( 43 )
-anims/jumpupdown = SubResource( 46 )
-anims/jumpupleft = SubResource( 44 )
-anims/jumpupright = SubResource( 45 )
-anims/jumpupup = SubResource( 15 )
-anims/landdown = SubResource( 16 )
-anims/landleft = SubResource( 17 )
-anims/landright = SubResource( 18 )
-anims/landup = SubResource( 19 )
-anims/pullupdown = SubResource( 48 )
-anims/pullupleft = SubResource( 47 )
-anims/pullupright = SubResource( 42 )
-anims/pullupup = SubResource( 49 )
-anims/walkdown = SubResource( 20 )
-anims/walkleft = SubResource( 21 )
-anims/walkright = SubResource( 22 )
-anims/walkup = SubResource( 23 )
+anims/clingdown = SubResource( 6 )
+anims/clingleft = SubResource( 7 )
+anims/clingright = SubResource( 8 )
+anims/clingup = SubResource( 9 )
+anims/crouchdown = SubResource( 10 )
+anims/crouchleft = SubResource( 11 )
+anims/crouchright = SubResource( 12 )
+anims/crouchup = SubResource( 13 )
+anims/falldown = SubResource( 14 )
+anims/fallleft = SubResource( 15 )
+anims/fallright = SubResource( 16 )
+anims/fallup = SubResource( 17 )
+anims/hangdown = SubResource( 18 )
+anims/hangleft = SubResource( 19 )
+anims/hangright = SubResource( 20 )
+anims/hangup = SubResource( 21 )
+anims/idledown = SubResource( 22 )
+anims/idleleft = SubResource( 23 )
+anims/idleright = SubResource( 24 )
+anims/idleup = SubResource( 25 )
+anims/jumpdowndown = SubResource( 26 )
+anims/jumpdownleft = SubResource( 27 )
+anims/jumpdownright = SubResource( 28 )
+anims/jumpdownup = SubResource( 29 )
+anims/jumpupdown = SubResource( 30 )
+anims/jumpupleft = SubResource( 31 )
+anims/jumpupright = SubResource( 32 )
+anims/jumpupup = SubResource( 33 )
+anims/landdown = SubResource( 34 )
+anims/landleft = SubResource( 35 )
+anims/landright = SubResource( 36 )
+anims/landup = SubResource( 37 )
+anims/pullupdown = SubResource( 38 )
+anims/pullupleft = SubResource( 39 )
+anims/pullupright = SubResource( 40 )
+anims/pullupup = SubResource( 41 )
+anims/walkdown = SubResource( 42 )
+anims/walkleft = SubResource( 43 )
+anims/walkright = SubResource( 44 )
+anims/walkup = SubResource( 45 )
 
 [node name="footanim" type="AnimationPlayer" parent="."]
 
@@ -768,12 +759,12 @@ anims/walkup = SubResource( 23 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sightbox"]
 visible = false
-shape = SubResource( 24 )
+shape = SubResource( 46 )
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 25 )
+shape = SubResource( 47 )
 
 [node name="pivot" type="Position2D" parent="."]
 script = ExtResource( 3 )
@@ -828,7 +819,7 @@ script = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hopchecker"]
 position = Vector2( 0, -16 )
-shape = SubResource( 26 )
+shape = SubResource( 48 )
 
 [node name="Tester" type="Sprite" parent="."]
 
@@ -842,4 +833,4 @@ region_rect = Rect2( 0, 0, 16, 16 )
 script = ExtResource( 9 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
-anims/heat = SubResource( 27 )
+anims/heat = SubResource( 49 )

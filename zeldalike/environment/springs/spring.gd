@@ -14,7 +14,16 @@ var trig_object_5
 
 var trig_objects = []
 
+onready var anim = $AnimationPlayer
+onready var water_opacity = $water/opacityanim
+onready var water_anim = $water/AnimationPlayer
+
+var is_unblocked = false
+
 func _ready():
+	anim.play("closed")
+	water_opacity.play("closed")
+	
 	if triggerable_1 != "":
 		trig_object_1 = get_node(triggerable_1)
 		trig_objects.append(trig_object_1)
@@ -35,7 +44,30 @@ func _ready():
 	
 func _process(delta):
 	if Input.is_action_just_pressed("a"):
-		print("Spring was unblocked")
-		for object in trig_objects:
+		if !is_unblocked:
+			unblock_spring()
+		
+		
+	pass
+	
+func unblock_spring():
+	
+	is_unblocked = true
+	print("Spring was unblocked")
+	anim.play("crumble")
+	water_opacity.play("unblock")
+	water_anim.play("flow")
+	for object in trig_objects:
 			object.on_spring_unblocked()
 	pass
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,18 +1,133 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://environment/springs/spring.gd" type="Script" id=1]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://environment/springs/triggerables/bulb.gd" type="Script" id=3]
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=4]
-[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=5]
+[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=2]
+[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=3]
+[ext_resource path="res://environment/springs/triggerables/bulb.gd" type="Script" id=4]
+[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=5]
+[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=6]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/knockable.gd" type="Script" id=8]
+[ext_resource path="res://objects/seedbed.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="Animation" id=5]
+resource_name = "closed"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="Animation" id=6]
+resource_name = "crumble"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "opened"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "flow"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "opened"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.733333 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "unblock"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.733333 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="TileSet" id=4]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 5 )
+0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -31,31 +146,65 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=11]
+
 [node name="Level" type="Node2D"]
 
-[node name="Spring" type="Area2D" parent="."]
+[node name="Spring" type="Position2D" parent="."]
+position = Vector2( 108.833, 34.521 )
 script = ExtResource( 1 )
 triggerable_1 = NodePath("../Bulb")
 triggerable_2 = NodePath("../Grass")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring"]
-shape = SubResource( 1 )
+[node name="hitbox" type="Area2D" parent="Spring"]
 
-[node name="player" parent="Spring" instance=ExtResource( 2 )]
-position = Vector2( 118.863, 71.5265 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/hitbox"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Spring"]
+texture = ExtResource( 2 )
+hframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring"]
+anims/closed = SubResource( 5 )
+anims/crumble = SubResource( 6 )
+anims/opened = SubResource( 7 )
+
+[node name="water" type="Sprite" parent="Spring"]
+modulate = Color( 1, 1, 1, 0.733333 )
+z_index = -1
+texture = ExtResource( 3 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring/water"]
+anims/flow = SubResource( 2 )
+
+[node name="opacityanim" type="AnimationPlayer" parent="Spring/water"]
+anims/closed = SubResource( 8 )
+anims/opened = SubResource( 9 )
+anims/unblock = SubResource( 10 )
 
 [node name="Bulb" type="Area2D" parent="."]
-script = ExtResource( 3 )
+position = Vector2( 54.2849, -15.2841 )
+script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Grass" type="Position2D" parent="."]
 position = Vector2( 82.2179, 68.7785 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="TileMap" type="TileMap" parent="Grass"]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -3, 0, 196609, -2, 0, 3, -1, 0, 3, -65536, 0, 0, 65533, 0, 131072, 65534, 0, 131073, 65535, 0, 131074, 0, 0, 131075, 131071, 0, 1, 65536, 0, 131075, 196607, 0, 131072, 131072, 0, 196611 )
@@ -67,6 +216,31 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass/TileMap/Area2D"]
 polygon = PoolVector2Array( 8.50202, -5.93221, 8.76554, 40.7106, -6.78208, 41.2377, -6.51856, 8.56133, -38.6679, 8.29781, -39.1949, -8.83092 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="player" parent="." instance=ExtResource( 7 )]
+position = Vector2( 118.863, 71.5265 )
+
+[node name="knockable_test" type="Position2D" parent="."]
+position = Vector2( 179.865, 32.1187 )
+script = ExtResource( 8 )
+
+[node name="hitbox" type="Area2D" parent="knockable_test"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="knockable_test/hitbox"]
+shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="knockable_test"]
+texture = ExtResource( 9 )
+hframes = 2
 __meta__ = {
 "_edit_lock_": true
 }

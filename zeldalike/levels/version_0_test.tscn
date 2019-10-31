@@ -512,19 +512,19 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="CircleShape2D" id=58]
+[sub_resource type="CircleShape2D" id=55]
 radius = 40.0
 
-[sub_resource type="RectangleShape2D" id=59]
+[sub_resource type="RectangleShape2D" id=56]
 extents = Vector2( 30, 30 )
 
-[sub_resource type="RectangleShape2D" id=55]
+[sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 8, 7 )
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=58]
 extents = Vector2( 8, 48 )
 
-[sub_resource type="RectangleShape2D" id=57]
+[sub_resource type="RectangleShape2D" id=59]
 extents = Vector2( 8, 41 )
 
 [node name="Level" type="Node2D"]
@@ -570,7 +570,7 @@ __meta__ = {
 modification = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal/sun_area"]
-shape = SubResource( 58 )
+shape = SubResource( 55 )
 
 [node name="sun_crystal2" type="Sprite" parent="."]
 position = Vector2( 185.632, 118.503 )
@@ -587,7 +587,7 @@ __meta__ = {
 modification = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal2/sun_area"]
-shape = SubResource( 59 )
+shape = SubResource( 56 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -607,7 +607,7 @@ __meta__ = {
 modification = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal3/sun_area"]
-shape = SubResource( 59 )
+shape = SubResource( 56 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -625,7 +625,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="upward_hoparea"]
 position = Vector2( 0, -1 )
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -658,7 +658,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea"]
 position = Vector2( 0, -1 )
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -685,7 +685,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea"]
 position = Vector2( 0, -1 )
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -710,7 +710,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea"]
 position = Vector2( 0, -1 )
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -744,7 +744,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2"]
 position = Vector2( 0, -1 )
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -779,7 +779,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea"]
 position = Vector2( 0, -1 )
-shape = SubResource( 56 )
+shape = SubResource( 58 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -805,7 +805,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea2"]
 position = Vector2( 0, -1 )
-shape = SubResource( 57 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -831,7 +831,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea3"]
 position = Vector2( 0, -1 )
-shape = SubResource( 57 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -857,7 +857,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea4"]
 position = Vector2( 0, -1 )
-shape = SubResource( 57 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -883,7 +883,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea5"]
 position = Vector2( 0, -1 )
-shape = SubResource( 57 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
