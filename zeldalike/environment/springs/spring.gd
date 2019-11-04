@@ -5,12 +5,14 @@ export(NodePath) var triggerable_2
 export(NodePath) var triggerable_3
 export(NodePath) var triggerable_4
 export(NodePath) var triggerable_5
+export(NodePath) var triggerable_6
 
 var trig_object_1
 var trig_object_2
 var trig_object_3
 var trig_object_4
 var trig_object_5
+var trig_object_6
 
 var trig_objects = []
 
@@ -39,6 +41,9 @@ func _ready():
 	if triggerable_5 != "":
 		trig_object_5 = get_node(triggerable_5)
 		trig_objects.append(trig_object_5)
+	if triggerable_6 != "":
+		trig_object_6 = get_node(triggerable_6)
+		trig_objects.append(trig_object_6)
 	
 	pass
 	
@@ -56,7 +61,7 @@ func get_knocked(knocked_by):
 func unblock_spring():
 	
 	is_unblocked = true
-	print("Spring was unblocked")
+#	print("Spring was unblocked")
 	anim.play("crumble")
 	water_opacity.play("unblock")
 	water_anim.play("flow")

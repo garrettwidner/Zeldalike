@@ -1,0 +1,23 @@
+{
+"level": "Example",
+"data":{
+	"name_from_event_file":{
+		"0" : {
+			"content" : "The first part of the test.",
+			"conditions" : 
+			{
+				"divert" : "1"
+			},
+			"experiences": {"experience_to_set" : true }
+
+		},
+		"1" : {
+			"content" : "The second part of the text",
+			"conditions" : 
+			{
+				"isEnd": true
+			}
+		}
+	}
+}
+}

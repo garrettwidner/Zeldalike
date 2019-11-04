@@ -1,11 +1,11 @@
-[gd_scene load_steps=223 format=2]
+[gd_scene load_steps=211 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/farmer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://dialogue_test/inventorymanager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=6]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=7]
 [ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=8]
 [ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=9]
@@ -24,15 +24,10 @@
 [ext_resource path="res://dialogue_test/grnd -shelf back.tscn" type="PackedScene" id=22]
 [ext_resource path="res://dialogue_test/mtn - shlf side.tscn" type="PackedScene" id=23]
 [ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=24]
-[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=25]
-[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=26]
-[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=27]
-[ext_resource path="res://dialogue_test/hop_area_test.tscn" type="PackedScene" id=28]
-[ext_resource path="res://enemies/stalfos/stalfos.tscn" type="PackedScene" id=29]
-[ext_resource path="res://environment/sun_area.gd" type="Script" id=30]
-[ext_resource path="res://objects/sun_crystal.tscn" type="PackedScene" id=31]
-
-
+[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=25]
+[ext_resource path="res://enemies/stalfos/stalfos.tscn" type="PackedScene" id=26]
+[ext_resource path="res://environment/sun_area.gd" type="Script" id=27]
+[ext_resource path="res://objects/sun_crystal.tscn" type="PackedScene" id=28]
 
 [sub_resource type="TileSet" id=1]
 0/name = "toplevel_sand_fill.png 0"
@@ -1755,33 +1750,6 @@ extents = Vector2( 160, 144 )
 extents = Vector2( 96, 144 )
 
 [sub_resource type="RectangleShape2D" id=182]
-extents = Vector2( 8, 7 )
-
-[sub_resource type="RectangleShape2D" id=183]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=184]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=185]
-extents = Vector2( 8, 7 )
-
-[sub_resource type="RectangleShape2D" id=186]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=187]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=188]
-extents = Vector2( 8, 15 )
-
-[sub_resource type="RectangleShape2D" id=189]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=190]
-extents = Vector2( 8, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=191]
 extents = Vector2( 30, 30 )
 
 [node name="Level" type="Node2D"]
@@ -1792,7 +1760,7 @@ scene_name = "StoryTestScene"
 position = Vector2( 39.2926, 26.0062 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 108.258, 296.553 )
+position = Vector2( 104.115, 89.3777 )
 z_index = 220
 health = 50.0
 
@@ -2095,159 +2063,11 @@ position = Vector2( 896, 144 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CamArea2"]
 shape = SubResource( 181 )
 
-[node name="hop_shelf_both" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 103.792, 393.914 )
-z_index = 4096
-script = ExtResource( 26 )
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="hop_shelf_both"]
-visible = false
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both"]
-shape = SubResource( 182 )
-
-[node name="hoptop" type="Area2D" parent="hop_shelf_both"]
-position = Vector2( 0, -6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both/hoptop"]
-shape = SubResource( 183 )
-
-[node name="hopbott" type="Area2D" parent="hop_shelf_both"]
-position = Vector2( 0, 6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both/hopbott"]
-shape = SubResource( 184 )
-
-[node name="hop_shelf_both2" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 184.088, 394.046 )
-z_index = 4096
-script = ExtResource( 26 )
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="hop_shelf_both2"]
-visible = false
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both2"]
-shape = SubResource( 182 )
-
-[node name="hoptop" type="Area2D" parent="hop_shelf_both2"]
-position = Vector2( 0, -6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both2/hoptop"]
-shape = SubResource( 183 )
-
-[node name="hopbott" type="Area2D" parent="hop_shelf_both2"]
-position = Vector2( 0, 6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_both2/hopbott"]
-shape = SubResource( 184 )
-
-[node name="hop_shelf_down" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 216, 394.046 )
-z_index = 4096
-script = ExtResource( 26 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="hop_shelf_down"]
-visible = false
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_down"]
-shape = SubResource( 182 )
-
-[node name="hoptop" type="Area2D" parent="hop_shelf_down"]
-position = Vector2( 0, -6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_down/hoptop"]
-shape = SubResource( 183 )
-
-[node name="hopbott" type="Area2D" parent="hop_shelf_down"]
-position = Vector2( 0, 6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_shelf_down/hopbott"]
-shape = SubResource( 184 )
-
-[node name="hop_mount_both" parent="." instance=ExtResource( 28 )]
-
-[node name="hop_mount_both2" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-position = Vector2( 72.2996, 334.927 )
-rotation = 1.5708
-z_index = 4096
-script = ExtResource( 26 )
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="hop_mount_both2"]
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_both2"]
-shape = SubResource( 185 )
-
-[node name="hoptop" type="Area2D" parent="hop_mount_both2"]
-position = Vector2( 0, -6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_both2/hoptop"]
-shape = SubResource( 186 )
-
-[node name="hopbott" type="Area2D" parent="hop_mount_both2"]
-position = Vector2( 0, 6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_both2/hopbott"]
-shape = SubResource( 187 )
-
-[node name="hop_mount_down" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 152, 362 )
-z_index = 4096
-script = ExtResource( 26 )
-canhopup = false
-canhopdown = true
-
-[node name="Sprite" type="Sprite" parent="hop_mount_down"]
-visible = false
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_down"]
-position = Vector2( 0, 7.92755 )
-shape = SubResource( 188 )
-
-[node name="hoptop" type="Area2D" parent="hop_mount_down"]
-position = Vector2( 0, -6.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_down/hoptop"]
-shape = SubResource( 189 )
-
-[node name="hopbott" type="Area2D" parent="hop_mount_down"]
-position = Vector2( 0, 22.4 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_mount_down/hopbott"]
-shape = SubResource( 190 )
-
-[node name="stalfos" parent="." instance=ExtResource( 29 )]
+[node name="stalfos" parent="." instance=ExtResource( 26 )]
 position = Vector2( 121.627, 224.234 )
 collision_layer = 9
 
-[node name="stalfos2" parent="." instance=ExtResource( 29 )]
+[node name="stalfos2" parent="." instance=ExtResource( 26 )]
 position = Vector2( 177.375, 277.448 )
 collision_layer = 9
 
@@ -2258,12 +2078,10 @@ position = Vector2( 112.704, 239.581 )
 z_index = 220
 collision_layer = 0
 collision_mask = 8
-script = ExtResource( 30 )
-reduction_per_mute = 0.075
-base_damage = 0.3
+script = ExtResource( 27 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sun_area"]
-shape = SubResource( 191 )
+shape = SubResource( 182 )
 
-[node name="sun_crystal" parent="sun_area" instance=ExtResource( 31 )]
+[node name="sun_crystal" parent="sun_area" instance=ExtResource( 28 )]
 position = Vector2( -11.603, 4.32486 )

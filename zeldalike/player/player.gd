@@ -89,6 +89,7 @@ func _process(delta):
 			state_landing(delta)
 
 func dialogue_finished():
+	print("Character noticed dialogue was finished")
 	set_state_default()
 	
 func state_default(delta):
@@ -107,8 +108,10 @@ func state_default(delta):
 	if Input.is_action_just_pressed("a"):
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
-			set_state_listen()
-			dialogueparser.activate(interacttarget)
+			var is_valid_target = dialogueparser.activate(interacttarget)
+			if is_valid_target:
+				set_state_listen()
+				
 		else:
 			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 			add_sprinkle()

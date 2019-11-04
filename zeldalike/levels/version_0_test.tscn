@@ -549,7 +549,6 @@ tile_data = PoolIntArray( 65548, 1, 5, 65549, 1, 65541, 65550, 1, 65541, 65551, 
 
 [node name="player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 399.044, 306.81 )
-collision_layer = 1
 
 [node name="dialogue_parser" parent="." instance=ExtResource( 6 )]
 

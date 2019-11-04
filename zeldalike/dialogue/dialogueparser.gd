@@ -56,8 +56,13 @@ func _process(delta):
 		pass
 
 func activate(target):
-	currTarget = target
-	isActivated = true
+	var target_is_valid = events["eventTarget"].has(target.name)
+	
+	if target_is_valid:
+		currTarget = target
+		isActivated = true
+		
+	return target_is_valid
 
 func change_dialogue_branch():
 	var nextText = ""

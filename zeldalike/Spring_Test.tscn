@@ -1,18 +1,39 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://environment/springs/spring.gd" type="Script" id=1]
-[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=2]
-[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=3]
-[ext_resource path="res://environment/springs/triggerables/bulb.gd" type="Script" id=4]
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=5]
-[ext_resource path="res://tiles/2x2 Grass-Dirt Bitmap.png" type="Texture" id=6]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://objects/knockable.gd" type="Script" id=8]
-[ext_resource path="res://objects/seedbed.png" type="Texture" id=9]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=1]
+[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=2]
+[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://dialogue_test/brick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://environment/springs/spring.gd" type="Script" id=5]
+[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=6]
+[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=7]
+[ext_resource path="res://environment/springs/triggerables/bulb.gd" type="Script" id=8]
+[ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=9]
+[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=10]
+[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=11]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/knockable.gd" type="Script" id=13]
+[ext_resource path="res://objects/seedbed.png" type="Texture" id=14]
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends \"res://engine/gameinit.gd\"
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "closed"
 length = 0.2
 tracks/0/type = "value"
@@ -28,7 +49,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "crumble"
 length = 0.4
 tracks/0/type = "value"
@@ -44,7 +65,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "opened"
 length = 0.2
 tracks/0/type = "value"
@@ -60,8 +81,7 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "flow"
+[sub_resource type="Animation" id=5]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -77,7 +97,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 resource_name = "closed"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -92,7 +112,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "opened"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -107,7 +127,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.733333 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 resource_name = "unblock"
 length = 1.2
 tracks/0/type = "value"
@@ -123,11 +143,11 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.733333 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=9]
 
-[sub_resource type="TileSet" id=4]
+[sub_resource type="TileSet" id=10]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 6 )
+0/texture = ExtResource( 11 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -149,10 +169,21 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=11]
 
 [node name="Level" type="Node2D"]
+script = SubResource( 12 )
+scene_name = "Spring_Test"
+
+[node name="dialogue_parser" parent="." instance=ExtResource( 1 )]
+
+[node name="dialogue" parent="." instance=ExtResource( 2 )]
+
+[node name="inventorymanager" parent="." instance=ExtResource( 3 )]
+
+[node name="brick" parent="." instance=ExtResource( 4 )]
+position = Vector2( 167.296, 92.7365 )
 
 [node name="Spring" type="Position2D" parent="."]
 position = Vector2( 108.833, 34.521 )
-script = ExtResource( 1 )
+script = ExtResource( 5 )
 triggerable_1 = NodePath("../Bulb")
 triggerable_2 = NodePath("../Grass")
 
@@ -165,46 +196,54 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Spring"]
-texture = ExtResource( 2 )
+texture = ExtResource( 6 )
 hframes = 3
 frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Spring"]
-anims/closed = SubResource( 5 )
-anims/crumble = SubResource( 6 )
-anims/opened = SubResource( 7 )
+anims/closed = SubResource( 2 )
+anims/crumble = SubResource( 3 )
+anims/opened = SubResource( 4 )
 
 [node name="water" type="Sprite" parent="Spring"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 3 )
+texture = ExtResource( 7 )
 hframes = 3
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Spring/water"]
-anims/flow = SubResource( 2 )
+anims/flow = SubResource( 5 )
 
 [node name="opacityanim" type="AnimationPlayer" parent="Spring/water"]
-anims/closed = SubResource( 8 )
-anims/opened = SubResource( 9 )
-anims/unblock = SubResource( 10 )
+anims/closed = SubResource( 6 )
+anims/opened = SubResource( 7 )
+anims/unblock = SubResource( 8 )
 
 [node name="Bulb" type="Area2D" parent="."]
-position = Vector2( 54.2849, -15.2841 )
-script = ExtResource( 4 )
+position = Vector2( 145.823, 42.9675 )
+script = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb"]
-shape = SubResource( 3 )
+shape = SubResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Bulb"]
+texture = ExtResource( 9 )
+hframes = 6
+frame = 4
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Grass" type="Position2D" parent="."]
 position = Vector2( 82.2179, 68.7785 )
-script = ExtResource( 5 )
+script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="Grass"]
-tile_set = SubResource( 4 )
+tile_set = SubResource( 10 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -3, 0, 196609, -2, 0, 3, -1, 0, 3, -65536, 0, 0, 65533, 0, 131072, 65534, 0, 131073, 65535, 0, 131074, 0, 0, 131075, 131071, 0, 1, 65536, 0, 131075, 196607, 0, 131072, 131072, 0, 196611 )
@@ -220,12 +259,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="player" parent="." instance=ExtResource( 7 )]
+[node name="player" parent="." instance=ExtResource( 12 )]
 position = Vector2( 118.863, 71.5265 )
 
 [node name="knockable_test" type="Position2D" parent="."]
 position = Vector2( 179.865, 32.1187 )
-script = ExtResource( 8 )
+script = ExtResource( 13 )
 
 [node name="hitbox" type="Area2D" parent="knockable_test"]
 __meta__ = {
@@ -239,7 +278,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="knockable_test"]
-texture = ExtResource( 9 )
+texture = ExtResource( 14 )
 hframes = 2
 __meta__ = {
 "_edit_lock_": true
