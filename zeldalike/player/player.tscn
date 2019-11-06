@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -306,6 +306,70 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 19 ]
+}
+
+[sub_resource type="Animation" id=50]
+resource_name = "holdwalkdown"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 66, 67 ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "holdwalkleft"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 73, 72 ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "holdwalkright"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 71, 70 ]
+}
+
+[sub_resource type="Animation" id=53]
+resource_name = "holdwalkup"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 69, 68 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -700,7 +764,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 38
+frame = 67
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -728,6 +792,10 @@ anims/hangdown = SubResource( 18 )
 anims/hangleft = SubResource( 19 )
 anims/hangright = SubResource( 20 )
 anims/hangup = SubResource( 21 )
+anims/holdwalkdown = SubResource( 50 )
+anims/holdwalkleft = SubResource( 51 )
+anims/holdwalkright = SubResource( 52 )
+anims/holdwalkup = SubResource( 53 )
 anims/idledown = SubResource( 22 )
 anims/idleleft = SubResource( 23 )
 anims/idleright = SubResource( 24 )
