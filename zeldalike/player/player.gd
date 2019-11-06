@@ -12,6 +12,11 @@ var dialogueparser
 
 var interacttarget
 var caninteract : bool = false
+
+var hold_position
+var is_holding : bool = false
+var held_item
+
 var inventory = []
 
 var isinhoparea = false
@@ -35,7 +40,6 @@ var downhopupspeed = .09
 var hopdownleeway = 2.5
 var current_hop_direction = null
 var is_current_hop_upward = null
-
 
 var landingtime = .2
 var landingtimer = 0
@@ -62,6 +66,8 @@ func _ready():
 	sun = get_node("/root/Level/sun")
 	if sun != null:
 		sun_base_strength = sun.strength
+		
+	hold_position = get_node("hold_position")
 	
 #	print("Player position:")
 #	print(global_position)
@@ -70,6 +76,13 @@ func _ready():
 #    	print(i, '\t', get_collision_layer_bit(i))
 
 func _process(delta):
+	set_hold_position()
+	
+	if Input.is_action_just_pressed("y"):
+		var children = hold_position.get_children()
+		for child in children:
+			print(child.name)
+	
 	match state:
 		"default":
 			state_default(delta)
@@ -87,9 +100,13 @@ func _process(delta):
 			state_downtransition(delta)
 		"landing":
 			state_landing(delta)
+		"holding":
+			state_holding(delta)
+
+
 
 func dialogue_finished():
-	print("Character noticed dialogue was finished")
+#	print("Character noticed dialogue was finished")
 	set_state_default()
 	
 func state_default(delta):
@@ -106,15 +123,32 @@ func state_default(delta):
 		switch_anim("idle")
 		
 	if Input.is_action_just_pressed("a"):
+		
+		
+		
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
 			var is_valid_target = dialogueparser.activate(interacttarget)
 			if is_valid_target:
 				set_state_listen()
 				
-		else:
-			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
-			add_sprinkle()
+		else: 
+			var checkarea = get_node("hitbox")
+			var pickupable
+			var areas = checkarea.get_overlapping_areas()
+			for area in areas:
+				if area.is_in_group("pickupable"):
+					is_holding = true
+					held_item = area
+					add_child_below_node(hold_position,held_item, true)
+					set_state_holding()
+					
+					return
+					
+					
+#		else:
+#			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
+#			add_sprinkle()
 		
 	if Input.is_action_just_pressed("b"):
 		if check_hop_validity():
@@ -289,6 +323,35 @@ func state_landing(delta):
 	landingtimer += delta
 	if landingtimer >= landingtime:
 		set_state_default()
+		
+func state_holding(delta):
+	set_hold_position()
+	set_speed()
+	set_movedir()
+	set_facedir()
+	set_spritedir()
+	damage_loop()
+	sun_damage_loop(delta)
+	movement_loop()
+	
+#	held_item.position = hold_position.position
+#	print(held_item.position)
+	
+	if movedir != Vector2(0,0):
+		switch_anim("holdwalk")
+	else:
+		switch_anim("holdidle")
+	
+func set_hold_position():
+	if facedir == dir.DOWN:
+		hold_position.position = Vector2(0,9)
+	if facedir == dir.RIGHT:
+		hold_position.position = Vector2(9,0)
+	if facedir == dir.LEFT:
+		hold_position.position = Vector2(-9,0)
+	if facedir == dir.UP:
+		hold_position.position = Vector2(0,-9)
+	pass
 	
 	
 func start_down_hop():
@@ -409,11 +472,6 @@ func sun_damage_loop(delta):
 			emit_signal("on_sun_strength_changed", sun_current_strength)
 			sun_previous_total_strength = sun_current_strength
 	
-
-	
-
-
-
 func take_sun_damage(sun_strength, delta):
 	var damage = sun_strength * delta * sun_drain_damping
 	wasdamaged = true
@@ -478,6 +536,9 @@ func set_state_downtransition():
 
 func set_state_landing():
 	state = "landing"
+	
+func set_state_holding():
+	state = "holding"
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir

@@ -1,14 +1,15 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
-[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=3]
-[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=4]
-[ext_resource path="res://tiles/Plants.png" type="Texture" id=5]
-[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=6]
-[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=7]
-[ext_resource path="res://player/heat_lines.png" type="Texture" id=8]
-[ext_resource path="res://player/heat_lines.gd" type="Script" id=9]
+[ext_resource path="res://items/shield/shield.png" type="Texture" id=3]
+[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=4]
+[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=5]
+[ext_resource path="res://tiles/Plants.png" type="Texture" id=6]
+[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=7]
+[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=8]
+[ext_resource path="res://player/heat_lines.png" type="Texture" id=9]
+[ext_resource path="res://player/heat_lines.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 3 )
@@ -306,6 +307,66 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 19 ]
+}
+
+[sub_resource type="Animation" id=54]
+resource_name = "holdidledown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 66 ]
+}
+
+[sub_resource type="Animation" id=55]
+resource_name = "holdidleleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 73 ]
+}
+
+[sub_resource type="Animation" id=56]
+resource_name = "holdidleright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 71 ]
+}
+
+[sub_resource type="Animation" id=57]
+resource_name = "holdidleup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 69 ]
 }
 
 [sub_resource type="Animation" id=50]
@@ -764,7 +825,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 67
+frame = 70
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -792,6 +853,10 @@ anims/hangdown = SubResource( 18 )
 anims/hangleft = SubResource( 19 )
 anims/hangright = SubResource( 20 )
 anims/hangup = SubResource( 21 )
+anims/holdidledown = SubResource( 54 )
+anims/holdidleleft = SubResource( 55 )
+anims/holdidleright = SubResource( 56 )
+anims/holdidleup = SubResource( 57 )
 anims/holdwalkdown = SubResource( 50 )
 anims/holdwalkleft = SubResource( 51 )
 anims/holdwalkright = SubResource( 52 )
@@ -821,7 +886,11 @@ anims/walkleft = SubResource( 43 )
 anims/walkright = SubResource( 44 )
 anims/walkup = SubResource( 45 )
 
-[node name="footanim" type="AnimationPlayer" parent="."]
+[node name="hold_position" type="Position2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="hold_position"]
+visible = false
+texture = ExtResource( 3 )
 
 [node name="sightbox" type="Area2D" parent="."]
 
@@ -835,7 +904,7 @@ shape = SubResource( 46 )
 shape = SubResource( 47 )
 
 [node name="pivot" type="Position2D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="cameraoffset" type="Position2D" parent="pivot"]
 position = Vector2( 8, 0 )
@@ -844,7 +913,7 @@ position = Vector2( 8, 0 )
 
 [node name="test_sprite" type="Sprite" parent="pivot/cameraholder"]
 visible = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="pivot/cameraholder"]
 position = Vector2( 8, 0 )
@@ -858,30 +927,30 @@ editor_draw_drag_margin = true
 [node name="testparameter" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 48.7541, 0.35849 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="testparameter2" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( -47.6787, 0.35849 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="testparameter3" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 1.43394, -42.3014 )
 rotation = 1.5708
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="testparameter4" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 0.35849, 44.4523 )
 rotation = 1.5708
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="cameragridsnapper" type="Position2D" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="cameracontroller" type="Position2D" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="hopchecker" type="Area2D" parent="."]
 
@@ -889,16 +958,14 @@ script = ExtResource( 7 )
 position = Vector2( 0, -16 )
 shape = SubResource( 48 )
 
-[node name="Tester" type="Sprite" parent="."]
-
 [node name="heat_lines" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 hframes = 3
 frame = 1
 region_rect = Rect2( 0, 0, 16, 16 )
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 49 )
