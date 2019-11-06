@@ -323,6 +323,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 66 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=55]
 resource_name = "holdidleleft"
@@ -337,6 +349,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 73 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=56]
@@ -353,6 +377,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 71 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=57]
 resource_name = "holdidleup"
@@ -367,6 +403,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 69 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=50]
@@ -384,6 +432,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 66, 67 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=51]
 resource_name = "holdwalkleft"
@@ -399,6 +459,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 73, 72 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=52]
@@ -416,6 +488,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 71, 70 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=53]
 resource_name = "holdwalkup"
@@ -431,6 +515,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 69, 68 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -825,7 +921,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 70
+frame = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -886,9 +982,11 @@ anims/walkleft = SubResource( 43 )
 anims/walkright = SubResource( 44 )
 anims/walkup = SubResource( 45 )
 
-[node name="hold_position" type="Position2D" parent="."]
+[node name="hold_orienter" type="Position2D" parent="."]
 
-[node name="Sprite" type="Sprite" parent="hold_position"]
+[node name="animation_mover" type="Position2D" parent="hold_orienter"]
+
+[node name="test_sprite" type="Sprite" parent="hold_orienter/animation_mover"]
 visible = false
 texture = ExtResource( 3 )
 

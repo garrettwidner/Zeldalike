@@ -13,6 +13,7 @@ var dialogueparser
 var interacttarget
 var caninteract : bool = false
 
+var hold_orienter
 var hold_position
 var is_holding : bool = false
 var held_item
@@ -67,7 +68,8 @@ func _ready():
 	if sun != null:
 		sun_base_strength = sun.strength
 		
-	hold_position = get_node("hold_position")
+	hold_orienter = get_node("hold_orienter")	
+	hold_position = get_node("hold_orienter/animation_mover")
 	
 #	print("Player position:")
 #	print(global_position)
@@ -76,12 +78,6 @@ func _ready():
 #    	print(i, '\t', get_collision_layer_bit(i))
 
 func _process(delta):
-	set_hold_position()
-	
-	if Input.is_action_just_pressed("y"):
-		var children = hold_position.get_children()
-		for child in children:
-			print(child.name)
 	
 	match state:
 		"default":
@@ -124,8 +120,6 @@ func state_default(delta):
 		
 	if Input.is_action_just_pressed("a"):
 		
-		
-		
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
 			var is_valid_target = dialogueparser.activate(interacttarget)
@@ -133,24 +127,13 @@ func state_default(delta):
 				set_state_listen()
 				
 		else: 
-			var checkarea = get_node("hitbox")
-			var pickupable
-			var areas = checkarea.get_overlapping_areas()
-			for area in areas:
-				if area.is_in_group("pickupable"):
-					is_holding = true
-					held_item = area
-					add_child_below_node(hold_position,held_item, true)
-					set_state_holding()
-					
-					return
-					
+			try_item_pickup()
 					
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #			add_sprinkle()
 		
-	if Input.is_action_just_pressed("b"):
+	elif Input.is_action_just_pressed("b"):
 		if check_hop_validity():
 			if is_current_hop_upward:
 				set_state_uptransition()
@@ -169,13 +152,25 @@ func state_default(delta):
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))
 		
-	if Input.is_action_just_pressed("x"):
+	elif Input.is_action_just_pressed("x"):
 		staticdir = spritedir
 		use_item(preload("res://items/shield/shield.tscn"))
 		pass
 	
 	
 	movement_loop()
+
+func try_item_pickup():
+	var checkarea = get_node("hitbox")
+	var pickupable
+	var areas = checkarea.get_overlapping_areas()
+	for area in areas:
+		if area.is_in_group("pickupable"):
+			is_holding = true
+			held_item = area
+#			add_child_below_node(hold_position,held_item, true)
+			set_state_holding()
+			return
 
 func check_hop_validity():
 	var already_hopping = false
@@ -334,8 +329,15 @@ func state_holding(delta):
 	sun_damage_loop(delta)
 	movement_loop()
 	
-#	held_item.position = hold_position.position
+	held_item.global_position = hold_position.global_position
 #	print(held_item.position)
+
+	if Input.is_action_just_pressed("a"):
+		held_item.z_index = z_index - 1
+		held_item.position = Vector2(held_item.position.x + (facedir.x * 3), held_item.position.y + (facedir.y * 3))
+		is_holding = false
+		held_item = null
+		set_state_default()
 	
 	if movedir != Vector2(0,0):
 		switch_anim("holdwalk")
@@ -344,13 +346,17 @@ func state_holding(delta):
 	
 func set_hold_position():
 	if facedir == dir.DOWN:
-		hold_position.position = Vector2(0,9)
+		hold_orienter.position = Vector2(0,3)
+		held_item.z_index = z_index + 1
 	if facedir == dir.RIGHT:
-		hold_position.position = Vector2(9,0)
+		hold_orienter.position = Vector2(6,2)
+		held_item.z_index = z_index + 1
 	if facedir == dir.LEFT:
-		hold_position.position = Vector2(-9,0)
+		hold_orienter.position = Vector2(-6,2)
+		held_item.z_index = z_index + 1
 	if facedir == dir.UP:
-		hold_position.position = Vector2(0,-9)
+		hold_orienter.position = Vector2(0,-3)
+		held_item.z_index = z_index - 1
 	pass
 	
 	
