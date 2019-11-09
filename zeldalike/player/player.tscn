@@ -204,7 +204,31 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.9, 1.4, 1.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 74, 75, 76, 1 ]
+"values": [ 74, 75, 74, 76 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hold_orienter/animation_mover:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, -1 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bite_just_taken")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -937,7 +961,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 1
+frame = 75
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -1002,6 +1026,7 @@ anims/walkup = SubResource( 45 )
 [node name="hold_orienter" type="Position2D" parent="."]
 
 [node name="animation_mover" type="Position2D" parent="hold_orienter"]
+position = Vector2( 0, -1 )
 
 [node name="test_sprite" type="Sprite" parent="hold_orienter/animation_mover"]
 visible = false

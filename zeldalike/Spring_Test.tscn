@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=2]
@@ -15,7 +15,7 @@
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/knockable.gd" type="Script" id=14]
 [ext_resource path="res://objects/seedbed.png" type="Texture" id=15]
-[ext_resource path="res://environment/springs/triggerables/Bulb.tscn" type="PackedScene" id=16]
+[ext_resource path="res://environment/edible.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -131,6 +131,52 @@ tracks/0/keys = {
 
 [sub_resource type="RectangleShape2D" id=9]
 
+[sub_resource type="Animation" id=12]
+resource_name = "bud"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "grow"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "grown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+
 [sub_resource type="TileSet" id=10]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
 0/texture = ExtResource( 12 )
@@ -153,6 +199,9 @@ tracks/0/keys = {
 0/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=11]
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 6, 6 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -195,7 +244,7 @@ modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
 texture = ExtResource( 8 )
 hframes = 3
-frame = 1
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Spring/water"]
 anims/flow = SubResource( 5 )
@@ -218,10 +267,19 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Bulbplant"]
 texture = ExtResource( 10 )
 hframes = 6
-frame = 4
+frame = 3
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bulbplant"]
+playback_speed = 0.75
+anims/bud = SubResource( 12 )
+anims/grow = SubResource( 13 )
+anims/grown = SubResource( 14 )
+
+[node name="bulb_spawn_point" type="Position2D" parent="Bulbplant"]
+position = Vector2( 3, 1 )
 
 [node name="Grass" type="Position2D" parent="."]
 position = Vector2( 82.2179, 68.7785 )
@@ -269,4 +327,72 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Bulb" parent="." instance=ExtResource( 16 )]
+[node name="Bulb" type="Area2D" parent="." groups=[
+"pickupable",
+"edible",
+]]
+visible = false
+position = Vector2( 182.103, 109.804 )
+script = ExtResource( 16 )
+health = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb"]
+shape = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Bulb"]
+texture = ExtResource( 10 )
+hframes = 6
+frame = 5
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bulb2" type="Area2D" parent="." groups=[
+"pickupable",
+"edible",
+]]
+visible = false
+position = Vector2( 154.316, 92.5594 )
+script = ExtResource( 16 )
+health = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb2"]
+shape = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Bulb2"]
+texture = ExtResource( 10 )
+hframes = 6
+frame = 5
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bulb3" type="Area2D" parent="." groups=[
+"pickupable",
+"edible",
+]]
+visible = false
+position = Vector2( 182.106, 80.3589 )
+script = ExtResource( 16 )
+health = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb3"]
+shape = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Bulb3"]
+texture = ExtResource( 10 )
+hframes = 6
+frame = 5
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="animation_finished" from="Bulbplant/AnimationPlayer" to="Bulbplant" method="_on_AnimationPlayer_animation_finished"]

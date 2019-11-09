@@ -18,6 +18,8 @@ var hold_position
 var is_holding : bool = false
 var held_item
 var is_eating : bool = false
+var edible_is_finished : bool = false
+export var bite_just_taken : bool = false
 
 var inventory = []
 
@@ -71,6 +73,7 @@ func _ready():
 		
 	hold_orienter = get_node("hold_orienter")	
 	hold_position = get_node("hold_orienter/animation_mover")
+	bite_just_taken = false
 	
 #	print("Player position:")
 #	print(global_position)
@@ -169,14 +172,15 @@ func try_item_pickup():
 			held_item = area
 			
 			if held_item.is_in_group("edible"):
-				held_item.connect("on_eaten", self, "eat_item")
+				held_item.connect("on_eaten", self, "finish_edible")
 				pass
 			
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
 			return
 			
-func eat_item():
+func finish_edible():
+	edible_is_finished = true
 	is_holding = false
 	held_item = null
 	print("Item eaten")
@@ -330,6 +334,12 @@ func state_landing(delta):
 		set_state_default()
 		
 func state_holding(delta):
+	if bite_just_taken:
+		health += held_item.health
+		emit_signal("health_changed", health, 0)
+		held_item.was_bitten()
+		bite_just_taken = false
+	
 	if !is_eating:
 		set_hold_position()
 		set_speed()
@@ -338,6 +348,8 @@ func state_holding(delta):
 		set_spritedir()
 		damage_loop()
 		movement_loop()
+		
+	if !edible_is_finished:
 		held_item.global_position = hold_position.global_position
 		
 		
@@ -355,9 +367,9 @@ func state_holding(delta):
 	elif Input.is_action_just_pressed("b"):
 		if held_item.is_in_group("edible"):
 			is_eating = true
-			health += held_item.health
-			emit_signal("health_changed", health, 0)
-			held_item.was_bitten()
+			facedir = dir.DOWN
+			set_hold_position()
+			
 			switch_anim_directional("eat", "down")
 #			held_item.queue_free()
 			
@@ -582,7 +594,9 @@ func switch_anim_directional(animation, direction):
 
 func _on_anim_animation_finished(anim_name):
 	if anim_name == "eatdown":
+		is_eating = false
 		if held_item == null:
+			edible_is_finished = false
 			set_state_default()
-			print("State now default")
-	pass # Replace with function body.
+#			print("State now default")
+		
