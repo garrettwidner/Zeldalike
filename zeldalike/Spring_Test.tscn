@@ -15,6 +15,7 @@
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://objects/knockable.gd" type="Script" id=14]
 [ext_resource path="res://objects/seedbed.png" type="Texture" id=15]
+[ext_resource path="res://environment/springs/triggerables/Bulb.tscn" type="PackedScene" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -153,9 +154,6 @@ tracks/0/keys = {
 
 [sub_resource type="RectangleShape2D" id=11]
 
-[sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 6, 6 )
-
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 scene_name = "Spring_Test"
@@ -186,7 +184,6 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Spring"]
 texture = ExtResource( 7 )
 hframes = 3
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Spring"]
 anims/closed = SubResource( 2 )
@@ -272,21 +269,4 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Bulb" type="Area2D" parent="." groups=[
-"pickupable",
-]]
-position = Vector2( 163.805, 73.5809 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb"]
-shape = SubResource( 13 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Bulb"]
-texture = ExtResource( 10 )
-hframes = 6
-frame = 5
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Bulb" parent="." instance=ExtResource( 16 )]

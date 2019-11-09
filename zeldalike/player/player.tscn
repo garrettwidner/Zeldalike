@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -189,6 +189,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=58]
+resource_name = "eatdown"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1.4, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 74, 75, 76, 1 ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -921,7 +937,7 @@ maxhealth = 50.0
 texture = ExtResource( 2 )
 vframes = 20
 hframes = 4
-frame = 66
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -941,6 +957,7 @@ anims/crouchdown = SubResource( 10 )
 anims/crouchleft = SubResource( 11 )
 anims/crouchright = SubResource( 12 )
 anims/crouchup = SubResource( 13 )
+anims/eatdown = SubResource( 58 )
 anims/falldown = SubResource( 14 )
 anims/fallleft = SubResource( 15 )
 anims/fallright = SubResource( 16 )
@@ -1067,3 +1084,4 @@ script = ExtResource( 10 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 49 )
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

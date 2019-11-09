@@ -17,6 +17,7 @@ var hold_orienter
 var hold_position
 var is_holding : bool = false
 var held_item
+var is_eating : bool = false
 
 var inventory = []
 
@@ -99,8 +100,6 @@ func _process(delta):
 		"holding":
 			state_holding(delta)
 
-
-
 func dialogue_finished():
 #	print("Character noticed dialogue was finished")
 	set_state_default()
@@ -168,9 +167,20 @@ func try_item_pickup():
 		if area.is_in_group("pickupable"):
 			is_holding = true
 			held_item = area
+			
+			if held_item.is_in_group("edible"):
+				held_item.connect("on_eaten", self, "eat_item")
+				pass
+			
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
 			return
+			
+func eat_item():
+	is_holding = false
+	held_item = null
+	print("Item eaten")
+	pass
 
 func check_hop_validity():
 	var already_hopping = false
@@ -320,29 +330,43 @@ func state_landing(delta):
 		set_state_default()
 		
 func state_holding(delta):
-	set_hold_position()
-	set_speed()
-	set_movedir()
-	set_facedir()
-	set_spritedir()
-	damage_loop()
+	if !is_eating:
+		set_hold_position()
+		set_speed()
+		set_movedir()
+		set_facedir()
+		set_spritedir()
+		damage_loop()
+		movement_loop()
+		held_item.global_position = hold_position.global_position
+		
+		
 	sun_damage_loop(delta)
-	movement_loop()
 	
-	held_item.global_position = hold_position.global_position
 #	print(held_item.position)
 
-	if Input.is_action_just_pressed("a"):
+	if Input.is_action_just_pressed("a") && !is_eating:
 		held_item.z_index = z_index - 1
 		held_item.position = Vector2(held_item.position.x + (facedir.x * 3), held_item.position.y + (facedir.y * 3))
 		is_holding = false
 		held_item = null
 		set_state_default()
-	
-	if movedir != Vector2(0,0):
-		switch_anim("holdwalk")
-	else:
-		switch_anim("holdidle")
+		
+	elif Input.is_action_just_pressed("b"):
+		if held_item.is_in_group("edible"):
+			is_eating = true
+			health += held_item.health
+			emit_signal("health_changed", health, 0)
+			held_item.was_bitten()
+			switch_anim_directional("eat", "down")
+#			held_item.queue_free()
+			
+			
+	if !is_eating:
+		if movedir != Vector2(0,0):
+			switch_anim("holdwalk")
+		else:
+			switch_anim("holdidle")
 	
 func set_hold_position():
 	if facedir == dir.DOWN:
@@ -551,8 +575,14 @@ func switch_anim_static(animation):
 	if $anim.current_animation != nextanim:
 		$anim.play(nextanim)
 		
-	
-	
-	
-	
-	
+func switch_anim_directional(animation, direction):
+	var nextanim : String = animation + direction
+	if $anim.current_animation != nextanim:
+		$anim.play(nextanim)
+
+func _on_anim_animation_finished(anim_name):
+	if anim_name == "eatdown":
+		if held_item == null:
+			set_state_default()
+			print("State now default")
+	pass # Replace with function body.
