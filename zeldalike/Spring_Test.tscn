@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=2]
@@ -8,14 +8,14 @@
 [ext_resource path="res://environment/springs/spring.gd" type="Script" id=6]
 [ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=7]
 [ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=8]
-[ext_resource path="res://environment/springs/triggerables/bulb.gd" type="Script" id=9]
-[ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=10]
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=11]
-[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=12]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=13]
-[ext_resource path="res://objects/knockable.gd" type="Script" id=14]
-[ext_resource path="res://objects/seedbed.png" type="Texture" id=15]
-[ext_resource path="res://environment/edible.gd" type="Script" id=16]
+[ext_resource path="res://environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=9]
+[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=10]
+[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=11]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/knockable.gd" type="Script" id=13]
+[ext_resource path="res://objects/seedbed.png" type="Texture" id=14]
+[ext_resource path="res://environment/edible.gd" type="Script" id=15]
+[ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -129,57 +129,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.733333 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=9]
-
-[sub_resource type="Animation" id=12]
-resource_name = "bud"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "grow"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "grown"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
-}
-
 [sub_resource type="TileSet" id=10]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 12 )
+0/texture = ExtResource( 11 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -254,36 +206,11 @@ anims/closed = SubResource( 6 )
 anims/opened = SubResource( 7 )
 anims/unblock = SubResource( 8 )
 
-[node name="Bulbplant" type="Area2D" parent="."]
-position = Vector2( 145.823, 42.9675 )
-script = ExtResource( 9 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bulbplant"]
-shape = SubResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Bulbplant"]
-texture = ExtResource( 10 )
-hframes = 6
-frame = 3
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bulbplant"]
-playback_speed = 0.75
-anims/bud = SubResource( 12 )
-anims/grow = SubResource( 13 )
-anims/grown = SubResource( 14 )
-
-[node name="bulb_spawn_point" type="Position2D" parent="Bulbplant"]
-position = Vector2( 3, 1 )
+[node name="Bulbplant" parent="." instance=ExtResource( 9 )]
 
 [node name="Grass" type="Position2D" parent="."]
 position = Vector2( 82.2179, 68.7785 )
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="Grass"]
 tile_set = SubResource( 10 )
@@ -302,12 +229,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="player" parent="." instance=ExtResource( 13 )]
+[node name="player" parent="." instance=ExtResource( 12 )]
 position = Vector2( 118.863, 71.5265 )
 
 [node name="knockable_test" type="Position2D" parent="."]
 position = Vector2( 179.865, 32.1187 )
-script = ExtResource( 14 )
+script = ExtResource( 13 )
 
 [node name="hitbox" type="Area2D" parent="knockable_test"]
 __meta__ = {
@@ -321,7 +248,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="knockable_test"]
-texture = ExtResource( 15 )
+texture = ExtResource( 14 )
 hframes = 2
 __meta__ = {
 "_edit_lock_": true
@@ -333,7 +260,7 @@ __meta__ = {
 ]]
 visible = false
 position = Vector2( 182.103, 109.804 )
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 health = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb"]
@@ -343,7 +270,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Bulb"]
-texture = ExtResource( 10 )
+texture = ExtResource( 16 )
 hframes = 6
 frame = 5
 __meta__ = {
@@ -356,7 +283,7 @@ __meta__ = {
 ]]
 visible = false
 position = Vector2( 154.316, 92.5594 )
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 health = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb2"]
@@ -366,7 +293,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Bulb2"]
-texture = ExtResource( 10 )
+texture = ExtResource( 16 )
 hframes = 6
 frame = 5
 __meta__ = {
@@ -379,7 +306,7 @@ __meta__ = {
 ]]
 visible = false
 position = Vector2( 182.106, 80.3589 )
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 health = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bulb3"]
@@ -389,10 +316,9 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Bulb3"]
-texture = ExtResource( 10 )
+texture = ExtResource( 16 )
 hframes = 6
 frame = 5
 __meta__ = {
 "_edit_lock_": true
 }
-[connection signal="animation_finished" from="Bulbplant/AnimationPlayer" to="Bulbplant" method="_on_AnimationPlayer_animation_finished"]

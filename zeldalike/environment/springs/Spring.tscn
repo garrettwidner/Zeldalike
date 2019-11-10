@@ -4,9 +4,9 @@
 [ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=2]
 [ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=60]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=61]
 resource_name = "closed"
 length = 0.2
 tracks/0/type = "value"
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=62]
 resource_name = "crumble"
 length = 0.4
 tracks/0/type = "value"
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=63]
 resource_name = "opened"
 length = 0.2
 tracks/0/type = "value"
@@ -54,7 +54,7 @@ tracks/0/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=64]
 resource_name = "flow"
 length = 0.3
 loop = true
@@ -71,7 +71,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=65]
 resource_name = "closed"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -86,7 +86,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=66]
 resource_name = "opened"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.733333 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=67]
 resource_name = "unblock"
 length = 1.2
 tracks/0/type = "value"
@@ -124,7 +124,7 @@ script = ExtResource( 1 )
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 1 )
+shape = SubResource( 60 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -135,9 +135,9 @@ hframes = 3
 frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/closed = SubResource( 5 )
-anims/crumble = SubResource( 6 )
-anims/opened = SubResource( 7 )
+anims/closed = SubResource( 61 )
+anims/crumble = SubResource( 62 )
+anims/opened = SubResource( 63 )
 
 [node name="water" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.733333 )
@@ -147,9 +147,9 @@ hframes = 3
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="water"]
-anims/flow = SubResource( 2 )
+anims/flow = SubResource( 64 )
 
 [node name="opacityanim" type="AnimationPlayer" parent="water"]
-anims/closed = SubResource( 8 )
-anims/opened = SubResource( 9 )
-anims/unblock = SubResource( 10 )
+anims/closed = SubResource( 65 )
+anims/opened = SubResource( 66 )
+anims/unblock = SubResource( 67 )
