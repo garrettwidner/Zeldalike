@@ -4,7 +4,7 @@ var input : Vector2 = dir.CENTER
 var istrackingenemy : bool = false
 var state = "default"
 var walkspeed = 40
-var runspeed = 65
+var runspeed = 50
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
@@ -121,8 +121,13 @@ func state_default(delta):
 		switch_anim("idle")
 		
 	if Input.is_action_just_pressed("a"):
-		
-		use_item(preload("res://items/sword/sword.tscn"))
+		if caninteract:
+#			print("Should be interacting with " + interacttarget.name + "!")
+			var is_valid_target = dialogueparser.activate(interacttarget)
+			if is_valid_target:
+				set_state_listen()
+		else:
+			use_item(preload("res://items/sword/sword.tscn"))
 		
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
@@ -147,11 +152,7 @@ func state_default(delta):
 		elif try_item_pickup():
 			print("Item pickup returned true")
 			pass
-		elif caninteract:
-#			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget)
-			if is_valid_target:
-				set_state_listen()
+		
 		
 		
 	elif Input.is_action_just_pressed("y"):
@@ -464,11 +465,10 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-#	if Input.is_action_pressed("x"):
-#		speed = runspeed
-#	else:
-#		speed = walkspeed
-	speed = walkspeed
+	if Input.is_action_pressed("b") && !is_holding:
+		speed = runspeed
+	else:
+		speed = walkspeed
 
 func set_movedir():
 	var LEFT : bool = Input.is_action_pressed("left")
