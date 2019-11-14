@@ -122,15 +122,8 @@ func state_default(delta):
 		
 	if Input.is_action_just_pressed("a"):
 		
-		if caninteract:
-#			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget)
-			if is_valid_target:
-				set_state_listen()
-				
-		else: 
-			try_item_pickup()
-					
+		use_item(preload("res://items/sword/sword.tscn"))
+		
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #			add_sprinkle()
@@ -151,23 +144,35 @@ func state_default(delta):
 				set_state_downtransition()
 				transitionspeed = hopdownspeed / hoparea.height
 				switch_anim("crouch")
-		else:
-			use_item(preload("res://items/sword/sword.tscn"))
+		elif try_item_pickup():
+			print("Item pickup returned true")
+			pass
+		elif caninteract:
+#			print("Should be interacting with " + interacttarget.name + "!")
+			var is_valid_target = dialogueparser.activate(interacttarget)
+			if is_valid_target:
+				set_state_listen()
+		
+		
+	elif Input.is_action_just_pressed("y"):
+		pass
 		
 	elif Input.is_action_just_pressed("x"):
-		staticdir = spritedir
-		use_item(preload("res://items/shield/shield.tscn"))
+#		staticdir = spritedir
+#		use_item(preload("res://items/shield/shield.tscn"))
 		pass
 	
 	
 	movement_loop()
 
 func try_item_pickup():
+	print("Item pickup tried")
 	var checkarea = get_node("hitbox")
 	var pickupable
 	var areas = checkarea.get_overlapping_areas()
 	for area in areas:
 		if area.is_in_group("pickupable"):
+			
 			is_holding = true
 			held_item = area
 			
@@ -177,7 +182,8 @@ func try_item_pickup():
 			
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
-			return
+			return true
+	return false
 			
 func finish_edible():
 	edible_is_finished = true
@@ -357,14 +363,14 @@ func state_holding(delta):
 	
 #	print(held_item.position)
 
-	if Input.is_action_just_pressed("a") && !is_eating:
+	if Input.is_action_just_pressed("b") && !is_eating:
 		held_item.z_index = z_index - 1
 		held_item.position = Vector2(held_item.position.x + (facedir.x * 3), held_item.position.y + (facedir.y * 3))
 		is_holding = false
 		held_item = null
 		set_state_default()
 		
-	elif Input.is_action_just_pressed("b"):
+	elif Input.is_action_just_pressed("a"):
 		if held_item.is_in_group("edible"):
 			is_eating = true
 			facedir = dir.DOWN
