@@ -1,24 +1,24 @@
-[gd_scene load_steps=102 format=2]
+[gd_scene load_steps=103 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
 [ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=3]
 [ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=4]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=6]
-[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=7]
-[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=8]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=5]
+[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=6]
+[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=7]
+[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=8]
 [ext_resource path="res://environment/sun_area.gd" type="Script" id=9]
-[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=10]
-[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=10]
+[ext_resource path="res://environment/sun_area.tscn" type="PackedScene" id=11]
 [ext_resource path="res://tiles/Bog Tree.png" type="Texture" id=12]
-[ext_resource path="res://environment/sun_area.tscn" type="PackedScene" id=13]
-[ext_resource path="res://environment/springs/spring.gd" type="Script" id=14]
-[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=15]
-[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=16]
-[ext_resource path="res://environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=17]
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=18]
-[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=19]
+[ext_resource path="res://environment/springs/spring.gd" type="Script" id=13]
+[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=14]
+[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=15]
+[ext_resource path="res://environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=16]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=17]
+[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=18]
+[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=19]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -518,20 +518,34 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
+[sub_resource type="TileSet" id=68]
+0/name = "2x2 Grass-Dirt Bitmap.png 0"
+0/texture = ExtResource( 8 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 64, Vector2( 0, 1 ), 257, Vector2( 0, 2 ), 4, Vector2( 1, 0 ), 260, Vector2( 1, 1 ), 324, Vector2( 1, 2 ), 5, Vector2( 1, 3 ), 256, Vector2( 2, 0 ), 321, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 261, Vector2( 2, 3 ), 68, Vector2( 3, 0 ), 320, Vector2( 3, 1 ), 69, Vector2( 3, 2 ), 65, Vector2( 3, 3 ), 1 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+
 [sub_resource type="CircleShape2D" id=55]
 radius = 40.0
 
 [sub_resource type="RectangleShape2D" id=56]
 extents = Vector2( 30, 30 )
 
-[sub_resource type="RectangleShape2D" id=57]
-extents = Vector2( 8, 7 )
-
-[sub_resource type="RectangleShape2D" id=58]
-extents = Vector2( 8, 48 )
-
-[sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 8, 41 )
+[sub_resource type="CircleShape2D" id=83]
 
 [sub_resource type="RectangleShape2D" id=60]
 
@@ -868,26 +882,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.733333 ) ]
 }
 
-[sub_resource type="TileSet" id=68]
-0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 19 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 64, 64 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 0
-0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 64, Vector2( 0, 1 ), 257, Vector2( 0, 2 ), 4, Vector2( 1, 0 ), 260, Vector2( 1, 1 ), 324, Vector2( 1, 2 ), 5, Vector2( 1, 3 ), 256, Vector2( 2, 0 ), 321, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 261, Vector2( 2, 3 ), 68, Vector2( 3, 0 ), 320, Vector2( 3, 1 ), 69, Vector2( 3, 2 ), 65, Vector2( 3, 3 ), 1 ]
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 16, 16 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shapes = [  ]
-0/z_index = 0
+[sub_resource type="RectangleShape2D" id=57]
+extents = Vector2( 8, 7 )
+
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 8, 48 )
+
+[sub_resource type="RectangleShape2D" id=59]
+extents = Vector2( 8, 41 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -909,527 +911,21 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 65548, 1, 5, 65549, 1, 65541, 65550, 1, 65541, 65551, 1, 65541, 65552, 1, 131077, 131080, 1, 5, 131081, 1, 65541, 131082, 1, 65541, 131083, 1, 65541, 131084, 1, 196613, 131088, 1, 65536, 196614, 1, 5, 196615, 1, 65541, 196616, 1, 196613, 196624, 1, 65536, 196636, 1, 5, 196637, 1, 65541, 196638, 1, 131077, 262150, 1, 65537, 262160, 1, 65536, 262171, 1, 5, 262172, 1, 196613, 262174, 1, 262149, 262175, 1, 65541, 262176, 1, 131077, 327686, 1, 65537, 327696, 1, 262149, 327697, 1, 65541, 327698, 1, 65541, 327699, 1, 65541, 327700, 1, 65541, 327701, 1, 131077, 327707, 1, 65537, 327712, 1, 65536, 393222, 1, 65537, 393237, 1, 65536, 393243, 1, 65537, 393248, 1, 65536, 458758, 1, 65537, 458773, 1, 65536, 458779, 1, 65538, 458780, 1, 7, 458781, 1, 196609, 458784, 1, 65536, 524294, 1, 65537, 524304, 1, 262145, 524305, 1, 65539, 524306, 1, 65542, 524307, 1, 65539, 524308, 1, 65539, 524309, 1, 65540, 524312, 1, 2, 524313, 1, 262144, 524314, 1, 262144, 524315, 1, 327684, 524316, 1, 65543, 524317, 1, 262147, 524320, 1, 65536, 589830, 1, 65537, 589840, 1, 262146, 589841, 1, 327684, 589842, 1, 131075, 589843, 1, 131075, 589844, 1, 131075, 589845, 1, 131076, 589848, 1, 65537, 589851, 1, 131074, 589852, 1, 65543, 589853, 1, 327683, 589854, 1, 65539, 589855, 1, 65542, 589856, 1, 65540, 655366, 1, 65538, 655367, 1, 65539, 655368, 1, 7, 655369, 1, 65539, 655370, 1, 1, 655376, 1, 262146, 655377, 1, 327684, 655378, 1, 131075, 655379, 1, 131075, 655380, 1, 131075, 655381, 1, 131076, 655384, 1, 65537, 655387, 1, 131074, 655388, 1, 65543, 655389, 1, 327684, 655390, 1, 131075, 655391, 1, 131075, 655392, 1, 262148, 655393, 1, 3, 655394, 1, 4, 720902, 1, 131074, 720903, 1, 131075, 720904, 1, 65543, 720905, 1, 262148, 720906, 1, 262147, 720910, 1, 262145, 720911, 1, 65539, 720912, 1, 327682, 720913, 1, 327684, 720914, 1, 131075, 720915, 1, 131075, 720916, 1, 131075, 720917, 1, 131076, 720920, 1, 65537, 720923, 1, 131074, 720924, 1, 65543, 720925, 1, 327684, 720926, 1, 131075, 720927, 1, 131075, 720928, 1, 131076, 720930, 1, 65536, 786438, 1, 131074, 786439, 1, 131075, 786440, 1, 65543, 786441, 1, 262148, 786442, 1, 262147, 786446, 1, 262146, 786447, 1, 131075, 786448, 1, 262148, 786449, 1, 327684, 786450, 1, 131075, 786451, 1, 131075, 786452, 1, 131075, 786453, 1, 131076, 786456, 1, 65537, 786459, 1, 196610, 786460, 1, 131079, 786461, 1, 327684, 786462, 1, 131075, 786463, 1, 131075, 786464, 1, 131076, 786466, 1, 65536, 786467, 1, 131079, 851974, 1, 131074, 851975, 1, 131075, 851976, 1, 65543, 851977, 1, 262148, 851978, 1, 327683, 851979, 1, 327685, 851980, 1, 6, 851981, 1, 327686, 851982, 1, 327682, 851983, 1, 131075, 851984, 1, 262148, 851985, 1, 196610, 851986, 1, 196611, 851987, 1, 196611, 851988, 1, 196611, 851989, 1, 196612, 851992, 1, 65537, 851997, 1, 196610, 851998, 1, 196611, 851999, 1, 196611, 852000, 1, 196612, 852002, 1, 131072, 852003, 1, 262144, 852004, 1, 262144, 852005, 1, 196614, 852006, 1, 262144, 852007, 1, 131079, 852008, 1, 4, 917510, 1, 196610, 917511, 1, 196611, 917512, 1, 131079, 917513, 1, 196611, 917514, 1, 327684, 917515, 1, 131075, 917516, 1, 131075, 917517, 1, 131075, 917518, 1, 262148, 917519, 1, 131075, 917520, 1, 131076, 917528, 1, 65537, 917544, 1, 65536, 983050, 1, 131074, 983051, 1, 131075, 983052, 1, 131075, 983053, 1, 131075, 983054, 1, 262148, 983055, 1, 196611, 983056, 1, 196612, 983064, 1, 327680, 983065, 1, 196608, 983066, 1, 196608, 983067, 1, 7, 983068, 1, 196608, 983069, 1, 196608, 983070, 1, 196608, 983071, 1, 196608, 983072, 1, 65542, 983073, 1, 196608, 983074, 1, 196608, 983075, 1, 196609, 983080, 1, 65536, 1048586, 1, 131074, 1048587, 1, 131075, 1048588, 1, 131075, 1048589, 1, 131075, 1048590, 1, 131076, 1048611, 1, 131078, 1048616, 1, 65536, 1114122, 1, 196610, 1114123, 1, 196611, 1114124, 1, 196611, 1114125, 1, 196611, 1114126, 1, 196612, 1114147, 1, 65537, 1114152, 1, 262150, 1179683, 1, 327680, 1179684, 1, 196608, 1179685, 1, 65542, 1179686, 1, 196608, 1179687, 1, 7, 1179688, 1, 327681 )
 
-[node name="player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 399.044, 306.81 )
+[node name="dialogue_parser" parent="." instance=ExtResource( 5 )]
 
-[node name="dialogue_parser" parent="." instance=ExtResource( 6 )]
+[node name="dialogue" parent="." instance=ExtResource( 6 )]
 
-[node name="dialogue" parent="." instance=ExtResource( 7 )]
+[node name="YSort" type="YSort" parent="."]
 
-[node name="sun_crystal" type="Sprite" parent="."]
-position = Vector2( 399.681, 352.853 )
-texture = ExtResource( 8 )
-
-[node name="sun_area" type="Area2D" parent="sun_crystal" groups=[
-"sun_area",
-]]
-z_index = 4096
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
-modification = 1.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal/sun_area"]
-shape = SubResource( 55 )
-
-[node name="sun_crystal2" type="Sprite" parent="."]
-position = Vector2( 185.632, 118.503 )
-texture = ExtResource( 8 )
-
-[node name="sun_area" type="Area2D" parent="sun_crystal2" groups=[
-"sun_area",
-]]
-z_index = 4096
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
-modification = 1.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal2/sun_area"]
-shape = SubResource( 56 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="sun_crystal3" type="Sprite" parent="."]
-position = Vector2( 206.12, 131.047 )
-texture = ExtResource( 8 )
-
-[node name="sun_area" type="Area2D" parent="sun_crystal3" groups=[
-"sun_area",
-]]
-z_index = 4096
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
-modification = 1.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="sun_crystal3/sun_area"]
-shape = SubResource( 56 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="upward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 600.139, 210.977 )
-rotation = 3.14159
-z_index = 4096
-script = ExtResource( 10 )
-updirection = Vector2( 0, 1 )
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="upward_hoparea"]
-position = Vector2( 0, -1 )
-shape = SubResource( 57 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="upward_hoparea"]
-position = Vector2( 0, -8 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hopbott" type="Position2D" parent="upward_hoparea"]
-position = Vector2( 0, 9 )
-
-[node name="hopcling" type="Position2D" parent="upward_hoparea"]
-position = Vector2( 0, -5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="rightward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 652.787, 280.4 )
-rotation = -1.5708
-z_index = 4096
-script = ExtResource( 10 )
-updirection = Vector2( -1, 0 )
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="rightward_hoparea"]
-position = Vector2( 0, -1 )
-shape = SubResource( 57 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="rightward_hoparea"]
-position = Vector2( 0, -8 )
-
-[node name="hopbott" type="Position2D" parent="rightward_hoparea"]
-position = Vector2( 0, 6 )
-
-[node name="hopcling" type="Position2D" parent="rightward_hoparea"]
-position = Vector2( 3, 0 )
-
-[node name="leftward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 563.103, 263.459 )
-rotation = 1.5708
-z_index = 4096
-script = ExtResource( 10 )
-updirection = Vector2( 1, 0 )
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="leftward_hoparea"]
-position = Vector2( 0, -1 )
-shape = SubResource( 57 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="leftward_hoparea"]
-position = Vector2( 0, -8 )
-
-[node name="hopbott" type="Position2D" parent="leftward_hoparea"]
-position = Vector2( 0, 6 )
-
-[node name="hopcling" type="Position2D" parent="leftward_hoparea"]
-position = Vector2( -3, 0 )
-
-[node name="downward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 599.976, 300.782 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea"]
-position = Vector2( 0, -1 )
-shape = SubResource( 57 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="downward_hoparea"]
-position = Vector2( 0, -8 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hopbott" type="Position2D" parent="downward_hoparea"]
-position = Vector2( 0, 6 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hopcling" type="Position2D" parent="downward_hoparea"]
-position = Vector2( 0, -5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="downward_hoparea2" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 519.679, 252.604 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="downward_hoparea2"]
-position = Vector2( 0, -1 )
-shape = SubResource( 57 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="downward_hoparea2"]
-position = Vector2( 0, -8 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hopbott" type="Position2D" parent="downward_hoparea2"]
-position = Vector2( 0, 6 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hopcling" type="Position2D" parent="downward_hoparea2"]
-position = Vector2( 0, -5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="large_downward_hoparea" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 295.98, 181.049 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopup = false
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea"]
-position = Vector2( 0, -1 )
-shape = SubResource( 58 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="large_downward_hoparea"]
-position = Vector2( 0.387451, -49.2603 )
-
-[node name="hopbott" type="Position2D" parent="large_downward_hoparea"]
-position = Vector2( 0.387421, 47.0667 )
-
-[node name="hopcling" type="Position2D" parent="large_downward_hoparea"]
-position = Vector2( -0.193726, -44.9044 )
-
-[node name="large_downward_hoparea2" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 216.268, 253.462 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopup = false
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea2"]
-position = Vector2( 0, -1 )
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="large_downward_hoparea2"]
-position = Vector2( 0, -42 )
-
-[node name="hopbott" type="Position2D" parent="large_downward_hoparea2"]
-position = Vector2( 0, 40 )
-
-[node name="hopcling" type="Position2D" parent="large_downward_hoparea2"]
-position = Vector2( 0, -38 )
-
-[node name="large_downward_hoparea3" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 200.268, 253.462 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopup = false
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea3"]
-position = Vector2( 0, -1 )
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="large_downward_hoparea3"]
-position = Vector2( 0, -42 )
-
-[node name="hopbott" type="Position2D" parent="large_downward_hoparea3"]
-position = Vector2( 0, 40 )
-
-[node name="hopcling" type="Position2D" parent="large_downward_hoparea3"]
-position = Vector2( 0, -38 )
-
-[node name="large_downward_hoparea4" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 184.268, 253.462 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopup = false
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea4"]
-position = Vector2( 0, -1 )
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="large_downward_hoparea4"]
-position = Vector2( 0, -42 )
-
-[node name="hopbott" type="Position2D" parent="large_downward_hoparea4"]
-position = Vector2( 0, 40 )
-
-[node name="hopcling" type="Position2D" parent="large_downward_hoparea4"]
-position = Vector2( 0, -38 )
-
-[node name="large_downward_hoparea5" type="Area2D" parent="." groups=[
-"hoparea",
-]]
-editor/display_folded = true
-position = Vector2( 504.242, 189.079 )
-z_index = 4096
-script = ExtResource( 10 )
-canhopup = false
-canhopdown = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="large_downward_hoparea5"]
-position = Vector2( 0, -1 )
-shape = SubResource( 59 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="hoptop" type="Position2D" parent="large_downward_hoparea5"]
-position = Vector2( 0, -42 )
-
-[node name="hopbott" type="Position2D" parent="large_downward_hoparea5"]
-position = Vector2( 0, 40 )
-
-[node name="hopcling" type="Position2D" parent="large_downward_hoparea5"]
-position = Vector2( 0, -38 )
-
-[node name="demite" parent="." instance=ExtResource( 11 )]
-position = Vector2( 592.326, 238.442 )
-
-[node name="demite2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 666.355, 245.471 )
-
-[node name="demite3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 420.471, 224.118 )
-
-[node name="demite4" parent="." instance=ExtResource( 11 )]
-position = Vector2( 534.031, 186.264 )
-
-[node name="demite5" parent="." instance=ExtResource( 11 )]
-position = Vector2( 511.707, 283.648 )
-
-[node name="Bog Tree" type="Sprite" parent="."]
-position = Vector2( 349.696, 276.605 )
-texture = ExtResource( 12 )
-
-[node name="sun_area" parent="Bog Tree" instance=ExtResource( 13 )]
-position = Vector2( 3.33618, 30.9477 )
-modification = -1.1
-
-[node name="Bog Tree2" type="Sprite" parent="."]
-position = Vector2( 223.995, 35.4959 )
-texture = ExtResource( 12 )
-
-[node name="sun_area" parent="Bog Tree2" instance=ExtResource( 13 )]
-position = Vector2( 3.33618, 30.9477 )
-modification = -1.1
-
-[node name="Spring" type="Position2D" parent="."]
+[node name="GroundObjects" type="Node2D" parent="YSort"]
 position = Vector2( 431.225, 294.49 )
-script = ExtResource( 14 )
-triggerable_1 = NodePath("../Grass")
-triggerable_2 = NodePath("../Bulbplant")
 
-[node name="hitbox" type="Area2D" parent="Spring"]
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Grass" type="Position2D" parent="YSort/GroundObjects"]
+editor/display_folded = true
+position = Vector2( 111.837, 36.5398 )
+script = ExtResource( 7 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/hitbox"]
-shape = SubResource( 60 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Spring"]
-texture = ExtResource( 15 )
-hframes = 3
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring"]
-anims/closed = SubResource( 61 )
-anims/crumble = SubResource( 62 )
-anims/opened = SubResource( 63 )
-
-[node name="water" type="Sprite" parent="Spring"]
-modulate = Color( 1, 1, 1, 0.733333 )
-z_index = -1
-texture = ExtResource( 16 )
-hframes = 3
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring/water"]
-anims/flow = SubResource( 64 )
-
-[node name="opacityanim" type="AnimationPlayer" parent="Spring/water"]
-anims/closed = SubResource( 65 )
-anims/opened = SubResource( 66 )
-anims/unblock = SubResource( 67 )
-
-[node name="Spring2" type="Position2D" parent="."]
-position = Vector2( 584.274, 225.263 )
-script = ExtResource( 14 )
-triggerable_1 = NodePath("../Grass2")
-
-[node name="hitbox" type="Area2D" parent="Spring2"]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/hitbox"]
-shape = SubResource( 60 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Spring2"]
-texture = ExtResource( 15 )
-hframes = 3
-frame = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring2"]
-anims/closed = SubResource( 69 )
-anims/crumble = SubResource( 70 )
-anims/opened = SubResource( 71 )
-
-[node name="water" type="Sprite" parent="Spring2"]
-modulate = Color( 1, 1, 1, 0.733333 )
-z_index = -1
-texture = ExtResource( 16 )
-hframes = 3
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring2/water"]
-anims/flow = SubResource( 72 )
-
-[node name="opacityanim" type="AnimationPlayer" parent="Spring2/water"]
-anims/closed = SubResource( 73 )
-anims/opened = SubResource( 74 )
-anims/unblock = SubResource( 75 )
-
-[node name="Spring3" type="Position2D" parent="."]
-position = Vector2( 473.237, 71.024 )
-script = ExtResource( 14 )
-triggerable_1 = NodePath("../Grass3")
-triggerable_2 = NodePath("../Bulbplant2")
-
-[node name="hitbox" type="Area2D" parent="Spring3"]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring3/hitbox"]
-shape = SubResource( 60 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Spring3"]
-texture = ExtResource( 15 )
-hframes = 3
-frame = 2
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring3"]
-anims/closed = SubResource( 76 )
-anims/crumble = SubResource( 77 )
-anims/opened = SubResource( 78 )
-
-[node name="water" type="Sprite" parent="Spring3"]
-modulate = Color( 1, 1, 1, 0.733333 )
-z_index = -1
-texture = ExtResource( 16 )
-hframes = 3
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spring3/water"]
-anims/flow = SubResource( 79 )
-
-[node name="opacityanim" type="AnimationPlayer" parent="Spring3/water"]
-anims/closed = SubResource( 80 )
-anims/opened = SubResource( 81 )
-anims/unblock = SubResource( 82 )
-
-[node name="Bulbplant" parent="." instance=ExtResource( 17 )]
-position = Vector2( 523.784, 313.805 )
-
-[node name="Bulbplant2" parent="." instance=ExtResource( 17 )]
-position = Vector2( 499, 89 )
-
-[node name="Grass" type="Position2D" parent="."]
-position = Vector2( 543.061, 331.03 )
-script = ExtResource( 18 )
-
-[node name="TileMap" type="TileMap" parent="Grass"]
+[node name="TileMap" type="TileMap" parent="YSort/GroundObjects/Grass"]
 z_index = -1
 tile_set = SubResource( 68 )
 cell_size = Vector2( 16, 16 )
@@ -1439,7 +935,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Area2D" type="Area2D" parent="Grass/TileMap" groups=[
+[node name="Area2D" type="Area2D" parent="YSort/GroundObjects/Grass/TileMap" groups=[
 "sun_area",
 ]]
 script = ExtResource( 9 )
@@ -1448,14 +944,15 @@ __meta__ = {
 }
 modification = -1.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass/TileMap/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/GroundObjects/Grass/TileMap/Area2D"]
 polygon = PoolVector2Array( 8.00635, -38.1094, -7.10303, -40.2402, -7.10303, -8.08432, -71.996, -7.30948, -71.6086, -23.1937, -103.377, -23.3875, -102.021, -8.85916, -87.8802, -7.6969, -86.5243, 24.0716, -40.6149, 24.8464, -40.4212, 6.63766, 7.23151, 6.83136, 9.94348, 57.0023, 24.4717, 56.6149, 23.5032, 6.83136, 72.3182, 7.02509, 69.9937, -7.5032, 8.78119, -7.30948 )
 
-[node name="Grass2" type="Position2D" parent="."]
-position = Vector2( 535.514, 216.633 )
-script = ExtResource( 18 )
+[node name="Grass2" type="Position2D" parent="YSort/GroundObjects"]
+editor/display_folded = true
+position = Vector2( 104.29, -77.8573 )
+script = ExtResource( 7 )
 
-[node name="TileMap" type="TileMap" parent="Grass2"]
+[node name="TileMap" type="TileMap" parent="YSort/GroundObjects/Grass2"]
 z_index = -1
 tile_set = SubResource( 68 )
 cell_size = Vector2( 16, 16 )
@@ -1465,7 +962,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Area2D" type="Area2D" parent="Grass2/TileMap" groups=[
+[node name="Area2D" type="Area2D" parent="YSort/GroundObjects/Grass2/TileMap" groups=[
 "sun_area",
 ]]
 script = ExtResource( 9 )
@@ -1474,17 +971,18 @@ __meta__ = {
 }
 modification = -1.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass2/TileMap/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/GroundObjects/Grass2/TileMap/Area2D"]
 polygon = PoolVector2Array( 8.08521, -39.4378, 8.69696, 7.66443, 23.9899, 6.03317, 25.0094, 27.8511, -38.2014, 24.9964, -38.4052, 5.01366, -11.2858, 4.60583, -9.65454, -41.4768 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Grass3" type="Position2D" parent="."]
-position = Vector2( 501, 88 )
-script = ExtResource( 18 )
+[node name="Grass3" type="Position2D" parent="YSort/GroundObjects"]
+editor/display_folded = true
+position = Vector2( 69.7754, -206.49 )
+script = ExtResource( 7 )
 
-[node name="TileMap" type="TileMap" parent="Grass3"]
+[node name="TileMap" type="TileMap" parent="YSort/GroundObjects/Grass3"]
 z_index = -1
 tile_set = SubResource( 68 )
 cell_size = Vector2( 16, 16 )
@@ -1494,7 +992,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Area2D" type="Area2D" parent="Grass3/TileMap" groups=[
+[node name="Area2D" type="Area2D" parent="YSort/GroundObjects/Grass3/TileMap" groups=[
 "sun_area",
 ]]
 script = ExtResource( 9 )
@@ -1503,5 +1001,546 @@ __meta__ = {
 }
 modification = -1.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass3/TileMap/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/GroundObjects/Grass3/TileMap/Area2D"]
 polygon = PoolVector2Array( -51.5287, -7.07561, 9.78857, -6.49163, 10.0806, 53.9497, -19.4102, 54.5337, -21.454, 21.2472, -52.1127, 22.4151 )
+
+[node name="Objects" type="YSort" parent="YSort"]
+position = Vector2( 501, 88 )
+
+[node name="sun_crystal" type="Sprite" parent="YSort/Objects"]
+editor/display_folded = true
+position = Vector2( -101.319, 264.853 )
+texture = ExtResource( 10 )
+
+[node name="sun_area" type="Area2D" parent="YSort/Objects/sun_crystal" groups=[
+"sun_area",
+]]
+z_index = 4096
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+modification = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/sun_crystal/sun_area"]
+shape = SubResource( 55 )
+
+[node name="sun_crystal2" type="Sprite" parent="YSort/Objects"]
+editor/display_folded = true
+position = Vector2( -315.368, 30.503 )
+texture = ExtResource( 10 )
+
+[node name="sun_area" type="Area2D" parent="YSort/Objects/sun_crystal2" groups=[
+"sun_area",
+]]
+z_index = 4096
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+modification = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/sun_crystal2/sun_area"]
+shape = SubResource( 56 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="sun_crystal3" type="Sprite" parent="YSort/Objects"]
+editor/display_folded = true
+position = Vector2( -294.88, 43.047 )
+texture = ExtResource( 10 )
+
+[node name="sun_area" type="Area2D" parent="YSort/Objects/sun_crystal3" groups=[
+"sun_area",
+]]
+z_index = 4096
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+modification = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/sun_crystal3/sun_area"]
+shape = SubResource( 56 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bog Tree" type="Node2D" parent="YSort/Objects"]
+position = Vector2( -132.663, 212.623 )
+
+[node name="sun_area" parent="YSort/Objects/Bog Tree" instance=ExtResource( 11 )]
+position = Vector2( 0.468321, 0.11808 )
+modification = -1.1
+
+[node name="Sprite" type="Sprite" parent="YSort/Objects/Bog Tree"]
+position = Vector2( -4.30182, -32.622 )
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort/Objects/Bog Tree"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/Bog Tree/StaticBody2D"]
+shape = SubResource( 83 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bog Tree2" type="Sprite" parent="YSort/Objects"]
+editor/display_folded = true
+position = Vector2( -277.005, -52.5041 )
+texture = ExtResource( 12 )
+
+[node name="sun_area" parent="YSort/Objects/Bog Tree2" instance=ExtResource( 11 )]
+position = Vector2( 3.33618, 30.9477 )
+modification = -1.1
+
+[node name="Spring" type="Position2D" parent="YSort/Objects"]
+position = Vector2( -69.7754, 206.49 )
+script = ExtResource( 13 )
+triggerable_1 = NodePath("../../GroundObjects/Grass")
+triggerable_2 = NodePath("../Bulbplant")
+
+[node name="hitbox" type="Area2D" parent="YSort/Objects/Spring"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/Spring/hitbox"]
+shape = SubResource( 60 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="YSort/Objects/Spring"]
+texture = ExtResource( 14 )
+hframes = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring"]
+anims/closed = SubResource( 61 )
+anims/crumble = SubResource( 62 )
+anims/opened = SubResource( 63 )
+
+[node name="water" type="Sprite" parent="YSort/Objects/Spring"]
+modulate = Color( 1, 1, 1, 0.733333 )
+z_index = -1
+texture = ExtResource( 15 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring/water"]
+anims/flow = SubResource( 64 )
+
+[node name="opacityanim" type="AnimationPlayer" parent="YSort/Objects/Spring/water"]
+anims/closed = SubResource( 65 )
+anims/opened = SubResource( 66 )
+anims/unblock = SubResource( 67 )
+
+[node name="Spring2" type="Position2D" parent="YSort/Objects"]
+editor/display_folded = true
+position = Vector2( 83.2736, 137.263 )
+script = ExtResource( 13 )
+triggerable_1 = NodePath("../../GroundObjects/Grass2")
+
+[node name="hitbox" type="Area2D" parent="YSort/Objects/Spring2"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/Spring2/hitbox"]
+shape = SubResource( 60 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="YSort/Objects/Spring2"]
+texture = ExtResource( 14 )
+hframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring2"]
+anims/closed = SubResource( 69 )
+anims/crumble = SubResource( 70 )
+anims/opened = SubResource( 71 )
+
+[node name="water" type="Sprite" parent="YSort/Objects/Spring2"]
+modulate = Color( 1, 1, 1, 0.733333 )
+z_index = -1
+texture = ExtResource( 15 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring2/water"]
+anims/flow = SubResource( 72 )
+
+[node name="opacityanim" type="AnimationPlayer" parent="YSort/Objects/Spring2/water"]
+anims/closed = SubResource( 73 )
+anims/opened = SubResource( 74 )
+anims/unblock = SubResource( 75 )
+
+[node name="Spring3" type="Position2D" parent="YSort/Objects"]
+position = Vector2( -27.7632, -16.976 )
+script = ExtResource( 13 )
+triggerable_1 = NodePath("../../GroundObjects/Grass3")
+triggerable_2 = NodePath("../Bulbplant2")
+
+[node name="hitbox" type="Area2D" parent="YSort/Objects/Spring3"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/Spring3/hitbox"]
+shape = SubResource( 60 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="YSort/Objects/Spring3"]
+texture = ExtResource( 14 )
+hframes = 3
+frame = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring3"]
+anims/closed = SubResource( 76 )
+anims/crumble = SubResource( 77 )
+anims/opened = SubResource( 78 )
+
+[node name="water" type="Sprite" parent="YSort/Objects/Spring3"]
+modulate = Color( 1, 1, 1, 0.733333 )
+z_index = -1
+texture = ExtResource( 15 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/Objects/Spring3/water"]
+anims/flow = SubResource( 79 )
+
+[node name="opacityanim" type="AnimationPlayer" parent="YSort/Objects/Spring3/water"]
+anims/closed = SubResource( 80 )
+anims/opened = SubResource( 81 )
+anims/unblock = SubResource( 82 )
+
+[node name="Bulbplant" parent="YSort/Objects" instance=ExtResource( 16 )]
+position = Vector2( 22.7842, 225.805 )
+
+[node name="Bulbplant2" parent="YSort/Objects" instance=ExtResource( 16 )]
+position = Vector2( -2, 1 )
+
+[node name="Actors" type="YSort" parent="YSort"]
+position = Vector2( 501, 88 )
+
+[node name="player" parent="YSort/Actors" instance=ExtResource( 17 )]
+position = Vector2( 99.8992, 237.52 )
+
+[node name="demite" parent="YSort/Actors" instance=ExtResource( 18 )]
+position = Vector2( 91.326, 150.442 )
+
+[node name="demite2" parent="YSort/Actors" instance=ExtResource( 18 )]
+position = Vector2( 165.355, 157.471 )
+
+[node name="demite3" parent="YSort/Actors" instance=ExtResource( 18 )]
+position = Vector2( -80.529, 136.118 )
+
+[node name="demite4" parent="YSort/Actors" instance=ExtResource( 18 )]
+position = Vector2( 33.031, 98.264 )
+
+[node name="demite5" parent="YSort/Actors" instance=ExtResource( 18 )]
+position = Vector2( 10.707, 195.648 )
+
+[node name="HopAreas" type="Node2D" parent="."]
+
+[node name="upward_hoparea" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+position = Vector2( 600.139, 210.977 )
+rotation = 3.14159
+z_index = 4096
+script = ExtResource( 19 )
+updirection = Vector2( 0, 1 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/upward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/upward_hoparea"]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopbott" type="Position2D" parent="HopAreas/upward_hoparea"]
+position = Vector2( 0, 9 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/upward_hoparea"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="rightward_hoparea" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 652.787, 280.4 )
+rotation = -1.5708
+z_index = 4096
+script = ExtResource( 19 )
+updirection = Vector2( -1, 0 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/rightward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/rightward_hoparea"]
+position = Vector2( 0, -8 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/rightward_hoparea"]
+position = Vector2( 0, 6 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/rightward_hoparea"]
+position = Vector2( 3, 0 )
+
+[node name="leftward_hoparea" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 563.103, 263.459 )
+rotation = 1.5708
+z_index = 4096
+script = ExtResource( 19 )
+updirection = Vector2( 1, 0 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/leftward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/leftward_hoparea"]
+position = Vector2( 0, -8 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/leftward_hoparea"]
+position = Vector2( 0, 6 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/leftward_hoparea"]
+position = Vector2( -3, 0 )
+
+[node name="downward_hoparea" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 599.976, 300.782 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/downward_hoparea"]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopbott" type="Position2D" parent="HopAreas/downward_hoparea"]
+position = Vector2( 0, 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopcling" type="Position2D" parent="HopAreas/downward_hoparea"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="downward_hoparea2" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 519.679, 252.604 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea2"]
+position = Vector2( 0, -1 )
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/downward_hoparea2"]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopbott" type="Position2D" parent="HopAreas/downward_hoparea2"]
+position = Vector2( 0, 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopcling" type="Position2D" parent="HopAreas/downward_hoparea2"]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="large_downward_hoparea" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 295.98, 181.049 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopup = false
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/large_downward_hoparea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 58 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/large_downward_hoparea"]
+position = Vector2( 0.387451, -49.2603 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/large_downward_hoparea"]
+position = Vector2( 0.387421, 47.0667 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea"]
+position = Vector2( -0.193726, -44.9044 )
+
+[node name="large_downward_hoparea2" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 216.268, 253.462 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopup = false
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/large_downward_hoparea2"]
+position = Vector2( 0, -1 )
+shape = SubResource( 59 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/large_downward_hoparea2"]
+position = Vector2( 0, -42 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/large_downward_hoparea2"]
+position = Vector2( 0, 40 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea2"]
+position = Vector2( 0, -38 )
+
+[node name="large_downward_hoparea3" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 200.268, 253.462 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopup = false
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/large_downward_hoparea3"]
+position = Vector2( 0, -1 )
+shape = SubResource( 59 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/large_downward_hoparea3"]
+position = Vector2( 0, -42 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/large_downward_hoparea3"]
+position = Vector2( 0, 40 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea3"]
+position = Vector2( 0, -38 )
+
+[node name="large_downward_hoparea4" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 184.268, 253.462 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopup = false
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/large_downward_hoparea4"]
+position = Vector2( 0, -1 )
+shape = SubResource( 59 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/large_downward_hoparea4"]
+position = Vector2( 0, -42 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/large_downward_hoparea4"]
+position = Vector2( 0, 40 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea4"]
+position = Vector2( 0, -38 )
+
+[node name="large_downward_hoparea5" type="Area2D" parent="HopAreas" groups=[
+"hoparea",
+]]
+editor/display_folded = true
+position = Vector2( 504.242, 189.079 )
+z_index = 4096
+script = ExtResource( 19 )
+canhopup = false
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/large_downward_hoparea5"]
+position = Vector2( 0, -1 )
+shape = SubResource( 59 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="HopAreas/large_downward_hoparea5"]
+position = Vector2( 0, -42 )
+
+[node name="hopbott" type="Position2D" parent="HopAreas/large_downward_hoparea5"]
+position = Vector2( 0, 40 )
+
+[node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea5"]
+position = Vector2( 0, -38 )

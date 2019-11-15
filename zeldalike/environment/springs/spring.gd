@@ -59,7 +59,6 @@ func get_knocked(knocked_by):
 	unblock_spring()
 	
 func unblock_spring():
-	
 	is_unblocked = true
 #	print("Spring was unblocked")
 	anim.play("crumble")

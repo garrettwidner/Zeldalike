@@ -196,8 +196,14 @@ func finish_edible():
 func check_hop_validity():
 	var already_hopping = false
 	if isinhoparea:
+#		print("Character is in hoparea")
+#		print("Player:")
+#		print(position.y)
+#		print("Hoparea:")
+#		print(hoparea.position.y)
 		#character is below
-		if position.y > hoparea.position.y:
+		if global_position.y > hoparea.global_position.y:
+			print("Player is under hoparea")
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.UP && hoparea.canhopdown:
 #					print("can hop down")
@@ -206,12 +212,12 @@ func check_hop_validity():
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.UP && hoparea.canhopup:
-#					print("can hop up")
+					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
 		#character is above
-		elif position.y < hoparea.position.y && !already_hopping:
+		elif global_position.y < hoparea.global_position.y && !already_hopping:
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.DOWN && hoparea.canhopup:
 #					print("can hop up")
@@ -225,7 +231,7 @@ func check_hop_validity():
 					
 					already_hopping = true
 		#character is to the right
-		if position.x > hoparea.position.x && !already_hopping:
+		if global_position.x > hoparea.global_position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.LEFT && hoparea.canhopup:
 #					print("can hop up")
@@ -239,7 +245,7 @@ func check_hop_validity():
 					
 					already_hopping = true
 		#character is to the left
-		if position.x < hoparea.position.x && !already_hopping:
+		if global_position.x < hoparea.global_position.x && !already_hopping:
 			if hoparea.updirection == dir.LEFT:
 				if facedir == dir.RIGHT && hoparea.canhopdown:
 #					print("can hop down")
@@ -252,7 +258,7 @@ func check_hop_validity():
 					is_current_hop_upward = true
 					already_hopping = true
 			pass
-					
+			
 	return already_hopping
 	
 func get_hop_info():
@@ -406,7 +412,7 @@ func set_hold_position():
 func start_down_hop():
 	switch_anim("fall")
 #	print("starting downward fall")
-	transitionstart = position
+	transitionstart = global_position
 	transitionend = hoparea.lowesthoppoint
 	isinjumpdowncycle = true
 	transitionweight = 0
@@ -449,7 +455,7 @@ func start_ledge_hop():
 	isinclingcycle = true
 	switch_anim("jumpup")
 	transitionend = hoparea.clingpoint
-	transitionstart = position
+	transitionstart = global_position
 	transitionweight = 0
 	ishoppingtocling = true
 	
@@ -460,7 +466,7 @@ func start_ledge_pullup():
 		transitionspeed = sidepullupspeed
 	else:
 		transitionspeed = verticalpullupspeed
-	transitionstart = position
+	transitionstart = global_position
 	transitionweight = 0
 	ispullingup = true
 
@@ -528,6 +534,7 @@ func take_sun_damage(sun_strength, delta):
 	emit_signal("health_changed", health, damage)
 
 func _on_Area2D_body_entered(body, obj):
+	print("Player entered an area2d")
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
 			caninteract = true
@@ -537,8 +544,10 @@ func _on_Area2D_body_entered(body, obj):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = obj.player_z_index
 		elif obj.is_in_group("hoparea"):
+			print("entered hoparea")
 			isinhoparea = true
 			hoparea = obj
+			print(hoparea.name)
 		elif obj.is_in_group("sun_area"):
 			sun_areas[obj.get_instance_id()] = obj
 			
