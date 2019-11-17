@@ -54,6 +54,7 @@ var sun_areas = {}
 var sun_base_strength
 var sun_previous_total_strength = 0
 signal on_sun_strength_changed
+export var shade_color : Color 
 
 var staticdir
 
@@ -513,10 +514,18 @@ func sun_damage_loop(delta):
 	if sun != null:
 		var sun_current_strength = sun_base_strength
 		var change = 0
+		var in_shade = false
 		for sun_area in sun_areas.values():
 			change += sun_area.modification
+			if sun_area.is_shade:
+				in_shade = true
 		
 		sun_current_strength += change
+		
+		if in_shade:
+			$Sprite.modulate = shade_color
+		else:
+			$Sprite.modulate = Color.white
 		
 	#	print(sun_current_strength)
 		

@@ -918,6 +918,7 @@ tile_data = PoolIntArray( 65548, 1, 5, 65549, 1, 65541, 65550, 1, 65541, 65551, 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="GroundObjects" type="Node2D" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 431.225, 294.49 )
 
 [node name="Grass" type="Position2D" parent="YSort/GroundObjects"]
@@ -1005,6 +1006,7 @@ modification = -1.0
 polygon = PoolVector2Array( -51.5287, -7.07561, 9.78857, -6.49163, 10.0806, 53.9497, -19.4102, 54.5337, -21.454, 21.2472, -52.1127, 22.4151 )
 
 [node name="Objects" type="YSort" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 501, 88 )
 
 [node name="sun_crystal" type="Sprite" parent="YSort/Objects"]
@@ -1073,6 +1075,7 @@ position = Vector2( -132.663, 212.623 )
 [node name="sun_area" parent="YSort/Objects/Bog Tree" instance=ExtResource( 11 )]
 position = Vector2( 0.468321, 0.11808 )
 modification = -1.1
+is_shade = true
 
 [node name="Sprite" type="Sprite" parent="YSort/Objects/Bog Tree"]
 position = Vector2( -4.30182, -32.622 )
@@ -1093,13 +1096,13 @@ __meta__ = {
 }
 
 [node name="Bog Tree2" type="Sprite" parent="YSort/Objects"]
-editor/display_folded = true
 position = Vector2( -277.005, -52.5041 )
 texture = ExtResource( 12 )
 
 [node name="sun_area" parent="YSort/Objects/Bog Tree2" instance=ExtResource( 11 )]
 position = Vector2( 3.33618, 30.9477 )
 modification = -1.1
+is_shade = true
 
 [node name="Spring" type="Position2D" parent="YSort/Objects"]
 position = Vector2( -69.7754, 206.49 )
@@ -1242,7 +1245,7 @@ position = Vector2( -2, 1 )
 position = Vector2( 501, 88 )
 
 [node name="player" parent="YSort/Actors" instance=ExtResource( 17 )]
-position = Vector2( 99.8992, 237.52 )
+position = Vector2( -90.1845, 208.415 )
 
 [node name="demite" parent="YSort/Actors" instance=ExtResource( 18 )]
 position = Vector2( 91.326, 150.442 )
