@@ -1,3 +1,14 @@
 {
-	
+"SceneName": "version_0_test",
+"eventTarget": {
+	"samson": {
+		"Beginning": {
+			"Name": "SamsonInitial",
+			"Type": "Start",
+			"Flags": {
+				"default" : true
+			}
+		}
+	}
+}
 }

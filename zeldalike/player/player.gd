@@ -63,9 +63,13 @@ var original_zindex
 func _ready():
 	speed = 42
 	TYPE = "PLAYER"
-	dialogueparser = get_node("../dialogue_parser")
+	
+	dialogueparser = get_node("/root/Level/dialogue_parser")
 	if dialogueparser != null:
 		dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
+	else:
+		print("Dialogue Parser not found by Player")
+		
 	original_zindex = z_index
 	
 	sun = get_node("/root/Level/sun")
@@ -543,7 +547,7 @@ func take_sun_damage(sun_strength, delta):
 	emit_signal("health_changed", health, damage)
 
 func _on_Area2D_body_entered(body, obj):
-	print("Player entered an area2d")
+#	print("Player entered an area2d")
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
 			caninteract = true

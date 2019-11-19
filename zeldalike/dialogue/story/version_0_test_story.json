@@ -1,3 +1,21 @@
 {
-	
+"level": "version_0_test",
+"data":{
+	"SamsonInitial":{
+		"0" : {
+			"content": "Hey.",
+			"conditions":
+			{
+				"divert": "1"
+			},
+		},
+		"1" : {
+			"content": "How are you?",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		}
+	}
+}
 }

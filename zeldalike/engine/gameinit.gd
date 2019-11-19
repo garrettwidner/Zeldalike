@@ -75,7 +75,7 @@ func connect_player_to_hopareas():
 	var hopareas = get_tree().get_nodes_in_group("hoparea")
 	for i in range(hopareas.size()):
 		var currentnode = get_node(hopareas[i].get_path())
-		print(currentnode.name + " is a found hoparea")
+#		print(currentnode.name + " is a found hoparea")
 		var args = Array([currentnode])
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)

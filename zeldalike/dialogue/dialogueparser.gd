@@ -24,7 +24,7 @@ var inventorymanager
 func _ready():
 	#TODO: Get inventory_manager to call on whenever a dialogue gives an item
 	var scene_name = get_tree().get_current_scene().scene_name
-	
+	print("Scene name is " + scene_name)
 	
 	
 	sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
@@ -38,9 +38,9 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-	panelNode = get_node("../dialogue/dialogue_box/Panel")
-	textContainer = get_node("../dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
-	nameContainer = get_node("../dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
+	panelNode = get_node("/root/Level/dialogue/dialogue_box/Panel")
+	textContainer = get_node("/root/Level/dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
+	nameContainer = get_node("/root/Level/dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
 	
 	if(panelNode.is_visible()):
 		panelNode.hide()
@@ -92,7 +92,7 @@ func start_dialogue():
 	isRunning = true
 	
 	var dialogue_branch = choose_dialogue_branch()
-	var current_node = get_node("../" + currTarget.name)
+	var current_node = get_node("/root/Level/YSort/Actors/" + currTarget.name)
 	if current_node.has_method("update_experiences"):
 		current_node.update_experiences(experiences, inventorymanager.get_item_dict())
 	
