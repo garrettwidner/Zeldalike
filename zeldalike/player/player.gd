@@ -130,6 +130,7 @@ func state_default(delta):
 #			print("Should be interacting with " + interacttarget.name + "!")
 			var is_valid_target = dialogueparser.activate(interacttarget)
 			if is_valid_target:
+#				print("Set state to listen")
 				set_state_listen()
 		else:
 			use_item(preload("res://items/sword/sword.tscn"))

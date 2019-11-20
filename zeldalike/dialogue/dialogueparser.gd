@@ -16,6 +16,8 @@ var isRunning = false
 
 var currTarget
 
+var restart_prevention_trigger = false
+
 signal dialogue_finished
 
 var inventorymanager
@@ -49,20 +51,23 @@ func _ready():
 	
 func _process(delta):
 	if isActivated and Input.is_action_just_pressed("a"):
-		if !isRunning:
-			start_dialogue()
-		else:
+		
+		if isRunning:
+			print("dialogue branch changed")
 			change_dialogue_branch()
 		pass
 
 func activate(target):
 	var target_is_valid = events["eventTarget"].has(target.name)
 	
-	if target_is_valid:
+	if target_is_valid && !restart_prevention_trigger:
 		currTarget = target
 		isActivated = true
+		start_dialogue()
+	elif restart_prevention_trigger:
+		restart_prevention_trigger = false
 		
-	return target_is_valid
+	return isActivated
 
 func change_dialogue_branch():
 	var nextText = ""
@@ -76,13 +81,17 @@ func set_next_branch():
 		currBranch = nextBranch
 		set_experiences_from_dialogue()
 		set_items_from_dialogue()
+		print("set next dialogue branch")
 		
 	else:
 		emit_signal("dialogue_finished")
 		panelNode.hide()
 		isRunning = false
 		isActivated = false
+		restart_prevention_trigger = true
+		print("Dialogue should finish.")
 	pass
+	
 	
 func start_dialogue():
 	
