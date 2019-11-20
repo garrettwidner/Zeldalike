@@ -14,9 +14,11 @@ var istransitioning = false
 var player
 
 func _ready():
-	player = get_node("/root/Level/player")
+	player = get_node("../../player")
 	if player != null:
 		player.connect("on_sun_strength_changed", self, "on_sun_changed")
+	else:
+		print("heat_lines found player node null")
 		
 	get_node("anim").play("heat")
 	visible = true
