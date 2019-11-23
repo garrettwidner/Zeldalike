@@ -5,6 +5,7 @@ var istrackingenemy : bool = false
 var state = "default"
 var walkspeed = 40
 var runspeed = 50
+var is_running = false
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
@@ -121,7 +122,10 @@ func state_default(delta):
 	sun_damage_loop(delta)
 	
 	if movedir != Vector2(0,0):
-		switch_anim("walk")
+		if is_running:
+			switch_anim("run")
+		else:
+			switch_anim("walk")
 	else:
 		switch_anim("idle")
 		
@@ -479,8 +483,10 @@ func start_ledge_pullup():
 func set_speed():
 	if Input.is_action_pressed("b") && !is_holding:
 		speed = runspeed
+		is_running = true
 	else:
 		speed = walkspeed
+		is_running = false
 
 func set_movedir():
 	var LEFT : bool = Input.is_action_pressed("left")

@@ -41,7 +41,7 @@ func _process(delta):
 	pass
 	
 func on_sun_changed(new_strength):
-	print("Screencover notified that sun changed")
+#	print("Screencover notified that sun changed")
 	var base_strength = floor(new_strength)
 	if base_strength > current_brightness_level:
 		set_brightness_level(base_strength)

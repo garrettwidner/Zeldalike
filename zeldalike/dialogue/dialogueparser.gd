@@ -53,7 +53,6 @@ func _process(delta):
 	if isActivated and Input.is_action_just_pressed("a"):
 		
 		if isRunning:
-			print("dialogue branch changed")
 			change_dialogue_branch()
 		pass
 
@@ -81,7 +80,6 @@ func set_next_branch():
 		currBranch = nextBranch
 		set_experiences_from_dialogue()
 		set_items_from_dialogue()
-		print("set next dialogue branch")
 		
 	else:
 		emit_signal("dialogue_finished")
@@ -89,7 +87,6 @@ func set_next_branch():
 		isRunning = false
 		isActivated = false
 		restart_prevention_trigger = true
-		print("Dialogue should finish.")
 	pass
 	
 	
