@@ -5,6 +5,7 @@ var istrackingenemy : bool = false
 var state = "default"
 var walkspeed = 40
 var runspeed = 50
+var bowspeed = 20
 var is_running = false
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
@@ -48,6 +49,9 @@ var is_current_hop_upward = null
 
 var landingtime = .2
 var landingtimer = 0
+
+var bow_is_fired = false
+var bow_postfire_wait = .15
 
 var sun
 var sun_drain_damping = 0.2
@@ -108,6 +112,8 @@ func _process(delta):
 			state_landing(delta)
 		"holding":
 			state_holding(delta)
+		"bowusing":
+			state_bowusing(delta)
 
 func dialogue_finished():
 #	print("Character noticed dialogue was finished")
@@ -166,6 +172,8 @@ func state_default(delta):
 		
 		
 	elif Input.is_action_just_pressed("y"):
+		set_state_bowusing()
+		print("Should start using bow")
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
@@ -175,6 +183,28 @@ func state_default(delta):
 	
 	
 	movement_loop()
+
+func state_bowusing(delta):
+	
+	if !bow_is_fired:
+		set_movedir()
+		set_spritedir()
+		movement_loop()
+		
+		if Input.is_action_just_released("y"):
+			print("Fired bow")
+			bow_is_fired = true
+			switch_anim_static("bowfire")
+			$Timer.wait_time = bow_postfire_wait
+			$Timer.start()
+	else:
+		if $Timer.time_left == 0:
+			set_state_default()
+		
+	
+	
+	pass
+
 
 func try_item_pickup():
 	print("Item pickup tried")
@@ -616,6 +646,13 @@ func set_state_landing():
 	
 func set_state_holding():
 	state = "holding"
+
+func set_state_bowusing():
+	state = "bowusing"
+	bow_is_fired = false
+	staticdir = spritedir
+	switch_anim_static("bowdraw")
+	speed = bowspeed
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir

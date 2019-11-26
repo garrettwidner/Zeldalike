@@ -1007,7 +1007,6 @@ modification = -1.0
 polygon = PoolVector2Array( -51.5287, -7.07561, 9.78857, -6.49163, 10.0806, 53.9497, -19.4102, 54.5337, -21.454, 21.2472, -52.1127, 22.4151 )
 
 [node name="Objects" type="YSort" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 501, 88 )
 
 [node name="sun_crystal" type="Sprite" parent="YSort/Objects"]

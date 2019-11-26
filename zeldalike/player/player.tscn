@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -72,6 +72,129 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 60, 62, 63, 65 ]
+}
+
+[sub_resource type="Animation" id=65]
+resource_name = "bowdrawdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 92, 93, 94 ]
+}
+
+[sub_resource type="Animation" id=64]
+resource_name = "bowdrawleft"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 104, 105, 106 ]
+}
+
+[sub_resource type="Animation" id=63]
+resource_name = "bowdrawright"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 100, 101, 102 ]
+}
+
+[sub_resource type="Animation" id=66]
+resource_name = "bowdrawup"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 96, 97, 98 ]
+}
+
+[sub_resource type="Animation" id=67]
+resource_name = "bowfiredown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 95 ]
+}
+
+[sub_resource type="Animation" id=68]
+resource_name = "bowfireleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 107 ]
+}
+
+[sub_resource type="Animation" id=69]
+resource_name = "bowfireright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 103 ]
+}
+
+[sub_resource type="Animation" id=70]
+resource_name = "bowfireup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 99 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -1012,9 +1135,9 @@ shade_color = Color( 0.721569, 0.721569, 0.721569, 1 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
-vframes = 24
+vframes = 28
 hframes = 4
-frame = 78
+frame = 95
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -1026,6 +1149,14 @@ anims/attackdown = SubResource( 2 )
 anims/attackleft = SubResource( 3 )
 anims/attackright = SubResource( 4 )
 anims/attackup = SubResource( 5 )
+anims/bowdrawdown = SubResource( 65 )
+anims/bowdrawleft = SubResource( 64 )
+anims/bowdrawright = SubResource( 63 )
+anims/bowdrawup = SubResource( 66 )
+anims/bowfiredown = SubResource( 67 )
+anims/bowfireleft = SubResource( 68 )
+anims/bowfireright = SubResource( 69 )
+anims/bowfireup = SubResource( 70 )
 anims/clingdown = SubResource( 6 )
 anims/clingleft = SubResource( 7 )
 anims/clingright = SubResource( 8 )
@@ -1166,4 +1297,7 @@ script = ExtResource( 10 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 59 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
