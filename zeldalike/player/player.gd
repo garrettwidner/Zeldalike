@@ -52,6 +52,7 @@ var landingtimer = 0
 
 var bow_is_fired = false
 var bow_postfire_wait = .15
+var arrow_resource = preload("res://items/arrow/arrow.tscn")
 
 var sun
 var sun_drain_damping = 0.2
@@ -173,7 +174,6 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("y"):
 		set_state_bowusing()
-		print("Should start using bow")
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
@@ -192,19 +192,34 @@ func state_bowusing(delta):
 		movement_loop()
 		
 		if Input.is_action_just_released("y"):
-			print("Fired bow")
 			bow_is_fired = true
 			switch_anim_static("bowfire")
 			$Timer.wait_time = bow_postfire_wait
 			$Timer.start()
+			#Fire arrow
+			fire_arrow()
+			
 	else:
 		if $Timer.time_left == 0:
 			set_state_default()
-		
-	
-	
 	pass
 
+func fire_arrow():
+	var arrow = arrow_resource.instance()
+	arrow.position = transform.get_origin()
+	arrow.position.x += facedir.x * sprinkleoffset
+	arrow.position.y += facedir.y * sprinkleoffset
+	if facedir.x == 0:
+		if arrow.position.y < position.y:
+			arrow.set_z_index(-1)
+		elif arrow.position.y > position.y:
+			arrow.set_z_index(1)
+	else:
+		arrow.set_z_index(0)
+		
+	arrow.setup(facedir)
+		
+	self.get_parent().add_child(arrow)
 
 func try_item_pickup():
 	print("Item pickup tried")
