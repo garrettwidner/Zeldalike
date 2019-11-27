@@ -1245,7 +1245,7 @@ position = Vector2( -2, 1 )
 position = Vector2( 501, 88 )
 
 [node name="player" parent="YSort/Actors" instance=ExtResource( 17 )]
-position = Vector2( -209.792, 28.7461 )
+position = Vector2( -110.718, 201.228 )
 
 [node name="demite" parent="YSort/Actors" instance=ExtResource( 18 )]
 position = Vector2( 91.326, 150.442 )

@@ -1,13 +1,16 @@
 extends Position2D
 
+export var works_with_bow = true
 onready var hitbox = $hitbox
 var knockdir
-var hitbyname = ""
+var hitbynames = []
 var was_hit = false
 var is_one_shot = true
 
 func _ready():
-	hitbyname = "sword"
+	hitbynames.append("sword")
+	if works_with_bow:
+		hitbynames.append("arrow")
 	pass
 	
 func _process(delta):
@@ -19,7 +22,7 @@ func knock_loop():
 	else:
 		for area in $hitbox.get_overlapping_areas():
 			var body = area.get_parent()
-			if hitbyname != "" && hitbyname == body.name:
+			if !hitbynames.empty() && hitbynames.has(body.name):
 				was_hit = true
 				knockdir = global_transform.origin - body.global_transform.origin
 				get_knocked(body)

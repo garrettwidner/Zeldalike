@@ -55,7 +55,7 @@ var bow_postfire_wait = .15
 var arrow_resource = preload("res://items/arrow/arrow.tscn")
 
 var sun
-var sun_drain_damping = 0.2
+var sun_drain_damping = 0.6
 var sun_areas = {}
 var sun_base_strength
 var sun_previous_total_strength = 0
