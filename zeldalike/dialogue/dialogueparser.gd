@@ -13,6 +13,7 @@ var currBranch
 
 var isActivated = false
 var isRunning = false
+var is_wind_talking = false
 
 var currTarget
 
@@ -50,14 +51,16 @@ func _ready():
 	inventorymanager = get_node("../inventorymanager")
 	
 func _process(delta):
-	if isActivated and Input.is_action_just_pressed("a"):
+#	print(is_wind_talking)
+	if isActivated and (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("x")):
 		
 		if isRunning:
 			change_dialogue_branch()
 		pass
 
-func activate(target):
+func activate(target, windtalking):
 	var target_is_valid = events["eventTarget"].has(target.name)
+	is_wind_talking = windtalking
 	
 	if target_is_valid && !restart_prevention_trigger:
 		currTarget = target
@@ -87,6 +90,7 @@ func set_next_branch():
 		isRunning = false
 		isActivated = false
 		restart_prevention_trigger = true
+		is_wind_talking = false
 	pass
 	
 	
@@ -118,7 +122,10 @@ func start_dialogue():
 	#      Make it so items can be added to inventory through dialogue
 	
 	panelNode.show()
-	nameContainer.set_text(currTarget.name)
+	if is_wind_talking:
+		nameContainer.set_text("-The wind-")
+	else:
+		nameContainer.set_text(currTarget.name)
 	textContainer.set_text(currText)
 	
 	#within here, make sure to check whether the story branch has an 'experiences'
@@ -167,7 +174,9 @@ func choose_dialogue(possibilities):
 		
 		var allTrue : bool = true
 		var checkAlreadyUsed = false
+		var has_wind_key = false
 		
+		#Check every key to determine if all are true. If so, add to list to check usage priotiry.
 		for key in possibilities[option]["Flags"].keys():
 			if key == "default" or key == "priority":
 				pass
@@ -186,11 +195,20 @@ func choose_dialogue(possibilities):
 			elif experiences.has(key):
 				if experiences[key] != possibilities[option]["Flags"][key]:
 					allTrue = false
-					
+			elif key == "wind":
+				if !is_wind_talking:
+					allTrue = false
+				else:
+					has_wind_key = true
+				pass
 			elif !experiences.has(key):
 				print("Experience needs to be created/reconciled: " + key)
 				
+		if is_wind_talking && !has_wind_key:
+			allTrue = false
+		
 		#If the current possibility is a valid option, rank it according to its priority
+		
 		if allTrue:
 			if (possibilities[option]["Type"] == "Unique"):
 				if possibilities[option]["Flags"].keys().has("priority"):

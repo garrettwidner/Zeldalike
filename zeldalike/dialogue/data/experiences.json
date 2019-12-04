@@ -3,5 +3,6 @@
 	"lookedAtFloodgate": false,
 	"triedPickaxeOnFloodgate": false,
 	"openedFloodgate": false,
-	"receivedReward": false
+	"receivedReward": false,
+	"windtalking": false
 }

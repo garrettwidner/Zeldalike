@@ -8,16 +8,17 @@
 [node name="dialogue" type="CanvasLayer"]
 
 [node name="item_notification" parent="." instance=ExtResource( 1 )]
+visible = false
 margin_left = 26.0
 margin_top = 120.0
 margin_right = 5.0
 margin_bottom = 8.0
 
 [node name="dialogue_box" parent="." instance=ExtResource( 2 )]
-margin_left = 6.0
-margin_top = 5.0
-margin_right = -28.0
-margin_bottom = -64.0
+margin_left = 7.90529
+margin_top = 17.9559
+margin_right = -26.0947
+margin_bottom = -51.0441
 
 [node name="GUI" parent="." instance=ExtResource( 3 )]
 

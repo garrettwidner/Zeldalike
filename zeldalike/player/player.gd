@@ -139,7 +139,7 @@ func state_default(delta):
 	if Input.is_action_just_pressed("a"):
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget)
+			var is_valid_target = dialogueparser.activate(interacttarget, false)
 			if is_valid_target:
 #				print("Set state to listen")
 				set_state_listen()
@@ -167,7 +167,7 @@ func state_default(delta):
 				transitionspeed = hopdownspeed / hoparea.height
 				switch_anim("crouch")
 		elif try_item_pickup():
-			print("Item pickup returned true")
+#			print("Item pickup returned true")
 			pass
 		
 		
@@ -177,6 +177,13 @@ func state_default(delta):
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
+#		print("Pressed wind talk button")
+		if caninteract:
+#			print("Should be interacting with " + interacttarget.name + "!")
+			var is_valid_target = dialogueparser.activate(interacttarget, true)
+			if is_valid_target:
+#				print("Set state to listen")
+				set_state_listen()
 #		staticdir = spritedir
 #		use_item(preload("res://items/shield/shield.tscn"))
 		pass
@@ -222,7 +229,7 @@ func fire_arrow():
 	self.get_parent().add_child(arrow)
 
 func try_item_pickup():
-	print("Item pickup tried")
+#	print("Item pickup tried")
 	var checkarea = get_node("hitbox")
 	var pickupable
 	var areas = checkarea.get_overlapping_areas()
@@ -245,7 +252,7 @@ func finish_edible():
 	edible_is_finished = true
 	is_holding = false
 	held_item = null
-	print("Item eaten")
+#	print("Item eaten")
 	pass
 
 func check_hop_validity():
@@ -258,7 +265,7 @@ func check_hop_validity():
 #		print(hoparea.position.y)
 		#character is below
 		if global_position.y > hoparea.global_position.y:
-			print("Player is under hoparea")
+#			print("Player is under hoparea")
 			if hoparea.updirection == dir.DOWN:
 				if facedir == dir.UP && hoparea.canhopdown:
 #					print("can hop down")
@@ -267,7 +274,7 @@ func check_hop_validity():
 					already_hopping = true
 			elif hoparea.updirection == dir.UP:
 				if facedir == dir.UP && hoparea.canhopup:
-					print("can hop up")
+#					print("can hop up")
 					is_current_hop_upward = true
 					
 					already_hopping = true
@@ -402,6 +409,7 @@ func state_landing(delta):
 		set_state_default()
 		
 func state_holding(delta):
+		
 	if bite_just_taken:
 		health += held_item.health
 		emit_signal("health_changed", health, 0)
@@ -609,10 +617,10 @@ func _on_Area2D_body_entered(body, obj):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = obj.player_z_index
 		elif obj.is_in_group("hoparea"):
-			print("entered hoparea")
+#			print("entered hoparea")
 			isinhoparea = true
 			hoparea = obj
-			print(hoparea.name)
+#			print(hoparea.name)
 		elif obj.is_in_group("sun_area"):
 			sun_areas[obj.get_instance_id()] = obj
 			
@@ -661,6 +669,7 @@ func set_state_landing():
 	
 func set_state_holding():
 	state = "holding"
+	print("Picked up " + held_item.name)
 
 func set_state_bowusing():
 	state = "bowusing"

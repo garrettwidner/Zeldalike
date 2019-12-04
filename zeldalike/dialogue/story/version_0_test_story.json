@@ -16,6 +16,15 @@
 				"isEnd": true
 			}
 		}
+	},
+	"WantsPickle":{
+		"0":{
+			"content": "It looks like he wants a pickle.",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		}
 	}
 }
 }

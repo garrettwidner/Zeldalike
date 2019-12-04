@@ -29,8 +29,8 @@ func knock_loop():
 				
 			
 func get_knocked(knocked_by):
-	print("Was knocked by " + knocked_by.name)
-	print(knockdir)
+#	print("Was knocked by " + knocked_by.name)
+#	print(knockdir)
 	var sprite = $Sprite
 	if sprite != null:
 		sprite.frame = 1
