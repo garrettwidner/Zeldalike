@@ -19,12 +19,20 @@
 	},
 	"WantsPickle":{
 		"0":{
-			"content": "It looks like he wants a pickle.",
+			"content": "...He wants food.",
+			"conditions":
+			{
+				"divert": "1"
+			}
+		},
+		"1" : {
+			"content": "A pickle.",
 			"conditions":
 			{
 				"isEnd": true
 			}
 		}
+		
 	}
 }
 }
