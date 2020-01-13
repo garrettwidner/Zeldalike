@@ -5,8 +5,11 @@ var movetimer : int = 0
 var DAMAGE : int = 1
 var damagetaker 
 var collider
+var lorm = "fliz"
 
 func _ready():
+	
+	TYPE = "ENEMY"
 	$anim.play("default")
 	movedir = dir.rand()
 	speed = 24
