@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gran_aha_happy.wav-b71573da7514faddba12b750cb340ce5.sample"
+
+[deps]
+
+source_file="res://Granny/gran_aha_happy.wav"
+dest_files=[ "res://.import/gran_aha_happy.wav-b71573da7514faddba12b750cb340ce5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

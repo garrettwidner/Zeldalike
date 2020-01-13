@@ -3,18 +3,18 @@
 [ext_resource path="res://environment/edible.gd" type="Script" id=1]
 [ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 6 )
 
 [node name="Bulb" type="Area2D" groups=[
-"pickupable",
 "edible",
+"pickupable",
 ]]
 script = ExtResource( 1 )
 health = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 15 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }

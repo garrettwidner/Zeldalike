@@ -18,6 +18,14 @@ func rand():
 		4: 
 			return DOWN
 			
+func randhor():
+	var d = randi() % 2 + 1
+	match d:
+		1: 
+			return LEFT
+		2: 
+			return RIGHT
+			
 func closest_cardinal(v : Vector2):
 	if v == Vector2(0,0):
 		return v

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=1]
+[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=2]
+[ext_resource path="res://tiles/Plants.png" type="Texture" id=3]
+
+[node name="pivot" type="Position2D"]
+script = ExtResource( 1 )
+
+[node name="cameraoffset" type="Position2D" parent="."]
+position = Vector2( 8, 0 )
+
+[node name="cameraholder" type="Position2D" parent="."]
+
+[node name="test_sprite" type="Sprite" parent="cameraholder"]
+visible = false
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="cameraholder"]
+position = Vector2( 8, 0 )
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+smoothing_enabled = true
+smoothing_speed = 4.0
+editor_draw_drag_margin = true
+
+[node name="testparameter" type="Sprite" parent="cameraholder/Camera2D"]
+visible = false
+position = Vector2( 48.7541, 0.35849 )
+texture = ExtResource( 3 )
+
+[node name="testparameter2" type="Sprite" parent="cameraholder/Camera2D"]
+visible = false
+position = Vector2( -47.6787, 0.35849 )
+texture = ExtResource( 3 )
+
+[node name="testparameter3" type="Sprite" parent="cameraholder/Camera2D"]
+visible = false
+position = Vector2( 1.43394, -42.3014 )
+rotation = 1.5708
+texture = ExtResource( 3 )
+
+[node name="testparameter4" type="Sprite" parent="cameraholder/Camera2D"]
+visible = false
+position = Vector2( 0.35849, 44.4523 )
+rotation = 1.5708
+texture = ExtResource( 3 )

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/girl_giggle.wav-39a7330f32c5cd1a46ab75f677d67fe3.sample"
+
+[deps]
+
+source_file="res://Granny/girl_giggle.wav"
+dest_files=[ "res://.import/girl_giggle.wav-39a7330f32c5cd1a46ab75f677d67fe3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

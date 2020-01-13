@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=2]
+[gd_scene load_steps=105 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
@@ -892,6 +892,8 @@ extents = Vector2( 8, 48 )
 [sub_resource type="RectangleShape2D" id=83]
 extents = Vector2( 8, 41 )
 
+[sub_resource type="TileSet" id=84]
+
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 scene_name = "version_0_test"
@@ -1550,3 +1552,9 @@ position = Vector2( 0, 40 )
 
 [node name="hopcling" type="Position2D" parent="HopAreas/large_downward_hoparea5"]
 position = Vector2( 0, -38 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 84 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 983068, 0, 0, 983069, 0, 0, 983070, 0, 0, 983071, 0, 0 )

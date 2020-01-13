@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Granny/cooker.gd" type="Script" id=1]
+[ext_resource path="res://Granny/Grandma Sprites.png" type="Texture" id=2]
+[ext_resource path="res://Granny/ding.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "firo"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 14, 15 ]
+}
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 3 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "cook"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.3 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Cooker" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = -1
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 11
+frame = 15
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/firo = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 2 )
+shape = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 10, 4 )
+shape = SubResource( 4 )
+
+[node name="anim_stretch" type="AnimationPlayer" parent="."]
+anims/cook = SubResource( 5 )
+
+[node name="ding" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = 3.328
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
