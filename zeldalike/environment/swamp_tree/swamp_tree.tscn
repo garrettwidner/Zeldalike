@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://environment/swamp_tree/swamp_tree.png" type="Texture" id=1]
+[ext_resource path="res://environment/sun_area.gd" type="Script" id=2]
+[ext_resource path="res://environment/swamp_tree/swamp_tree_shade.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.0
+height = 16.0
+
+[node name="swamp_tree" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 3.08427, -0.642555 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 14.1408, -12.7849 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="sun_area" type="Area2D" parent="." groups=[
+"sun_area",
+]]
+position = Vector2( -0.443115, -0.29932 )
+z_index = 4096
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+modification = -1.1
+is_shade = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sun_area"]
+position = Vector2( 17.5176, 18.0629 )
+rotation = -0.541052
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="shadow_sprite" type="Sprite" parent="."]
+modulate = Color( 0.6, 0.6, 0.6, 0.435294 )
+position = Vector2( 26.0763, 23.2107 )
+z_index = -3
+texture = ExtResource( 3 )
