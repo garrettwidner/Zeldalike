@@ -35,7 +35,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
-modification = -1.1
+modification = -1.0
 is_shade = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sun_area"]
