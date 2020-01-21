@@ -8,15 +8,7 @@
 			"Flags": {
 				"default" : true
 			}
-		},
-		"WindKnowledge": {
-			"Name": "WantsPickle",
-			"Type": "Start",
-			"Flags": {
-				"wind" : true
-			}
-
-			}
+		}
 		}
 
 	}

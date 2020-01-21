@@ -137,14 +137,7 @@ func state_default(delta):
 		switch_anim("idle")
 		
 	if Input.is_action_just_pressed("a"):
-		if caninteract:
-#			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget, false)
-			if is_valid_target:
-#				print("Set state to listen")
-				set_state_listen()
-		else:
-			use_item(preload("res://items/sword/sword.tscn"))
+		use_item(preload("res://items/sword/sword.tscn"))
 		
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
@@ -177,13 +170,13 @@ func state_default(delta):
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
-#		print("Pressed wind talk button")
 		if caninteract:
 #			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget, true)
+			var is_valid_target = dialogueparser.activate(interacttarget)
 			if is_valid_target:
 #				print("Set state to listen")
 				set_state_listen()
+				
 #		staticdir = spritedir
 #		use_item(preload("res://items/shield/shield.tscn"))
 		pass
