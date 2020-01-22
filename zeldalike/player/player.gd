@@ -13,6 +13,7 @@ var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 var dialogueparser
 
 var interacttarget
+var interacttargets = []
 var caninteract : bool = false
 
 var hold_orienter
@@ -138,7 +139,8 @@ func state_default(delta):
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sword/sword.tscn"))
-		
+		for i in interacttargets:
+			print(i.name)
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #			add_sprinkle()
@@ -605,6 +607,7 @@ func _on_Area2D_body_entered(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = true
 			interacttarget = obj
+			interacttargets.append(obj)
 #			print("Player's current interact target: " + obj.name)
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):
@@ -622,6 +625,11 @@ func _on_Area2D_body_exited(body, obj):
 		if obj.is_in_group("interactible"):
 			caninteract = false
 			interacttarget = null
+			var target_index = interacttargets.find(obj)
+			if target_index != -1:
+				interacttargets.remove(target_index)
+			else:
+				print("WARNING: interact target not found in array")
 #			print("Player no longer has a target for interaction")
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):

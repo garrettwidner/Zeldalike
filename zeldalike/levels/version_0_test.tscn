@@ -1651,6 +1651,12 @@ position = Vector2( 10.707, 195.648 )
 [node name="samson" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( -206.95, 175.426 )
 
+[node name="samson2" parent="YSort/Actors" instance=ExtResource( 29 )]
+position = Vector2( -217.715, 180.183 )
+
+[node name="samson3" parent="YSort/Actors" instance=ExtResource( 29 )]
+position = Vector2( -193.181, 177.178 )
+
 [node name="HopAreas" type="Node2D" parent="."]
 
 [node name="upward_hoparea" type="Area2D" parent="HopAreas" groups=[
