@@ -16,6 +16,10 @@ var interacttarget
 var interacttargets = []
 var caninteract : bool = false
 
+var speechhittables = []
+
+var searchareas = []
+
 var hold_orienter
 var hold_position
 var is_holding : bool = false
@@ -139,8 +143,9 @@ func state_default(delta):
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sword/sword.tscn"))
-		for i in interacttargets:
-			print(i.name)
+#		for i in searchareas:
+#			print(i.name)
+#		print("---")
 #		else:
 #			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #			add_sprinkle()
@@ -173,6 +178,8 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("x"):
 		if caninteract:
+
+			
 #			print("Should be interacting with " + interacttarget.name + "!")
 			var is_valid_target = dialogueparser.activate(interacttarget)
 			if is_valid_target:
@@ -609,6 +616,10 @@ func _on_Area2D_body_entered(body, obj):
 			interacttarget = obj
 			interacttargets.append(obj)
 #			print("Player's current interact target: " + obj.name)
+		elif obj.is_in_group("speechhittable"):
+			speechhittables.append(obj)
+		elif obj.is_in_group("searcharea"):
+			searchareas.append(obj)
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = obj.player_z_index
@@ -631,6 +642,18 @@ func _on_Area2D_body_exited(body, obj):
 			else:
 				print("WARNING: interact target not found in array")
 #			print("Player no longer has a target for interaction")
+		elif obj.is_in_group("speechhittable"):
+			var target_index = speechhittables.find(obj)
+			if target_index != -1:
+				speechhittables.remove(target_index)
+			else:
+				print("WARNING: speechhittable target not found in array")
+		elif obj.is_in_group("searcharea"):
+			var target_index = searchareas.find(obj)
+			if target_index != -1:
+				searchareas.remove(target_index)
+			else:
+				print("WARNING: searcharea target not found in array")
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = original_zindex

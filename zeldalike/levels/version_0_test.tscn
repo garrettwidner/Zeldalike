@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=2]
+[gd_scene load_steps=122 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
@@ -26,10 +26,11 @@
 [ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=24]
 [ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=25]
 [ext_resource path="res://environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=26]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=27]
-[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=28]
-[ext_resource path="res://NPC/samson.tscn" type="PackedScene" id=29]
-[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=30]
+[ext_resource path="res://enemies/demite/demite_hurt.png" type="Texture" id=27]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=28]
+[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=29]
+[ext_resource path="res://NPC/samson.tscn" type="PackedScene" id=30]
+[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=31]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -1215,6 +1216,8 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.733333 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=90]
+
 [sub_resource type="RectangleShape2D" id=87]
 extents = Vector2( 8, 7 )
 
@@ -1627,35 +1630,74 @@ position = Vector2( 22.7842, 225.805 )
 [node name="Bulbplant2" parent="YSort/Objects" instance=ExtResource( 26 )]
 position = Vector2( -2, 1 )
 
+[node name="test_searcharea_1" type="Sprite" parent="YSort/Objects" groups=[
+"searcharea",
+]]
+position = Vector2( -50.1045, 288.14 )
+texture = ExtResource( 27 )
+hframes = 4
+
+[node name="Area2D" type="Area2D" parent="YSort/Objects/test_searcharea_1"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/test_searcharea_1/Area2D"]
+shape = SubResource( 90 )
+
+[node name="test_searcharea_2" type="Sprite" parent="YSort/Objects" groups=[
+"searcharea",
+]]
+position = Vector2( -48.6323, 303.598 )
+texture = ExtResource( 27 )
+hframes = 4
+
+[node name="Area2D" type="Area2D" parent="YSort/Objects/test_searcharea_2"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/test_searcharea_2/Area2D"]
+shape = SubResource( 90 )
+
+[node name="test_searcharea_3" type="Sprite" parent="YSort/Objects" groups=[
+"searcharea",
+]]
+position = Vector2( -64.4585, 297.709 )
+texture = ExtResource( 27 )
+hframes = 4
+
+[node name="Area2D" type="Area2D" parent="YSort/Objects/test_searcharea_3"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Objects/test_searcharea_3/Area2D"]
+shape = SubResource( 90 )
+
 [node name="Actors" type="YSort" parent="YSort"]
 position = Vector2( 501, 88 )
 
-[node name="player" parent="YSort/Actors" instance=ExtResource( 27 )]
+[node name="player" parent="YSort/Actors" instance=ExtResource( 28 )]
 position = Vector2( -174.22, 294.996 )
 
-[node name="demite" parent="YSort/Actors" instance=ExtResource( 28 )]
+[node name="demite" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( 91.326, 150.442 )
 
-[node name="demite2" parent="YSort/Actors" instance=ExtResource( 28 )]
+[node name="demite2" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( 165.355, 157.471 )
 
-[node name="demite3" parent="YSort/Actors" instance=ExtResource( 28 )]
+[node name="demite3" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( -80.529, 136.118 )
 
-[node name="demite4" parent="YSort/Actors" instance=ExtResource( 28 )]
+[node name="demite4" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( 33.031, 98.264 )
 
-[node name="demite5" parent="YSort/Actors" instance=ExtResource( 28 )]
+[node name="demite5" parent="YSort/Actors" instance=ExtResource( 29 )]
 position = Vector2( 10.707, 195.648 )
 
-[node name="samson" parent="YSort/Actors" instance=ExtResource( 29 )]
+[node name="samson" parent="YSort/Actors" instance=ExtResource( 30 )]
 position = Vector2( -206.95, 175.426 )
-
-[node name="samson2" parent="YSort/Actors" instance=ExtResource( 29 )]
-position = Vector2( -217.715, 180.183 )
-
-[node name="samson3" parent="YSort/Actors" instance=ExtResource( 29 )]
-position = Vector2( -193.181, 177.178 )
 
 [node name="HopAreas" type="Node2D" parent="."]
 
@@ -1665,7 +1707,7 @@ position = Vector2( -193.181, 177.178 )
 position = Vector2( 600.139, 210.977 )
 rotation = 3.14159
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
@@ -1698,7 +1740,7 @@ editor/display_folded = true
 position = Vector2( 652.787, 280.4 )
 rotation = -1.5708
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 updirection = Vector2( -1, 0 )
 canhopdown = true
 
@@ -1725,7 +1767,7 @@ editor/display_folded = true
 position = Vector2( 563.103, 263.459 )
 rotation = 1.5708
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 updirection = Vector2( 1, 0 )
 canhopdown = true
 
@@ -1751,7 +1793,7 @@ position = Vector2( -3, 0 )
 editor/display_folded = true
 position = Vector2( 599.976, 300.782 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea"]
@@ -1785,7 +1827,7 @@ __meta__ = {
 editor/display_folded = true
 position = Vector2( 519.679, 252.604 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea2"]
@@ -1819,7 +1861,7 @@ __meta__ = {
 editor/display_folded = true
 position = Vector2( 295.98, 181.049 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopup = false
 canhopdown = true
 
@@ -1845,7 +1887,7 @@ position = Vector2( -0.193726, -44.9044 )
 editor/display_folded = true
 position = Vector2( 216.268, 253.462 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopup = false
 canhopdown = true
 
@@ -1871,7 +1913,7 @@ position = Vector2( 0, -38 )
 editor/display_folded = true
 position = Vector2( 200.268, 253.462 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopup = false
 canhopdown = true
 
@@ -1897,7 +1939,7 @@ position = Vector2( 0, -38 )
 editor/display_folded = true
 position = Vector2( 184.268, 253.462 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopup = false
 canhopdown = true
 
@@ -1923,7 +1965,7 @@ position = Vector2( 0, -38 )
 editor/display_folded = true
 position = Vector2( 504.242, 189.079 )
 z_index = 4096
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 canhopup = false
 canhopdown = true
 
