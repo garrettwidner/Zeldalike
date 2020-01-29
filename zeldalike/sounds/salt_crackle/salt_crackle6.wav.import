@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/salt_crackle6.wav-502ee015967583254749323e0efc6ace.sample"
+
+[deps]
+
+source_file="res://sounds/salt_crackle/salt_crackle6.wav"
+dest_files=[ "res://.import/salt_crackle6.wav-502ee015967583254749323e0efc6ace.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
