@@ -14,6 +14,7 @@ func play_rand_sound():
 	var rand_sound_index = floor(rand_range(0, soundcount -1))
 	$audioplayer.stream = cracksounds[rand_sound_index]
 	$audioplayer.play()
+	print("Cracksound played")
 	pass
 	
 func set_timer_rand():

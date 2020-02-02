@@ -1,21 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sounds/salt_crackle/cracking_sound_player.gd" type="Script" id=1]
 [ext_resource path="res://sounds/salt_crackle/salt_crackle1.wav" type="AudioStream" id=2]
 [ext_resource path="res://sounds/salt_crackle/salt_crackle2.wav" type="AudioStream" id=3]
 [ext_resource path="res://sounds/salt_crackle/salt_crackle3.wav" type="AudioStream" id=4]
-[ext_resource path="res://sounds/salt_crackle/salt_crackle4.wav" type="AudioStream" id=5]
-[ext_resource path="res://sounds/salt_crackle/salt_crackle5.wav" type="AudioStream" id=6]
-[ext_resource path="res://sounds/salt_crackle/salt_crackle6.wav" type="AudioStream" id=7]
+[ext_resource path="res://sounds/salt_crackle/salt_crackle5.wav" type="AudioStream" id=5]
 
 [node name="cracking_sound_player" type="Node2D"]
 script = ExtResource( 1 )
-min_time = 3.0
-max_time = 12.0
-cracksounds = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+min_time = 1.0
+max_time = 2.0
+cracksounds = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ) ]
 
 [node name="audioplayer" type="AudioStreamPlayer2D" parent="."]
-volume_db = -3.0
+volume_db = -6.0
+max_distance = 520.0
+attenuation = 8.57417
 bus = "Echo"
 
 [node name="Timer" type="Timer" parent="."]

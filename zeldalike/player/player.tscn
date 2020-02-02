@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=8]
 [ext_resource path="res://player/heat_lines.png" type="Texture" id=9]
 [ext_resource path="res://player/heat_lines.gd" type="Script" id=10]
+[ext_resource path="res://sounds/sizzle/big_sizzle.wav" type="AudioStream" id=11]
+[ext_resource path="res://sounds/sizzle/sizzleplayer.gd" type="Script" id=12]
 
 [sub_resource type="Shader" id=1]
 
@@ -1273,6 +1275,14 @@ script = ExtResource( 10 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 72 )
+
+[node name="sizzleplayer" type="AudioStreamPlayer2D" parent="heat_lines"]
+position = Vector2( 0, 11 )
+stream = ExtResource( 11 )
+volume_db = -35.0
+script = ExtResource( 12 )
+loud_volume = -15.0
+soft_volume = -38.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

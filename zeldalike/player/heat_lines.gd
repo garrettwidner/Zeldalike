@@ -3,7 +3,6 @@ extends Sprite
 var invisible_alpha = 0.0
 var visible_alpha = 0.4
 
-
 var transitionstart : float = 0
 var transitionend : float = 0
 var transitionspeed : float = .015

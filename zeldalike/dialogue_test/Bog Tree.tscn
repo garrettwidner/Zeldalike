@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://environment/sun_area.tscn" type="PackedScene" id=1]
+[ext_resource path="res://environment/sun_area.gd" type="Script" id=2]
+[ext_resource path="res://tiles/Bog Tree.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=64]
+
+[node name="Bog Tree" type="Node2D"]
+position = Vector2( -132.663, 212.623 )
+
+[node name="sun_area" type="Area2D" parent="." groups=[
+"sun_area",
+] instance=ExtResource( 1 )]
+position = Vector2( 0.468321, 0.11808 )
+z_index = 4096
+script = ExtResource( 2 )
+modification = -1.0
+is_shade = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -4.30182, -32.622 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 64 )
+__meta__ = {
+"_edit_lock_": true
+}
