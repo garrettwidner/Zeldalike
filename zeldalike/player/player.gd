@@ -12,7 +12,7 @@ var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
 var dialogueparser
 
-var interacttarget
+#var interacttarget
 var interacttargets = []
 var caninteract : bool = false
 
@@ -177,14 +177,32 @@ func state_default(delta):
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
+		#if nearby interactible found, interact with that
 		if caninteract:
-
-			
-#			print("Should be interacting with " + interacttarget.name + "!")
-			var is_valid_target = dialogueparser.activate(interacttarget)
+			var closest
+			var closest_distance = 999999999
+			for target in interacttargets:
+				var this_distance = position.distance_to(target.position)
+				if this_distance < closest_distance:
+					closest_distance = this_distance
+					closest = target
+			var is_valid_target = dialogueparser.activate(closest)
 			if is_valid_target:
-#				print("Set state to listen")
 				set_state_listen()
+		#if not, engage search area
+		
+		#if not speaking to interactible, trigger speechhittables
+		
+		
+		#old logic -----------------------------
+#		if caninteract:
+##			print("Should be interacting with " + interacttarget.name + "!")
+#			var is_valid_target = dialogueparser.activate(interacttarget)
+#			if is_valid_target:
+##				print("Set state to listen")
+#				set_state_listen()
+		#old logic end-----------------------------
+		
 				
 #		staticdir = spritedir
 #		use_item(preload("res://items/shield/shield.tscn"))
@@ -613,7 +631,7 @@ func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
 			caninteract = true
-			interacttarget = obj
+#			interacttarget = obj
 			interacttargets.append(obj)
 #			print("Player's current interact target: " + obj.name)
 		elif obj.is_in_group("speechhittable"):
@@ -635,7 +653,7 @@ func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
 			caninteract = false
-			interacttarget = null
+#			interacttarget = null
 			var target_index = interacttargets.find(obj)
 			if target_index != -1:
 				interacttargets.remove(target_index)
