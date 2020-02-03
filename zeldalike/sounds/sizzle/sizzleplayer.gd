@@ -5,7 +5,7 @@ export(float) var soft_volume = -23.0
 
 var transitionstart : float = 0
 var transitionend : float = 0
-var transitionspeed : float = .01
+var transitionspeed : float = .02
 var transitionweight : float = 0
 
 var istransitioning = false

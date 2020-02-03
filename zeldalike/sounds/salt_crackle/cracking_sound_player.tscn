@@ -13,7 +13,7 @@ max_time = 7.0
 cracksounds = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ) ]
 
 [node name="audioplayer" type="AudioStreamPlayer2D" parent="."]
-volume_db = -5.5
+volume_db = -7.0
 max_distance = 520.0
 attenuation = 8.57417
 bus = "Echo"
