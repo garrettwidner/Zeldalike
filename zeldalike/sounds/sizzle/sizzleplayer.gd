@@ -29,7 +29,7 @@ func _process(delta):
 	if istransitioning:
 		var newmodulate = transitionstart + (transitionend - transitionstart) * transitionweight
 		set_volume_db(newmodulate)
-		print(volume_db)
+#		print(volume_db)
 		transitionweight += transitionspeed
 		
 		if transitionweight >= 1:
