@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/samson.png-a583eb79eef127f9ac9a9e2ad5597277.stex"
+path="res://.import/Stanley.png-ecfafebbaf7e62291ec41263d6c7cd70.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NPC/samson.png"
-dest_files=[ "res://.import/samson.png-a583eb79eef127f9ac9a9e2ad5597277.stex" ]
+source_file="res://NPC/Stanley.png"
+dest_files=[ "res://.import/Stanley.png-ecfafebbaf7e62291ec41263d6c7cd70.stex" ]
 
 [params]
 

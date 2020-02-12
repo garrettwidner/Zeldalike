@@ -9,6 +9,15 @@
 				"default" : true
 			}
 		}
+		},
+		"stanley": {
+			"Beginning":{
+				"Name": "StanleyInitial",
+				"Type": "Start",
+				"Flags": {
+					"default" : true
+				}
+			}
 		}
 
 	}

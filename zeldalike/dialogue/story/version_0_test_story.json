@@ -17,22 +17,15 @@
 			}
 		}
 	},
-	"WantsPickle":{
-		"0":{
-			"content": "...He wants food.",
-			"conditions":
-			{
-				"divert": "1"
-			}
-		},
-		"1" : {
-			"content": "A pickle.",
+	"StanleyInitial":{
+		"0": {
+			"content": "This game is coming along!!!", 
 			"conditions":
 			{
 				"isEnd": true
 			}
 		}
-		
+	}
 	}
 }
 }

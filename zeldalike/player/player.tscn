@@ -1077,10 +1077,10 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 5 ]
 }
 
-[sub_resource type="CircleShape2D" id=73]
+[sub_resource type="CircleShape2D" id=69]
 radius = 17.0
 
-[sub_resource type="Animation" id=74]
+[sub_resource type="Animation" id=70]
 resource_name = "speech_wave"
 length = 0.6
 tracks/0/type = "value"
@@ -1108,16 +1108,16 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="CircleShape2D" id=69]
+[sub_resource type="CircleShape2D" id=71]
 radius = 50.0
 
-[sub_resource type="RectangleShape2D" id=70]
+[sub_resource type="RectangleShape2D" id=72]
 extents = Vector2( 7, 7 )
 
-[sub_resource type="RectangleShape2D" id=71]
+[sub_resource type="RectangleShape2D" id=73]
 extents = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=72]
+[sub_resource type="Animation" id=74]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -1221,19 +1221,19 @@ anims/walkleft = SubResource( 66 )
 anims/walkright = SubResource( 67 )
 anims/walkup = SubResource( 68 )
 
-[node name="speech_area" type="Area2D" parent="."]
+[node name="speech_hit_area" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="speech_area"]
-shape = SubResource( 73 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="speech_hit_area"]
+shape = SubResource( 69 )
 
-[node name="Sprite" type="Sprite" parent="speech_area"]
+[node name="Sprite" type="Sprite" parent="speech_hit_area"]
 visible = false
 texture = ExtResource( 3 )
 hframes = 4
 frame = 3
 
-[node name="speech_anim" type="AnimationPlayer" parent="speech_area"]
-anims/speech_wave = SubResource( 74 )
+[node name="speech_anim" type="AnimationPlayer" parent="speech_hit_area"]
+anims/speech_wave = SubResource( 70 )
 
 [node name="hold_orienter" type="Position2D" parent="."]
 
@@ -1248,12 +1248,12 @@ texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sightbox"]
 visible = false
-shape = SubResource( 69 )
+shape = SubResource( 71 )
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 70 )
+shape = SubResource( 72 )
 
 [node name="pivot" type="Position2D" parent="."]
 script = ExtResource( 5 )
@@ -1308,7 +1308,7 @@ script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hopchecker"]
 position = Vector2( 0, -16 )
-shape = SubResource( 71 )
+shape = SubResource( 73 )
 
 [node name="heat_lines" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.462745 )
@@ -1320,7 +1320,7 @@ region_rect = Rect2( 0, 0, 16, 16 )
 script = ExtResource( 11 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
-anims/heat = SubResource( 72 )
+anims/heat = SubResource( 74 )
 
 [node name="sizzleplayer" type="AudioStreamPlayer2D" parent="heat_lines"]
 position = Vector2( 0, 11 )

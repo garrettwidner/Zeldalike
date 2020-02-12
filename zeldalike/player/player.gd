@@ -133,6 +133,10 @@ func state_default(delta):
 	damage_loop()
 	sun_damage_loop(delta)
 	
+#	for target in interacttargets:
+#		print(target.name)
+#	print("-----------")
+	
 	if movedir != Vector2(0,0):
 		if is_running:
 			switch_anim("run")
@@ -177,18 +181,56 @@ func state_default(delta):
 		pass
 		
 	elif Input.is_action_just_pressed("x"):
-		#if nearby interactible found, interact with that
+		#interact with interactible you're facing
+		var faced_targets = []
+		var closest
+		var closest_distance = 999999999
+		
 		if caninteract:
-			var closest
-			var closest_distance = 999999999
 			for target in interacttargets:
-				var this_distance = position.distance_to(target.position)
-				if this_distance < closest_distance:
-					closest_distance = this_distance
-					closest = target
-			var is_valid_target = dialogueparser.activate(closest)
-			if is_valid_target:
-				set_state_listen()
+				var direction_towards = dir.closest_cardinal(target.position - position)
+				print("Direction towards " + target.name + " = " + String(direction_towards))
+				match facedir:
+					dir.RIGHT:
+						if target.position.x > position.x:
+							faced_targets.append(target)
+					dir.LEFT:
+						if target.position.x < position.x:
+							faced_targets.append(target)
+						pass
+					dir.UP:
+						if target.position.y < position.y:
+							faced_targets.append(target)
+						pass
+					dir.DOWN:
+						if target.position.y > position.y:
+							faced_targets.append(target)
+						pass 
+
+
+#				if direction_towards == facedir:
+#					faced_targets.append(target)
+		#out of interactibles we're facing, find the closest
+		
+			for target in faced_targets:
+				print(target.name)
+			print("-----------")
+		
+			if faced_targets.size() == 1:
+				closest = faced_targets[0]
+			elif faced_targets.size() > 1:
+				for target in faced_targets:
+					var this_distance = position.distance_to(target.position)
+					if this_distance < closest_distance:
+						closest_distance = this_distance
+						closest = target
+						
+			if closest != null:
+				var is_valid_target = dialogueparser.activate(closest)
+				if is_valid_target:
+					set_state_listen()
+	
+		
 		#if not, engage search area
 		
 		#if not speaking to interactible, trigger speechhittables

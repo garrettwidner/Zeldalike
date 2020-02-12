@@ -55,7 +55,7 @@ func reparent(parent):
 	else:
 		var start_position = global_position
 #		print("Position before reparent: ")
-		print(global_position)
+#		print(global_position)
 #		print("Reparented arrow to " + parent.name)
 		get_parent().remove_child(self)
 		parent.add_child(self)
@@ -72,7 +72,7 @@ func hit_object(object_parent, deletion_time):
 
 func _on_Area2D_body_entered(body):
 	if(!("arrow" in body.name) && !("player" in body.name)):
-		print("Arrow hit body " + body.name)
+#		print("Arrow hit body " + body.name)
 		hit_object(body, deletion_time_object)
 		pass
 
