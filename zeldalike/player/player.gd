@@ -186,6 +186,11 @@ func state_default(delta):
 		var closest
 		var closest_distance = 999999999
 		
+		print("Number of interacttargets: " + String(interacttargets.size()))
+		for target in interacttargets:
+			print(target.name)
+		print("Can interact: " + String(caninteract))
+		
 		if caninteract:
 			for target in interacttargets:
 				var direction_towards = dir.closest_cardinal(target.position - position)
@@ -211,7 +216,7 @@ func state_default(delta):
 #				if direction_towards == facedir:
 #					faced_targets.append(target)
 		#out of interactibles we're facing, find the closest
-		
+			print("After checking for facing direction:")
 			for target in faced_targets:
 				print(target.name)
 			print("-----------")
@@ -672,9 +677,9 @@ func _on_Area2D_body_entered(body, obj):
 #	print("Player entered an area2d")
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
-			caninteract = true
 #			interacttarget = obj
 			interacttargets.append(obj)
+			check_if_can_interact()
 #			print("Player's current interact target: " + obj.name)
 		elif obj.is_in_group("speechhittable"):
 			speechhittables.append(obj)
@@ -694,13 +699,13 @@ func _on_Area2D_body_entered(body, obj):
 func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
-			caninteract = false
 #			interacttarget = null
 			var target_index = interacttargets.find(obj)
 			if target_index != -1:
 				interacttargets.remove(target_index)
 			else:
 				print("WARNING: interact target not found in array")
+			check_if_can_interact()
 #			print("Player no longer has a target for interaction")
 		elif obj.is_in_group("speechhittable"):
 			var target_index = speechhittables.find(obj)
@@ -726,6 +731,12 @@ func _on_Area2D_body_exited(body, obj):
 #				print("Successfully removed sun area from dictionary")
 #			else:
 #				print("Had some problem removing sun area from dictionary")
+
+func check_if_can_interact():
+	if interacttargets.size() >= 1:
+		caninteract = true
+	else:
+		caninteract = false
 
 func set_state_swing():
 	state = "swing"
