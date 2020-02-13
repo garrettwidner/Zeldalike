@@ -16,11 +16,9 @@ var isRunning = false
 
 var currTarget
 
-
 signal dialogue_finished
 
 var inventorymanager
-
 
 func _ready():
 	#TODO: Get inventory_manager to call on whenever a dialogue gives an item

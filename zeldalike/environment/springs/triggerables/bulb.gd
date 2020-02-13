@@ -18,9 +18,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func spawn_bulb():
 	if bulb == null:
 		bulb = bulb_resource.instance()
-		print(bulb.position)
+#		print(bulb.position)
 		self.get_parent().add_child(bulb)
 		bulb.global_position = $bulb_spawn_point.global_position
-		print(bulb.position)
+#		print(bulb.position)
 		
 	pass

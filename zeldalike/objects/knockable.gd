@@ -15,7 +15,7 @@ func _ready():
 	if works_with_bow:
 		hitbynames.append("arrow")
 	if works_with_speech:
-		hitbynames.append("speech_hit_area")
+		hitbynames.append("speech")
 	
 func _process(delta):
 	knock_loop()

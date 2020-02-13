@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -1012,6 +1012,66 @@ tracks/0/keys = {
 "values": [ 80, 81, 82, 81 ]
 }
 
+[sub_resource type="Animation" id=75]
+resource_name = "speakdown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 108 ]
+}
+
+[sub_resource type="Animation" id=76]
+resource_name = "speakleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 111 ]
+}
+
+[sub_resource type="Animation" id=77]
+resource_name = "speakright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 110 ]
+}
+
+[sub_resource type="Animation" id=78]
+resource_name = "speakup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 109 ]
+}
+
 [sub_resource type="Animation" id=65]
 length = 2.0
 loop = true
@@ -1115,7 +1175,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 28
 hframes = 4
-frame = 95
+frame = 110
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -1184,6 +1244,10 @@ anims/rundown = SubResource( 61 )
 anims/runleft = SubResource( 62 )
 anims/runright = SubResource( 63 )
 anims/runup = SubResource( 64 )
+anims/speakdown = SubResource( 75 )
+anims/speakleft = SubResource( 76 )
+anims/speakright = SubResource( 77 )
+anims/speakup = SubResource( 78 )
 anims/walkdown = SubResource( 65 )
 anims/walkleft = SubResource( 66 )
 anims/walkright = SubResource( 67 )

@@ -19,6 +19,8 @@ var post_speak_wait : float = 0.1
 
 var speech_resource = preload("res://items/speech/speech.tscn")
 
+var speech_animation_time : float = 0.2
+
 var speechhittables = []
 
 var searchareas = []
@@ -123,6 +125,8 @@ func _process(delta):
 			state_holding(delta)
 		"bowusing":
 			state_bowusing(delta)
+		"speech_animating":
+			state_speech_animating(delta)
 
 func dialogue_finished():
 #	print("Character noticed dialogue was finished")
@@ -189,7 +193,9 @@ func state_default(delta):
 		var successfully_spoke = speak_to_interactibles()
 		if !successfully_spoke:
 			use_item(speech_resource)
-		
+			set_state_speech_animating()
+			
+			
 		
 		#if not, engage search area
 		
@@ -212,6 +218,10 @@ func state_default(delta):
 	
 	
 	movement_loop()
+
+func state_speech_animating(delta):
+	switch_anim("speak")
+	sun_damage_loop(delta)
 
 func speak_to_interactibles():
 	var faced_targets = []
@@ -772,7 +782,7 @@ func set_state_landing():
 	
 func set_state_holding():
 	state = "holding"
-	print("Picked up " + held_item.name)
+#	print("Picked up " + held_item.name)
 
 func set_state_bowusing():
 	state = "bowusing"
@@ -780,6 +790,11 @@ func set_state_bowusing():
 	staticdir = spritedir
 	switch_anim_static("bowdraw")
 	speed = bowspeed
+	
+func set_state_speech_animating():
+	state = "speech_animating"
+	$Timer.wait_time = speech_animation_time
+	$Timer.start()
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir
@@ -803,4 +818,5 @@ func _on_Timer_timeout():
 	match state:
 		"listen":
 			set_state_default()
-			print("Dialogue and timer over, setting state to default")
+		"speech_animating":
+			set_state_default()
