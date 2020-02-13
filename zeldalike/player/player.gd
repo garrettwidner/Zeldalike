@@ -16,6 +16,8 @@ var dialogueparser
 var interacttargets = []
 var caninteract : bool = false
 
+var speech_resource = preload("res://items/speech/speech.tscn")
+
 var speechhittables = []
 
 var searchareas = []
@@ -182,8 +184,10 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("x"):
 		#interact with interactible you're facing
-		speak_to_interactibles()
-	
+		var successfully_spoke = speak_to_interactibles()
+		if !successfully_spoke:
+			use_item(speech_resource)
+		
 		
 		#if not, engage search area
 		
@@ -220,7 +224,7 @@ func speak_to_interactibles():
 	if caninteract:
 		for target in interacttargets:
 			var direction_towards = dir.closest_cardinal(target.position - position)
-			print("Direction towards " + target.name + " = " + String(direction_towards))
+#			print("Direction towards " + target.name + " = " + String(direction_towards))
 			match facedir:
 				dir.RIGHT:
 					if target.position.x > position.x:
@@ -257,6 +261,8 @@ func speak_to_interactibles():
 			var is_valid_target = dialogueparser.activate(closest)
 			if is_valid_target:
 				set_state_listen()
+				return true
+	return false
 
 func state_bowusing(delta):
 	

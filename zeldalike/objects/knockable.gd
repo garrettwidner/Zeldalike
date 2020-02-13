@@ -1,6 +1,8 @@
 extends Position2D
 
+export var works_with_sword = true
 export var works_with_bow = true
+export var works_with_speech = false
 onready var hitbox = $hitbox
 var knockdir
 var hitbynames = []
@@ -8,10 +10,12 @@ var was_hit = false
 var is_one_shot = true
 
 func _ready():
-	hitbynames.append("sword")
+	if works_with_sword:
+		hitbynames.append("sword")
 	if works_with_bow:
 		hitbynames.append("arrow")
-	pass
+	if works_with_speech:
+		hitbynames.append("speech_hit_area")
 	
 func _process(delta):
 	knock_loop()

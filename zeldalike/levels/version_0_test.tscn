@@ -1473,6 +1473,9 @@ position = Vector2( -144.32, 181.274 )
 [node name="Spring" type="Position2D" parent="YSort/Objects"]
 position = Vector2( -69.7754, 206.49 )
 script = ExtResource( 21 )
+works_with_sword = false
+works_with_bow = false
+works_with_speech = true
 triggerable_1 = NodePath("../../GroundObjects/Grass")
 triggerable_2 = NodePath("../Bulbplant")
 
@@ -1518,6 +1521,9 @@ anims/unblock = SubResource( 71 )
 editor/display_folded = true
 position = Vector2( 83.2736, 137.263 )
 script = ExtResource( 21 )
+works_with_sword = false
+works_with_bow = false
+works_with_speech = true
 triggerable_1 = NodePath("../../GroundObjects/Grass2")
 
 [node name="hitbox" type="Area2D" parent="YSort/Objects/Spring2"]
@@ -1559,6 +1565,9 @@ anims/unblock = SubResource( 78 )
 [node name="Spring3" type="Position2D" parent="YSort/Objects"]
 position = Vector2( -27.7632, -16.976 )
 script = ExtResource( 21 )
+works_with_sword = false
+works_with_bow = false
+works_with_speech = true
 triggerable_1 = NodePath("../../GroundObjects/Grass3")
 triggerable_2 = NodePath("../Bulbplant2")
 
