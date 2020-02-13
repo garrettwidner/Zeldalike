@@ -15,6 +15,7 @@ var dialogueparser
 #var interacttarget
 var interacttargets = []
 var caninteract : bool = false
+var post_speak_wait : float = 0.1
 
 var speech_resource = preload("res://items/speech/speech.tscn")
 
@@ -125,7 +126,8 @@ func _process(delta):
 
 func dialogue_finished():
 #	print("Character noticed dialogue was finished")
-	set_state_default()
+	$Timer.wait_time = post_speak_wait
+	$Timer.start()
 	
 func state_default(delta):
 	set_speed()
@@ -797,3 +799,8 @@ func _on_anim_animation_finished(anim_name):
 			set_state_default()
 #			print("State now default")
 		
+func _on_Timer_timeout():
+	match state:
+		"listen":
+			set_state_default()
+			print("Dialogue and timer over, setting state to default")

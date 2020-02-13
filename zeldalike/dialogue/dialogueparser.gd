@@ -16,7 +16,6 @@ var isRunning = false
 
 var currTarget
 
-var restart_prevention_trigger = false
 
 signal dialogue_finished
 
@@ -59,12 +58,11 @@ func _process(delta):
 func activate(target):
 	var target_is_valid = events["eventTarget"].has(target.name)
 	
-	if target_is_valid && !restart_prevention_trigger:
+	if target_is_valid:
 		currTarget = target
 		isActivated = true
 		start_dialogue()
-	elif restart_prevention_trigger:
-		restart_prevention_trigger = false
+
 		
 	return isActivated
 
@@ -82,12 +80,14 @@ func set_next_branch():
 		set_items_from_dialogue()
 		
 	else:
-		emit_signal("dialogue_finished")
-		panelNode.hide()
-		isRunning = false
-		isActivated = false
-		restart_prevention_trigger = true
+		end_dialogue()
 	pass
+	
+func end_dialogue():
+	emit_signal("dialogue_finished")
+	panelNode.hide()
+	isRunning = false
+	isActivated = false
 	
 	
 func start_dialogue():
