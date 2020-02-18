@@ -45,7 +45,7 @@ func set_spritedir():
 func switch_anim(animation):
 	var nextanim : String = animation + spritedir
 	if $anim.current_animation != nextanim:
-		print("Playing animation: " + nextanim)
+#		print("Playing animation: " + nextanim)
 		$anim.play(nextanim)
 
 func movement_loop():

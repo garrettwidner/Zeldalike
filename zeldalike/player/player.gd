@@ -18,6 +18,7 @@ var caninteract : bool = false
 var post_speak_wait : float = 0.1
 
 var speech_resource = preload("res://items/speech/speech.tscn")
+signal on_spoke
 
 var speech_animation_time : float = 0.2
 
@@ -194,6 +195,7 @@ func state_default(delta):
 		if !successfully_spoke:
 			use_item(speech_resource)
 			set_state_speech_animating()
+			emit_signal("on_spoke")
 			
 			
 		

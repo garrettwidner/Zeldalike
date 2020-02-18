@@ -49,6 +49,6 @@ frame = 3
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-playback_speed = 1.4
+playback_speed = 2.0
 anims/sound = SubResource( 2 )
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
