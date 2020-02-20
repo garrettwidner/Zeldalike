@@ -31,9 +31,13 @@ export var stamina : float = 10
 export var maxstamina : float = 10
 var stamina_drain_run : float = 2
 var stamina_heal_walk : float = 1
-var stamina_heal_still : float = 2.5
+var stamina_heal_still : float = 3
+
+var stamina_drain_kickout = false
+var stamina_previous = 0.0
 
 signal stamina_changed
+signal stamina_hit_zero
 
 var hold_orienter
 var hold_position
@@ -106,6 +110,7 @@ func _ready():
 	hold_position = get_node("hold_orienter/animation_mover")
 	bite_just_taken = false
 	
+	connect("stamina_hit_zero", self, "create_stamina_drain_kickout")
 #	print("Player position:")
 #	print(global_position)
 	
@@ -161,12 +166,11 @@ func state_default(delta):
 			damage_stamina(stamina_drain_run, delta)
 		else:
 			switch_anim("walk")
-#			heal_stamina(stamina_heal_walk, delta)
+			heal_stamina(stamina_heal_walk, delta)
 	else:
 		switch_anim("idle")
 		heal_stamina(stamina_heal_still, delta)
 		
-	print(stamina)
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sword/sword.tscn"))
@@ -236,6 +240,7 @@ func state_default(delta):
 	movement_loop()
 	
 func damage_stamina(change, delta):
+	stamina_previous = stamina
 	if change <= 0:
 		print("Warning: changes to stamina must be given as positive integers")
 		change = abs(change)
@@ -246,8 +251,10 @@ func damage_stamina(change, delta):
 		stamina = 0
 	else:
 		emit_signal("stamina_changed", stamina, 0) 
+	stamina_zero_check()
 	
 func heal_stamina(change, delta):
+	stamina_previous = stamina
 	if change <= 0:
 		print("Warning: changes to stamina must be given as positive integers")
 		change = abs(change)
@@ -258,6 +265,11 @@ func heal_stamina(change, delta):
 		stamina = maxstamina
 	else:
 		emit_signal("stamina_changed", stamina, 0) 
+	stamina_zero_check()
+
+func stamina_zero_check():
+	if stamina_previous > 0 && stamina == 0:
+		emit_signal("stamina_hit_zero")
 
 func state_speech_animating(delta):
 	switch_anim("speak")
@@ -454,9 +466,11 @@ func get_hop_info():
 func state_swing(delta):
 	switch_anim("attack")
 	damage_loop()
+	heal_stamina(stamina_heal_walk, delta)
 	
 func state_listen(delta):
 	switch_anim("idle")
+	heal_stamina(stamina_heal_still, delta)
 	
 func state_block(delta):
 	if movedir != Vector2(0,0):
@@ -535,6 +549,8 @@ func state_landing(delta):
 		
 func state_holding(delta):
 		
+		
+		
 	if bite_just_taken:
 		health += held_item.health
 		emit_signal("health_changed", health, 0)
@@ -578,8 +594,10 @@ func state_holding(delta):
 	if !is_eating:
 		if movedir != Vector2(0,0):
 			switch_anim("holdwalk")
+			heal_stamina(stamina_heal_walk, delta)
 		else:
 			switch_anim("holdidle")
+			heal_stamina(stamina_heal_still, delta)
 	
 func set_hold_position():
 	if facedir == dir.DOWN:
@@ -659,12 +677,19 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-	if Input.is_action_pressed("b") && !is_holding && stamina > 0:
+	if Input.is_action_pressed("b") && !is_holding && stamina > 0 && !stamina_drain_kickout:
 		speed = runspeed
 		is_running = true
 	else:
+		if stamina_drain_kickout:
+			if Input.is_action_just_released("b"):
+				stamina_drain_kickout = false
 		speed = walkspeed
 		is_running = false
+
+func create_stamina_drain_kickout():
+	stamina_drain_kickout = true
+	print("kicked out of using run through stamina drain")
 
 func set_movedir():
 	var LEFT : bool = Input.is_action_pressed("left")
