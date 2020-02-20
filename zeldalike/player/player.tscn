@@ -1168,7 +1168,7 @@ tracks/0/keys = {
 [node name="player" type="KinematicBody2D"]
 collision_mask = 0
 script = ExtResource( 1 )
-health = 25.0
+health = 38.0
 maxhealth = 50.0
 bite_just_taken = true
 shade_color = Color( 0.721569, 0.721569, 0.721569, 1 )

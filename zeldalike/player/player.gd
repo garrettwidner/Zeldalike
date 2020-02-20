@@ -7,6 +7,7 @@ var walkspeed = 40
 var runspeed = 50
 var bowspeed = 20
 var is_running = false
+var motion_state = "idle"
 var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
@@ -25,6 +26,14 @@ var speech_animation_time : float = 0.2
 var speechhittables = []
 
 var searchareas = []
+
+export var stamina : float = 10
+export var maxstamina : float = 10
+var stamina_drain_run : float = 2
+var stamina_heal_walk : float = 1
+var stamina_heal_still : float = 2.5
+
+signal stamina_changed
 
 var hold_orienter
 var hold_position
@@ -149,10 +158,15 @@ func state_default(delta):
 	if movedir != Vector2(0,0):
 		if is_running:
 			switch_anim("run")
+			damage_stamina(stamina_drain_run, delta)
 		else:
 			switch_anim("walk")
+#			heal_stamina(stamina_heal_walk, delta)
 	else:
 		switch_anim("idle")
+		heal_stamina(stamina_heal_still, delta)
+		
+	print(stamina)
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sword/sword.tscn"))
@@ -220,6 +234,30 @@ func state_default(delta):
 	
 	
 	movement_loop()
+	
+func damage_stamina(change, delta):
+	if change <= 0:
+		print("Warning: changes to stamina must be given as positive integers")
+		change = abs(change)
+	
+	var modification = change * delta
+	stamina -= modification
+	if stamina < 0:
+		stamina = 0
+	else:
+		emit_signal("stamina_changed", stamina, 0) 
+	
+func heal_stamina(change, delta):
+	if change <= 0:
+		print("Warning: changes to stamina must be given as positive integers")
+		change = abs(change)
+	
+	var modification = change * delta
+	stamina += modification
+	if stamina > maxstamina:
+		stamina = maxstamina
+	else:
+		emit_signal("stamina_changed", stamina, 0) 
 
 func state_speech_animating(delta):
 	switch_anim("speak")
@@ -621,7 +659,7 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-	if Input.is_action_pressed("b") && !is_holding:
+	if Input.is_action_pressed("b") && !is_holding && stamina > 0:
 		speed = runspeed
 		is_running = true
 	else:
@@ -660,7 +698,9 @@ func set_facedir():
 #			istrackingenemy = false
 #			.set_facedir()
 	.set_facedir()
-			
+
+
+
 func sun_damage_loop(delta):
 	if sun != null:
 		var sun_current_strength = sun_base_strength
@@ -686,12 +726,15 @@ func sun_damage_loop(delta):
 			emit_signal("on_sun_strength_changed", sun_current_strength)
 			sun_previous_total_strength = sun_current_strength
 	
+
+	
 func take_sun_damage(sun_strength, delta):
 	var damage = sun_strength * delta * sun_drain_damping
 	wasdamaged = true
 	health -= damage
 #	print(damage)
 	emit_signal("health_changed", health, damage)
+	
 
 func _on_Area2D_body_entered(body, obj):
 #	print("Player entered an area2d")
