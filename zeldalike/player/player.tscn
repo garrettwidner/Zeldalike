@@ -1170,6 +1170,8 @@ collision_mask = 0
 script = ExtResource( 1 )
 health = 38.0
 maxhealth = 50.0
+stamina = 5.0
+maxstamina = 5.0
 bite_just_taken = true
 shade_color = Color( 0.721569, 0.721569, 0.721569, 1 )
 
@@ -1177,7 +1179,7 @@ shade_color = Color( 0.721569, 0.721569, 0.721569, 1 )
 material = SubResource( 2 )
 scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
-vframes = 28
+vframes = 32
 hframes = 4
 frame = 108
 
