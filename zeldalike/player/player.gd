@@ -39,6 +39,9 @@ var stamina_previous = 0.0
 signal stamina_changed
 signal stamina_hit_zero
 
+var is_covering = false
+var cover_sun_decrease = 1.1
+
 var hold_orienter
 var hold_position
 var is_holding : bool = false
@@ -160,17 +163,25 @@ func state_default(delta):
 #		print(target.name)
 #	print("-----------")
 	
-	if movedir != Vector2(0,0):
-		if is_running:
-			switch_anim("run")
-			damage_stamina(stamina_drain_run, delta)
+	
+	if !is_covering:
+		if movedir != Vector2(0,0):
+			if is_running:
+				switch_anim("run")
+				damage_stamina(stamina_drain_run, delta)
+			else:
+				switch_anim("walk")
+				heal_stamina(stamina_heal_walk, delta)
 		else:
-			switch_anim("walk")
-			heal_stamina(stamina_heal_walk, delta)
+			switch_anim("idle")
+			heal_stamina(stamina_heal_still, delta)
 	else:
-		switch_anim("idle")
-		heal_stamina(stamina_heal_still, delta)
-		
+		if movedir != Vector2(0,0):
+			switch_anim("coverwalk")
+			heal_stamina(stamina_heal_walk, delta)
+		else:
+			switch_anim("coveridle")
+			heal_stamina(stamina_heal_still, delta)
 		
 	if Input.is_action_just_pressed("a"):
 		use_item(preload("res://items/sword/sword.tscn"))
@@ -204,8 +215,11 @@ func state_default(delta):
 		
 		
 	elif Input.is_action_just_pressed("y"):
-		set_state_bowusing()
+#		set_state_bowusing()
 		pass
+		
+	
+	
 		
 	elif Input.is_action_just_pressed("x"):
 		#interact with interactible you're facing
@@ -215,7 +229,10 @@ func state_default(delta):
 			set_state_speech_animating()
 			emit_signal("on_spoke")
 			
-			
+	if Input.is_action_pressed("y"):
+		is_covering = true;
+	else:
+		is_covering = false
 		
 		#if not, engage search area
 		
@@ -469,7 +486,10 @@ func state_swing(delta):
 	heal_stamina(stamina_heal_walk, delta)
 	
 func state_listen(delta):
-	switch_anim("idle")
+	if is_covering:
+		switch_anim("coveridle")
+	else:
+		switch_anim("idle")
 	heal_stamina(stamina_heal_still, delta)
 	
 func state_block(delta):
@@ -737,6 +757,9 @@ func sun_damage_loop(delta):
 				in_shade = true
 		
 		sun_current_strength += change
+		
+		if is_covering:
+			sun_current_strength -= cover_sun_decrease
 		
 		if in_shade:
 			$Sprite.modulate = shade_color
