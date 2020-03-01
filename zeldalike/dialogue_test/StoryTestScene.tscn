@@ -1,14 +1,14 @@
 [gd_scene load_steps=211 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
-[ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=2]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=4]
-[ext_resource path="res://dialogue_test/farmer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=6]
-[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=7]
-[ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=8]
-[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=9]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=5]
+[ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=6]
+[ext_resource path="res://dialogue_test/farmer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://dialogue_test/outhouse.tscn" type="PackedScene" id=9]
 [ext_resource path="res://dialogue_test/toplevel_sand_fill.png" type="Texture" id=10]
 [ext_resource path="res://dialogue_test/Mountain_Tileset_Retooling.png" type="Texture" id=11]
 [ext_resource path="res://dialogue_test/stone_bounds.png" type="Texture" id=12]
@@ -1756,28 +1756,36 @@ extents = Vector2( 30, 30 )
 script = ExtResource( 1 )
 scene_name = "StoryTestScene"
 
-[node name="crops" parent="." instance=ExtResource( 2 )]
-position = Vector2( 39.2926, 26.0062 )
+[node name="dialogue_parser" parent="." instance=ExtResource( 2 )]
 
-[node name="player" parent="." instance=ExtResource( 3 )]
+[node name="dialogue" parent="." instance=ExtResource( 3 )]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="ground_objects" type="Node2D" parent="YSort"]
+
+[node name="objects" type="YSort" parent="YSort"]
+
+[node name="actors" type="YSort" parent="YSort"]
+
+[node name="player" parent="YSort/actors" instance=ExtResource( 4 )]
 position = Vector2( 104.115, 89.3777 )
 z_index = 220
 health = 50.0
 
-[node name="floodgate" parent="." instance=ExtResource( 4 )]
+[node name="crops" parent="." instance=ExtResource( 5 )]
+position = Vector2( 39.2926, 26.0062 )
+
+[node name="floodgate" parent="." instance=ExtResource( 6 )]
 position = Vector2( 39.2926, 10.0062 )
 
-[node name="farmer" parent="." instance=ExtResource( 5 )]
+[node name="farmer" parent="." instance=ExtResource( 7 )]
 position = Vector2( 49.8079, 89.5835 )
 
-[node name="inventorymanager" parent="." instance=ExtResource( 6 )]
+[node name="inventorymanager" parent="." instance=ExtResource( 8 )]
 
-[node name="dialogue_parser" parent="." instance=ExtResource( 7 )]
-
-[node name="outhouse" parent="." instance=ExtResource( 8 )]
+[node name="outhouse" parent="." instance=ExtResource( 9 )]
 position = Vector2( 110.131, 17.1229 )
-
-[node name="dialogue" parent="." instance=ExtResource( 9 )]
 
 [node name="mountain_floor" type="TileMap" parent="."]
 z_index = 190

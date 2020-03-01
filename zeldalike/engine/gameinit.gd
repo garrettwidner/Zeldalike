@@ -4,6 +4,14 @@ var player
 var cameracontroller
 export var scene_name : String = "Level"
 
+#In order to set up a new scene, must have the full suite of objects.
+
+#Must also set up two new json files in dialogue/events and dialogue/story
+#called "scenename_events.json" and "scenename_story.json".
+
+#Must also change the Scene Name field of the base "Level" node to the actual
+#name of the scene in the file system.
+
 enum COLL_LAYER{
 	default = 0,
 	lv1 = 1,
@@ -15,7 +23,7 @@ enum COLL_LAYER{
 	}
 
 func _ready():
-	player = get_node("YSort/Actors/player")
+	player = get_node("YSort/actors/player")
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
 	connect_player_to_searchareas()
@@ -116,7 +124,10 @@ func add_interactible(interactible):
 	print("Added interactible as interactible to scene: " + String(interactible.name))
 	
 func connect_cameracontroller_to_camareas():
-	cameracontroller = get_node("Actors/player/cameracontroller")
+	cameracontroller = get_node("YSort/actors/player/cameracontroller")
+	if cameracontroller == null:
+		print("Warning: gameinit.gd found cameracontroller null")
+	
 	var camareas = get_tree().get_nodes_in_group("camarea")
 	for i in range(camareas.size()):
 		var currentnode = get_node(camareas[i].get_path())

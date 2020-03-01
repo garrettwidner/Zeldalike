@@ -14,7 +14,7 @@ export (float, 0, 1, 0.05) var caution_zone = 0.5
 export (float, 0, 1, 0.05) var danger_zone = 0.2
 
 func _ready():
-	player = get_node("/root/Level/YSort/Actors/player")
+	player = get_node("/root/Level/YSort/actors/player")
 	player.connect("health_changed", self, "_on_health_updated")
 	health_bar.value = player.health
 	health_bar.max_value = player.maxhealth

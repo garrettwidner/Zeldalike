@@ -18,7 +18,7 @@ var istransitioning = false
 var player
 
 func _ready():
-	player = get_node("/root/Level/YSort/Actors/player")
+	player = get_node("/root/Level/YSort/actors/player")
 	player.connect("on_sun_strength_changed", self, "on_sun_changed")
 	$anim.play("swelter")
 	visible = true

@@ -15,7 +15,7 @@ export (float, 0, 1, 0.05) var danger_zone = 0.2
 
 
 func _ready():
-	player = get_node("/root/Level/YSort/Actors/player")
+	player = get_node("/root/Level/YSort/actors/player")
 	player.connect("stamina_changed", self, "_on_stamina_updated")
 	bar.value = player.stamina
 	bar.max_value = player.maxstamina

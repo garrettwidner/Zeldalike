@@ -697,7 +697,7 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-	if Input.is_action_pressed("b") && !is_holding && stamina > 0 && !stamina_drain_kickout:
+	if Input.is_action_pressed("b") && !is_holding && stamina > 0 && !stamina_drain_kickout && !is_covering:
 		speed = runspeed
 		is_running = true
 	else:
@@ -709,7 +709,7 @@ func set_speed():
 
 func create_stamina_drain_kickout():
 	stamina_drain_kickout = true
-	print("kicked out of using run through stamina drain")
+#	print("kicked out of using run through stamina drain")
 
 func set_movedir():
 	var LEFT : bool = Input.is_action_pressed("left")
