@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
@@ -506,6 +506,12 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=55]
+extents = Vector2( 110, 72 )
+
+[sub_resource type="RectangleShape2D" id=56]
+extents = Vector2( 220, 72 )
+
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 scene_name = "level_1_test"
@@ -528,6 +534,7 @@ tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, -65527, 0, 0, -65526, 0, 0
 tile_set = SubResource( 54 )
 cell_size = Vector2( 16, 16 )
 format = 1
+tile_data = PoolIntArray( 458770, 1, 0, 458771, 1, 196608, 458772, 1, 196608, 458773, 1, 196608, 458774, 1, 262146, 524306, 1, 131072, 524307, 1, 262144, 524308, 1, 262144, 524309, 1, 262144, 524310, 1, 262146 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -543,3 +550,38 @@ position = Vector2( 199.445, 212.275 )
 [node name="hop_areas" type="Node2D" parent="."]
 
 [node name="sounds" type="Node2D" parent="."]
+
+[node name="camareas" type="Node2D" parent="."]
+
+[node name="camarea1" type="Area2D" parent="camareas" groups=[
+"camarea",
+]]
+position = Vector2( 340, 196 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
+shape = SubResource( 55 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="camarea2" type="Area2D" parent="camareas" groups=[
+"camarea",
+]]
+position = Vector2( 560, 196 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea2"]
+shape = SubResource( 55 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="camarea3" type="Area2D" parent="camareas" groups=[
+"camarea",
+]]
+position = Vector2( 450, 52 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea3"]
+shape = SubResource( 56 )
+__meta__ = {
+"_edit_lock_": true
+}
