@@ -96,7 +96,7 @@ func start_dialogue():
 	isRunning = true
 	
 	var dialogue_branch = choose_dialogue_branch()
-	var current_node = get_node("/root/Level/YSort/Actors/" + currTarget.name)
+	var current_node = get_node("/root/Level/YSort/actors/" + currTarget.name)
 	if current_node.has_method("update_experiences"):
 		current_node.update_experiences(experiences, inventorymanager.get_item_dict())
 	

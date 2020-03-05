@@ -534,7 +534,7 @@ tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 0, -65527, 0, 0, -65526, 0, 0
 tile_set = SubResource( 54 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 458770, 1, 0, 458771, 1, 196608, 458772, 1, 196608, 458773, 1, 196608, 458774, 1, 262146, 524306, 1, 131072, 524307, 1, 262144, 524308, 1, 262144, 524309, 1, 262144, 524310, 1, 262146 )
+tile_data = PoolIntArray( 458770, 1, 0, 458771, 1, 196608, 458772, 1, 196608, 458773, 1, 196608, 458774, 1, 262146, 524306, 1, 131072, 524307, 1, 262144, 524308, 1, 262144, 524309, 1, 262144, 524310, 1, 262146, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -556,7 +556,7 @@ position = Vector2( 199.445, 212.275 )
 [node name="camarea1" type="Area2D" parent="camareas" groups=[
 "camarea",
 ]]
-position = Vector2( 340, 196 )
+position = Vector2( 110, 216 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
 shape = SubResource( 55 )
@@ -567,7 +567,7 @@ __meta__ = {
 [node name="camarea2" type="Area2D" parent="camareas" groups=[
 "camarea",
 ]]
-position = Vector2( 560, 196 )
+position = Vector2( 330, 216 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea2"]
 shape = SubResource( 55 )
@@ -578,7 +578,7 @@ __meta__ = {
 [node name="camarea3" type="Area2D" parent="camareas" groups=[
 "camarea",
 ]]
-position = Vector2( 450, 52 )
+position = Vector2( 220, 72 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea3"]
 shape = SubResource( 56 )

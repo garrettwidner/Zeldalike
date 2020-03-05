@@ -22,7 +22,7 @@ tracks/0/keys = {
 
 [node name="screencover" type="Sprite"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( -40, -40 )
+position = Vector2( -10, -40 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 1 )
 centered = false
