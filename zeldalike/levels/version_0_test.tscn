@@ -1664,11 +1664,10 @@ __meta__ = {
 shape = SubResource( 86 )
 
 [node name="actors" type="YSort" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 501, 88 )
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 26 )]
-position = Vector2( -95.7125, 198.923 )
+position = Vector2( -179.127, 200.115 )
 
 [node name="demite" parent="YSort/actors" instance=ExtResource( 27 )]
 position = Vector2( 91.326, 150.442 )

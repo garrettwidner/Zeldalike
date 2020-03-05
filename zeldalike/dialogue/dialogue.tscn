@@ -15,10 +15,10 @@ margin_right = 5.0
 margin_bottom = 8.0
 
 [node name="dialogue_box" parent="." instance=ExtResource( 2 )]
-margin_left = 7.90529
-margin_top = 17.9559
-margin_right = -26.0947
-margin_bottom = -51.0441
+margin_left = 17.12
+margin_top = 82.4778
+margin_right = 5.12
+margin_bottom = 13.4778
 
 [node name="GUI" parent="." instance=ExtResource( 3 )]
 
