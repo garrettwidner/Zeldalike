@@ -5,6 +5,7 @@ var istrackingenemy : bool = false
 var state = "default"
 var walkspeed = 40
 var runspeed = 50
+var coverspeed = 30
 var bowspeed = 20
 var is_running = false
 var motion_state = "idle"
