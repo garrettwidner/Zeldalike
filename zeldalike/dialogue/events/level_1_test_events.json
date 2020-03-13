@@ -1,5 +1,47 @@
 {
 "SceneName": "level_1_test",
 "eventTarget": {
+	"intner": {
+		"BeginningStart": {
+			"Name": "IntnerStart",
+			"Type": "Start",
+			"Flags": {
+				"default" : true,
+				"alreadyUsed": false,
+			}
+		},
+		"BeginningRepeat": {
+			"Name": "IntnerRepeat",
+			"Type": "Start",
+			"Flags": {
+				"default" : true,
+			}
+		},
+		"AfterburnStart": {
+			"Name": "IntnerAfterburnStart",
+			"Type":"Start",
+			"Flags": {
+				"burnedOnce" : true,
+				"alreadyUsed" : false
+			}
+		},
+		"AfterburnGiveCloak": {
+			"Name": "IntnerAfterburnGiveCloak",
+			"Type": "Unique",
+			"Flags":{
+				"burnedOnce": true,
+				"hasCloak" : false,
+				"alreadyUsed" : false
+			}
+		},
+		"AfterburnRepeat": {
+			"Name": "IntnerAfterburnRepeat",
+			"Type": "Repeat",
+			"Flags": {
+				"burnedOnce" : true,
+				"hasCloak": true
+			}
+		}
+	}
 }
 }

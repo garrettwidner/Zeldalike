@@ -1,5 +1,82 @@
 {
 "level": "version_0_test",
 "data":{
+	"IntnerStart":{
+		"0":{
+			"content": "You've just come out of that hole now, haven't you? That darkness?",
+			"conditions":
+			{
+				"divert" : "1"
+			},
+		},
+		"1":{
+			"content": "Would you like to see light?",
+			"conditions":
+			{
+				"divert" : "2"
+			},
+		},
+		"2":{
+			"content": "Careful..",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		}
+
+	},
+	"IntnerRepeat":{
+		"0":{
+			"content": "Careful...",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		}
+	},
+	"IntnerAfterburnStart":{
+		"0":{
+			"content": "It hurts but... it's good to experience it for yourself.",
+			"conditions":
+			{
+				"isEnd":true
+			}
+		},
+	},
+	"IntnerAfterburnGiveCloak":{
+		"0":{
+			"content": "It isn't deadly right away but... you had better wear one of these.",
+			"conditions":
+			{
+				"divert" : "1"
+			},
+			"experiences":{"hasCloak": true},
+			"items": {"cloak": "collectible"}
+		},
+		"1":{
+			"content": "We all wear something, out here.",
+			"conditions":
+			{
+				"isEnd": "true"
+			}
+		}
+	},
+	"IntnerAfterburnRepeat":{
+		"0":{
+			"content": "Are you thirsty? There's a small stream running over there.",
+			"conditions":
+			{
+				"divert": "1"
+			}
+		},
+		"1":{
+			"content": "You might want to drink up before you venture too far out.",
+			"conditions":
+			{
+				"isEnd":"true"
+			}
+		}
+	}
+
 }
 }
