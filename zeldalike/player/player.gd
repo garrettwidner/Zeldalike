@@ -95,8 +95,6 @@ var staticdir
 
 var original_zindex
 
-var scenechanger
-
 func _ready():
 	speed = 42
 	TYPE = "PLAYER"
@@ -128,8 +126,6 @@ func _ready():
 #	for i in range(20):
 #    	print(i, '\t', get_collision_layer_bit(i))
 
-	scenechanger = get_tree().get_root().get_node("Level/canvas/scenechanger")
-	
 
 func _process(delta):
 	
@@ -227,7 +223,6 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("y"):
 #		set_state_bowusing()
-		scenechanger.change_scene("level_1_test")
 		pass
 		
 	
