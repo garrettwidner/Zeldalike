@@ -7,8 +7,8 @@ var item_notification_text
 func _ready():
 	inventory = load_file_as_JSON("res://dialogue/data/inventory.json")
 	
-	item_notification_panel = get_node("../dialogue/item_notification/Panel")
-	item_notification_text = get_node("../dialogue/item_notification/Panel/MarginContainer/Label")
+	item_notification_panel = get_node("../canvas/item_notification/Panel")
+	item_notification_text = get_node("../canvas/item_notification/Panel/MarginContainer/Label")
 	
 	if(typeof(inventory) != TYPE_DICTIONARY):
 		print("ERROR: inventory file has errors")

@@ -13,6 +13,7 @@ var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
 var dialogueparser
+#var inventorymanager
 
 #var interacttarget
 var interacttargets = []
@@ -94,6 +95,8 @@ var staticdir
 
 var original_zindex
 
+var scenechanger
+
 func _ready():
 	speed = 42
 	TYPE = "PLAYER"
@@ -102,7 +105,11 @@ func _ready():
 	if dialogueparser != null:
 		dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	else:
-		print("Dialogue Parser not found by Player")
+		print("ERROR: dialogueparser not found by Player")
+		
+#	inventorymanager = get_node("/root/Level/inventorymanager")
+#	if inventorymanager == null:
+#		print("ERROR: inventorymanager not found by player")
 		
 	original_zindex = z_index
 	
@@ -120,6 +127,9 @@ func _ready():
 	
 #	for i in range(20):
 #    	print(i, '\t', get_collision_layer_bit(i))
+
+	scenechanger = get_tree().get_root().get_node("Level/canvas/scenechanger")
+	
 
 func _process(delta):
 	
@@ -217,6 +227,7 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("y"):
 #		set_state_bowusing()
+		scenechanger.change_scene("level_1_test")
 		pass
 		
 	
@@ -779,11 +790,19 @@ func sun_damage_loop(delta):
 	
 func take_sun_damage(sun_strength, delta):
 	var damage = sun_strength * delta * sun_drain_damping
-	wasdamaged = true
-	health -= damage
-#	print(damage)
-	emit_signal("health_changed", health, damage)
-	
+	if damage > 0:
+		check_first_time_sun_damage()
+		
+		wasdamaged = true
+		health -= damage
+#		print("Sun damage: " + String(damage))
+		emit_signal("health_changed", health, damage)
+
+func check_first_time_sun_damage():
+	if(!dialogueparser.check_experience("burnedOnce")):
+		dialogueparser.set_experience("burnedOnce", true)
+#		print("burned once set to " + String(dialogueparser.check_experience("burnedOnce")))
+		
 
 func _on_Area2D_body_entered(body, obj):
 #	print("Player entered an area2d")

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=2]
-[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/canvas.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/crops.tscn" type="PackedScene" id=5]
 [ext_resource path="res://dialogue_test/doorway.tscn" type="PackedScene" id=6]

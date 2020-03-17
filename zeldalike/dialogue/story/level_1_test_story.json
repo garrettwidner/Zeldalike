@@ -10,20 +10,12 @@
 			},
 		},
 		"1":{
-			"content": "Would you like to see light?",
-			"conditions":
-			{
-				"divert" : "2"
-			},
-		},
-		"2":{
-			"content": "Careful..",
+			"content": "Have you come to see light?",
 			"conditions":
 			{
 				"isEnd": true
-			}
+			},
 		}
-
 	},
 	"IntnerRepeat":{
 		"0":{
@@ -45,7 +37,7 @@
 	},
 	"IntnerAfterburnGiveCloak":{
 		"0":{
-			"content": "It isn't deadly right away but... you had better wear one of these.",
+			"content": "It isn't deadly right away but... you can cover yourself with one of these.",
 			"conditions":
 			{
 				"divert" : "1"
@@ -54,7 +46,7 @@
 			"items": {"cloak": "collectible"}
 		},
 		"1":{
-			"content": "We all wear something, out here.",
+			"content": "Many people feel a need to cover themselves from the light.",
 			"conditions":
 			{
 				"isEnd": "true"

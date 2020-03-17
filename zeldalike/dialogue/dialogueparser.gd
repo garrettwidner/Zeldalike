@@ -37,14 +37,18 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-	panelNode = get_node("/root/Level/dialogue/dialogue_box/Panel")
-	textContainer = get_node("/root/Level/dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
-	nameContainer = get_node("/root/Level/dialogue/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
+	panelNode = get_node("/root/Level/canvas/dialogue_box/Panel")
+	textContainer = get_node("/root/Level/canvas/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
+	nameContainer = get_node("/root/Level/canvas/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
 	
-	if(panelNode.is_visible()):
-		panelNode.hide()
+	if panelNode != null:
+		if(panelNode.is_visible()):
+			panelNode.hide()
 		
 	inventorymanager = get_node("../inventorymanager")
+	
+	if inventorymanager == null:
+		print("ERROR: No inventorymanager found by dialogueparser")
 	
 func _process(delta):
 	if isActivated and (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("x")):
@@ -52,6 +56,20 @@ func _process(delta):
 		if isRunning:
 			change_dialogue_branch()
 		pass
+		
+func check_experience(experience):
+	if experiences.keys().has(experience):
+		return experiences[experience]
+		
+func set_experience(experience, value):
+	if value != true && value != false:
+		print("ERROR: set_experience value must be true or false")
+		return
+	if experiences.keys().has(experience):
+		experiences[experience] = value
+#		print("Experience *" + experience + "* set to " + String(experiences[experience]))
+		
+	
 
 func activate(target):
 	var target_is_valid = events["eventTarget"].has(target.name)
@@ -111,16 +129,9 @@ func start_dialogue():
 	
 	var currText = currBranch["content"]
 	
-	#TODO: 
-	#	   Make it so 'experiences' are drawn from to change which dialogue plays
-	#      Make it so items can be added to inventory through dialogue
-	
 	panelNode.show()
 	nameContainer.set_text(currTarget.name)
 	textContainer.set_text(currText)
-	
-	#within here, make sure to check whether the story branch has an 'experiences'
-	#field associated with it and if so, flip the experience to true or false depending on specifications
 	
 	pass
 	

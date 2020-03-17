@@ -2,7 +2,7 @@
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=2]
-[ext_resource path="res://dialogue/dialogue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/canvas.tscn" type="PackedScene" id=3]
 [ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/brick.tscn" type="PackedScene" id=5]
 [ext_resource path="res://environment/springs/spring.gd" type="Script" id=6]
@@ -16,6 +16,8 @@
 [ext_resource path="res://objects/seedbed.png" type="Texture" id=14]
 [ext_resource path="res://environment/edible.gd" type="Script" id=15]
 [ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=16]
+
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
