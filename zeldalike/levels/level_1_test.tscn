@@ -1,6 +1,6 @@
 [gd_scene load_steps=71 format=2]
 
-[ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
+[ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
 [ext_resource path="res://UI/canvas.tscn" type="PackedScene" id=3]
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=4]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://dialogue_test/item_notification.tscn" type="PackedScene" id=1]
-[ext_resource path="res://dialogue_test/dialogue_box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/item_notification.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/dialogue_box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/screencover.tscn" type="PackedScene" id=4]
 

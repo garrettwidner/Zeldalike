@@ -1,8 +1,9 @@
-extends Node2D
+extends CanvasLayer
 
 var player
 var cameracontroller
-export var scene_name : String = "Level"
+var scenechanger
+
 
 #In order to set up a new scene, must have the full suite of objects.
 
@@ -23,6 +24,13 @@ enum COLL_LAYER{
 	}
 
 func _ready():
+	perform_setup()
+	
+	scenechanger = $scenechanger
+	scenechanger.connect("scene_changed", self, "perform_setup")
+	
+func perform_setup():
+	print("Perform_setup() called from game singleton")
 	player = get_node("YSort/actors/player")
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
@@ -34,6 +42,10 @@ func _ready():
 	connect_player_to_sun_areas()
 	
 	connect_player_to("interactible")
+	
+func change_scene(level_name, delay = 0.5):
+	scenechanger.change_scene(level_name, delay)
+	
 
 func connect_player_to(group):
 #	var group_members = get_tree().get_nodes_in_group(group)

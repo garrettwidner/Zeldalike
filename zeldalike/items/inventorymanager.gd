@@ -13,8 +13,9 @@ func _ready():
 	if(typeof(inventory) != TYPE_DICTIONARY):
 		print("ERROR: inventory file has errors")
 		
-	if item_notification_panel.is_visible():
-		item_notification_panel.hide()
+	if item_notification_panel != null:
+		if item_notification_panel.is_visible():
+			item_notification_panel.hide()
 
 func has(item):
 	if inventory["items"].has(item):
