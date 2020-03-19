@@ -96,6 +96,11 @@ var staticdir
 var original_zindex
 
 func _ready():
+	set_state_stopped()
+	pass
+
+func run_setup():
+	print("Setup being run on player")
 	speed = 42
 	TYPE = "PLAYER"
 	
@@ -124,8 +129,9 @@ func _ready():
 #	print(global_position)
 	
 #	for i in range(20):
-#    	print(i, '\t', get_collision_layer_bit(i))
-
+#   print(i, '\t', get_collision_layer_bit(i))
+	set_state_default()
+	pass
 
 func _process(delta):
 	
@@ -152,6 +158,8 @@ func _process(delta):
 			state_bowusing(delta)
 		"speech_animating":
 			state_speech_animating(delta)
+		"stopped":
+			state_stopped(delta)
 
 func dialogue_finished():
 #	print("Character noticed dialogue was finished")
@@ -219,16 +227,15 @@ func state_default(delta):
 #			print("Item pickup returned true")
 			pass
 		
-		
-		
 	elif Input.is_action_just_pressed("y"):
 #		set_state_bowusing()
-#		game_singleton.change_scene("level_1_test")
 		pass
 		
+	elif Input.is_action_just_pressed("test_1"):
+		game_singleton.change_scene("level_1_test")
+	elif Input.is_action_just_pressed("test_2"):
+		game_singleton.change_scene("version_0_test")
 	
-	
-		
 	elif Input.is_action_just_pressed("x"):
 		#interact with interactible you're facing
 		var successfully_spoke = speak_to_interactibles()
@@ -299,6 +306,9 @@ func stamina_zero_check():
 func state_speech_animating(delta):
 	switch_anim("speak")
 	sun_damage_loop(delta)
+	
+func state_stopped(delta):
+	pass
 
 func speak_to_interactibles():
 	var faced_targets = []
@@ -764,6 +774,7 @@ func sun_damage_loop(delta):
 			if sun_area.is_shade:
 				in_shade = true
 		
+		
 		sun_current_strength += change
 		
 		if is_covering:
@@ -904,6 +915,9 @@ func set_state_speech_animating():
 	state = "speech_animating"
 	$Timer.wait_time = speech_animation_time
 	$Timer.start()
+	
+func set_state_stopped():
+	state = "stopped"
 	
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir

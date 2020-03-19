@@ -25,14 +25,20 @@ enum COLL_LAYER{
 	
 func perform_first_setup_if_needed():
 	if !issetup:
+		print("First time setup being performed")
 		issetup = true
 		scenechanger = $scenechanger
 		scenechanger.connect("scene_changed", self, "perform_setup")
 		perform_setup()
+		player.run_setup()
 	
 func perform_setup():
 	print("Perform_setup() called from game singleton")
-	player = get_node("YSort/actors/player")
+	
+	player = get_node("/root/Level/YSort/actors/player")
+	if player == null:
+		print("Warning: game_singleton unable to find player")
+	
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
 	connect_player_to_searchareas()
@@ -43,6 +49,7 @@ func perform_setup():
 	connect_player_to_sun_areas()
 	
 	connect_player_to("interactible")
+	player.run_setup()
 	
 func change_scene(level_name, delay = 0.5):
 	scenechanger.change_scene(level_name, delay)
@@ -137,7 +144,7 @@ func add_interactible(interactible):
 	print("Added interactible as interactible to scene: " + String(interactible.name))
 	
 func connect_cameracontroller_to_camareas():
-	cameracontroller = get_node("root/Level/YSort/actors/player/cameracontroller")
+	cameracontroller = get_node("/root/Level/YSort/actors/player/cameracontroller")
 	if cameracontroller == null:
 		print("Warning: gameinit.gd found cameracontroller null")
 	
@@ -150,8 +157,11 @@ func connect_cameracontroller_to_camareas():
 
 func connect_player_to_sun_areas():
 	var sun_areas = get_tree().get_nodes_in_group("sun_area")
+	var sun_area_count
 	for i in range(sun_areas.size()):
+		sun_area_count = i + 1
 		var currentnode = get_node(sun_areas[i].get_path())
 		var args = Array([currentnode])
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
+	print("Connected " + String(sun_area_count) + " sun areas to player") 

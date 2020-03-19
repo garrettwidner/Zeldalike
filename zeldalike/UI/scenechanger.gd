@@ -18,3 +18,4 @@ func change_scene(level_name, delay = 0.5):
 	anim.play("fade_clear")
 	yield(anim, "animation_finished")
 	emit_signal("scene_changed")
+	
