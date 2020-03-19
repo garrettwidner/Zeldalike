@@ -223,7 +223,7 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("y"):
 #		set_state_bowusing()
-		game_singleton.change_scene("level_1_test")
+#		game_singleton.change_scene("level_1_test")
 		pass
 		
 	

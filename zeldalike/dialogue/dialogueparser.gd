@@ -37,16 +37,22 @@ func _ready():
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
 	
-	panelNode = get_node("/root/Level/canvas/dialogue_box/Panel")
-	textContainer = get_node("/root/Level/canvas/dialogue_box/Panel/MarginContainer/VBoxContainer/text")
-	nameContainer = get_node("/root/Level/canvas/dialogue_box/Panel/MarginContainer/VBoxContainer/name")
-	
-	if panelNode != null:
+	panelNode = game_singleton.get_node("dialogue_box/Panel")
+	if panelNode == null:
+		print("Warning: dialogue panel node is null")
+	else:
 		if(panelNode.is_visible()):
 			panelNode.hide()
+	
+	textContainer = game_singleton.get_node("dialogue_box/Panel/MarginContainer/VBoxContainer/text")
+	if textContainer == null:
+		print("Warning: dialogue text container is null")
+		
+	nameContainer = game_singleton.get_node("dialogue_box/Panel/MarginContainer/VBoxContainer/name")
+	if nameContainer == null:
+		print("Warning: dialogue name container is null")
 		
 	inventorymanager = get_node("../inventorymanager")
-	
 	if inventorymanager == null:
 		print("ERROR: No inventorymanager found by dialogueparser")
 	

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://UI/scenechanger.gd" type="Script" id=2]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/item_notification.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/dialogue_box.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/screencover.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "black"
@@ -102,3 +103,5 @@ margin_left = 15.8445
 margin_top = 79.2223
 margin_right = 15.8445
 margin_bottom = 79.2223
+
+[node name="screencover" parent="." instance=ExtResource( 6 )]

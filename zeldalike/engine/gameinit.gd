@@ -3,7 +3,7 @@ extends CanvasLayer
 var player
 var cameracontroller
 var scenechanger
-
+var issetup = false
 
 #In order to set up a new scene, must have the full suite of objects.
 
@@ -22,12 +22,13 @@ enum COLL_LAYER{
 	player = 5,
 	enemy = 6
 	}
-
-func _ready():
-	perform_setup()
 	
-	scenechanger = $scenechanger
-	scenechanger.connect("scene_changed", self, "perform_setup")
+func perform_first_setup_if_needed():
+	if !issetup:
+		issetup = true
+		scenechanger = $scenechanger
+		scenechanger.connect("scene_changed", self, "perform_setup")
+		perform_setup()
 	
 func perform_setup():
 	print("Perform_setup() called from game singleton")
@@ -136,7 +137,7 @@ func add_interactible(interactible):
 	print("Added interactible as interactible to scene: " + String(interactible.name))
 	
 func connect_cameracontroller_to_camareas():
-	cameracontroller = get_node("YSort/actors/player/cameracontroller")
+	cameracontroller = get_node("root/Level/YSort/actors/player/cameracontroller")
 	if cameracontroller == null:
 		print("Warning: gameinit.gd found cameracontroller null")
 	
