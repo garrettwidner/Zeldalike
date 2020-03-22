@@ -100,7 +100,7 @@ func _ready():
 	pass
 
 func run_setup():
-	print("Setup being run on player")
+#	print("Setup being run on player")
 	speed = 42
 	TYPE = "PLAYER"
 	
@@ -131,6 +131,16 @@ func run_setup():
 #	for i in range(20):
 #   print(i, '\t', get_collision_layer_bit(i))
 	set_state_default()
+	
+	check_if_in_sunarea_at_start()
+	pass
+	
+func check_if_in_sunarea_at_start():
+	var all_sun_areas = get_tree().get_nodes_in_group("sun_area")
+	for i in range(all_sun_areas.size()):
+		if all_sun_areas[i].overlaps_body(self):
+			sun_areas[all_sun_areas[i].get_instance_id()] = all_sun_areas[i]
+			print("Added sun area #" + String(i) + " to character list at start")
 	pass
 
 func _process(delta):

@@ -33,7 +33,7 @@ func perform_first_setup_if_needed():
 		player.run_setup()
 	
 func perform_setup():
-	print("Perform_setup() called from game singleton")
+#	print("Perform_setup() called from game singleton")
 	
 	player = get_node("/root/Level/YSort/actors/player")
 	if player == null:
