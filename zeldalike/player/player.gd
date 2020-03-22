@@ -89,6 +89,7 @@ var sun_areas = {}
 var sun_base_strength
 var sun_previous_total_strength = 0
 signal on_sun_strength_changed
+signal on_sun_start
 export var shade_color : Color 
 
 var staticdir
@@ -133,14 +134,22 @@ func run_setup():
 	set_state_default()
 	
 	check_if_in_sunarea_at_start()
+	var sun_current_strength = get_sun_current_strength()
+	emit_signal("on_sun_start", sun_current_strength)
+
+	
 	pass
 	
 func check_if_in_sunarea_at_start():
 	var all_sun_areas = get_tree().get_nodes_in_group("sun_area")
+	var area_added = false
 	for i in range(all_sun_areas.size()):
 		if all_sun_areas[i].overlaps_body(self):
+			area_added = true
 			sun_areas[all_sun_areas[i].get_instance_id()] = all_sun_areas[i]
 			print("Added sun area #" + String(i) + " to character list at start")
+#	if area_added:
+#		emit_signal("on_sun_strength_changed", sun_current_strength)
 	pass
 
 func _process(delta):
@@ -776,19 +785,9 @@ func set_facedir():
 
 func sun_damage_loop(delta):
 	if sun != null:
-		var sun_current_strength = sun_base_strength
-		var change = 0
-		var in_shade = false
-		for sun_area in sun_areas.values():
-			change += sun_area.modification
-			if sun_area.is_shade:
-				in_shade = true
 		
-		
-		sun_current_strength += change
-		
-		if is_covering:
-			sun_current_strength -= cover_sun_decrease
+		var sun_current_strength = get_sun_current_strength()
+		var in_shade = get_is_in_shade()
 		
 		if in_shade:
 			$Sprite.modulate = shade_color
@@ -803,7 +802,26 @@ func sun_damage_loop(delta):
 			emit_signal("on_sun_strength_changed", sun_current_strength)
 			sun_previous_total_strength = sun_current_strength
 	
-
+func get_is_in_shade():
+	var in_shade = false
+	for sun_area in sun_areas.values():
+		if sun_area.is_shade:
+			in_shade = true
+	
+func get_sun_current_strength():
+	var sun_current_strength = sun_base_strength
+	var change = 0
+	var in_shade = false
+	for sun_area in sun_areas.values():
+		change += sun_area.modification
+	
+	sun_current_strength += change
+	
+	if is_covering:
+		sun_current_strength -= cover_sun_decrease
+		
+	return sun_current_strength
+	
 	
 func take_sun_damage(sun_strength, delta):
 	var damage = sun_strength * delta * sun_drain_damping
