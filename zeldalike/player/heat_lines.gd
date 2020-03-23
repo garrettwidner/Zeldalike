@@ -16,7 +16,6 @@ func _ready():
 	player = get_node("../../player")
 	if player != null:
 		player.connect("on_sun_strength_changed", self, "on_sun_changed")
-		player.connect("on_sun_start", self, "run_setup")
 	else:
 		print("heat_lines found player node null")
 		

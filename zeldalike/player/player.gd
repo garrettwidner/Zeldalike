@@ -134,9 +134,11 @@ func run_setup():
 	set_state_default()
 	
 	check_if_in_sunarea_at_start()
-	var sun_current_strength = get_sun_current_strength()
-	emit_signal("on_sun_start", sun_current_strength)
-
+	
+	$heat_lines.run_setup(get_sun_current_strength())
+#	var sun_current_strength = get_sun_current_strength()
+#	emit_signal("on_sun_start", sun_current_strength)
+#	print("on sun start should have signaled")
 	
 	pass
 	

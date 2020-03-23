@@ -4,6 +4,7 @@ var player
 var cameracontroller
 var scenechanger
 var issetup = false
+var screencover
 
 #In order to set up a new scene, must have the full suite of objects.
 
@@ -25,19 +26,26 @@ enum COLL_LAYER{
 	
 func perform_first_setup_if_needed():
 	if !issetup:
-		print("First time setup being performed")
+#		print("First time setup being performed")
 		issetup = true
 		scenechanger = $scenechanger
-		scenechanger.connect("scene_changed", self, "perform_setup")
-		perform_setup()
-		player.run_setup()
+		scenechanger.connect("scene_changed", self, "perform_level_setup")
+		
+		screencover = $screencover
+		
+		perform_level_setup()
+		
+#		player.run_setup()
 	
-func perform_setup():
+func perform_level_setup():
 #	print("Perform_setup() called from game singleton")
 	
 	player = get_node("/root/Level/YSort/actors/player")
 	if player == null:
 		print("Warning: game_singleton unable to find player")
+	
+	
+	
 	
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
@@ -49,7 +57,12 @@ func perform_setup():
 	connect_player_to_sun_areas()
 	
 	connect_player_to("interactible")
+
 	player.run_setup()
+	
+	
+	screencover.setup(player)
+
 	
 func change_scene(level_name, delay = 0.5):
 	scenechanger.change_scene(level_name, delay)
@@ -164,4 +177,4 @@ func connect_player_to_sun_areas():
 		var args = Array([currentnode])
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
-	print("Connected " + String(sun_area_count) + " sun areas to player") 
+#	print("Connected " + String(sun_area_count) + " sun areas to player") 

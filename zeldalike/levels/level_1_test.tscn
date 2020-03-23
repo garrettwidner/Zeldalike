@@ -1,21 +1,20 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
-[ext_resource path="res://UI/canvas.tscn" type="PackedScene" id=3]
-[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=4]
-[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tiles/shade.png" type="Texture" id=6]
-[ext_resource path="res://environment/sun_area.gd" type="Script" id=7]
-[ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=8]
-[ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=9]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=10]
-[ext_resource path="res://NPC/entner/etner.tscn" type="PackedScene" id=11]
-[ext_resource path="res://tiles/Bog Tree.png" type="Texture" id=12]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=3]
+[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tiles/shade.png" type="Texture" id=5]
+[ext_resource path="res://environment/sun_area.gd" type="Script" id=6]
+[ext_resource path="res://dialogue_test/Sand_Tile.png" type="Texture" id=7]
+[ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=8]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://NPC/entner/etner.tscn" type="PackedScene" id=10]
+[ext_resource path="res://tiles/Bog Tree.png" type="Texture" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "shade.png 0"
-0/texture = ExtResource( 6 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 80, 80 )
@@ -36,7 +35,7 @@ extents = Vector2( 300, 300 )
 
 [sub_resource type="TileSet" id=3]
 0/name = "Sand_Tile.png 0"
-0/texture = ExtResource( 8 )
+0/texture = ExtResource( 7 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -204,7 +203,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 
 [sub_resource type="TileSet" id=56]
 1/name = "mountain_forms.png 1"
-1/texture = ExtResource( 9 )
+1/texture = ExtResource( 8 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 160, 96 )
@@ -545,11 +544,9 @@ scene_name = "level_1_test"
 [node name="sun" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="canvas" parent="." instance=ExtResource( 3 )]
+[node name="dialogue_parser" parent="." instance=ExtResource( 3 )]
 
-[node name="dialogue_parser" parent="." instance=ExtResource( 4 )]
-
-[node name="inventorymanager" parent="." instance=ExtResource( 5 )]
+[node name="inventorymanager" parent="." instance=ExtResource( 4 )]
 
 [node name="shade" type="TileMap" parent="."]
 modulate = Color( 1, 1, 1, 0.439216 )
@@ -563,7 +560,7 @@ tile_data = PoolIntArray( 786486, 0, 1, 786487, 0, 1, 786488, 0, 1, 786489, 0, 1
 "sun_area",
 ]]
 position = Vector2( 1095.21, 422.827 )
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 modification = -1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shade/sun_area"]
@@ -601,10 +598,10 @@ tile_data = PoolIntArray( 65582, 1, 262144, 65583, 1, 262144, 65584, 1, 262144, 
 
 [node name="actors" type="YSort" parent="YSort"]
 
-[node name="player" parent="YSort/actors" instance=ExtResource( 10 )]
+[node name="player" parent="YSort/actors" instance=ExtResource( 9 )]
 position = Vector2( 1095.1, 158.142 )
 
-[node name="intner" parent="YSort/actors" instance=ExtResource( 11 )]
+[node name="intner" parent="YSort/actors" instance=ExtResource( 10 )]
 position = Vector2( 1129.21, 156.387 )
 
 [node name="hop_areas" type="Node2D" parent="."]
@@ -648,4 +645,4 @@ __meta__ = {
 
 [node name="Bog Tree" type="Sprite" parent="."]
 position = Vector2( 1031.3, 384.998 )
-texture = ExtResource( 12 )
+texture = ExtResource( 11 )

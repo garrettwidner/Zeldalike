@@ -1236,6 +1236,7 @@ script = ExtResource( 2 )
 [node name="inventorymanager" parent="." instance=ExtResource( 3 )]
 
 [node name="sand" type="TileMap" parent="."]
+visible = false
 z_index = -10
 tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
