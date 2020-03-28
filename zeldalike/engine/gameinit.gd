@@ -31,20 +31,20 @@ func perform_first_setup_if_needed():
 #		print("First time setup being performed")
 		issetup = true
 		scenechanger = $scenechanger
-		scenechanger.connect("scene_changed", self, "perform_level_setup")
-		
+		scenechanger.connect("scene_just_changed", self, "perform_preliminary_level_setup")
+		scenechanger.connect("scene_change_finished", self, "perform_concluding_level_setup")
 		screencover = $screencover
 		
 		healthbar = get_node("GUI/HBoxContainer/Container/healthbar")
 		staminabar = get_node("GUI/HBoxContainer/Container/staminabar")
 		
-		perform_level_setup()
+		perform_preliminary_level_setup()
+		perform_concluding_level_setup()
 		
 #		player.run_setup()
 	
-func perform_level_setup():
-#	print("Perform_setup() called from game singleton")
-	
+func perform_preliminary_level_setup():
+#	print("-Game singleton performing preliminary level setup")
 	player = get_node("/root/Level/YSort/actors/player")
 	if player == null:
 		print("Warning: game_singleton unable to find player")
@@ -69,6 +69,13 @@ func perform_level_setup():
 	screencover.setup(player)
 	healthbar.setup(player)
 	staminabar.setup(player)
+	
+func perform_concluding_level_setup():
+#	print("-Game singleton performing concluding level setup")
+	player.run_startup()
+#	print("Perform_setup() called from game singleton")
+	pass
+	
 	
 func change_scene(level_name, delay = 0.5):
 	scenechanger.change_scene(level_name, delay)

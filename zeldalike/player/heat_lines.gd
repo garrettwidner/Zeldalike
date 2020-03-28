@@ -27,8 +27,11 @@ func run_setup(sun_strength):
 	
 	if sun_strength > 0:
 		modulate.a = visible_alpha
+#		print("Heat lines saw sun strength as positive, heat lines are visible")
 	else:
 		modulate.a = invisible_alpha
+#		print("Heat lines saw sun strength as negative, heat lines INvisible")
+		
 	
 func _process(delta):
 	if istransitioning:

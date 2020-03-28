@@ -2,7 +2,7 @@ extends "res://engine/entity.gd"
 
 var input : Vector2 = dir.CENTER
 var istrackingenemy : bool = false
-var state = "default"
+var state = "stopped"
 var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
@@ -101,7 +101,7 @@ func _ready():
 	pass
 
 func run_setup():
-#	print("Setup being run on player")
+#	print("----------------------Setup being run on player")
 	speed = 42
 	TYPE = "PLAYER"
 	
@@ -131,7 +131,7 @@ func run_setup():
 	
 #	for i in range(20):
 #   print(i, '\t', get_collision_layer_bit(i))
-	set_state_default()
+#	set_state_default()
 	
 	check_if_in_sunarea_at_start()
 	
@@ -145,16 +145,23 @@ func run_setup():
 	
 	pass
 	
+func run_startup():
+	set_state_default()
+	
 func check_if_in_sunarea_at_start():
 	var all_sun_areas = get_tree().get_nodes_in_group("sun_area")
 	var area_added = false
+#	print("$$$")
+#	print("Checking sun areas at start")
 	for i in range(all_sun_areas.size()):
+#		print("Found sun area " + String(i + 1))
 		if all_sun_areas[i].overlaps_body(self):
 			area_added = true
 			sun_areas[all_sun_areas[i].get_instance_id()] = all_sun_areas[i]
-			print("Added sun area #" + String(i) + " to character list at start")
+			print("Added sun area #" + String(i + 1) + " to character list at start")
 #	if area_added:
 #		emit_signal("on_sun_strength_changed", sun_current_strength)
+#	print("$$$")
 	pass
 
 func _process(delta):
@@ -821,11 +828,22 @@ func get_is_in_shade():
 	
 func get_sun_current_strength():
 	var sun_current_strength = sun_base_strength
+#	print("Sun base strength is " + String(sun_current_strength))
 	var change = 0
+	
+	var sun_area_count = 0
+	
 	for sun_area in sun_areas.values():
 		change += sun_area.modification
+		sun_area_count = sun_area_count + 1
+		
+#	print("Found " + String(sun_area_count) + " sun areas in check")
+#	print("sun change from base is " + String(change))
 	
 	sun_current_strength += change
+	
+#	print("Final calculated sun strength is " + String(sun_current_strength))
+#	print("---")
 	
 	if is_covering:
 		sun_current_strength -= cover_sun_decrease
