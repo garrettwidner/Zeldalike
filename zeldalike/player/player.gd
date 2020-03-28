@@ -136,29 +136,42 @@ func run_setup():
 	check_if_in_sunarea_at_start()
 	
 	var sunstrength = get_sun_current_strength()
-	print("Sunstrength as seen by player script is: " + String(sunstrength))
+#	print("Sunstrength as seen by player script is: " + String(sunstrength))
 	
 	$heat_lines.run_setup(get_sun_current_strength())
 #	var sun_current_strength = get_sun_current_strength()
 #	emit_signal("on_sun_start", sun_current_strength)
 #	print("on sun start should have signaled")
 	
+	set_state_default()
+	
 	pass
 	
 func run_startup():
-	set_state_default()
+	#add code for starting character movement here
+	pass
 	
 func check_if_in_sunarea_at_start():
 	var all_sun_areas = get_tree().get_nodes_in_group("sun_area")
 	var area_added = false
 #	print("$$$")
+#
+#	var test_areas = $hitbox.get_overlapping_areas()
+#	for a in range(test_areas.size()):
+#		print("----Found overlapping area " + String(a + 1))
+#	if test_areas.size() == 0:
+#		print("----Could not find overlapping areas in test")
+	
 #	print("Checking sun areas at start")
 	for i in range(all_sun_areas.size()):
-#		print("Found sun area " + String(i + 1))
-		if all_sun_areas[i].overlaps_body(self):
+#		print("Found sun area " + String(i + 1) + " and....")
+#		if $hitbox.overlaps_area(all_sun_areas[i]):
+		if all_sun_areas[i].overlaps_area($hitbox):
 			area_added = true
 			sun_areas[all_sun_areas[i].get_instance_id()] = all_sun_areas[i]
-			print("Added sun area #" + String(i + 1) + " to character list at start")
+#			print("...added sun area #" + String(i + 1) + " to character list at start")
+#		else:
+#			print("...did not add it to the character list")
 #	if area_added:
 #		emit_signal("on_sun_strength_changed", sun_current_strength)
 #	print("$$$")
@@ -828,6 +841,7 @@ func get_is_in_shade():
 	
 func get_sun_current_strength():
 	var sun_current_strength = sun_base_strength
+#	print("---")
 #	print("Sun base strength is " + String(sun_current_strength))
 	var change = 0
 	

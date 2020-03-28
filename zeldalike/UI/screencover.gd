@@ -29,7 +29,7 @@ func setup(found_player):
 	player.connect("on_sun_strength_changed", self, "on_sun_changed")
 	
 	var sunstrength = player.get_sun_current_strength()
-	print("Sun start strength seen by screencover is: " + String(sunstrength))
+#	print("Sun start strength seen by screencover is: " + String(sunstrength))
 	set_starting_brightness(sunstrength)
 	
 	visible = true
@@ -67,6 +67,7 @@ func on_sun_changed(new_strength):
 		
 func set_starting_brightness(start_brightness):
 	var start_strength = floor(start_brightness)
+#	print("Screencover starting brightness is " + String(start_strength))
 	set_brightness_level(start_strength)
 #	print("current brightness level according to screencover: " + String(current_brightness_level))
 	modulate.a = get_brightness_value()

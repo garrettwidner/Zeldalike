@@ -1667,7 +1667,7 @@ shape = SubResource( 86 )
 position = Vector2( 501, 88 )
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 26 )]
-position = Vector2( -179.127, 200.115 )
+position = Vector2( -158.373, 198.606 )
 
 [node name="demite" parent="YSort/actors" instance=ExtResource( 27 )]
 position = Vector2( 91.326, 150.442 )

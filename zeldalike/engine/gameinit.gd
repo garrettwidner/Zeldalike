@@ -63,6 +63,9 @@ func perform_preliminary_level_setup():
 	
 	connect_player_to("interactible")
 
+	#Added or else scene is not set up enough for player to search for objects
+	yield(get_tree().create_timer(.01), "timeout")
+
 	player.run_setup()
 	
 	
