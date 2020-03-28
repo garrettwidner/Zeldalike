@@ -22,12 +22,15 @@ func _ready():
 	scenechanger.connect("scene_changed", self, "setup")
 	
 func setup(found_player):
+#	print("Screencover setup called")
 	player = found_player
 #	print("Setup called on screencover")
 #	player = get_node("/root/Level/YSort/actors/player")
 	player.connect("on_sun_strength_changed", self, "on_sun_changed")
 	
-	set_starting_brightness(player.get_sun_current_strength())
+	var sunstrength = player.get_sun_current_strength()
+	print("Sun start strength seen by screencover is: " + String(sunstrength))
+	set_starting_brightness(sunstrength)
 	
 	visible = true
 	$anim.play("swelter")

@@ -135,6 +135,9 @@ func run_setup():
 	
 	check_if_in_sunarea_at_start()
 	
+	var sunstrength = get_sun_current_strength()
+	print("Sunstrength as seen by player script is: " + String(sunstrength))
+	
 	$heat_lines.run_setup(get_sun_current_strength())
 #	var sun_current_strength = get_sun_current_strength()
 #	emit_signal("on_sun_start", sun_current_strength)
@@ -155,7 +158,7 @@ func check_if_in_sunarea_at_start():
 	pass
 
 func _process(delta):
-	
+	print("Player health is: " + String(health))
 	match state:
 		"default":
 			state_default(delta)

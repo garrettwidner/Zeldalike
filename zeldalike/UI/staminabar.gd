@@ -13,18 +13,14 @@ export (Color) var danger_color = Color.red
 export (float, 0, 1, 0.05) var caution_zone = 0.5
 export (float, 0, 1, 0.05) var danger_zone = 0.2
 
-
-func _ready():
-	player = get_node("/root/Level/YSort/actors/player")
+func setup(player_node):
+	player = player_node
 	player.connect("stamina_changed", self, "_on_stamina_updated")
 	bar.value = player.stamina
 	bar.max_value = player.maxstamina
 	under.value = player.maxstamina
 	under.max_value = player.maxstamina
 	_assign_color(player.stamina)
-	
-	#connects tween_completed on tween object with _on_tween_completed on self.
-#	tween.connect("tween_completed", self, "_on_tween_completed")
 	
 func _on_stamina_updated(stamina, change):
 	bar.value = stamina

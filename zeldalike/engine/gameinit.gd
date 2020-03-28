@@ -5,6 +5,8 @@ var cameracontroller
 var scenechanger
 var issetup = false
 var screencover
+var healthbar
+var staminabar
 
 #In order to set up a new scene, must have the full suite of objects.
 
@@ -32,6 +34,9 @@ func perform_first_setup_if_needed():
 		scenechanger.connect("scene_changed", self, "perform_level_setup")
 		
 		screencover = $screencover
+		
+		healthbar = get_node("GUI/HBoxContainer/Container/healthbar")
+		staminabar = get_node("GUI/HBoxContainer/Container/staminabar")
 		
 		perform_level_setup()
 		
@@ -62,7 +67,8 @@ func perform_level_setup():
 	
 	
 	screencover.setup(player)
-
+	healthbar.setup(player)
+	staminabar.setup(player)
 	
 func change_scene(level_name, delay = 0.5):
 	scenechanger.change_scene(level_name, delay)

@@ -14,19 +14,17 @@ export (float, 0, 1, 0.05) var caution_zone = 0.5
 export (float, 0, 1, 0.05) var danger_zone = 0.2
 
 func _ready():
-	player = get_node("/root/Level/YSort/actors/player")
+	pass
+	
+func setup(player_node):
+	player = player_node
 	player.connect("health_changed", self, "_on_health_updated")
 	health_bar.value = player.health
 	health_bar.max_value = player.maxhealth
 	health_under.value = player.health
 	health_under.max_value = player.maxhealth
 	_assign_color(player.health)
-	
-	#connects tween_completed on tween object with _on_tween_completed on self.
-#	tween.connect("tween_completed", self, "_on_tween_completed")
-	
-	
-
+	pass
 
 func _on_health_updated(health, change):
 	health_bar.value = health
