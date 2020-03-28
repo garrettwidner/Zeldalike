@@ -562,6 +562,7 @@ tile_data = PoolIntArray( 786486, 0, 1, 786487, 0, 1, 786488, 0, 1, 786489, 0, 1
 position = Vector2( 1095.21, 422.827 )
 script = ExtResource( 6 )
 modification = -1.0
+is_shade = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shade/sun_area"]
 shape = SubResource( 2 )

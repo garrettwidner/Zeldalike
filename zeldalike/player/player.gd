@@ -158,7 +158,6 @@ func check_if_in_sunarea_at_start():
 	pass
 
 func _process(delta):
-	print("Player health is: " + String(health))
 	match state:
 		"default":
 			state_default(delta)
@@ -791,13 +790,18 @@ func set_facedir():
 func sun_damage_loop(delta):
 	if sun != null:
 		
+#		print("Sun damage loop is running")
+		
 		var sun_current_strength = get_sun_current_strength()
+#		print("Sun current strength: " + String(sun_current_strength))
 		var in_shade = get_is_in_shade()
 		
 		if in_shade:
 			$Sprite.modulate = shade_color
+#			print("Changed sprite to shade color")
 		else:
 			$Sprite.modulate = Color.white
+#			print("Changed sprite to normal color")
 		
 	#	print(sun_current_strength)
 		
@@ -810,13 +814,14 @@ func sun_damage_loop(delta):
 func get_is_in_shade():
 	var in_shade = false
 	for sun_area in sun_areas.values():
+#		print(sun_area.get_node("..").name)
 		if sun_area.is_shade:
-			in_shade = true
+			return true
+	return false
 	
 func get_sun_current_strength():
 	var sun_current_strength = sun_base_strength
 	var change = 0
-	var in_shade = false
 	for sun_area in sun_areas.values():
 		change += sun_area.modification
 	
