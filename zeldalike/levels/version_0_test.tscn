@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://environment/sun.gd" type="Script" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=30]
 [ext_resource path="res://sounds/salt_crackle/cracking_sound_player.tscn" type="PackedScene" id=31]
 [ext_resource path="res://sounds/wind/hollow_wind_2.wav" type="AudioStream" id=32]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=33]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -1226,6 +1227,8 @@ extents = Vector2( 8, 48 )
 [sub_resource type="RectangleShape2D" id=89]
 extents = Vector2( 8, 41 )
 
+[sub_resource type="RectangleShape2D" id=90]
+
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 scene_name = "version_0_test"
@@ -1993,3 +1996,21 @@ volume_db = -40.768
 autoplay = true
 max_distance = 900000.0
 attenuation = 0.0017003
+
+[node name="sceneblock" type="Node2D" parent="." groups=[
+"sceneblock",
+]]
+position = Vector2( 377.964, 315.006 )
+script = ExtResource( 33 )
+new_level = "level_1_test"
+
+[node name="Area2D" type="Area2D" parent="sceneblock"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblock/Area2D"]
+shape = SubResource( 90 )
+__meta__ = {
+"_edit_lock_": true
+}

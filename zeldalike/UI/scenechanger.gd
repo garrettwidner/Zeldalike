@@ -25,7 +25,11 @@ func change_scene(level_name, delay = 0.1):
 	yield(anim, "animation_finished")
 	emit_signal("scene_change_finished")
 	
+func on_Area2D_body_entered(body, obj):
+	if body.name == "player":
+#		print("Player entered levelblock")
+#		print("Changing level to " + obj.new_level)
+		change_scene(obj.new_level)
+	pass
+
 	
-	
-## We need to make it so that there are two signals, one right when the scene changes, 
-## and one when the animation has finished, which *starts* the scene.

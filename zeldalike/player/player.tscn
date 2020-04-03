@@ -1302,7 +1302,7 @@ shade_color = Color( 0.721569, 0.721569, 0.721569, 1 )
 material = SubResource( 2 )
 scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
-vframes = 32
+vframes = 36
 hframes = 4
 frame = 114
 

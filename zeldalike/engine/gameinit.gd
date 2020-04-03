@@ -62,6 +62,8 @@ func perform_preliminary_level_setup():
 	connect_player_to_sun_areas()
 	
 	connect_player_to("interactible")
+	
+	connect_scenechanger_to_sceneblocks()
 
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
@@ -89,6 +91,19 @@ func connect_player_to(group):
 #	var groupings = get_tree().get_children()
 #	for grouping in groupings:
 #		print(grouping.name
+	pass
+	
+func connect_scenechanger_to_sceneblocks():
+	var sceneblocks = get_tree().get_nodes_in_group("sceneblock")
+	for i in range(sceneblocks.size()):
+#		print("Found sceneblock " + String(i))
+		var currentnode = get_node(sceneblocks[i].get_path())
+		var area2Dnode = currentnode.get_node("Area2D")
+		if(area2Dnode == null):
+			print("Error: no area2D node found on sceneblock")
+			return
+		var args = Array([currentnode])
+		area2Dnode.connect("body_entered", scenechanger, "on_Area2D_body_entered", args)
 	pass
 
 func connect_player_to_interactibles():
