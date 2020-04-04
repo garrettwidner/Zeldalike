@@ -8,6 +8,8 @@ var screencover
 var healthbar
 var staminabar
 
+var sceneblocks = []
+
 #In order to set up a new scene, must have the full suite of objects.
 
 #Must also set up two new json files in dialogue/events and dialogue/story
@@ -63,12 +65,12 @@ func perform_preliminary_level_setup():
 	
 	connect_player_to("interactible")
 	
-	connect_scenechanger_to_sceneblocks()
+	connect_sceneblocks()
 
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
 
-	player.run_setup()
+	player.run_setup(Vector2(0,0), dir.RIGHT)
 	
 	
 	screencover.setup(player)
@@ -93,8 +95,11 @@ func connect_player_to(group):
 #		print(grouping.name
 	pass
 	
-func connect_scenechanger_to_sceneblocks():
-	var sceneblocks = get_tree().get_nodes_in_group("sceneblock")
+func connect_sceneblocks():
+	
+	
+	sceneblocks.clear()
+	sceneblocks = get_tree().get_nodes_in_group("sceneblock")
 	for i in range(sceneblocks.size()):
 #		print("Found sceneblock " + String(i))
 		var currentnode = get_node(sceneblocks[i].get_path())

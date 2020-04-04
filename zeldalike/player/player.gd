@@ -100,10 +100,13 @@ func _ready():
 	set_state_stopped()
 	pass
 
-func run_setup():
+func run_setup(start_position, start_direction):
 #	print("----------------------Setup being run on player")
 	speed = 42
 	TYPE = "PLAYER"
+	
+	global_position = start_position
+	set_facedir_manual(start_direction)
 	
 	dialogueparser = get_node("/root/Level/dialogue_parser")
 	if dialogueparser != null:
@@ -275,9 +278,11 @@ func state_default(delta):
 		pass
 		
 	elif Input.is_action_just_pressed("test_1"):
-		game_singleton.change_scene("level_1_test")
+#		game_singleton.change_scene("level_1_test")
+		set_facedir_manual(dir.UP)
 	elif Input.is_action_just_pressed("test_2"):
-		game_singleton.change_scene("version_0_test")
+#		game_singleton.change_scene("version_0_test")
+		set_facedir_manual(dir.RIGHT)
 	
 	elif Input.is_action_just_pressed("x"):
 		#interact with interactible you're facing
@@ -805,7 +810,12 @@ func set_facedir():
 #			.set_facedir()
 	.set_facedir()
 
-
+func set_facedir_manual(new_direction):
+	if new_direction == dir.DOWN || new_direction == dir.UP || new_direction == dir.LEFT || new_direction == dir.RIGHT:
+		facedir = new_direction
+	else:
+		print("Error: facedir must be a cardinal direction")
+		
 
 func sun_damage_loop(delta):
 	if sun != null:
