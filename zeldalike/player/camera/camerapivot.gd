@@ -10,7 +10,7 @@ onready var camera_holder = get_node("cameraholder")
 var cam_extents
 
 onready var movement_arm = get_node("cameraoffset")
-onready var camera = get_node("cameraoffset/Camera2D")
+#onready var camera = get_node("cameraoffset/Camera2D")
 
 var has_constraints = false
 
@@ -20,6 +20,12 @@ func _ready():
 	var cam_size = get_viewport().get_visible_rect().size
 	cam_extents = Vector2(cam_size.x / 2, cam_size.y / 2)
 	
+func set_position_immediate(new_position):
+	#TODO: ------------- This does not work yet ---------------------------------
+	camera_holder.global_position = new_position
+	movement_arm.global_position = new_position
+
+
 func _physics_process(delta):
 	update_pivot_angle()
 	
@@ -37,6 +43,7 @@ func update_pivot_angle():
 	rotation = lookangle
 
 func get_constrained_camera_location():
+		
 	if !has_constraints:
 		return
 	

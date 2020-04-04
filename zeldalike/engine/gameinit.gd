@@ -51,8 +51,12 @@ func perform_preliminary_level_setup():
 	if player == null:
 		print("Warning: game_singleton unable to find player")
 	
+	var start_position = Vector2(90,30)
 	
-	
+	cameracontroller = player.get_node("cameracontroller")
+	if cameracontroller == null:
+		print("Warning: gameinit.gd found cameracontroller null")
+		
 	
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
@@ -66,11 +70,15 @@ func perform_preliminary_level_setup():
 	connect_player_to("interactible")
 	
 	connect_sceneblocks()
+	
+	
 
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
 
-	player.run_setup(Vector2(0,0), dir.RIGHT)
+	player.run_setup(start_position, dir.RIGHT)
+	
+	cameracontroller.set_position_manual(true)
 	
 	
 	screencover.setup(player)
@@ -193,10 +201,6 @@ func add_interactible(interactible):
 	print("Added interactible as interactible to scene: " + String(interactible.name))
 	
 func connect_cameracontroller_to_camareas():
-	cameracontroller = get_node("/root/Level/YSort/actors/player/cameracontroller")
-	if cameracontroller == null:
-		print("Warning: gameinit.gd found cameracontroller null")
-	
 	var camareas = get_tree().get_nodes_in_group("camarea")
 	for i in range(camareas.size()):
 		var currentnode = get_node(camareas[i].get_path())

@@ -39,6 +39,17 @@ func get_camera_quadrant():
 
 	return Vector2(quadrant_x, quadrant_y)
 
+func set_position_manual(starts_free):
+	
+#	camera.position = new_position
+#	camerapivot.set_position_immediate(new_position)
+	switch_to_locked()
+	
+	if starts_free:
+		switch_to_free()
+	
+	pass
+
 func switch_to_free():
 	cameragridsnapper.remove_child(camera)
 	cameraholder.add_child(camera)
@@ -53,7 +64,7 @@ func switch_to_locked():
 	
 func _on_Area2D_body_entered(body, obj):
 	if body.get_name() == "player":
-		print(obj.name)
+#		print("Player entered camarea: " + obj.name)
 		camhold += 1
 		
 		var new_extents = obj.get_node("CollisionShape2D").shape.extents
