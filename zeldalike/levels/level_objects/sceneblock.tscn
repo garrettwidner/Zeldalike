@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=1]
 
-[sub_resource type="RectangleShape2D" id=90]
+[sub_resource type="RectangleShape2D" id=1]
 
 [node name="sceneblock" type="Node2D" groups=[
 "sceneblock",
@@ -15,7 +15,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 90 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }

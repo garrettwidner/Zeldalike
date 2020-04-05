@@ -2012,7 +2012,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/Camarea"]
-visible = false
 shape = SubResource( 90 )
 __meta__ = {
 "_edit_lock_": true
@@ -2025,7 +2024,7 @@ __meta__ = {
 ]]
 position = Vector2( 347.578, 453.943 )
 script = ExtResource( 33 )
-connecting_level = " level_1_test"
+connecting_level = "level_1_test"
 connecting_entrance = 3
 entrance_number = 1
 entrance_facedir = Vector2( 0, -1 )

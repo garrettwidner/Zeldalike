@@ -86,13 +86,14 @@ func perform_preliminary_level_setup():
 	for sceneblock in sceneblocks:
 		if sceneblock.entrance_number == new_entrance_number:
 			entrance_scene_block = sceneblock
+#			print("Scene block chosen for entrance is " + sceneblock.name)
+#			print("It is located at " + String(sceneblock.position))
 			
-	print("Player running setup at position " + String(entrance_scene_block.position) + " and facedir " + String(entrance_scene_block.entrance_facedir))
-	player.run_setup(entrance_scene_block.spawnpoint.position, entrance_scene_block.entrance_facedir)
+#	print("Player running setup at position " + String(entrance_scene_block.spawnpoint.global_position) + " and facedir " + String(entrance_scene_block.entrance_facedir))
+	player.run_setup(entrance_scene_block.spawnpoint.global_position, entrance_scene_block.entrance_facedir)
 
-#	player.run_setup(start_position, dir.RIGHT)
-	
 	cameracontroller.set_position_manual(true)
+	
 	
 	
 	screencover.setup(player)
@@ -118,8 +119,6 @@ func connect_player_to(group):
 	pass
 	
 func connect_sceneblocks():
-	
-	
 	sceneblocks.clear()
 	sceneblocks = get_tree().get_nodes_in_group("sceneblock")
 	for i in range(sceneblocks.size()):
@@ -135,8 +134,8 @@ func connect_sceneblocks():
 	
 func get_changing_sceneblock(connecting_sceneblock):
 	new_entrance_number = connecting_sceneblock.connecting_entrance
-	print("Game_singleton got the number of the entrance it is supposed to go to.")
-	print("This entrance is " + String(new_entrance_number))
+#	print("Game_singleton got the number of the entrance it is supposed to go to.")
+#	print("This entrance is " + String(new_entrance_number))
 	pass
 
 func connect_player_to_interactibles():

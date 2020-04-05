@@ -661,7 +661,7 @@ position = Vector2( 0.57626, 23.3277 )
 ]]
 position = Vector2( 1334.72, -26.5904 )
 script = ExtResource( 12 )
-connecting_level = " level_1_test"
+connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 2
 entrance_facedir = Vector2( -1, 0 )
@@ -685,7 +685,7 @@ position = Vector2( -23.3202, 29.5775 )
 ]]
 position = Vector2( 850.669, -24.884 )
 script = ExtResource( 12 )
-connecting_level = " level_1_test"
+connecting_level = "level_1_test"
 connecting_entrance = 2
 entrance_number = 1
 entrance_facedir = Vector2( 1, 0 )
