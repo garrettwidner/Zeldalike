@@ -108,6 +108,8 @@ func run_setup(start_position, start_direction):
 	global_position = start_position
 	set_facedir_manual(start_direction)
 	
+	print("Player starting at position " + String(start_position) + " and in direction " + String(start_direction))
+	
 	dialogueparser = get_node("/root/Level/dialogue_parser")
 	if dialogueparser != null:
 		dialogueparser.connect("dialogue_finished", self, "dialogue_finished")

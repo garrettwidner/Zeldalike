@@ -40,9 +40,6 @@ func get_camera_quadrant():
 	return Vector2(quadrant_x, quadrant_y)
 
 func set_position_manual(starts_free):
-	
-#	camera.position = new_position
-#	camerapivot.set_position_immediate(new_position)
 	switch_to_locked()
 	
 	if starts_free:

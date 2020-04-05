@@ -10,6 +10,9 @@ var staminabar
 
 var sceneblocks = []
 
+var new_entrance_number : int
+var entrance_scene_block
+
 #In order to set up a new scene, must have the full suite of objects.
 
 #Must also set up two new json files in dialogue/events and dialogue/story
@@ -28,20 +31,24 @@ enum COLL_LAYER{
 	enemy = 6
 	}
 	
-func perform_first_setup_if_needed():
+func perform_first_setup_if_needed(default_entrance):
 	if !issetup:
 #		print("First time setup being performed")
 		issetup = true
 		scenechanger = $scenechanger
 		scenechanger.connect("scene_just_changed", self, "perform_preliminary_level_setup")
 		scenechanger.connect("scene_change_finished", self, "perform_concluding_level_setup")
+		scenechanger.connect("got_signal_to_change_scene", self, "get_changing_sceneblock")
 		screencover = $screencover
 		
 		healthbar = get_node("GUI/HBoxContainer/Container/healthbar")
 		staminabar = get_node("GUI/HBoxContainer/Container/staminabar")
 		
+		new_entrance_number = default_entrance
+		
 		perform_preliminary_level_setup()
 		perform_concluding_level_setup()
+		
 		
 #		player.run_setup()
 	
@@ -51,7 +58,7 @@ func perform_preliminary_level_setup():
 	if player == null:
 		print("Warning: game_singleton unable to find player")
 	
-	var start_position = Vector2(90,30)
+	var start_position = Vector2(30,126)
 	
 	cameracontroller = player.get_node("cameracontroller")
 	if cameracontroller == null:
@@ -76,7 +83,14 @@ func perform_preliminary_level_setup():
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
 
-	player.run_setup(start_position, dir.RIGHT)
+	for sceneblock in sceneblocks:
+		if sceneblock.entrance_number == new_entrance_number:
+			entrance_scene_block = sceneblock
+			
+	print("Player running setup at position " + String(entrance_scene_block.position) + " and facedir " + String(entrance_scene_block.entrance_facedir))
+	player.run_setup(entrance_scene_block.spawnpoint.position, entrance_scene_block.entrance_facedir)
+
+#	player.run_setup(start_position, dir.RIGHT)
 	
 	cameracontroller.set_position_manual(true)
 	
@@ -117,6 +131,12 @@ func connect_sceneblocks():
 			return
 		var args = Array([currentnode])
 		area2Dnode.connect("body_entered", scenechanger, "on_Area2D_body_entered", args)
+	pass
+	
+func get_changing_sceneblock(connecting_sceneblock):
+	new_entrance_number = connecting_sceneblock.connecting_entrance
+	print("Game_singleton got the number of the entrance it is supposed to go to.")
+	print("This entrance is " + String(new_entrance_number))
 	pass
 
 func connect_player_to_interactibles():

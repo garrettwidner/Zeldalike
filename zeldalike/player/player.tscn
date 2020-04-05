@@ -1,21 +1,22 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=102 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
 [ext_resource path="res://items/shield/shield.png" type="Texture" id=3]
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=4]
-[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=5]
-[ext_resource path="res://tiles/Plants.png" type="Texture" id=6]
-[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=7]
-[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=8]
-[ext_resource path="res://player/heat_lines.png" type="Texture" id=9]
-[ext_resource path="res://player/heat_lines.gd" type="Script" id=10]
-[ext_resource path="res://sounds/sizzle/sizzle6.wav" type="AudioStream" id=11]
-[ext_resource path="res://sounds/sizzle/sizzleplayer.gd" type="Script" id=12]
-[ext_resource path="res://sounds/player/voiceplayer.gd" type="Script" id=13]
-[ext_resource path="res://sounds/player/oh1.wav" type="AudioStream" id=14]
-[ext_resource path="res://sounds/player/oh2.wav" type="AudioStream" id=15]
-[ext_resource path="res://sounds/player/oh3.wav" type="AudioStream" id=16]
+[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=5]
+[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=6]
+[ext_resource path="res://tiles/Plants.png" type="Texture" id=7]
+[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=8]
+[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=9]
+[ext_resource path="res://player/heat_lines.png" type="Texture" id=10]
+[ext_resource path="res://player/heat_lines.gd" type="Script" id=11]
+[ext_resource path="res://sounds/sizzle/sizzle6.wav" type="AudioStream" id=12]
+[ext_resource path="res://sounds/sizzle/sizzleplayer.gd" type="Script" id=13]
+[ext_resource path="res://sounds/player/voiceplayer.gd" type="Script" id=14]
+[ext_resource path="res://sounds/player/oh1.wav" type="AudioStream" id=15]
+[ext_resource path="res://sounds/player/oh2.wav" type="AudioStream" id=16]
+[ext_resource path="res://sounds/player/oh3.wav" type="AudioStream" id=17]
 
 [sub_resource type="Shader" id=1]
 
@@ -1416,11 +1417,15 @@ script = ExtResource( 4 )
 [node name="cameraoffset" type="Position2D" parent="pivot"]
 position = Vector2( 8, 0 )
 
+[node name="Sprite2" type="Sprite" parent="pivot/cameraoffset"]
+position = Vector2( -8, 0 )
+texture = ExtResource( 5 )
+
 [node name="cameraholder" type="Position2D" parent="pivot"]
 
 [node name="test_sprite" type="Sprite" parent="pivot/cameraholder"]
 visible = false
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="pivot/cameraholder"]
 position = Vector2( 8, 0 )
@@ -1434,30 +1439,30 @@ editor_draw_drag_margin = true
 [node name="testparameter" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 48.7541, 0.35849 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="testparameter2" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( -47.6787, 0.35849 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="testparameter3" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 1.43394, -42.3014 )
 rotation = 1.5708
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="testparameter4" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 0.35849, 44.4523 )
 rotation = 1.5708
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="cameragridsnapper" type="Position2D" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="cameracontroller" type="Position2D" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="hopchecker" type="Area2D" parent="."]
 
@@ -1468,20 +1473,20 @@ shape = SubResource( 83 )
 [node name="heat_lines" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 hframes = 3
 frame = 1
 region_rect = Rect2( 0, 0, 16, 16 )
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
 anims/heat = SubResource( 84 )
 
 [node name="sizzleplayer" type="AudioStreamPlayer2D" parent="heat_lines"]
 position = Vector2( 0, 11 )
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -35.0
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 loud_volume = -25.0
 soft_volume = -50.0
 
@@ -1491,7 +1496,7 @@ one_shot = true
 [node name="voiceplayer" type="AudioStreamPlayer2D" parent="."]
 volume_db = -19.904
 pitch_scale = 1.1
-script = ExtResource( 13 )
-ohs = [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ]
+script = ExtResource( 14 )
+ohs = [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

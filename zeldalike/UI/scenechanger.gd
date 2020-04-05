@@ -5,6 +5,8 @@ signal scene_just_changed()
 #should only 'start' the scene, if necessary (i.e. giving control to player, etc)
 signal scene_change_finished()
 
+signal got_signal_to_change_scene()
+
 var base_level_path = "res://levels/"
 onready var anim = $anim
 
@@ -29,7 +31,9 @@ func on_Area2D_body_entered(body, obj):
 	if body.name == "player":
 #		print("Player entered levelblock")
 #		print("Changing level to " + obj.new_level)
-		change_scene(obj.new_level)
+		emit_signal("got_signal_to_change_scene", obj)
+
+		change_scene(obj.connecting_level)
 	pass
 
 	

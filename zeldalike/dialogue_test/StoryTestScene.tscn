@@ -1754,7 +1754,6 @@ extents = Vector2( 30, 30 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-scene_name = "StoryTestScene"
 
 [node name="dialogue_parser" parent="." instance=ExtResource( 2 )]
 
