@@ -39,11 +39,22 @@ func get_camera_quadrant():
 
 	return Vector2(quadrant_x, quadrant_y)
 
-func set_position_manual(starts_free):
+func set_position_manual(starts_free, new_position, new_camarea):
+	
+	if new_camarea != null:
+		print("Cameracontroller received new camarea, called " + new_camarea.name)
+	else:
+		print("Cameracontroller did not receive a new connecting camarea")
+	
 	switch_to_locked()
+	
+	var new_extents = new_camarea.get_node("CollisionShape2D").shape.extents
+	camerapivot.set_constraints(new_extents,new_camarea.global_position)
 	
 	if starts_free:
 		switch_to_free()
+		
+	
 	
 	pass
 

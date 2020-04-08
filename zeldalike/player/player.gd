@@ -92,6 +92,18 @@ signal on_sun_strength_changed
 signal on_sun_start
 export var shade_color : Color 
 
+var disease_state : int = 1
+var max_disease : int = 6
+var min_disease : int = 1
+
+var disease_6_sprite = preload("res://player/Lodan_Disease_6.png")
+var disease_5_sprite = preload("res://player/Lodan_Disease_5.png")
+var disease_4_sprite = preload("res://player/Lodan_Disease_4.png")
+var disease_3_sprite = preload("res://player/Lodan_Disease_3.png")
+var disease_2_sprite = preload("res://player/Lodan_Disease_2.png")
+var disease_1_sprite = preload("res://player/Lodan_Recalibrator.png")
+
+
 var staticdir
 
 var original_zindex
@@ -149,6 +161,8 @@ func run_setup(start_position, start_direction):
 #	print("on sun start should have signaled")
 	
 	set_state_default()
+	
+#	$Sprite.texture = test_sprites
 	
 	pass
 	
@@ -281,10 +295,13 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("test_1"):
 #		game_singleton.change_scene("level_1_test")
-		set_facedir_manual(dir.UP)
+#		set_facedir_manual(dir.UP)
+		decrease_disease()
+
 	elif Input.is_action_just_pressed("test_2"):
 #		game_singleton.change_scene("version_0_test")
-		set_facedir_manual(dir.RIGHT)
+#		set_facedir_manual(dir.RIGHT)
+		increase_disease()
 	
 	elif Input.is_action_just_pressed("x"):
 		#interact with interactible you're facing
@@ -1025,3 +1042,52 @@ func _on_Timer_timeout():
 			set_state_default()
 		"speech_animating":
 			set_state_default()
+			
+func increase_disease():
+	disease_state = disease_state + 1
+	if disease_state > max_disease:
+		disease_state = max_disease
+		
+	set_disease_sprite()
+		
+func decrease_disease():
+	disease_state = disease_state - 1
+	if disease_state < min_disease:
+		disease_state = min_disease
+		
+	set_disease_sprite()
+		
+func set_disease(new_disease):
+	disease_state = new_disease
+	
+	if disease_state > max_disease:
+		print("Warning: disease_state must be less than " + String(max_disease))
+		disease_state = max_disease
+	elif disease_state < min_disease:
+		print("Warning: disease_state must be greater than " + String(min_disease))
+		disease_state = min_disease
+		
+	set_disease_sprite()
+		
+func set_disease_sprite():
+	match disease_state:
+		1:
+			print("disease sprite 1")
+			$Sprite.texture = disease_1_sprite
+		2:
+			print("disease sprite 2")
+			$Sprite.texture = disease_2_sprite
+		3:
+			print("disease sprite 3")
+			$Sprite.texture = disease_3_sprite
+		4: 
+			print("disease sprite 4")
+			$Sprite.texture = disease_4_sprite
+		5:
+			print("disease sprite 5")
+			$Sprite.texture = disease_5_sprite
+		6:
+			print("disease sprite 6")
+			$Sprite.texture = disease_6_sprite
+			
+			

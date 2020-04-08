@@ -9,6 +9,7 @@ var healthbar
 var staminabar
 
 var sceneblocks = []
+var camareas = []
 
 var new_entrance_number : int
 var entrance_scene_block
@@ -51,7 +52,40 @@ func perform_first_setup_if_needed(default_entrance):
 		
 		
 #		player.run_setup()
+
+func get_camarea_at_point(point):
 	
+	for i in range(camareas.size()):
+#		print("--")
+#		print("Checking camarea " + String(i) + " in scene")
+		var pos = camareas[i].position
+#		print("camarea position is " + String(pos))
+		var extents = camareas[i].get_node("CollisionShape2D").shape.extents
+		var left = pos.x - extents.x
+		var right = pos.x + extents.x
+		var top = pos.y - extents.y
+		var bottom = pos.y + extents.y
+		
+#		print("Left extent is " + String(left))
+#		print("Right extent is " + String(right))
+#		print("Top extent is " + String(top))
+#		print("Bottom extent is " + String(bottom))
+#		print("Checked point is at " + String(point))
+		
+		if point.x > left && point.x < right:
+			if point.y > top && point.y < bottom:
+#				print("Camarea FOUND at checked position")
+#				print("--")
+				
+				return camareas[i]
+		
+	pass
+	
+	print("Warning: No camarea found by game singleton at checked point: (" + String(point) + ")")
+#	print("--")
+	
+	return null	
+
 func perform_preliminary_level_setup():
 #	print("-Game singleton performing preliminary level setup")
 	player = get_node("/root/Level/YSort/actors/player")
@@ -92,7 +126,8 @@ func perform_preliminary_level_setup():
 #	print("Player running setup at position " + String(entrance_scene_block.spawnpoint.global_position) + " and facedir " + String(entrance_scene_block.entrance_facedir))
 	player.run_setup(entrance_scene_block.spawnpoint.global_position, entrance_scene_block.entrance_facedir)
 
-	cameracontroller.set_position_manual(true)
+	var start_camarea = get_camarea_at_point(entrance_scene_block.spawnpoint.global_position)
+	cameracontroller.set_position_manual(true, entrance_scene_block.spawnpoint.global_position, start_camarea)
 	
 	
 	
@@ -220,7 +255,7 @@ func add_interactible(interactible):
 	print("Added interactible as interactible to scene: " + String(interactible.name))
 	
 func connect_cameracontroller_to_camareas():
-	var camareas = get_tree().get_nodes_in_group("camarea")
+	camareas = get_tree().get_nodes_in_group("camarea")
 	for i in range(camareas.size()):
 		var currentnode = get_node(camareas[i].get_path())
 		var args = Array([currentnode])
