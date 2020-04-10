@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sand_Tile.png-6b678ffd03a0b2ba1c485c9a9cff0a5c.stex"
+path="res://.import/Sand_Tile.png-c94eb7d64f5c75fa62fd2582a12d77c5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dialogue_test/Sand_Tile.png"
-dest_files=[ "res://.import/Sand_Tile.png-6b678ffd03a0b2ba1c485c9a9cff0a5c.stex" ]
+source_file="res://terrain/Sand_Tile.png"
+dest_files=[ "res://.import/Sand_Tile.png-c94eb7d64f5c75fa62fd2582a12d77c5.stex" ]
 
 [params]
 
