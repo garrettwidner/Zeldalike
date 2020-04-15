@@ -5,17 +5,18 @@
 [ext_resource path="res://UI/canvas.tscn" type="PackedScene" id=3]
 [ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_test/brick.tscn" type="PackedScene" id=5]
-[ext_resource path="res://environment/springs/spring.gd" type="Script" id=6]
-[ext_resource path="res://environment/springs/rocks_break.png" type="Texture" id=7]
-[ext_resource path="res://environment/springs/spring_water.png" type="Texture" id=8]
-[ext_resource path="res://environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=9]
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=10]
-[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=11]
+[ext_resource path="res://objects/environment/springs/spring.gd" type="Script" id=6]
+[ext_resource path="res://objects/environment/springs/rocks_break.png" type="Texture" id=7]
+[ext_resource path="res://objects/environment/springs/spring_water.png" type="Texture" id=8]
+[ext_resource path="res://objects/environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/environment/springs/triggerables/grass.gd" type="Script" id=10]
+[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=11]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://objects/knockable.gd" type="Script" id=13]
 [ext_resource path="res://objects/seedbed.png" type="Texture" id=14]
-[ext_resource path="res://environment/edible.gd" type="Script" id=15]
-[ext_resource path="res://environment/springs/triggerables/bulb.png" type="Texture" id=16]
+[ext_resource path="res://objects/environment/edible.gd" type="Script" id=15]
+[ext_resource path="res://objects/environment/springs/triggerables/bulb.png" type="Texture" id=16]
+
 
 
 

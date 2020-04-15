@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://environment/springs/triggerables/grass.gd" type="Script" id=1]
-[ext_resource path="res://environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=2]
-[ext_resource path="res://environment/sun_area.gd" type="Script" id=3]
+[ext_resource path="res://objects/environment/springs/triggerables/grass.gd" type="Script" id=1]
+[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=2]
+[ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=3]
+
 
 
 

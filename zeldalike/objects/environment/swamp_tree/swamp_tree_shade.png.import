@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bulb.png-6ad3cf3447a4c6771285e3020ddeab5f.stex"
+path="res://.import/swamp_tree_shade.png-1103e12c52ceed98a45990ea06e234b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://environment/springs/triggerables/bulb.png"
-dest_files=[ "res://.import/bulb.png-6ad3cf3447a4c6771285e3020ddeab5f.stex" ]
+source_file="res://objects/environment/swamp_tree/swamp_tree_shade.png"
+dest_files=[ "res://.import/swamp_tree_shade.png-1103e12c52ceed98a45990ea06e234b6.stex" ]
 
 [params]
 

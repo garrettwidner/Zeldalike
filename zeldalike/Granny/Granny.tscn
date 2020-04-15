@@ -4,10 +4,11 @@
 [ext_resource path="res://Granny/Grandma Sprites.png" type="Texture" id=2]
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=3]
 [ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=4]
-[ext_resource path="res://tiles/Plants.png" type="Texture" id=5]
+[ext_resource path="res://objects/Plants.png" type="Texture" id=5]
 [ext_resource path="res://Granny/gran_ooh1.wav" type="AudioStream" id=6]
 [ext_resource path="res://Granny/gran_aha.wav" type="AudioStream" id=7]
 [ext_resource path="res://Granny/gran_aha_happy.wav" type="AudioStream" id=8]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "idledown"

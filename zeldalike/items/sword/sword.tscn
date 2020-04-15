@@ -66,7 +66,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("area:position")
+tracks/5/path = NodePath("hitbox:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -141,7 +141,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("area:position")
+tracks/5/path = NodePath("hitbox:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -228,7 +228,7 @@ tracks/5/keys = {
 "values": [ false ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("area:position")
+tracks/6/path = NodePath("hitbox:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -303,7 +303,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("area:position")
+tracks/5/path = NodePath("hitbox:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -340,13 +340,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="area" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="."]
 position = Vector2( -3, 7 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true

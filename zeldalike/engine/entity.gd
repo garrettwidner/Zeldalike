@@ -62,7 +62,7 @@ func damage_loop():
 		hitstun_timer -= 1
 	for area in $hitbox.get_overlapping_areas():
 		var body = area.get_parent()
-		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE:
+		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE && area.name == "hitbox":
 			wasdamaged = true
 			var damage = body.get("DAMAGE")
 			health -= damage

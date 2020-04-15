@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Salt_Cradle_Shadow.png-73342f0d09715781235d0342e7d3accd.stex"
+path="res://.import/Adobe_Roof_Decals.png-4bc5db4f338aa4e54a8189a22e009591.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://environment/salt_cradle/Salt_Cradle_Shadow.png"
-dest_files=[ "res://.import/Salt_Cradle_Shadow.png-73342f0d09715781235d0342e7d3accd.stex" ]
+source_file="res://structures/Adobe_Roof_Decals.png"
+dest_files=[ "res://.import/Adobe_Roof_Decals.png-4bc5db4f338aa4e54a8189a22e009591.stex" ]
 
 [params]
 

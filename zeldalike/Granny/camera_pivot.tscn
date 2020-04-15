@@ -2,7 +2,8 @@
 
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=2]
-[ext_resource path="res://tiles/Plants.png" type="Texture" id=3]
+[ext_resource path="res://objects/Plants.png" type="Texture" id=3]
+
 
 [node name="pivot" type="Position2D"]
 script = ExtResource( 1 )

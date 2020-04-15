@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Salt_Cradle.png-48001f988511a4861b9e7c7bd44fc564.stex"
+path="res://.import/mud_decals.png-9553eb8e3c8a681004a6d9dc91f36fcc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://environment/salt_cradle/Salt_Cradle.png"
-dest_files=[ "res://.import/Salt_Cradle.png-48001f988511a4861b9e7c7bd44fc564.stex" ]
+source_file="res://terrain/mud_decals.png"
+dest_files=[ "res://.import/mud_decals.png-9553eb8e3c8a681004a6d9dc91f36fcc.stex" ]
 
 [params]
 
