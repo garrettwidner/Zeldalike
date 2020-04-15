@@ -178,7 +178,6 @@ anims/hurt = SubResource( 3 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 3
-frame = 1
 __meta__ = {
 "_edit_lock_": true
 }

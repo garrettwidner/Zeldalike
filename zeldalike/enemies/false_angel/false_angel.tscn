@@ -346,8 +346,9 @@ anims/moveright = SubResource( 3 )
 anims/moveup = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -0.117144 )
+position = Vector2( 0, -0.121937 )
 texture = ExtResource( 2 )
+flip_h = true
 vframes = 3
 hframes = 4
 

@@ -1,7 +1,7 @@
 extends "res://engine/entity.gd"
 
-var movetimer_length : int = 14
-var movetimer : int = 0
+#var movetimer_length : int = 14
+#var movetimer : int = 0
 var DAMAGE : int = 1
 var damagetaker 
 var collider
@@ -9,9 +9,9 @@ var perimeter
 
 func _ready():
 	TYPE = "ENEMY"
-	$anim.play("default")
+	$anim.play("idle")
 	movedir = dir.rand()
-	speed = 24
+	speed = 0
 	hitstun_amount = 20
 	self.connect("health_changed", self, "take_damage")
 	$anim.connect("animation_finished", self, "_on_anim_animation_finished")
@@ -28,11 +28,12 @@ func _physics_process(delta):
 	
 	movement_loop()
 	damage_loop()
-	if movetimer >0:
-		movetimer -= 1
-	if movetimer == 0 || is_on_wall():
-		movedir = dir.rand()
-		movetimer = movetimer_length
+	
+#	if movetimer >0:
+#		movetimer -= 1
+#	if movetimer == 0 || is_on_wall():
+#		movedir = dir.rand()
+#		movetimer = movetimer_length
 		
 func take_damage(health, damage):
 	if self.health <= 0:
@@ -55,10 +56,17 @@ func _on_anim_animation_finished(animation_name):
 		damagetaker.disabled = false
 
 func _on_perimeter1_body_entered(body):
-	print(body.name + " entered false angel's perimeter")
-	
+	if body.name == "player":
+		print(body.name + " entered false angel's perimeter")
+		turn(body)
 	pass 
 	
 func turn(body):
-	
-	movedir = Vector2(0,0)
+	var direction_to_body = body.global_position - global_position 
+#	print(String(decimals(direction_to_body.x)) + " , " + String(decimals(direction_to_body.y)))
+	set_movedir(direction_to_body)
+	set_facedir()
+	set_spritedir()
+	speed = 4
+	print("Spritedir is now " + spritedir)
+	switch_anim("move")

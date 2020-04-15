@@ -234,7 +234,7 @@ func dialogue_finished():
 	
 func state_default(delta):
 	set_speed()
-	set_movedir()
+	assign_movedir_from_input()
 	set_facedir()
 	set_spritedir()
 	damage_loop()
@@ -437,7 +437,7 @@ func speak_to_interactibles():
 func state_bowusing(delta):
 	
 	if !bow_is_fired:
-		set_movedir()
+		assign_movedir_from_input()
 		set_spritedir()
 		movement_loop()
 		
@@ -588,7 +588,7 @@ func state_block(delta):
 		switch_anim_static("idle")
 		
 	set_speed()
-	set_movedir()
+	assign_movedir_from_input()
 	set_spritedir()
 	movement_loop()
 	hitback_loop()
@@ -669,7 +669,7 @@ func state_holding(delta):
 	if !is_eating:
 		set_hold_position()
 		set_speed()
-		set_movedir()
+		assign_movedir_from_input()
 		set_facedir()
 		set_spritedir()
 		damage_loop()
@@ -800,7 +800,8 @@ func create_stamina_drain_kickout():
 	stamina_drain_kickout = true
 #	print("kicked out of using run through stamina drain")
 
-func set_movedir():
+func assign_movedir_from_input():
+	
 	var LEFT : bool = Input.is_action_pressed("left")
 	var RIGHT : bool = Input.is_action_pressed("right")
 	var UP : bool = Input.is_action_pressed("up")

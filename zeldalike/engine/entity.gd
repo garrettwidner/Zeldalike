@@ -19,6 +19,9 @@ signal health_changed
 
 var wasdamaged = false
 
+func set_movedir(direction):
+	movedir = dir.closest_cardinal(direction)
+
 func set_facedir():
 	if movedir.x == 0 and movedir.y == 0:
 		return
@@ -30,7 +33,7 @@ func set_facedir():
 		facedir = dir.DOWN
 	elif movedir.y == -1: 
 		facedir = dir.UP
-
+		
 func set_spritedir():
 	match facedir:
 		dir.UP:
@@ -45,7 +48,8 @@ func set_spritedir():
 func switch_anim(animation):
 	var nextanim : String = animation + spritedir
 	if $anim.current_animation != nextanim:
-#		print("Playing animation: " + nextanim)
+#		if name == "false_angel":
+#		print("False angel is playing animation: " + nextanim)
 		$anim.play(nextanim)
 
 func movement_loop():
