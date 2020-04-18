@@ -789,6 +789,9 @@ func set_speed():
 	if Input.is_action_pressed("b") && !is_holding && stamina > 0 && !stamina_drain_kickout && !is_covering:
 		speed = runspeed
 		is_running = true
+	elif is_covering:
+		speed = coverspeed
+		is_running = false
 	else:
 		if stamina_drain_kickout:
 			if Input.is_action_just_released("b"):
