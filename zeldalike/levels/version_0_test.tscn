@@ -1,50 +1,49 @@
-[gd_scene load_steps=144 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://objects/environment/sun.gd" type="Script" id=2]
-[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://terrain/Sand_Tile.png" type="Texture" id=4]
-[ext_resource path="res://structures/adobe_door_cover.png" type="Texture" id=5]
-[ext_resource path="res://structures/Adobe_Roof_Decals.png" type="Texture" id=6]
-[ext_resource path="res://structures/adobe_tiles.tscn" type="PackedScene" id=7]
-[ext_resource path="res://enemies/false_angel/false_angel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://terrain/mud_pit.tscn" type="PackedScene" id=9]
-[ext_resource path="res://terrain/mud_tile.png" type="Texture" id=10]
-[ext_resource path="res://terrain/mud_decals.png" type="Texture" id=11]
-[ext_resource path="res://structures/adobe_flooring.png" type="Texture" id=12]
-[ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=13]
-[ext_resource path="res://terrain/salt_tide/Anim/Elbow_Anim.tres" type="Texture" id=14]
-[ext_resource path="res://terrain/salt_tide/Anim/Tide_Anim.tres" type="Texture" id=15]
-[ext_resource path="res://terrain/salt_tide/Anim/Tide_Bend_Anim.tres" type="Texture" id=16]
-[ext_resource path="res://terrain/salt_tide/Midwater.png" type="Texture" id=17]
-[ext_resource path="res://terrain/salt_tide/Deepwater.png" type="Texture" id=18]
-[ext_resource path="res://terrain/salt_tide/Salt/Shore_Salt.png" type="Texture" id=19]
-[ext_resource path="res://terrain/salt_tide/Salt/Salt_Dust.png" type="Texture" id=20]
-[ext_resource path="res://terrain/salt_tide/Salt_Plants.png" type="Texture" id=21]
-[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=22]
-[ext_resource path="res://objects/environment/springs/triggerables/grass.gd" type="Script" id=23]
-[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=24]
-[ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=25]
-[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=26]
-[ext_resource path="res://objects/environment/salt_cradle/salt_cradle.tscn" type="PackedScene" id=27]
-[ext_resource path="res://objects/environment/swamp_tree/swamp_tree.tscn" type="PackedScene" id=28]
-[ext_resource path="res://objects/environment/springs/spring.gd" type="Script" id=29]
-[ext_resource path="res://objects/environment/springs/rocks_break.png" type="Texture" id=30]
-[ext_resource path="res://objects/environment/springs/spring_water.png" type="Texture" id=31]
-[ext_resource path="res://objects/environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=32]
-[ext_resource path="res://enemies/demite/demite_hurt.png" type="Texture" id=33]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=34]
-[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=35]
-[ext_resource path="res://NPC/samson/samson.tscn" type="PackedScene" id=36]
-[ext_resource path="res://NPC/stanley.tscn" type="PackedScene" id=37]
-[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=38]
-[ext_resource path="res://sounds/salt_crackle/cracking_sound_player.tscn" type="PackedScene" id=39]
-[ext_resource path="res://sounds/wind/hollow_wind_2.wav" type="AudioStream" id=40]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=41]
+[ext_resource path="res://terrain/Sand_Tile.png" type="Texture" id=3]
+[ext_resource path="res://structures/adobe_door_cover.png" type="Texture" id=4]
+[ext_resource path="res://structures/Adobe_Roof_Decals.png" type="Texture" id=5]
+[ext_resource path="res://structures/adobe_tiles.tscn" type="PackedScene" id=6]
+[ext_resource path="res://enemies/false_angel/false_angel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://terrain/mud_pit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://terrain/mud_tile.png" type="Texture" id=9]
+[ext_resource path="res://terrain/mud_decals.png" type="Texture" id=10]
+[ext_resource path="res://structures/adobe_flooring.png" type="Texture" id=11]
+[ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=12]
+[ext_resource path="res://terrain/salt_tide/Anim/Elbow_Anim.tres" type="Texture" id=13]
+[ext_resource path="res://terrain/salt_tide/Anim/Tide_Anim.tres" type="Texture" id=14]
+[ext_resource path="res://terrain/salt_tide/Anim/Tide_Bend_Anim.tres" type="Texture" id=15]
+[ext_resource path="res://terrain/salt_tide/Midwater.png" type="Texture" id=16]
+[ext_resource path="res://terrain/salt_tide/Deepwater.png" type="Texture" id=17]
+[ext_resource path="res://terrain/salt_tide/Salt/Shore_Salt.png" type="Texture" id=18]
+[ext_resource path="res://terrain/salt_tide/Salt/Salt_Dust.png" type="Texture" id=19]
+[ext_resource path="res://terrain/salt_tide/Salt_Plants.png" type="Texture" id=20]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=21]
+[ext_resource path="res://objects/environment/springs/triggerables/grass.gd" type="Script" id=22]
+[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=23]
+[ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=24]
+[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=25]
+[ext_resource path="res://objects/environment/salt_cradle/salt_cradle.tscn" type="PackedScene" id=26]
+[ext_resource path="res://objects/environment/swamp_tree/swamp_tree.tscn" type="PackedScene" id=27]
+[ext_resource path="res://objects/environment/springs/spring.gd" type="Script" id=28]
+[ext_resource path="res://objects/environment/springs/rocks_break.png" type="Texture" id=29]
+[ext_resource path="res://objects/environment/springs/spring_water.png" type="Texture" id=30]
+[ext_resource path="res://objects/environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=31]
+[ext_resource path="res://enemies/demite/demite_hurt.png" type="Texture" id=32]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=33]
+[ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=34]
+[ext_resource path="res://NPC/samson/samson.tscn" type="PackedScene" id=35]
+[ext_resource path="res://NPC/stanley.tscn" type="PackedScene" id=36]
+[ext_resource path="res://dialogue_test/hoparea.gd" type="Script" id=37]
+[ext_resource path="res://sounds/salt_crackle/cracking_sound_player.tscn" type="PackedScene" id=38]
+[ext_resource path="res://sounds/wind/hollow_wind_2.wav" type="AudioStream" id=39]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=40]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
-0/texture = ExtResource( 4 )
+0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -56,7 +55,7 @@
 
 [sub_resource type="TileSet" id=2]
 0/name = "adobe_door_cover.png 0"
-0/texture = ExtResource( 5 )
+0/texture = ExtResource( 4 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 48, 32 )
@@ -74,7 +73,7 @@
 
 [sub_resource type="TileSet" id=3]
 0/name = "Adobe_Roof_Decals.png 0"
-0/texture = ExtResource( 6 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 32, 16 )
@@ -84,7 +83,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "Adobe_Roof_Decals.png 1"
-1/texture = ExtResource( 6 )
+1/texture = ExtResource( 5 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 32, 0, 32, 16 )
@@ -94,7 +93,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "Adobe_Roof_Decals.png 2"
-2/texture = ExtResource( 6 )
+2/texture = ExtResource( 5 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 16, 32, 16 )
@@ -104,7 +103,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "Adobe_Roof_Decals.png 3"
-3/texture = ExtResource( 6 )
+3/texture = ExtResource( 5 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 32, 16, 32, 16 )
@@ -114,7 +113,7 @@
 3/shapes = [  ]
 3/z_index = 0
 4/name = "Adobe_Roof_Decals.png 4"
-4/texture = ExtResource( 6 )
+4/texture = ExtResource( 5 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 32, 32, 16 )
@@ -126,7 +125,7 @@
 
 [sub_resource type="TileSet" id=4]
 0/name = "mud_tile.png 0"
-0/texture = ExtResource( 10 )
+0/texture = ExtResource( 9 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -138,7 +137,7 @@
 
 [sub_resource type="TileSet" id=5]
 0/name = "mud_decals.png 0"
-0/texture = ExtResource( 11 )
+0/texture = ExtResource( 10 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 48, 0, 32, 48 )
@@ -148,7 +147,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "mud_decals.png 1"
-1/texture = ExtResource( 11 )
+1/texture = ExtResource( 10 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 48, 48 )
@@ -158,7 +157,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "mud_decals.png 2"
-2/texture = ExtResource( 11 )
+2/texture = ExtResource( 10 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 48, 32, 48 )
@@ -168,7 +167,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "mud_decals.png 3"
-3/texture = ExtResource( 11 )
+3/texture = ExtResource( 10 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 32, 48, 32, 48 )
@@ -178,7 +177,7 @@
 3/shapes = [  ]
 3/z_index = 0
 4/name = "mud_decals.png 4"
-4/texture = ExtResource( 11 )
+4/texture = ExtResource( 10 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 64, 48, 48, 16 )
@@ -188,7 +187,7 @@
 4/shapes = [  ]
 4/z_index = 0
 5/name = "mud_decals.png 5"
-5/texture = ExtResource( 11 )
+5/texture = ExtResource( 10 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 64, 64, 48, 16 )
@@ -200,7 +199,7 @@
 
 [sub_resource type="TileSet" id=6]
 0/name = "adobe_flooring.png 0"
-0/texture = ExtResource( 12 )
+0/texture = ExtResource( 11 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -368,7 +367,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 
 [sub_resource type="TileSet" id=59]
 1/name = "mountain_forms.png 1"
-1/texture = ExtResource( 13 )
+1/texture = ExtResource( 12 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 160, 96 )
@@ -707,7 +706,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 
 [sub_resource type="TileSet" id=63]
 0/name = "Elbow_Anim.tres 0"
-0/texture = ExtResource( 14 )
+0/texture = ExtResource( 13 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -723,7 +722,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 } ]
 0/z_index = 0
 1/name = "Tide_Anim.tres 1"
-1/texture = ExtResource( 15 )
+1/texture = ExtResource( 14 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 16, 16 )
@@ -739,7 +738,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 } ]
 1/z_index = 0
 2/name = "Tide_Bend_Anim.tres 2"
-2/texture = ExtResource( 16 )
+2/texture = ExtResource( 15 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 16, 16 )
@@ -755,7 +754,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 } ]
 2/z_index = 0
 3/name = "Midwater.png 3"
-3/texture = ExtResource( 17 )
+3/texture = ExtResource( 16 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 0, 16, 16 )
@@ -765,7 +764,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 3/shapes = [  ]
 3/z_index = 0
 4/name = "Deepwater.png 4"
-4/texture = ExtResource( 18 )
+4/texture = ExtResource( 17 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 16, 16 )
@@ -775,7 +774,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "Deepwater.png 5"
-5/texture = ExtResource( 18 )
+5/texture = ExtResource( 17 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 16, 0, 16, 16 )
@@ -785,7 +784,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "Deepwater.png 6"
-6/texture = ExtResource( 18 )
+6/texture = ExtResource( 17 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 16, 16, 16, 16 )
@@ -795,7 +794,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 6/shapes = [  ]
 6/z_index = 0
 7/name = "Deepwater.png 7"
-7/texture = ExtResource( 18 )
+7/texture = ExtResource( 17 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 0, 16, 16, 16 )
@@ -805,7 +804,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 7/shapes = [  ]
 7/z_index = 0
 8/name = "Deepwater.png 8"
-8/texture = ExtResource( 18 )
+8/texture = ExtResource( 17 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 32, 16, 16 )
@@ -815,7 +814,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 8/shapes = [  ]
 8/z_index = 0
 9/name = "Deepwater.png 9"
-9/texture = ExtResource( 18 )
+9/texture = ExtResource( 17 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 16, 32, 16, 16 )
@@ -827,7 +826,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 
 [sub_resource type="TileSet" id=64]
 0/name = "Shore_Salt.png 0"
-0/texture = ExtResource( 19 )
+0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -837,7 +836,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "Shore_Salt.png 1"
-1/texture = ExtResource( 19 )
+1/texture = ExtResource( 18 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 16, 16, 16 )
@@ -847,7 +846,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 1/shapes = [  ]
 1/z_index = 0
 2/name = "Shore_Salt.png 2"
-2/texture = ExtResource( 19 )
+2/texture = ExtResource( 18 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 16, 16, 16, 16 )
@@ -857,7 +856,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 2/shapes = [  ]
 2/z_index = 0
 3/name = "Shore_Salt.png 3"
-3/texture = ExtResource( 19 )
+3/texture = ExtResource( 18 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 32, 0, 16, 16 )
@@ -867,7 +866,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 3/shapes = [  ]
 3/z_index = 0
 4/name = "Shore_Salt.png 4"
-4/texture = ExtResource( 19 )
+4/texture = ExtResource( 18 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 32, 16, 16, 16 )
@@ -877,7 +876,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "Shore_Salt.png 5"
-5/texture = ExtResource( 19 )
+5/texture = ExtResource( 18 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 48, 16, 16, 16 )
@@ -887,7 +886,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "Shore_Salt.png 6"
-6/texture = ExtResource( 19 )
+6/texture = ExtResource( 18 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 16, 0, 16, 16 )
@@ -897,7 +896,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 6/shapes = [  ]
 6/z_index = 0
 7/name = "Shore_Salt.png 7"
-7/texture = ExtResource( 19 )
+7/texture = ExtResource( 18 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 48, 0, 16, 16 )
@@ -907,7 +906,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 7/shapes = [  ]
 7/z_index = 0
 8/name = "Shore_Salt.png 8"
-8/texture = ExtResource( 19 )
+8/texture = ExtResource( 18 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 32, 32, 16, 16 )
@@ -917,7 +916,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 8/shapes = [  ]
 8/z_index = 0
 9/name = "Shore_Salt.png 9"
-9/texture = ExtResource( 19 )
+9/texture = ExtResource( 18 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 48, 32, 16, 16 )
@@ -927,7 +926,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 9/shapes = [  ]
 9/z_index = 0
 10/name = "Shore_Salt.png 10"
-10/texture = ExtResource( 19 )
+10/texture = ExtResource( 18 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 16, 32, 16, 16 )
@@ -937,7 +936,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 10/shapes = [  ]
 10/z_index = 0
 11/name = "Shore_Salt.png 11"
-11/texture = ExtResource( 19 )
+11/texture = ExtResource( 18 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 0, 32, 16, 16 )
@@ -947,7 +946,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 11/shapes = [  ]
 11/z_index = 0
 12/name = "Shore_Salt.png 12"
-12/texture = ExtResource( 19 )
+12/texture = ExtResource( 18 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 16, 48, 16, 16 )
@@ -957,7 +956,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 12/shapes = [  ]
 12/z_index = 0
 13/name = "Salt_Dust.png 13"
-13/texture = ExtResource( 20 )
+13/texture = ExtResource( 19 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 0, 0, 48, 48 )
@@ -969,7 +968,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 
 [sub_resource type="TileSet" id=65]
 4/name = "Salt_Plants.png 4"
-4/texture = ExtResource( 21 )
+4/texture = ExtResource( 20 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 16, 16, 16, 16 )
@@ -979,7 +978,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "Salt_Plants.png 5"
-5/texture = ExtResource( 21 )
+5/texture = ExtResource( 20 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 20, 4, 8, 8 )
@@ -989,7 +988,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "Salt_Plants.png 6"
-6/texture = ExtResource( 21 )
+6/texture = ExtResource( 20 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 16, 0, 16, 16 )
@@ -999,7 +998,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 6/shapes = [  ]
 6/z_index = 0
 7/name = "Salt_Plants.png 7"
-7/texture = ExtResource( 21 )
+7/texture = ExtResource( 20 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 0, 0, 8, 12 )
@@ -1009,7 +1008,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 7/shapes = [  ]
 7/z_index = 0
 8/name = "Salt_Plants.png 8"
-8/texture = ExtResource( 21 )
+8/texture = ExtResource( 20 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 0, 16, 16 )
@@ -1019,7 +1018,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 8/shapes = [  ]
 8/z_index = 0
 9/name = "Salt_Plants.png 9"
-9/texture = ExtResource( 21 )
+9/texture = ExtResource( 20 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 0, 16, 16, 16 )
@@ -1029,7 +1028,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 9/shapes = [  ]
 9/z_index = 0
 10/name = "Salt_Plants.png 10"
-10/texture = ExtResource( 21 )
+10/texture = ExtResource( 20 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 4, 16, 8, 16 )
@@ -1041,7 +1040,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 12, 4, 4, 0, 4 )
 
 [sub_resource type="TileSet" id=66]
 0/name = "2x2 Grass-Dirt Bitmap.png 0"
-0/texture = ExtResource( 24 )
+0/texture = ExtResource( 23 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 64 )
@@ -1421,8 +1420,6 @@ scene_name = "version_0_test"
 [node name="sun" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="inventorymanager" parent="." instance=ExtResource( 3 )]
-
 [node name="sand" type="TileMap" parent="."]
 z_index = -10
 tile_set = SubResource( 1 )
@@ -1445,15 +1442,15 @@ cell_size = Vector2( 4, 4 )
 format = 1
 tile_data = PoolIntArray( 1441795, 1, 0, 1441798, 0, 0, 1507334, 1, 0, 5701645, 4, 0, 5701664, 2, 0, 5898266, 3, 0, 6225942, 1, 0 )
 
-[node name="houses" parent="." instance=ExtResource( 7 )]
+[node name="houses" parent="." instance=ExtResource( 6 )]
 position = Vector2( -31.45, -90.91 )
 z_index = -1
 tile_data = PoolIntArray( 1376258, 0, 196611, 1376259, 0, 196613, 1376260, 0, 196613, 1376261, 0, 196613, 1376262, 0, 196613, 1376263, 0, 196613, 1376264, 0, 196613, 1376266, 0, 196612, 1441794, 0, 262147, 1441795, 0, 2, 1441796, 0, 131074, 1441797, 0, 2, 1441798, 0, 65538, 1441799, 0, 131074, 1441800, 0, 2, 1441801, 0, 2, 1441802, 0, 262148, 1507330, 0, 65541, 1507331, 0, 196615, 1507332, 0, 131079, 1507333, 0, 1, 1507334, 0, 2, 1507335, 0, 0, 1507336, 0, 131082, 1507337, 0, 131082, 1507338, 0, 196608, 1572866, 0, 131077, 1572867, 0, 3, 1572868, 0, 196609, 1572869, 0, 65537, 1572870, 0, 7, 1572871, 0, 65536, 1572872, 0, 262145, 1572873, 0, 6, 1572874, 0, 262144, 1638404, 0, 262146, 1638405, 0, 65539, 1638406, 0, 65543, 1638407, 0, 65540, 1638408, 0, 196610, 1703941, 0, 131075, 1703942, 0, 131080, 1703943, 0, 131078 )
 
-[node name="false_angel" parent="." instance=ExtResource( 8 )]
+[node name="false_angel" parent="." instance=ExtResource( 7 )]
 position = Vector2( 449.619, 426.354 )
 
-[node name="mud_pit" parent="." instance=ExtResource( 9 )]
+[node name="mud_pit" parent="." instance=ExtResource( 8 )]
 tile_data = PoolIntArray( 1376266, 0, 0, 1376267, 0, 3, 1376268, 0, 1, 1376269, 0, 4, 1441799, 0, 0, 1441800, 0, 2, 1441801, 0, 2, 1441802, 0, 131074, 1441803, 0, 65539, 1441804, 0, 65539, 1441805, 0, 65540, 1507335, 0, 65536, 1507336, 0, 65539, 1507337, 0, 65539, 1507338, 0, 0, 1507339, 0, 2, 1507340, 0, 4, 1507341, 0, 196612, 1572871, 0, 131072, 1572872, 0, 65539, 1572873, 0, 65539, 1572874, 0, 196608, 1572875, 0, 65537, 1572876, 0, 262148, 1572877, 0, 196612, 1638407, 0, 196608, 1638408, 0, 65539, 1638409, 0, 65539, 1638410, 0, 262144, 1638411, 0, 262148, 1638412, 0, 65539, 1638413, 0, 196612, 1703943, 0, 262144, 1703944, 0, 196609, 1703945, 0, 196611, 1703946, 0, 196609, 1703947, 0, 196609, 1703948, 0, 196610, 1703949, 0, 262148 )
 
 [node name="mud_under" type="TileMap" parent="."]
@@ -1524,7 +1521,7 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 1245203, 10, 0, 1376272, 9, 0, 1376274, 8, 0, 1441809, 5, 0, 1441810, 6, 0 )
 
-[node name="dialogue_parser" parent="." instance=ExtResource( 22 )]
+[node name="dialogue_parser" parent="." instance=ExtResource( 21 )]
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -1536,7 +1533,7 @@ position = Vector2( 431.225, 294.49 )
 position = Vector2( 111.837, 36.5398 )
 z_index = -3
 z_as_relative = false
-script = ExtResource( 23 )
+script = ExtResource( 22 )
 
 [node name="TileMap" type="TileMap" parent="YSort/ground_objects/Grass"]
 z_index = -1
@@ -1551,7 +1548,7 @@ __meta__ = {
 [node name="Area2D" type="Area2D" parent="YSort/ground_objects/Grass/TileMap" groups=[
 "sun_area",
 ]]
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1565,7 +1562,7 @@ editor/display_folded = true
 position = Vector2( 104.29, -77.8573 )
 z_index = -3
 z_as_relative = false
-script = ExtResource( 23 )
+script = ExtResource( 22 )
 
 [node name="TileMap" type="TileMap" parent="YSort/ground_objects/Grass2"]
 z_index = -1
@@ -1580,7 +1577,7 @@ __meta__ = {
 [node name="Area2D" type="Area2D" parent="YSort/ground_objects/Grass2/TileMap" groups=[
 "sun_area",
 ]]
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1597,7 +1594,7 @@ editor/display_folded = true
 position = Vector2( 69.7754, -206.49 )
 z_index = -3
 z_as_relative = false
-script = ExtResource( 23 )
+script = ExtResource( 22 )
 
 [node name="TileMap" type="TileMap" parent="YSort/ground_objects/Grass3"]
 z_index = -1
@@ -1612,7 +1609,7 @@ __meta__ = {
 [node name="Area2D" type="Area2D" parent="YSort/ground_objects/Grass3/TileMap" groups=[
 "sun_area",
 ]]
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1627,13 +1624,13 @@ position = Vector2( 501, 88 )
 
 [node name="sun_crystal" type="Sprite" parent="YSort/objects"]
 position = Vector2( -2.31845, 188.5 )
-texture = ExtResource( 26 )
+texture = ExtResource( 25 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal" groups=[
 "sun_area",
 ]]
 z_index = 4096
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1648,13 +1645,13 @@ __meta__ = {
 [node name="sun_crystal2" type="Sprite" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( -315.368, 30.503 )
-texture = ExtResource( 26 )
+texture = ExtResource( 25 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal2" groups=[
 "sun_area",
 ]]
 z_index = 4096
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1669,13 +1666,13 @@ __meta__ = {
 [node name="sun_crystal3" type="Sprite" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( -294.88, 43.047 )
-texture = ExtResource( 26 )
+texture = ExtResource( 25 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal3" groups=[
 "sun_area",
 ]]
 z_index = 4096
-script = ExtResource( 25 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1687,30 +1684,30 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="salt_cradle" parent="YSort/objects" instance=ExtResource( 27 )]
+[node name="salt_cradle" parent="YSort/objects" instance=ExtResource( 26 )]
 position = Vector2( -175.705, 145.412 )
 
-[node name="salt_cradle2" parent="YSort/objects" instance=ExtResource( 27 )]
+[node name="salt_cradle2" parent="YSort/objects" instance=ExtResource( 26 )]
 position = Vector2( -232.336, 302.116 )
 
-[node name="swamp_tree" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="swamp_tree" parent="YSort/objects" instance=ExtResource( 27 )]
 position = Vector2( -113.438, 256.903 )
 
-[node name="swamp_tree2" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="swamp_tree2" parent="YSort/objects" instance=ExtResource( 27 )]
 position = Vector2( -287.385, -31.1187 )
 
-[node name="swamp_tree3" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="swamp_tree3" parent="YSort/objects" instance=ExtResource( 27 )]
 position = Vector2( -330.872, 205.223 )
 
-[node name="swamp_tree4" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="swamp_tree4" parent="YSort/objects" instance=ExtResource( 27 )]
 position = Vector2( -380.662, 3.54472 )
 
-[node name="swamp_tree5" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="swamp_tree5" parent="YSort/objects" instance=ExtResource( 27 )]
 position = Vector2( -144.32, 181.274 )
 
 [node name="Spring" type="Position2D" parent="YSort/objects"]
 position = Vector2( -69.7754, 206.49 )
-script = ExtResource( 29 )
+script = ExtResource( 28 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -1729,7 +1726,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring"]
-texture = ExtResource( 30 )
+texture = ExtResource( 29 )
 hframes = 3
 __meta__ = {
 "_edit_lock_": true
@@ -1743,7 +1740,7 @@ anims/opened = SubResource( 72 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 31 )
+texture = ExtResource( 30 )
 hframes = 3
 frame = 1
 
@@ -1758,7 +1755,7 @@ anims/unblock = SubResource( 76 )
 [node name="Spring2" type="Position2D" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( 83.2736, 137.263 )
-script = ExtResource( 29 )
+script = ExtResource( 28 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -1776,7 +1773,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring2"]
-texture = ExtResource( 30 )
+texture = ExtResource( 29 )
 hframes = 3
 frame = 2
 
@@ -1788,7 +1785,7 @@ anims/opened = SubResource( 79 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring2"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 31 )
+texture = ExtResource( 30 )
 hframes = 3
 frame = 1
 
@@ -1802,7 +1799,7 @@ anims/unblock = SubResource( 83 )
 
 [node name="Spring3" type="Position2D" parent="YSort/objects"]
 position = Vector2( -27.7632, -16.976 )
-script = ExtResource( 29 )
+script = ExtResource( 28 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -1821,7 +1818,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring3"]
-texture = ExtResource( 30 )
+texture = ExtResource( 29 )
 hframes = 3
 frame = 2
 __meta__ = {
@@ -1836,7 +1833,7 @@ anims/opened = SubResource( 86 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring3"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 31 )
+texture = ExtResource( 30 )
 hframes = 3
 frame = 1
 
@@ -1848,17 +1845,17 @@ anims/closed = SubResource( 88 )
 anims/opened = SubResource( 89 )
 anims/unblock = SubResource( 90 )
 
-[node name="Bulbplant" parent="YSort/objects" instance=ExtResource( 32 )]
+[node name="Bulbplant" parent="YSort/objects" instance=ExtResource( 31 )]
 position = Vector2( 22.7842, 225.805 )
 
-[node name="Bulbplant2" parent="YSort/objects" instance=ExtResource( 32 )]
+[node name="Bulbplant2" parent="YSort/objects" instance=ExtResource( 31 )]
 position = Vector2( -2, 1 )
 
 [node name="test_searcharea_1" type="Sprite" parent="YSort/objects" groups=[
 "searcharea",
 ]]
 position = Vector2( -50.1045, 288.14 )
-texture = ExtResource( 33 )
+texture = ExtResource( 32 )
 hframes = 4
 
 [node name="Area2D" type="Area2D" parent="YSort/objects/test_searcharea_1"]
@@ -1873,7 +1870,7 @@ shape = SubResource( 91 )
 "searcharea",
 ]]
 position = Vector2( -48.6323, 303.598 )
-texture = ExtResource( 33 )
+texture = ExtResource( 32 )
 hframes = 4
 
 [node name="Area2D" type="Area2D" parent="YSort/objects/test_searcharea_2"]
@@ -1888,7 +1885,7 @@ shape = SubResource( 91 )
 "searcharea",
 ]]
 position = Vector2( -64.4585, 297.709 )
-texture = ExtResource( 33 )
+texture = ExtResource( 32 )
 hframes = 4
 
 [node name="Area2D" type="Area2D" parent="YSort/objects/test_searcharea_3"]
@@ -1902,28 +1899,28 @@ shape = SubResource( 91 )
 [node name="actors" type="YSort" parent="YSort"]
 position = Vector2( 501, 88 )
 
-[node name="player" parent="YSort/actors" instance=ExtResource( 34 )]
+[node name="player" parent="YSort/actors" instance=ExtResource( 33 )]
 position = Vector2( -138.801, 306.801 )
 
-[node name="demite" parent="YSort/actors" instance=ExtResource( 35 )]
+[node name="demite" parent="YSort/actors" instance=ExtResource( 34 )]
 position = Vector2( 91.326, 150.442 )
 
-[node name="demite2" parent="YSort/actors" instance=ExtResource( 35 )]
+[node name="demite2" parent="YSort/actors" instance=ExtResource( 34 )]
 position = Vector2( 165.355, 157.471 )
 
-[node name="demite3" parent="YSort/actors" instance=ExtResource( 35 )]
+[node name="demite3" parent="YSort/actors" instance=ExtResource( 34 )]
 position = Vector2( -80.529, 136.118 )
 
-[node name="demite4" parent="YSort/actors" instance=ExtResource( 35 )]
+[node name="demite4" parent="YSort/actors" instance=ExtResource( 34 )]
 position = Vector2( 33.031, 98.264 )
 
-[node name="demite5" parent="YSort/actors" instance=ExtResource( 35 )]
+[node name="demite5" parent="YSort/actors" instance=ExtResource( 34 )]
 position = Vector2( 10.707, 195.648 )
 
-[node name="samson" parent="YSort/actors" instance=ExtResource( 36 )]
+[node name="samson" parent="YSort/actors" instance=ExtResource( 35 )]
 position = Vector2( -206.95, 175.426 )
 
-[node name="stanley" parent="YSort/actors" instance=ExtResource( 37 )]
+[node name="stanley" parent="YSort/actors" instance=ExtResource( 36 )]
 position = Vector2( -190.36, 174.998 )
 
 [node name="HopAreas" type="Node2D" parent="."]
@@ -1934,7 +1931,7 @@ position = Vector2( -190.36, 174.998 )
 position = Vector2( 600.139, 210.977 )
 rotation = 3.14159
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
@@ -1967,7 +1964,7 @@ editor/display_folded = true
 position = Vector2( 652.787, 280.4 )
 rotation = -1.5708
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( -1, 0 )
 canhopdown = true
 
@@ -1993,7 +1990,7 @@ position = Vector2( 3, 0 )
 position = Vector2( 563.103, 263.459 )
 rotation = 1.5708
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( 1, 0 )
 canhopdown = true
 
@@ -2019,7 +2016,7 @@ position = Vector2( -3, 0 )
 editor/display_folded = true
 position = Vector2( 599.976, 300.782 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea"]
@@ -2052,7 +2049,7 @@ __meta__ = {
 ]]
 position = Vector2( 24.666, 299.252 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2087,7 +2084,7 @@ __meta__ = {
 editor/display_folded = true
 position = Vector2( 519.679, 252.604 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/downward_hoparea2"]
@@ -2121,7 +2118,7 @@ __meta__ = {
 editor/display_folded = true
 position = Vector2( 295.98, 181.049 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2147,7 +2144,7 @@ position = Vector2( -0.193726, -44.9044 )
 editor/display_folded = true
 position = Vector2( 216.268, 253.462 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2173,7 +2170,7 @@ position = Vector2( 0, -38 )
 editor/display_folded = true
 position = Vector2( 200.268, 253.462 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2199,7 +2196,7 @@ position = Vector2( 0, -38 )
 editor/display_folded = true
 position = Vector2( 184.268, 253.462 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2228,7 +2225,7 @@ position = Vector2( 504.242, 189.079 )
 position = Vector2( -387.58, 218.967 )
 rotation = -1.5708
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( -1, 0 )
 canhopdown = true
 
@@ -2254,7 +2251,7 @@ position = Vector2( 3.25702, 3.21277 )
 position = Vector2( -339.616, 202.929 )
 rotation = -1.5708
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( -1, 0 )
 canhopdown = true
 
@@ -2280,7 +2277,7 @@ position = Vector2( 3.25702, 3.21277 )
 position = Vector2( -285.383, 171.054 )
 rotation = 1.5708
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( 1, 0 )
 canhopdown = true
 
@@ -2306,7 +2303,7 @@ position = Vector2( -3.43698, 2.3638 )
 position = Vector2( -352.496, 236.718 )
 rotation = 3.14159
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
@@ -2334,7 +2331,7 @@ position = Vector2( -1.52588e-005, -1.36398 )
 ]]
 position = Vector2( -304.252, 152.071 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HopAreas/Mud Pit/downward_hoparea4"]
@@ -2364,7 +2361,7 @@ position = Vector2( 0, -1.56955 )
 ]]
 position = Vector2( 504.242, 189.079 )
 z_index = 4096
-script = ExtResource( 38 )
+script = ExtResource( 37 )
 canhopup = false
 canhopdown = true
 
@@ -2386,7 +2383,7 @@ position = Vector2( 0, -38 )
 
 [node name="Sounds" type="Node2D" parent="."]
 
-[node name="cracking_sound_player" parent="Sounds" instance=ExtResource( 39 )]
+[node name="cracking_sound_player" parent="Sounds" instance=ExtResource( 38 )]
 position = Vector2( 286.347, 340.193 )
 max_time = 10.0
 
@@ -2395,7 +2392,7 @@ position = Vector2( 37.12, 0 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sounds/windplayer"]
 position = Vector2( -14.3472, 122.833 )
-stream = ExtResource( 40 )
+stream = ExtResource( 39 )
 volume_db = -40.768
 autoplay = true
 max_distance = 900000.0
@@ -2424,7 +2421,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 359.703, 468.577 )
-script = ExtResource( 41 )
+script = ExtResource( 40 )
 connecting_level = "level_1_test"
 connecting_entrance = 3
 entrance_number = 1
@@ -2448,7 +2445,7 @@ position = Vector2( -12.4797, -18.278 )
 "sceneblock",
 ]]
 position = Vector2( 72.0421, 329.99 )
-script = ExtResource( 41 )
+script = ExtResource( 40 )
 connecting_level = "level_1_test"
 connecting_entrance = 3
 entrance_number = 2

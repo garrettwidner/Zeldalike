@@ -52,7 +52,7 @@ func _ready():
 	if nameContainer == null:
 		print("Warning: dialogue name container is null")
 		
-	inventorymanager = get_node("../inventorymanager")
+	inventorymanager = game_singleton.get_node("inventorymanager")
 	if inventorymanager == null:
 		print("ERROR: No inventorymanager found by dialogueparser")
 	

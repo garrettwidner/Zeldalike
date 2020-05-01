@@ -264,16 +264,16 @@ func state_default(delta):
 			switch_anim("coveridle")
 			heal_stamina(stamina_heal_still, delta)
 		
-	if Input.is_action_just_pressed("a"):
-		use_item(preload("res://items/sword/sword.tscn"))
-#		for i in searchareas:
-#			print(i.name)
-#		print("---")
-#		else:
-#			use_item(preload("res://items/sprinkler/sprinkler.tscn"))
-#			add_sprinkle()
+	if Input.is_action_just_pressed("item1"):
+# 		find out which item corresponds to item1, and then trigger it
+# 		by passing it to another function which uses an item based on the passed string
+
+#		use_item(preload("res://items/sword/sword.tscn"))
+#		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
+#		add_sprinkle()
+		pass
 		
-	elif Input.is_action_just_pressed("b"):
+	elif Input.is_action_just_pressed("action"):
 		if check_hop_validity():
 			if is_current_hop_upward:
 				set_state_uptransition()
@@ -307,7 +307,7 @@ func state_default(delta):
 #		set_facedir_manual(dir.RIGHT)
 		increase_disease()
 	
-	elif Input.is_action_just_pressed("x"):
+	elif Input.is_action_just_pressed("speech"):
 		#interact with interactible you're facing
 		var successfully_spoke = speak_to_interactibles()
 		if !successfully_spoke:
@@ -342,6 +342,12 @@ func state_default(delta):
 	
 	movement_loop()
 	
+func get_item_at_button(button):
+	if button == "item1":
+		pass
+	elif button == "item2":
+		pass	
+
 func damage_stamina(change, delta):
 	stamina_previous = stamina
 	if change <= 0:
@@ -592,12 +598,13 @@ func state_block(delta):
 	set_spritedir()
 	movement_loop()
 	hitback_loop()
-	if Input.is_action_just_released("x"):
+	if Input.is_action_just_released("speech"):
 		set_state_default()
+		print("Error: this should be set up to trigger when a character is done blocking only")
 
 func state_cling(delta):
 	switch_anim("cling")
-	if Input.is_action_just_pressed("b"):
+	if Input.is_action_just_pressed("action"):
 		switch_anim("hang")
 		set_state_uptransition()
 		#pullup()
@@ -628,10 +635,10 @@ func state_uptransition(delta):
 			damage_loop()
 			if wasdamaged:
 				set_state_default()
-			elif Input.is_action_just_released("b"):
+			elif Input.is_action_just_released("action"):
 				start_ledge_hop()
 		else:
-			if Input.is_action_just_released("b"):
+			if Input.is_action_just_released("action"):
 				start_ledge_pullup()
 	pass
 	
@@ -640,7 +647,7 @@ func state_downtransition(delta):
 		damage_loop()
 		if wasdamaged:
 			set_state_default()
-		elif(Input.is_action_just_released("b")):
+		elif(Input.is_action_just_released("action")):
 			start_down_hop()
 	else:
 		continue_down_hop()
@@ -683,7 +690,7 @@ func state_holding(delta):
 	
 #	print(held_item.position)
 
-	if Input.is_action_just_pressed("b") && !is_eating:
+	if Input.is_action_just_pressed("action") && !is_eating:
 		held_item.z_index = z_index - 1
 		held_item.position = Vector2(held_item.position.x + (facedir.x * 3), held_item.position.y + (facedir.y * 3))
 		is_holding = false
@@ -786,7 +793,7 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-	if Input.is_action_pressed("b") && !is_holding && stamina > 0 && !stamina_drain_kickout && !is_covering:
+	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout && !is_covering:
 		speed = runspeed
 		is_running = true
 	elif is_covering:
@@ -794,7 +801,7 @@ func set_speed():
 		is_running = false
 	else:
 		if stamina_drain_kickout:
-			if Input.is_action_just_released("b"):
+			if Input.is_action_just_released("action"):
 				stamina_drain_kickout = false
 		speed = walkspeed
 		is_running = false
