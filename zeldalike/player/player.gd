@@ -126,7 +126,7 @@ func run_setup(start_position, start_direction):
 	
 #	print("Player starting at position " + String(start_position) + " and in direction " + String(start_direction))
 	
-	dialogueparser = get_node("/root/Level/dialogue_parser")
+	dialogueparser = game_singleton.get_node("dialogue_parser")
 	if dialogueparser != null:
 		dialogueparser.connect("dialogue_finished", self, "dialogue_finished")
 	else:
@@ -228,7 +228,6 @@ func _process(delta):
 			state_stopped(delta)
 
 func dialogue_finished():
-#	print("Character noticed dialogue was finished")
 	$Timer.wait_time = post_speak_wait
 	$Timer.start()
 	

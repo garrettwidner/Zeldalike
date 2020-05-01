@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://UI/screencover.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/scenechanger.gd" type="Script" id=7]
 [ext_resource path="res://UI/item_box.tscn" type="PackedScene" id=8]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "black"
@@ -115,3 +116,5 @@ __meta__ = {
 [node name="timer" type="Timer" parent="scenechanger"]
 
 [node name="item_box" parent="." instance=ExtResource( 8 )]
+
+[node name="dialogue_parser" parent="." instance=ExtResource( 9 )]

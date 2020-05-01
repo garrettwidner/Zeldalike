@@ -102,8 +102,6 @@ func perform_preliminary_level_setup():
 	connect_player_to_interactibles()
 	connect_player_to_speechhittables()
 	connect_player_to_searchareas()
-#	connect_player_to_heightchangers()
-#	connect_player_to_zindexchangers()
 	connect_player_to_hopareas()
 	connect_cameracontroller_to_camareas()
 	connect_player_to_sun_areas()
@@ -210,29 +208,6 @@ func connect_player_to_searchareas():
 		area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 	pass
-
-#func connect_player_to_heightchangers():
-#	var heightchangers = get_tree().get_nodes_in_group("heightchanger")
-#	for i in range(heightchangers.size()):
-#		var currentnode = get_node(heightchangers[i].get_path())
-#		var area2Dnode = currentnode.get_node("Area2D")
-#		if area2Dnode == null:
-#			print("Error: no area2D node found on heightchanger")
-#			return
-#		var args = Array([currentnode])
-#		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited",args)
-		
-#func connect_player_to_zindexchangers():
-#	var zindexchangers = get_tree().get_nodes_in_group("zindexchanger")
-#	for i in range(zindexchangers.size()):
-#		var currentnode = get_node(zindexchangers[i].get_path())
-#		var area2Dnode = currentnode.get_node("Area2D")
-#		if area2Dnode == null:
-#			print("Error: no area2D node found on zindexchanger")
-#			return
-#		var args = Array([currentnode])
-#		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
-#		area2Dnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		
 func connect_player_to_hopareas():
 	var hopareas = get_tree().get_nodes_in_group("hoparea")

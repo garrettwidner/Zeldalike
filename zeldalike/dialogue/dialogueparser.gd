@@ -22,9 +22,14 @@ var inventorymanager
 
 func _ready():
 	#TODO: Get inventory_manager to call on whenever a dialogue gives an item
+	run_scene_setup()
+	
+	run_first_time_setup()
+		
+func run_scene_setup():
+#	print("Scene setup being run on dialogue_parser")
 	var scene_name = get_tree().get_current_scene().scene_name
 	print("Scene name is " + scene_name)
-	
 	
 	sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
 	events = load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
@@ -36,6 +41,10 @@ func _ready():
 		print("ERROR: events file has errors")
 	if(typeof(experiences) != TYPE_DICTIONARY):
 		print("ERROR: experiences file has errors")
+		
+func run_first_time_setup():
+#	print("First time setup being run on dialogue_parser")
+	game_singleton.get_node("scenechanger").connect("scene_just_changed", self, "run_scene_setup")
 	
 	panelNode = game_singleton.get_node("dialogue_box/Panel")
 	if panelNode == null:
@@ -55,11 +64,15 @@ func _ready():
 	inventorymanager = game_singleton.get_node("inventorymanager")
 	if inventorymanager == null:
 		print("ERROR: No inventorymanager found by dialogueparser")
+	pass
+	
+
 	
 func _process(delta):
-	if isActivated and (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("x")):
+	if isActivated and (Input.is_action_just_pressed("speech") || Input.is_action_just_pressed("x")):
 		
 		if isRunning:
+#			print("dialogue_parser should change dialogue branch")
 			change_dialogue_branch()
 		pass
 		
@@ -110,7 +123,6 @@ func end_dialogue():
 	panelNode.hide()
 	isRunning = false
 	isActivated = false
-	
 	
 func start_dialogue():
 	
