@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/inventory/inventory_menu.gd" type="Script" id=1]
+[ext_resource path="res://UI/inventory/Inventory_Boxes.png" type="Texture" id=2]
+[ext_resource path="res://UI/inventory/Hotbar_Box.png" type="Texture" id=3]
+
+[node name="inventory_menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="inventory_hold" type="TextureRect" parent="."]
+margin_left = 46.6539
+margin_top = 63.8658
+margin_right = 174.654
+margin_bottom = 191.866
+texture = ExtResource( 2 )
+
+[node name="hotbar_1" type="TextureRect" parent="."]
+margin_left = 49.5218
+margin_top = 17.263
+margin_right = 113.522
+margin_bottom = 57.263
+texture = ExtResource( 3 )
+
+[node name="hotbar_2" type="TextureRect" parent="."]
+margin_left = 49.8803
+margin_top = 40.9229
+margin_right = 113.88
+margin_bottom = 80.9229
+texture = ExtResource( 3 )

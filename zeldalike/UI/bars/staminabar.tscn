@@ -1,9 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/staminabar.gd" type="Script" id=1]
-[ext_resource path="res://UI/bar_under.png" type="Texture" id=2]
-[ext_resource path="res://UI/bar_over.png" type="Texture" id=3]
-[ext_resource path="res://UI/bar_progress.png" type="Texture" id=4]
+[ext_resource path="res://UI/bars/staminabar.gd" type="Script" id=1]
+[ext_resource path="res://UI/bars/bar_under.png" type="Texture" id=2]
+[ext_resource path="res://UI/bars/bar_over.png" type="Texture" id=3]
+[ext_resource path="res://UI/bars/bar_progress.png" type="Texture" id=4]
+
+
+
+
 
 [node name="staminabar" type="Control"]
 anchor_right = 1.0
