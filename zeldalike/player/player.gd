@@ -810,25 +810,11 @@ func create_stamina_drain_kickout():
 #	print("kicked out of using run through stamina drain")
 
 func assign_movedir_from_input():
+	movedir = dir.direction_from_input()
 	
-	var LEFT : bool = Input.is_action_pressed("left")
-	var RIGHT : bool = Input.is_action_pressed("right")
-	var UP : bool = Input.is_action_pressed("up")
-	var DOWN : bool = Input.is_action_pressed("down")
 	
-	if LEFT:
-		movedir.x = -1
-	elif RIGHT:
-		movedir.x = 1
-	else:
-		movedir.x = 0
-	
-	if UP:
-		movedir.y = -1
-	elif DOWN:
-		movedir.y = 1
-	else:
-		movedir.y = 0
+		
+
 
 func set_facedir():
 #	var closestdistance = 0

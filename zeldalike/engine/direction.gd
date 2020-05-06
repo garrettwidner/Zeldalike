@@ -26,6 +26,56 @@ func randhor():
 		2: 
 			return RIGHT
 			
+func direction_from_input():
+	
+	var direction = Vector2()
+	
+	var LEFT : bool = Input.is_action_pressed("left")
+	var RIGHT : bool = Input.is_action_pressed("right")
+	var UP : bool = Input.is_action_pressed("up")
+	var DOWN : bool = Input.is_action_pressed("down")
+	
+	if LEFT:
+		direction.x = -1
+	elif RIGHT:
+		direction.x = 1
+	else:
+		direction.x = 0
+	
+	if UP:
+		direction.y = -1
+	elif DOWN:
+		direction.y = 1
+	else:
+		direction.y = 0
+		
+	return direction
+	
+func direction_just_pressed_from_input():
+	var direction = Vector2()
+	
+	var LEFT : bool = Input.is_action_just_pressed("left")
+	var RIGHT : bool = Input.is_action_just_pressed("right")
+	var UP : bool = Input.is_action_just_pressed("up")
+	var DOWN : bool = Input.is_action_just_pressed("down")
+	
+	if LEFT:
+		direction.x = -1
+	elif RIGHT:
+		direction.x = 1
+	else:
+		direction.x = 0
+	
+	if UP:
+		direction.y = -1
+	elif DOWN:
+		direction.y = 1
+	else:
+		direction.y = 0
+		
+	return direction
+	
+			
 func closest_cardinal(v : Vector2):
 	if v == Vector2(0,0):
 		return v

@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://UI/item_notification.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/dialogue_box.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/screencover.tscn" type="PackedScene" id=6]
-[ext_resource path="res://UI/scenechanger.gd" type="Script" id=7]
-[ext_resource path="res://UI/inventory/item_box.tscn" type="PackedScene" id=8]
-[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=9]
-
+[ext_resource path="res://UI/item_notification.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/dialogue_box.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/screencover.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/scenechanger.gd" type="Script" id=6]
+[ext_resource path="res://UI/inventory/item_box.tscn" type="PackedScene" id=7]
+[ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/inventory/inventory_menu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "black"
@@ -76,26 +76,24 @@ script = ExtResource( 1 )
 
 [node name="GUI" parent="." instance=ExtResource( 2 )]
 
-[node name="inventorymanager" parent="." instance=ExtResource( 3 )]
-
-[node name="item_notification" parent="." instance=ExtResource( 4 )]
+[node name="item_notification" parent="." instance=ExtResource( 3 )]
 margin_left = 69.5396
 margin_top = 51.2803
 margin_right = 69.5396
 margin_bottom = 51.2803
 
-[node name="dialogue_box" parent="." instance=ExtResource( 5 )]
+[node name="dialogue_box" parent="." instance=ExtResource( 4 )]
 margin_left = 15.8445
 margin_top = 79.2223
 margin_right = 15.8445
 margin_bottom = 79.2223
 
-[node name="screencover" parent="." instance=ExtResource( 6 )]
+[node name="screencover" parent="." instance=ExtResource( 5 )]
 
 [node name="scenechanger" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 
 [node name="anim" type="AnimationPlayer" parent="scenechanger"]
 anims/black = SubResource( 1 )
@@ -116,6 +114,10 @@ __meta__ = {
 
 [node name="timer" type="Timer" parent="scenechanger"]
 
-[node name="item_box" parent="." instance=ExtResource( 8 )]
+[node name="item_box" parent="." instance=ExtResource( 7 )]
 
-[node name="dialogue_parser" parent="." instance=ExtResource( 9 )]
+[node name="dialogue_parser" parent="." instance=ExtResource( 8 )]
+
+[node name="inventory_menu" parent="." instance=ExtResource( 9 )]
+
+[node name="inventorymanager" parent="." instance=ExtResource( 10 )]
