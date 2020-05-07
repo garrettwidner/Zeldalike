@@ -32,6 +32,8 @@ onready var cursor_resource = load("res://UI/inventory/cursor.tscn")
 var cursor
 var cursor_grid_position = Vector2(0,0)
 var current_UI_BOX
+#var current_slot_count
+#var current_menu_name
 
 onready var inventory_ui = get_node("inventory_hold")
 const INV_START_POS = Vector2(0,9)
@@ -59,26 +61,17 @@ func _ready():
 #	inventory_ui.hide()
 #	hotbar_1.hide()
 #	hotbar_2.hide()
-	current_UI_BOX = UI_BOX.INV
 
+	current_UI_BOX = UI_BOX.INV
 	create_cursor()
 	
 func create_cursor():
 	cursor = cursor_resource.instance()
-	
-#	var scene = get_tree().get_current_scene()
-#	cursor.set_owner(self)
-#	cursor.set_owner(scene)
-
 
 	add_child(cursor)
 	cursor.rect_position = inventory_ui.rect_position + CURSOR_OFFSET
 	cursor_grid_position = Vector2(0,0)
-	
-	place_cursor(Vector2(2,2))
-
-#	cursor.rect_position = Vector2(30,30)
-	print("Added cursor")
+	place_cursor(Vector2(0,0))
 	
 func _process(delta):
 	move_cursor()
@@ -126,9 +119,11 @@ func inv_box_movement_logic(direction):
 			cursor.rect_position.y -= SLOT_WIDTH
 			cursor_grid_position.y = cursor_grid_position.y - 1
 		else:
-			current_UI_BOX = UI_BOX.HOTBAR2
-			cursor.rect_position = hotbar_2.rect_position + CURSOR_OFFSET
-			cursor_grid_position = Vector2(0,0)
+			var new_grid_position = Vector2(cursor_grid_position.x, 0)
+			if is_grid_position_valid(new_grid_position, UI_BOX.HOTBAR2):
+				current_UI_BOX = UI_BOX.HOTBAR2
+				cursor_grid_position = new_grid_position
+				place_cursor(cursor_grid_position)
 			
 func hotbar_1_movement_logic(direction):
 	if direction == dir.RIGHT:
@@ -140,9 +135,11 @@ func hotbar_1_movement_logic(direction):
 			cursor.rect_position.x -= SLOT_WIDTH
 			cursor_grid_position.x -= 1
 	elif direction == dir.DOWN:
-		current_UI_BOX = UI_BOX.HOTBAR2
-		cursor.rect_position = hotbar_2.rect_position + CURSOR_OFFSET
-		cursor_grid_position = Vector2(0,0)
+		var new_grid_position = Vector2(cursor_grid_position.x, 0)
+		if is_grid_position_valid(new_grid_position, UI_BOX.HOTBAR2):
+			current_UI_BOX = UI_BOX.HOTBAR2
+			cursor_grid_position = new_grid_position
+			place_cursor(cursor_grid_position)
 	
 func hotbar_2_movement_logic(direction):
 	if direction == dir.RIGHT:
@@ -154,43 +151,59 @@ func hotbar_2_movement_logic(direction):
 			cursor.rect_position.x -= SLOT_WIDTH
 			cursor_grid_position.x -= 1
 	elif direction == dir.DOWN:
-		current_UI_BOX = UI_BOX.INV
-		cursor.rect_position = inventory_ui.rect_position + CURSOR_OFFSET
-		cursor_grid_position = Vector2(0,0)
+		var new_grid_position = Vector2(cursor_grid_position.x, 0)
+		if is_grid_position_valid(new_grid_position, UI_BOX.INV):
+			current_UI_BOX = UI_BOX.INV
+			cursor_grid_position = new_grid_position
+			place_cursor(cursor_grid_position)
 	elif direction == dir.UP:
-		current_UI_BOX = UI_BOX.HOTBAR1
-		cursor.rect_position = hotbar_1.rect_position + CURSOR_OFFSET
-		cursor_grid_position = Vector2(0,0)
+		var new_grid_position = Vector2(cursor_grid_position.x, 0)
+		if is_grid_position_valid(new_grid_position, UI_BOX.HOTBAR1):
+			current_UI_BOX = UI_BOX.HOTBAR1
+			cursor_grid_position = new_grid_position
+			place_cursor(cursor_grid_position)
 	pass
 	
 func place_cursor(menu_coordinates):
-	match current_UI_BOX:
-		UI_BOX.INV:
-			if menu_coordinates.x > INV_SLOT_COUNT.x || menu_coordinates.x < 0 || menu_coordinates.y > INV_SLOT_COUNT.y || menu_coordinates.y < 0:
-				print("Warning: Given menu coordinates are invalid for inventory box")
-				return
-			cursor.rect_position = inventory_ui.rect_position + CURSOR_OFFSET
-			cursor.rect_position += menu_coordinates * SLOT_WIDTH
-			cursor_grid_position = menu_coordinates
-		UI_BOX.HOTBAR1:
-			if menu_coordinates.x > HOTBAR_1_SLOT_COUNT.x || menu_coordinates.x < 0 || menu_coordinates.y > HOTBAR_1_SLOT_COUNT.y || menu_coordinates.y < 0:
-				print("Warning: Given menu coordinates are invalid for hotbar 1")
-				return
-			cursor.rect_position = hotbar_1.rect_position + CURSOR_OFFSET
-			cursor.rect_position += menu_coordinates * SLOT_WIDTH
-			cursor_grid_position = menu_coordinates
-		UI_BOX.HOTBAR2:
-			if menu_coordinates.x > HOTBAR_2_SLOT_COUNT.x || menu_coordinates.x < 0 || menu_coordinates.y > HOTBAR_2_SLOT_COUNT.y || menu_coordinates.y < 0:
-				print("Warning: Given menu coordinates are invalid for hotbar 2")
-				return
-			cursor.rect_position = hotbar_2.rect_position + CURSOR_OFFSET
-			cursor.rect_position += menu_coordinates * SLOT_WIDTH
-			cursor_grid_position = menu_coordinates
+	
+	if(is_grid_position_valid(menu_coordinates, current_UI_BOX)):
+		var rect_position
+	
+		match current_UI_BOX:
+			UI_BOX.INV:
+				rect_position = inventory_ui.rect_position
+			UI_BOX.HOTBAR1:
+				rect_position = hotbar_1.rect_position
+			UI_BOX.HOTBAR2:
+				rect_position = hotbar_2.rect_position
+				
+		cursor.rect_position = rect_position + CURSOR_OFFSET
+		cursor.rect_position += menu_coordinates * SLOT_WIDTH
+		cursor_grid_position = menu_coordinates
 	
 	pass
 	
+func is_grid_position_valid(grid_position, menu):
+	var slot_count
+	var menu_name
+	match menu:
+		UI_BOX.INV:
+			slot_count = INV_SLOT_COUNT
+			menu_name = "inventory"
+		UI_BOX.HOTBAR1:
+			slot_count = HOTBAR_1_SLOT_COUNT
+			menu_name = "hotbar 1"
+		UI_BOX.HOTBAR2:
+			slot_count = HOTBAR_2_SLOT_COUNT
+			menu_name = "hotbar 2"
+			
+	if grid_position.x < slot_count.x && grid_position.x >= 0:
+		if grid_position.y < slot_count.y && grid_position.y >= 0:
+#			print("Grid position " + String(grid_position) + " is valid on " + menu_name)
+			return true
 	
-	
+#	print("Grid position " + String(grid_position) + " is NOT valid on " + menu_name)
+	return false
 	
 	
 
