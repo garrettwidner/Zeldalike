@@ -28,19 +28,22 @@ func _ready():
 		
 func run_scene_setup():
 #	print("Scene setup being run on dialogue_parser")
-	var scene_name = get_tree().get_current_scene().scene_name
-	print("Scene name is " + scene_name)
-	
-	sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
-	events = load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
-	experiences = load_file_as_JSON("res://dialogue/data/experiences.json")
-	
-	if(typeof(sceneStory) != TYPE_DICTIONARY):
-		print("ERROR: story file has errors")
-	if(typeof(events) != TYPE_DICTIONARY):
-		print("ERROR: events file has errors")
-	if(typeof(experiences) != TYPE_DICTIONARY):
-		print("ERROR: experiences file has errors")
+	if get_tree().get_current_scene().name == "Level":
+		var scene_name = get_tree().get_current_scene().scene_name
+		print("Scene name is " + scene_name)
+		
+		sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
+		events = load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
+		experiences = load_file_as_JSON("res://dialogue/data/experiences.json")
+		
+		if(typeof(sceneStory) != TYPE_DICTIONARY):
+			print("ERROR: story file has errors")
+		if(typeof(events) != TYPE_DICTIONARY):
+			print("ERROR: events file has errors")
+		if(typeof(experiences) != TYPE_DICTIONARY):
+			print("ERROR: experiences file has errors")
+	else:
+		print("Scene being tested is likely a test scene, no Level node")
 		
 func run_first_time_setup():
 #	print("First time setup being run on dialogue_parser")

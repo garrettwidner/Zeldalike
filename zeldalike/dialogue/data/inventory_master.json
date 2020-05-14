@@ -1,0 +1,16 @@
+{
+	"list": {
+		"veil":{
+			"type":"usable"
+		},
+		"bow":{
+			"type":"usable"
+		},
+		"arrow":{
+			"type":"collectible"
+		},
+		"sword":{
+			"type":"usable"
+		}
+	}
+}

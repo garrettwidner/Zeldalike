@@ -1,11 +1,19 @@
 extends Node2D
 
+#Handles all item requests, storage/deletion, and interaction. 
+
 var inventory = {}
+var inventory_master = {}
 var item_notification_panel
 var item_notification_text
 
+signal on_item_added
+
+var inv_menu
+
 func _ready():
 	inventory = load_file_as_JSON("res://dialogue/data/inventory.json")
+	inventory_master = load_file_as_JSON("res://dialogue/data/inventory_master.json")
 	
 	item_notification_panel = get_node("../item_notification/Panel")
 	item_notification_text = get_node("../item_notification/Panel/MarginContainer/Label")
@@ -17,11 +25,16 @@ func _ready():
 		if item_notification_panel.is_visible():
 			item_notification_panel.hide()
 			
-	
+	inv_menu = get_node("../inventory_menu")
+	connect("on_item_added", inv_menu, "add_to_inventory")
 
 func add_test_items():
-	add_item("veil", "collectible")
+	add_item("veil")
 	pass
+	
+func _process(delta):
+	if Input.is_action_just_pressed("action"):
+		add_test_items()
 
 func has(item):
 	if inventory["items"].has(item):
@@ -31,22 +44,30 @@ func has(item):
 func get_item_dict():
 	return inventory["items"]
 
-func add_item(item, type, count = 1):
-	print(item + " of type " + type + " added to inventory") 
+func add_item(item, count = 1):
+	if(!inventory_master["list"].has(item)):
+		print("Warning: '" + item + "' not found in inventory master list")
+		return
+	
+	var item_entry = inventory_master["list"][item]
+	var type = item_entry["type"]
+	print("Found item of type " + type)
 	
 	if type == "collectible":
-		
 		if has(item):
-			
 			inventory["items"][item]["count"] = inventory["items"][item] + count
 		else:
 			inventory["items"][item]["type"] = type
 			inventory["items"][item]["count"] = count
+			emit_signal("on_item_added", item)
+			
 			
 	if type == "usable":
 		if has(item):
 			pass
 		else:
+			emit_signal("on_item_added", item)
+			inventory["items"][item] = {}
 			inventory["items"][item] = type
 			
 

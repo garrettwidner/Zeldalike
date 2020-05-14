@@ -13,7 +13,6 @@ var sprinkleoffset : float = 10
 var sprinkleresource = preload("res://items/sprinkler/sprinkle.tscn")
 
 var dialogueparser
-#var inventorymanager
 
 #var interacttarget
 var interacttargets = []
@@ -340,6 +339,11 @@ func state_default(delta):
 	
 	
 	movement_loop()
+	
+func use_item(item):
+	var use_item = inventory
+	
+	pass
 	
 func get_item_at_button(button):
 	if button == "item1":
@@ -696,7 +700,7 @@ func state_holding(delta):
 		held_item = null
 		set_state_default()
 		
-	elif Input.is_action_just_pressed("a"):
+	elif Input.is_action_just_pressed("speech"):
 		if held_item.is_in_group("edible"):
 			is_eating = true
 			facedir = dir.DOWN
@@ -812,10 +816,6 @@ func create_stamina_drain_kickout():
 func assign_movedir_from_input():
 	movedir = dir.direction_from_input()
 	
-	
-		
-
-
 func set_facedir():
 #	var closestdistance = 0
 #	for body in $sightbox.get_overlapping_bodies():
