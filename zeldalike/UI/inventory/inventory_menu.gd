@@ -4,38 +4,23 @@ extends Control
 # responsible for handling display and cycling through items through all UI.
 # includes keeping track of the 'order' of all items in the inventory and hotbars
 
-const ICON_PATH = "res://UI/inventory/"
+const ICON_PREFIX = "res://UI/inventory/"
+const ICON_SUFFIX = "_icon.png"
 
 const SLOT_WIDTH = 19
 const CURSOR_OFFSET = Vector2(16,15)
 const ICON_OFFSET = Vector2(-2,-3)
+const HELD_ICON_OFFSET = Vector2(-3,-4)
 
 enum UI_BOX {INV, HOTBAR1, HOTBAR2}
-
-const ITEMS = {
-	"sword": {
-		"icon": ICON_PATH + "sword_icon.png",
-		"equippable": true  
-		},
-	"bow": {
-		"icon": ICON_PATH + "bow_icon.png",
-		"equippable": true
-		},
-	"cover": {
-		"icon": ICON_PATH + "cover_icon.png",
-		"equippable": true
-		},
-	"error": {
-		"icon": ICON_PATH + "error_icon.png",
-		"equippable": true
-		}
-	}
 	
 onready var CURSOR_ICON = load("res://UI/inventory/cursor.png")
 onready var cursor_resource = load("res://UI/inventory/cursor.tscn") 
 var cursor
 var cursor_grid_position = Vector2(0,0)
 var current_UI_BOX
+var held_icon = null
+
 #var current_slot_count
 #var current_menu_name
 
@@ -58,15 +43,8 @@ const HOTBAR_2_SLOT_COUNT = Vector2(3,1)
 
 func add_to_inventory(item):
 	print("Need to add " + item + " to inventory menu")
-	var open_slot = get_first_open_inv_slot()
-	var icon_object = create_icon(item)
+	create_icon(item)
 	pass
-	
-func get_item(item_name):
-	if item_name in ITEMS:
-		return ITEMS[item_name]
-	else:
-		return ITEMS["error"]
 
 
 func _ready():
@@ -77,6 +55,9 @@ func _ready():
 	current_UI_BOX = UI_BOX.INV
 	create_cursor()
 	create_inv_matrix()
+	
+	create_icon("bow")
+	create_icon("veil")
 
 	
 func create_cursor():
@@ -98,8 +79,8 @@ func create_inv_matrix():
 func create_icon(item_name):
 	var icon_object
 	var new_slot = get_first_open_inv_slot()
-	if new_slot != null && ITEMS.has(item_name):
-		var icon = load(ITEMS[item_name]["icon"])
+	if new_slot != null:
+		var icon = load(ICON_PREFIX + item_name + ICON_SUFFIX)
 		icon_object = icon_resource.instance()
 		
 		add_child(icon_object)
@@ -113,18 +94,47 @@ func create_icon(item_name):
 		
 	return icon_object
 	
+
 func _process(delta):
 	move_cursor()
+	move_held_icon()
 	
 	if Input.is_action_just_pressed("item1"):
 		print("-- Cursor grid position: " + String(cursor_grid_position))
 	if Input.is_action_just_pressed("item2"):
+		pick_icon_from_inventory()
 #		place_cursor(Vector2(1,0))
-		create_icon("bow")
-		print("Trying to create bow icon")
+#		create_icon("bow")
+#		print("Trying to create bow icon")
 #		get_icon_at_grid_position(Vector2(0,0), UI_BOX.INV)
+		pass
 	
 	pass
+	
+func pick_icon_from_inventory():
+	if current_UI_BOX == UI_BOX.INV:
+		if held_icon == null:
+			var icon_at_current_slot = inv_matrix[cursor_grid_position.x][cursor_grid_position.y]
+			if icon_at_current_slot != null:
+				var icon = remove_and_get_icon_at_slot(cursor_grid_position)
+				held_icon = icon
+				print("Removed " + icon.name)
+		else:
+			var icon_at_current_slot = inv_matrix[cursor_grid_position.x][cursor_grid_position.y]
+			if icon_at_current_slot != null:
+				var icon = remove_and_get_icon_at_slot(cursor_grid_position)
+				place_icon_in_inventory(held_icon, cursor_grid_position)
+				held_icon = icon
+			else:
+				place_icon_in_inventory(held_icon, cursor_grid_position)
+				held_icon = null
+			pass
+		
+func remove_and_get_icon_at_slot(slot):
+	var icon = inv_matrix[slot.x][slot.y]
+	if icon != null:
+		inv_matrix[slot.x][slot.y] = null
+		return icon
 	
 func move_cursor():
 	var direction = dir.direction_just_pressed_from_input()
@@ -144,9 +154,11 @@ func move_cursor():
 	
 	pass
 	
-func get_first_open_inv_slot():
-	#TODO: Make it so that the full inventory fills, not just one away from the edge
+func move_held_icon():
+	if held_icon != null:
+		held_icon.rect_position = cursor.rect_position + HELD_ICON_OFFSET
 	
+func get_first_open_inv_slot():
 	for y in range (inv_matrix_height):
 		for x in range (inv_matrix_width):
 			if inv_matrix[x][y] == null:

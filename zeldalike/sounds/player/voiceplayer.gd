@@ -13,6 +13,5 @@ func play_rand_oh():
 	var rand_oh_index = floor(rand_range(0, soundcount))
 	stream = ohs[rand_oh_index]
 	play()
-#	print("Cracksound played")
 	pass
 	

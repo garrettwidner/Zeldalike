@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cover_icon.png-a29cd405646342db0d4edc3bf714da75.stex"
+path="res://.import/veil_icon.png-5f9c59e04751edb61e87e8e36783f51d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/cover_icon.png"
-dest_files=[ "res://.import/cover_icon.png-a29cd405646342db0d4edc3bf714da75.stex" ]
+source_file="res://UI/inventory/veil_icon.png"
+dest_files=[ "res://.import/veil_icon.png-5f9c59e04751edb61e87e8e36783f51d.stex" ]
 
 [params]
 

@@ -309,9 +309,13 @@ func state_default(delta):
 		#interact with interactible you're facing
 		var successfully_spoke = speak_to_interactibles()
 		if !successfully_spoke:
-			use_item(speech_resource)
-			set_state_speech_animating()
-			emit_signal("on_spoke")
+			if speech_resource != null:
+				use_item(speech_resource)
+				set_state_speech_animating()
+				emit_signal("on_spoke")
+				print("Speech item should play")
+			else:
+				print("Speech resource not loaded correctly")
 			
 	if Input.is_action_pressed("y"):
 		is_covering = true;
@@ -339,11 +343,12 @@ func state_default(delta):
 	
 	
 	movement_loop()
-	
-func use_item(item):
-	var use_item = inventory
-	
-	pass
+
+
+#func use_item(item):
+#	var use_item = inventory
+#
+#	pass
 	
 func get_item_at_button(button):
 	if button == "item1":
