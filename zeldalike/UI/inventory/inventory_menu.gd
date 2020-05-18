@@ -8,7 +8,7 @@ const ICON_PATH = "res://UI/inventory/"
 
 const SLOT_WIDTH = 19
 const CURSOR_OFFSET = Vector2(16,15)
-const ICON_OFFSET = Vector2(1,2)
+const ICON_OFFSET = Vector2(-2,-3)
 
 enum UI_BOX {INV, HOTBAR1, HOTBAR2}
 
@@ -97,7 +97,8 @@ func create_inv_matrix():
 	
 func create_icon(item_name):
 	var icon_object
-	if ITEMS.has(item_name):
+	var new_slot = get_first_open_inv_slot()
+	if new_slot != null && ITEMS.has(item_name):
 		var icon = load(ITEMS[item_name]["icon"])
 		icon_object = icon_resource.instance()
 		
@@ -106,10 +107,9 @@ func create_icon(item_name):
 		icon_object.rect_position = inventory_ui.rect_position
 		icon_object.get_node("TextureRect").texture = icon
 		#------------------------------------------------> TODO: Add icon to inventory <---
-		var new_slot = get_first_open_inv_slot()
-		if new_slot != null:
-			print("New slot: " + String(new_slot))
-			place_icon_in_inventory(icon_object, new_slot)
+		
+		print("New slot: " + String(new_slot))
+		place_icon_in_inventory(icon_object, new_slot)
 		
 	return icon_object
 	

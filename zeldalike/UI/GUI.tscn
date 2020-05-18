@@ -3,7 +3,6 @@
 [ext_resource path="res://UI/bars/healthbar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/bars/staminabar.tscn" type="PackedScene" id=2]
 
-
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
 custom_constants/margin_right = 2
