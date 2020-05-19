@@ -33,8 +33,9 @@ func add_test_items():
 	pass
 	
 func _process(delta):
-	if Input.is_action_just_pressed("action"):
-		add_test_items()
+#	if Input.is_action_just_pressed("action"):
+#		add_test_items()
+	pass
 
 func has(item):
 	if inventory["items"].has(item):

@@ -30,16 +30,16 @@ onready var inventory_ui = get_node("inventory_hold")
 const INV_START_POS = Vector2(0,9)
 const INV_SLOT_COUNT = Vector2(6,3)
 var inv_matrix = []
-const inv_matrix_width = 6
-const inv_matrix_height = 3
 
-onready var hotbar_1 = get_node("hotbar_1")
+onready var hotbar_1_ui = get_node("hotbar_1")
 const HOTBAR_1_START_POS = Vector2(1,5)
 const HOTBAR_1_SLOT_COUNT = Vector2(3,1)
+var hotbar_1 = []
 
-onready var hotbar_2 = get_node("hotbar_2")
+onready var hotbar_2_ui = get_node("hotbar_2")
 const HOTBAR_2_START_POS = Vector2(2,8)
 const HOTBAR_2_SLOT_COUNT = Vector2(3,1)
+var hotbar_2 = []
 
 func add_to_inventory(item):
 	print("Need to add " + item + " to inventory menu")
@@ -55,6 +55,8 @@ func _ready():
 	current_UI_BOX = UI_BOX.INV
 	create_cursor()
 	create_inv_matrix()
+	create_hotbar1()
+	create_hotbar2()
 	
 	create_icon("bow")
 	create_icon("veil")
@@ -69,12 +71,20 @@ func create_cursor():
 	place_cursor(Vector2(0,0))
 	
 func create_inv_matrix():
-	for x in range(inv_matrix_width):
+	for x in range(INV_SLOT_COUNT.x):
 			inv_matrix.append([])
 			inv_matrix[x] = []
-			for y in range(inv_matrix_height):
+			for y in range(INV_SLOT_COUNT.y):
 				inv_matrix[x].append([])
 				inv_matrix[x][y] = null
+				
+func create_hotbar1():
+	for x in range(HOTBAR_1_SLOT_COUNT.x):
+		hotbar_1[x] = null
+		
+func create_hotbar2():
+	for x in range(HOTBAR_2_SLOT_COUNT.x):
+		hotbar_2[x] = null
 	
 func create_icon(item_name):
 	var icon_object
@@ -100,8 +110,10 @@ func _process(delta):
 	move_held_icon()
 	
 	if Input.is_action_just_pressed("item1"):
-		print("-- Cursor grid position: " + String(cursor_grid_position))
+#		print("-- Cursor grid position: " + String(cursor_grid_position))
+		pass
 	if Input.is_action_just_pressed("item2"):
+		print("Should pick item from inventory")
 		pick_icon_from_inventory()
 #		place_cursor(Vector2(1,0))
 #		create_icon("bow")
@@ -114,23 +126,29 @@ func _process(delta):
 func pick_icon_from_inventory():
 	if current_UI_BOX == UI_BOX.INV:
 		if held_icon == null:
-			var icon_at_current_slot = inv_matrix[cursor_grid_position.x][cursor_grid_position.y]
+			var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, current_UI_BOX)
 			if icon_at_current_slot != null:
-				var icon = remove_and_get_icon_at_slot(cursor_grid_position)
+				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 				held_icon = icon
 				print("Removed " + icon.name)
 		else:
-			var icon_at_current_slot = inv_matrix[cursor_grid_position.x][cursor_grid_position.y]
+			var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, current_UI_BOX)
 			if icon_at_current_slot != null:
-				var icon = remove_and_get_icon_at_slot(cursor_grid_position)
+				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 				place_icon_in_inventory(held_icon, cursor_grid_position)
 				held_icon = icon
 			else:
 				place_icon_in_inventory(held_icon, cursor_grid_position)
 				held_icon = null
 			pass
+	elif current_UI_BOX == UI_BOX.HOTBAR1:
+		if held_icon == null:
+			pass
+		pass
+	elif current_UI_BOX == UI_BOX.HOTBAR2:
+		pass
 		
-func remove_and_get_icon_at_slot(slot):
+func remove_and_get_icon_at_inv_matrix_slot(slot):
 	var icon = inv_matrix[slot.x][slot.y]
 	if icon != null:
 		inv_matrix[slot.x][slot.y] = null
@@ -159,8 +177,8 @@ func move_held_icon():
 		held_icon.rect_position = cursor.rect_position + HELD_ICON_OFFSET
 	
 func get_first_open_inv_slot():
-	for y in range (inv_matrix_height):
-		for x in range (inv_matrix_width):
+	for y in range (INV_SLOT_COUNT.y):
+		for x in range (INV_SLOT_COUNT.x):
 			if inv_matrix[x][y] == null:
 				return Vector2(x,y)
 	
@@ -254,9 +272,9 @@ func get_rect_position(current_UI_BOX):
 			UI_BOX.INV:
 				return inventory_ui.rect_position
 			UI_BOX.HOTBAR1:
-				return hotbar_1.rect_position
+				return hotbar_1_ui.rect_position
 			UI_BOX.HOTBAR2:
-				return hotbar_2.rect_position
+				return hotbar_2_ui.rect_position
 	
 	print("Warning: Invalid UI_BOX given")
 	return
@@ -281,18 +299,15 @@ func is_grid_position_valid(grid_position, menu):
 #Returns the item at the grid position. Returns null if no item present.
 func get_icon_at_grid_position(grid_position, menu):
 	if !is_grid_position_valid(grid_position, menu):
+		print("Error: Grid position is not valid")
 		return
 	match menu:
 		UI_BOX.INV:
-			var found_icon = inv_matrix[grid_position.x][grid_position.y]
-			if found_icon == null:
-				return
-			else:
-				return found_icon
+			return inv_matrix[grid_position.x][grid_position.y]
 		UI_BOX.HOTBAR1:
-			pass
+			return hotbar1[grid_position.x]
 		UI_BOX.HOTBAR2:
-			pass
+			return hotbar2[grid_position.x]
 	print("Error: Invalid menu type")
 	return " -error- " 
 	
