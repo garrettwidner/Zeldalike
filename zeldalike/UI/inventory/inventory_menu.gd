@@ -73,18 +73,17 @@ func create_cursor():
 func create_inv_matrix():
 	for x in range(INV_SLOT_COUNT.x):
 			inv_matrix.append([])
-			inv_matrix[x] = []
 			for y in range(INV_SLOT_COUNT.y):
-				inv_matrix[x].append([])
+				inv_matrix[x].append(null)
 				inv_matrix[x][y] = null
 				
 func create_hotbar1():
 	for x in range(HOTBAR_1_SLOT_COUNT.x):
-		hotbar_1[x] = null
+		hotbar_1.append(null)
 		
 func create_hotbar2():
 	for x in range(HOTBAR_2_SLOT_COUNT.x):
-		hotbar_2[x] = null
+		hotbar_2.append(null)
 	
 func create_icon(item_name):
 	var icon_object
@@ -100,7 +99,7 @@ func create_icon(item_name):
 		#------------------------------------------------> TODO: Add icon to inventory <---
 		
 		print("New slot: " + String(new_slot))
-		place_icon_in_inventory(icon_object, new_slot)
+		place_icon_in_inv(icon_object, new_slot)
 		
 	return icon_object
 	
@@ -110,11 +109,11 @@ func _process(delta):
 	move_held_icon()
 	
 	if Input.is_action_just_pressed("item1"):
-#		print("-- Cursor grid position: " + String(cursor_grid_position))
+		print_inventory_contents()
 		pass
 	if Input.is_action_just_pressed("item2"):
-		print("Should pick item from inventory")
-		pick_icon_from_inventory()
+#		print("Should pick item from inventory")
+		pick_icon()
 #		place_cursor(Vector2(1,0))
 #		create_icon("bow")
 #		print("Trying to create bow icon")
@@ -123,35 +122,113 @@ func _process(delta):
 	
 	pass
 	
-func pick_icon_from_inventory():
-	if current_UI_BOX == UI_BOX.INV:
-		if held_icon == null:
-			var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, current_UI_BOX)
-			if icon_at_current_slot != null:
-				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
-				held_icon = icon
-				print("Removed " + icon.name)
-		else:
-			var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, current_UI_BOX)
-			if icon_at_current_slot != null:
-				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
-				place_icon_in_inventory(held_icon, cursor_grid_position)
-				held_icon = icon
+func print_inventory_contents():
+	print("Inv Menu Contents: ")
+	for y in range(INV_SLOT_COUNT.y):
+		for x in range(INV_SLOT_COUNT.x):
+			if inv_matrix[x][y] == null:
+				print("Item at position " + String(Vector2(x,y)) + " was _ _ _")
 			else:
-				place_icon_in_inventory(held_icon, cursor_grid_position)
-				held_icon = null
-			pass
+				print("Item at position " + String(Vector2(x,y)) + " was " + inv_matrix[x][y].name)
+	print("Hotbar1 Contents: ")
+	for x in range(HOTBAR_1_SLOT_COUNT.x):
+		if hotbar_1[x] == null:
+			print("Item at position " + String(x) + " was _ _ _")
+		else:
+			print("Item at position " + String(x) + " was " + hotbar_1[x].name)
+			
+	print("Hotbar2 Contents: ")
+	for x in range(HOTBAR_2_SLOT_COUNT.x):
+		if hotbar_2[x] == null:
+			print("Item at position " + String(x) + " was _ _ _")
+		else:
+			print("Item at position " + String(x) + " was " + hotbar_2[x].name)
+	
+func pick_icon():
+	if current_UI_BOX == UI_BOX.INV:
+		pick_icon_from_inv()
 	elif current_UI_BOX == UI_BOX.HOTBAR1:
-		if held_icon == null:
-			pass
-		pass
+		pick_icon_from_hotbar(1)
 	elif current_UI_BOX == UI_BOX.HOTBAR2:
+		pick_icon_from_hotbar(2)
 		pass
 		
+func pick_icon_from_inv():
+	
+	# TODO:! ADD case for where the item being placed is already in the inventory, as in the case
+	#        of removing an item from the hotbar (so it doesn't duplicate)
+	
+	#        Write is_item_in_inv() function to check
+	
+	if held_icon == null:
+		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
+		if icon_at_current_slot != null:
+			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+			held_icon = icon
+	else:
+		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
+		if icon_at_current_slot != null:
+			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+			place_icon_in_inv(held_icon, cursor_grid_position)
+			held_icon = icon
+		else:
+			place_icon_in_inv(held_icon, cursor_grid_position)
+			held_icon = null
+		pass
+		
+func pick_icon_from_hotbar(hotbar_number):
+	var ui_box
+	var hotbar
+	
+	match hotbar_number:
+		1:
+			ui_box = UI_BOX.HOTBAR1
+			hotbar = hotbar_1
+		2:
+			ui_box = UI_BOX.HOTBAR2
+			hotbar = hotbar_2
+	
+	if held_icon == null:
+		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
+		if icon_at_current_slot != null:
+			var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
+			held_icon = icon
+		pass
+	else:
+		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
+		if icon_at_current_slot != null:
+			var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
+			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
+			held_icon = icon
+		else:
+			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
+			held_icon = null
+			pass
+		pass
+	
+	pass
+		
 func remove_and_get_icon_at_inv_matrix_slot(slot):
-	var icon = inv_matrix[slot.x][slot.y]
+	var icon = get_icon_at_grid_position(slot, UI_BOX.INV)
 	if icon != null:
 		inv_matrix[slot.x][slot.y] = null
+		return icon
+		
+func remove_and_get_icon_at_hotbar_slot(slot, hotbar_number):
+	var ui_box
+	var hotbar
+	
+	match hotbar_number:
+		1:
+			ui_box = UI_BOX.HOTBAR1
+			hotbar = hotbar_1
+		2:
+			ui_box = UI_BOX.HOTBAR2
+			hotbar = hotbar_2
+	
+	var icon = get_icon_at_grid_position(slot, ui_box)
+	if icon != null:
+		hotbar[slot.x] = null
 		return icon
 	
 func move_cursor():
@@ -256,16 +333,34 @@ func place_cursor(menu_coordinates):
 	
 	pass
 	
-func place_icon_in_inventory(icon, menu_coordinates):
-	if(is_grid_position_valid(menu_coordinates, current_UI_BOX)):
-		var rect_position = get_rect_position(current_UI_BOX)
+func place_icon_in_inv(icon, menu_coordinates):
+	if(is_grid_position_valid(menu_coordinates, UI_BOX.INV)):
+		var rect_position = get_rect_position(UI_BOX.INV)
 	
 		icon.rect_position = rect_position + ICON_OFFSET
 		icon.rect_position += menu_coordinates * SLOT_WIDTH
 		inv_matrix[menu_coordinates.x][menu_coordinates.y] = icon
 	pass
 
+func place_icon_in_hotbar(icon, menu_coordinates, hotbar_number):
+	var ui_box
+	var hotbar
 	
+	match hotbar_number:
+		1:
+			ui_box = UI_BOX.HOTBAR1
+			hotbar = hotbar_1
+		2:
+			ui_box = UI_BOX.HOTBAR2
+			hotbar = hotbar_2
+			
+	if(is_grid_position_valid(menu_coordinates, ui_box)):
+		var rect_position = get_rect_position(ui_box)
+	
+		icon.rect_position = rect_position + ICON_OFFSET
+		icon.rect_position += menu_coordinates * SLOT_WIDTH
+		hotbar[menu_coordinates.x] = icon
+	pass
 
 func get_rect_position(current_UI_BOX):
 	match current_UI_BOX:
@@ -305,9 +400,9 @@ func get_icon_at_grid_position(grid_position, menu):
 		UI_BOX.INV:
 			return inv_matrix[grid_position.x][grid_position.y]
 		UI_BOX.HOTBAR1:
-			return hotbar1[grid_position.x]
+			return hotbar_1[grid_position.x]
 		UI_BOX.HOTBAR2:
-			return hotbar2[grid_position.x]
+			return hotbar_2[grid_position.x]
 	print("Error: Invalid menu type")
 	return " -error- " 
 	
