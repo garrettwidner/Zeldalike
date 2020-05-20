@@ -21,6 +21,7 @@ var cursor_grid_position = Vector2(0,0)
 var current_UI_BOX
 var held_icon = null
 
+
 #var current_slot_count
 #var current_menu_name
 
@@ -109,7 +110,8 @@ func _process(delta):
 	move_held_icon()
 	
 	if Input.is_action_just_pressed("item1"):
-		print_inventory_contents()
+#		print_inventory_contents()
+		print("Veil is in inv matrix: " + String(is_item_in_inv("veil")))
 		pass
 	if Input.is_action_just_pressed("item2"):
 #		print("Should pick item from inventory")
@@ -168,14 +170,25 @@ func pick_icon_from_inv():
 	else:
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
 		if icon_at_current_slot != null:
-			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
-			place_icon_in_inv(held_icon, cursor_grid_position)
-			held_icon = icon
+			if is_item_in_inv(held_icon.name):
+				if held_icon.name == icon_at_current_slot.name:
+					held_icon = null
+				elif held_icon.name != icon_at_current_slot.name:
+					#switch held icon with icon in slot, remove extraneous version in inv_matrix
+					remove_and_get_icon_in_inv(held_icon.name)
+					var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+					place_icon_in_inv(held_icon, cursor_grid_position)
+					held_icon = icon
+			else:
+				#switch held icon with icon in slot
+				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+				place_icon_in_inv(held_icon, cursor_grid_position)
+				held_icon = icon
 		else:
 			place_icon_in_inv(held_icon, cursor_grid_position)
 			held_icon = null
 		pass
-		
+
 func pick_icon_from_hotbar(hotbar_number):
 	var ui_box
 	var hotbar
@@ -207,6 +220,15 @@ func pick_icon_from_hotbar(hotbar_number):
 		pass
 	
 	pass
+	
+func is_item_in_inv(item_name):
+	var is_in_inv = false
+	for x in range(INV_SLOT_COUNT.x):
+		for y in range(INV_SLOT_COUNT.y):
+			if inv_matrix[x][y] != null:
+				if inv_matrix[x][y].name == item_name:
+					is_in_inv = true
+	return is_in_inv
 		
 func remove_and_get_icon_at_inv_matrix_slot(slot):
 	var icon = get_icon_at_grid_position(slot, UI_BOX.INV)
@@ -214,6 +236,16 @@ func remove_and_get_icon_at_inv_matrix_slot(slot):
 		inv_matrix[slot.x][slot.y] = null
 		return icon
 		
+func remove_and_get_icon_in_inv(item_name):
+	var icon
+	for x in range(INV_SLOT_COUNT.x):
+		for y in range(INV_SLOT_COUNT.y):
+			if inv_matrix[x][y].name == item_name:
+				icon = inv_matrix[x][y] 
+				inv_matrix[x][y] = null
+				return icon
+	return null
+	
 func remove_and_get_icon_at_hotbar_slot(slot, hotbar_number):
 	var ui_box
 	var hotbar
@@ -378,8 +410,6 @@ func is_grid_position_valid(grid_position, menu):
 	var slot_count = get_slot_count(menu)
 	var menu_name = get_menu_string_name(menu)
 	
-	#--------------- In error, grid position not showing up when creating many icons
-#
 #	print("Grid position: " + String(grid_position))
 #	print("Slot count: " + String(slot_count))
 			
