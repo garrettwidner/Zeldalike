@@ -113,6 +113,7 @@ func create_placeholder_icon(item_name, slot):
 	
 	add_child(icon_object)
 	icon_object.name = item_name
+	print("Placeholder " + icon_object.name + " created.")
 	icon_object.rect_position = inventory_ui.rect_position
 	icon_object.get_node("TextureRect").texture = icon 
 	icon_object.modulate.a = PLACEHOLDER_ALPHA
@@ -127,7 +128,8 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("item1"):
 #		print_inventory_contents()
-		print("Veil is in inv matrix: " + String(is_item_in_inv("veil")))
+#		print("Veil is in inv matrix: " + String(is_item_in_inv("veil")))
+
 		pass
 	if Input.is_action_just_pressed("item2"):
 #		print("Should pick item from inventory")
@@ -172,20 +174,17 @@ func pick_icon():
 		pass
 		
 func pick_icon_from_inv():
-	
-	# TODO:! ADD case for where the item being placed is already in the inventory, as in the case
-	#        of removing an item from the hotbar (so it doesn't duplicate)
-	
-	#        Write is_item_in_inv() function to check
-	
 	if held_icon == null:
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
 		if icon_at_current_slot != null:
 			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position, true)
 			held_icon = icon
 	else:
+		remove_placeholder_icon()
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
+		print("Held icon: " + held_icon.name)
 		if icon_at_current_slot != null:
+			print("Slot icon: " + icon_at_current_slot.name)
 			if is_item_in_inv(held_icon.name):
 				if held_icon.name == icon_at_current_slot.name:
 					held_icon = null
@@ -203,6 +202,18 @@ func pick_icon_from_inv():
 		else:
 			place_icon_in_inv(held_icon, cursor_grid_position)
 			held_icon = null
+		pass
+
+func remove_placeholder_icon():
+	if placeholder_icon != null:
+		remove_and_get_icon_at_inv_matrix_slot(placeholder_slot).queue_free()
+		placeholder_icon = null
+		placeholder_slot = null
+		
+func reinstate_placeholder_icon():
+	if placeholder_icon != null:
+		
+		
 		pass
 
 func pick_icon_from_hotbar(hotbar_number):
@@ -242,7 +253,7 @@ func is_item_in_inv(item_name):
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
 			if inv_matrix[x][y] != null:
-				if inv_matrix[x][y].name == item_name:
+				if inv_matrix[x][y].name.rstrip("@1234567890").lstrip("@1234567890") == item_name:
 					is_in_inv = true
 	return is_in_inv
 		
@@ -258,10 +269,11 @@ func remove_and_get_icon_in_inv(item_name):
 	var icon
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
-			if inv_matrix[x][y].name == item_name:
-				icon = inv_matrix[x][y] 
-				inv_matrix[x][y] = null
-				return icon
+			if inv_matrix[x][y] != null:
+				if inv_matrix[x][y].name.rstrip("@1234567890").lstrip("@1234567890") == item_name:
+					icon = inv_matrix[x][y] 
+					inv_matrix[x][y] = null
+					return icon
 	return null
 	
 func remove_and_get_icon_at_hotbar_slot(slot, hotbar_number):
