@@ -11,6 +11,7 @@ const SLOT_WIDTH = 19
 const CURSOR_OFFSET = Vector2(16,15)
 const ICON_OFFSET = Vector2(-2,-3)
 const HELD_ICON_OFFSET = Vector2(-3,-4)
+const PLACEHOLDER_ALPHA = .5
 
 enum UI_BOX {INV, HOTBAR1, HOTBAR2}
 	
@@ -20,6 +21,8 @@ var cursor
 var cursor_grid_position = Vector2(0,0)
 var current_UI_BOX
 var held_icon = null
+var placeholder_icon = null
+var placeholder_slot = null
 
 
 #var current_slot_count
@@ -104,6 +107,19 @@ func create_icon(item_name):
 		
 	return icon_object
 	
+func create_placeholder_icon(item_name, slot):
+	var icon = load(ICON_PREFIX + item_name + ICON_SUFFIX)
+	var icon_object = icon_resource.instance()
+	
+	add_child(icon_object)
+	icon_object.name = item_name
+	icon_object.rect_position = inventory_ui.rect_position
+	icon_object.get_node("TextureRect").texture = icon 
+	icon_object.modulate.a = PLACEHOLDER_ALPHA
+	place_icon_in_inv(icon_object, slot)
+	
+	placeholder_icon = icon_object
+	placeholder_slot = slot
 
 func _process(delta):
 	move_cursor()
@@ -165,7 +181,7 @@ func pick_icon_from_inv():
 	if held_icon == null:
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
 		if icon_at_current_slot != null:
-			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position, true)
 			held_icon = icon
 	else:
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
@@ -230,10 +246,12 @@ func is_item_in_inv(item_name):
 					is_in_inv = true
 	return is_in_inv
 		
-func remove_and_get_icon_at_inv_matrix_slot(slot):
+func remove_and_get_icon_at_inv_matrix_slot(slot, create_placeholder = false):
 	var icon = get_icon_at_grid_position(slot, UI_BOX.INV)
 	if icon != null:
 		inv_matrix[slot.x][slot.y] = null
+		if create_placeholder:
+			create_placeholder_icon(icon.name, slot)
 		return icon
 		
 func remove_and_get_icon_in_inv(item_name):
