@@ -186,11 +186,12 @@ func pick_icon_from_inv():
 		if icon_at_current_slot != null:
 			print("Slot icon: " + icon_at_current_slot.name)
 			if is_item_in_inv(held_icon.name):
-				if held_icon.name == icon_at_current_slot.name:
+				if same_icon_name(held_icon.name,icon_at_current_slot.name):
+					held_icon.queue_free()
 					held_icon = null
-				elif held_icon.name != icon_at_current_slot.name:
+				elif !same_icon_name(held_icon.name,icon_at_current_slot.name):
 					#switch held icon with icon in slot, remove extraneous version in inv_matrix
-					remove_and_get_icon_in_inv(held_icon.name)
+					remove_and_get_icon_in_inv(held_icon.name).queue_free
 					var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 					place_icon_in_inv(held_icon, cursor_grid_position)
 					held_icon = icon
@@ -204,6 +205,11 @@ func pick_icon_from_inv():
 			held_icon = null
 		pass
 
+func same_icon_name(name1, name2):
+	if string_strip(name1) == string_strip(name2):
+		return true
+	return false
+
 func remove_placeholder_icon():
 	if placeholder_icon != null:
 		remove_and_get_icon_at_inv_matrix_slot(placeholder_slot).queue_free()
@@ -212,7 +218,9 @@ func remove_placeholder_icon():
 		
 func reinstate_placeholder_icon():
 	if placeholder_icon != null:
-		
+		placeholder_icon.modulate.a = 1
+		placeholder_icon = null
+		placeholder_slot = null
 		
 		pass
 
@@ -235,6 +243,7 @@ func pick_icon_from_hotbar(hotbar_number):
 			held_icon = icon
 		pass
 	else:
+		reinstate_placeholder_icon()
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
 		if icon_at_current_slot != null:
 			var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
@@ -249,11 +258,12 @@ func pick_icon_from_hotbar(hotbar_number):
 	pass
 	
 func is_item_in_inv(item_name):
+	var true_name = string_strip(item_name)
 	var is_in_inv = false
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
 			if inv_matrix[x][y] != null:
-				if inv_matrix[x][y].name.rstrip("@1234567890").lstrip("@1234567890") == item_name:
+				if string_strip(inv_matrix[x][y].name) == true_name:
 					is_in_inv = true
 	return is_in_inv
 		
@@ -262,15 +272,16 @@ func remove_and_get_icon_at_inv_matrix_slot(slot, create_placeholder = false):
 	if icon != null:
 		inv_matrix[slot.x][slot.y] = null
 		if create_placeholder:
-			create_placeholder_icon(icon.name, slot)
+			create_placeholder_icon(string_strip(icon.name), slot)
 		return icon
 		
 func remove_and_get_icon_in_inv(item_name):
+	var true_name = string_strip(item_name)
 	var icon
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
 			if inv_matrix[x][y] != null:
-				if inv_matrix[x][y].name.rstrip("@1234567890").lstrip("@1234567890") == item_name:
+				if string_strip(inv_matrix[x][y].name) == true_name:
 					icon = inv_matrix[x][y] 
 					inv_matrix[x][y] = null
 					return icon
@@ -310,6 +321,9 @@ func move_cursor():
 		pass
 	
 	pass
+	
+func string_strip(string):
+	return string.rstrip("@1234567890").lstrip("@1234567890")
 	
 func move_held_icon():
 	if held_icon != null:
