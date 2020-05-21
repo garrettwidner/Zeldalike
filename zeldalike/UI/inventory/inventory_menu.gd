@@ -102,7 +102,7 @@ func create_icon(item_name):
 		icon_object.get_node("TextureRect").texture = icon
 		#------------------------------------------------> TODO: Add icon to inventory <---
 		
-		print("New slot: " + String(new_slot))
+#		print("New slot: " + String(new_slot))
 		place_icon_in_inv(icon_object, new_slot)
 		
 	return icon_object
@@ -113,7 +113,7 @@ func create_placeholder_icon(item_name, slot):
 	
 	add_child(icon_object)
 	icon_object.name = item_name
-	print("Placeholder " + icon_object.name + " created.")
+#	print("Placeholder " + icon_object.name + " created.")
 	icon_object.rect_position = inventory_ui.rect_position
 	icon_object.get_node("TextureRect").texture = icon 
 	icon_object.modulate.a = PLACEHOLDER_ALPHA
@@ -182,25 +182,30 @@ func pick_icon_from_inv():
 	else:
 		remove_placeholder_icon()
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
-		print("Held icon: " + held_icon.name)
+#		print("Held icon: " + held_icon.name)
 		if icon_at_current_slot != null:
-			print("Slot icon: " + icon_at_current_slot.name)
+#			print("Slot icon: " + icon_at_current_slot.name)
 			if is_item_in_inv(held_icon.name):
 				if same_icon_name(held_icon.name,icon_at_current_slot.name):
+#					print("Duplicate item found in same slot")
 					held_icon.queue_free()
 					held_icon = null
 				elif !same_icon_name(held_icon.name,icon_at_current_slot.name):
+#					print("Different item found in same slot, duplicate found elsewhere")
 					#switch held icon with icon in slot, remove extraneous version in inv_matrix
-					remove_and_get_icon_in_inv(held_icon.name).queue_free
+					remove_and_get_icon_in_inv(held_icon.name).queue_free()
 					var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 					place_icon_in_inv(held_icon, cursor_grid_position)
 					held_icon = icon
 			else:
 				#switch held icon with icon in slot
+#				print("Different item found in same slot, duplicate item not found in inventory")
 				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 				place_icon_in_inv(held_icon, cursor_grid_position)
 				held_icon = icon
 		else:
+			if is_item_in_inv(held_icon.name):
+				remove_and_get_icon_in_inv(held_icon.name).queue_free()
 			place_icon_in_inv(held_icon, cursor_grid_position)
 			held_icon = null
 		pass
