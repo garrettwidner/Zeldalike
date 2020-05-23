@@ -108,12 +108,15 @@ func create_icon(item_name):
 	return icon_object
 	
 func create_placeholder_icon(item_name, slot):
-	var icon = load(ICON_PREFIX + item_name + ICON_SUFFIX)
+	var clean_name = string_strip(item_name)
+	var icon = load(ICON_PREFIX + clean_name + ICON_SUFFIX)
 	var icon_object = icon_resource.instance()
 	
+#	print("Placeholder base name is " + item_name)
+	
 	add_child(icon_object)
-	icon_object.name = item_name
-#	print("Placeholder " + icon_object.name + " created.")
+	icon_object.name = clean_name
+#	print("Placeholder " + icon_object.name + " created at slot " + String(slot))
 	icon_object.rect_position = inventory_ui.rect_position
 	icon_object.get_node("TextureRect").texture = icon 
 	icon_object.modulate.a = PLACEHOLDER_ALPHA
@@ -193,22 +196,34 @@ func pick_icon_from_inv():
 				elif !same_icon_name(held_icon.name,icon_at_current_slot.name):
 #					print("Different item found in same slot, duplicate found elsewhere")
 					#switch held icon with icon in slot, remove extraneous version in inv_matrix
+#					remove_placeholder_icon()
+					
 					remove_and_get_icon_in_inv(held_icon.name).queue_free()
+					
 					var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+					var duplicate_icon = held_icon
 					place_icon_in_inv(held_icon, cursor_grid_position)
+					create_placeholder_icon(icon.name, get_first_open_inv_slot())
 					held_icon = icon
 			else:
 				#switch held icon with icon in slot
 #				print("Different item found in same slot, duplicate item not found in inventory")
 				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
 				place_icon_in_inv(held_icon, cursor_grid_position)
+				create_placeholder_icon(icon.name, get_first_open_inv_slot())
 				held_icon = icon
 		else:
+			var debug_string = ""
 			if is_item_in_inv(held_icon.name):
 				remove_and_get_icon_in_inv(held_icon.name).queue_free()
+				debug_string = "Removed item present in inventory and "
 			place_icon_in_inv(held_icon, cursor_grid_position)
+#			print(debug_string + "Placed held item in empty spot")
 			held_icon = null
 		pass
+
+func string_strip(string):
+	return string.rstrip("@1234567890").lstrip("@1234567890")
 
 func same_icon_name(name1, name2):
 	if string_strip(name1) == string_strip(name2):
@@ -327,9 +342,6 @@ func move_cursor():
 	
 	pass
 	
-func string_strip(string):
-	return string.rstrip("@1234567890").lstrip("@1234567890")
-	
 func move_held_icon():
 	if held_icon != null:
 		held_icon.rect_position = cursor.rect_position + HELD_ICON_OFFSET
@@ -411,7 +423,8 @@ func place_cursor(menu_coordinates):
 		cursor.rect_position = rect_position + CURSOR_OFFSET
 		cursor.rect_position += menu_coordinates * SLOT_WIDTH
 		cursor_grid_position = menu_coordinates
-	
+	else:
+		print("Given position was not valid, cursor not placed at menu coordinates")
 	pass
 	
 func place_icon_in_inv(icon, menu_coordinates):
@@ -421,6 +434,8 @@ func place_icon_in_inv(icon, menu_coordinates):
 		icon.rect_position = rect_position + ICON_OFFSET
 		icon.rect_position += menu_coordinates * SLOT_WIDTH
 		inv_matrix[menu_coordinates.x][menu_coordinates.y] = icon
+	else:
+		print("Given position was not valid, item not placed in inv_matrix")
 	pass
 
 func place_icon_in_hotbar(icon, menu_coordinates, hotbar_number):
