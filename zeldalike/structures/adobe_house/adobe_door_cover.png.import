@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mountain_forms.png-78722335b2669a34fc795add2e0dd51f.stex"
+path="res://.import/adobe_door_cover.png-295b1d9370c72b9c337163e775497c7a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/mountain_forms.png"
-dest_files=[ "res://.import/mountain_forms.png-78722335b2669a34fc795add2e0dd51f.stex" ]
+source_file="res://structures/adobe_house/adobe_door_cover.png"
+dest_files=[ "res://.import/adobe_door_cover.png-295b1d9370c72b9c337163e775497c7a.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/adobe_door_cover.png-7f23fa15aebd7835d3560181bfc07bba.stex"
+path="res://.import/mud_tiles.png-5861ed8c43bf8cf223c2fd9d94363efa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://structures/adobe_door_cover.png"
-dest_files=[ "res://.import/adobe_door_cover.png-7f23fa15aebd7835d3560181bfc07bba.stex" ]
+source_file="res://terrain/mud/mud_tiles.png"
+dest_files=[ "res://.import/mud_tiles.png-5861ed8c43bf8cf223c2fd9d94363efa.stex" ]
 
 [params]
 

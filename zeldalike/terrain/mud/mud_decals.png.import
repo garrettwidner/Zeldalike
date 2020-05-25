@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mud_decals.png-9553eb8e3c8a681004a6d9dc91f36fcc.stex"
+path="res://.import/mud_decals.png-122344c48e638fcdb754d6ea5074da12.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/mud_decals.png"
-dest_files=[ "res://.import/mud_decals.png-9553eb8e3c8a681004a6d9dc91f36fcc.stex" ]
+source_file="res://terrain/mud/mud_decals.png"
+dest_files=[ "res://.import/mud_decals.png-122344c48e638fcdb754d6ea5074da12.stex" ]
 
 [params]
 

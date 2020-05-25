@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Adobe_Roof_Decals.png-4bc5db4f338aa4e54a8189a22e009591.stex"
+path="res://.import/adobe_flooring.png-83fd13737c5f13c1034e5f3bcf7743fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://structures/Adobe_Roof_Decals.png"
-dest_files=[ "res://.import/Adobe_Roof_Decals.png-4bc5db4f338aa4e54a8189a22e009591.stex" ]
+source_file="res://structures/adobe_house/adobe_flooring.png"
+dest_files=[ "res://.import/adobe_flooring.png-83fd13737c5f13c1034e5f3bcf7743fd.stex" ]
 
 [params]
 

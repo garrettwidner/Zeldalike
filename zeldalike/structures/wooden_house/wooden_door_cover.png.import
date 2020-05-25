@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sand_Tile.png-c94eb7d64f5c75fa62fd2582a12d77c5.stex"
+path="res://.import/wooden_door_cover.png-c0eea30913d96ff14122f8e80ab0da57.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/Sand_Tile.png"
-dest_files=[ "res://.import/Sand_Tile.png-c94eb7d64f5c75fa62fd2582a12d77c5.stex" ]
+source_file="res://structures/wooden_house/wooden_door_cover.png"
+dest_files=[ "res://.import/wooden_door_cover.png-c0eea30913d96ff14122f8e80ab0da57.stex" ]
 
 [params]
 

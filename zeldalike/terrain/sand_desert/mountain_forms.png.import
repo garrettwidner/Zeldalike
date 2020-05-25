@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Adobe_Tiles.png-b53d41f1028c02691f2ebbbb7b729bee.stex"
+path="res://.import/mountain_forms.png-cb2b35e224092823f17af7784be7313a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://structures/Adobe_Tiles.png"
-dest_files=[ "res://.import/Adobe_Tiles.png-b53d41f1028c02691f2ebbbb7b729bee.stex" ]
+source_file="res://terrain/sand_desert/mountain_forms.png"
+dest_files=[ "res://.import/mountain_forms.png-cb2b35e224092823f17af7784be7313a.stex" ]
 
 [params]
 

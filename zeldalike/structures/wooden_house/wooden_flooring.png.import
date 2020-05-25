@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mud_tiles.png-bbdeaa5468127e039a9ae9f8afecc3dd.stex"
+path="res://.import/wooden_flooring.png-edfd7dd3d0e79d5c6a939bd1826d984f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/mud_tiles.png"
-dest_files=[ "res://.import/mud_tiles.png-bbdeaa5468127e039a9ae9f8afecc3dd.stex" ]
+source_file="res://structures/wooden_house/wooden_flooring.png"
+dest_files=[ "res://.import/wooden_flooring.png-edfd7dd3d0e79d5c6a939bd1826d984f.stex" ]
 
 [params]
 

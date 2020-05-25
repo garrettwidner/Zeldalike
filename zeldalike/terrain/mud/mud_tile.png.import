@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/adobe_flooring.png-a866389b2ae6ad4378bae239b7931ce3.stex"
+path="res://.import/mud_tile.png-f40df9706d7f0cc4e8138e1c350fe211.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://structures/adobe_flooring.png"
-dest_files=[ "res://.import/adobe_flooring.png-a866389b2ae6ad4378bae239b7931ce3.stex" ]
+source_file="res://terrain/mud/mud_tile.png"
+dest_files=[ "res://.import/mud_tile.png-f40df9706d7f0cc4e8138e1c350fe211.stex" ]
 
 [params]
 

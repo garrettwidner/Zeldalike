@@ -6,12 +6,14 @@
 [ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=4]
 [ext_resource path="res://tiles/shade.png" type="Texture" id=5]
 [ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=6]
-[ext_resource path="res://terrain/Sand_Tile.png" type="Texture" id=7]
-[ext_resource path="res://terrain/mountain_forms.png" type="Texture" id=8]
+[ext_resource path="res://terrain/sand_desert/Sand_Tile.png" type="Texture" id=7]
+[ext_resource path="res://terrain/sand_desert/mountain_forms.png" type="Texture" id=8]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://NPC/entner/etner.tscn" type="PackedScene" id=10]
 [ext_resource path="res://tiles/Bog Tree.png" type="Texture" id=11]
 [ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=12]
+
+
 
 
 

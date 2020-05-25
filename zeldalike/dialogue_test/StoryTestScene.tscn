@@ -16,7 +16,7 @@
 [ext_resource path="res://dialogue_test/lower_walls.png" type="Texture" id=14]
 [ext_resource path="res://dialogue_test/shelf_bounds.png" type="Texture" id=15]
 [ext_resource path="res://dialogue_test/ground_level_bounds.png" type="Texture" id=16]
-[ext_resource path="res://terrain/Sand_Tile.png" type="Texture" id=17]
+[ext_resource path="res://terrain/sand_desert/Sand_Tile.png" type="Texture" id=17]
 [ext_resource path="res://dialogue_test/heightchanger.gd" type="Script" id=18]
 [ext_resource path="res://dialogue_test/heightchanger.png" type="Texture" id=19]
 [ext_resource path="res://dialogue_test/heightchanger.tscn" type="PackedScene" id=20]
@@ -28,6 +28,7 @@
 [ext_resource path="res://enemies/stalfos/stalfos.tscn" type="PackedScene" id=26]
 [ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=27]
 [ext_resource path="res://objects/sun_crystal.tscn" type="PackedScene" id=28]
+
 
 
 
