@@ -64,7 +64,7 @@ func _ready():
 	
 	create_icon("bow")
 	create_icon("veil")
-
+	create_icon("sword")
 	
 func create_cursor():
 	cursor = cursor_resource.instance()
@@ -159,7 +159,7 @@ func increment_hotbar(hotbar_number):
 	var ui_box
 	var hotbar
 	var slot_count
-	
+	var hotbar_item_count = get_hotbar_item_count(hotbar_number)
 	print("Incrementing hotbar " + String(hotbar_number))
 	
 	match hotbar_number:
@@ -172,23 +172,29 @@ func increment_hotbar(hotbar_number):
 			hotbar = hotbar_2
 			slot_count = HOTBAR_2_SLOT_COUNT
 			
-	match get_hotbar_item_count(hotbar_number):
-		0:
-			pass
-		1:
-			#move item to hotbar first place, if not
-			if get_icon_at_grid_position(Vector2(0,0), ui_box) == null:
+	if hotbar_item_count == 0:
+		return
+	#if not there already, move first found item to hotbar's first place
+	if get_icon_at_grid_position(Vector2(0,0), ui_box) == null:
 				for x in range(slot_count.x):
 					if hotbar[x] != null:
 						var icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),ui_box)
 						place_icon_in_hotbar(icon, Vector2(0,0), hotbar_number)
-		2:
-			#switch items, keeping both at the same place.
-			#if at least one is not in first place, move 2 to first place, keeping 3 in place.
-			pass
-		3:
-			#increment the space of each item by one, moving item 1 to last place
-			pass
+						return
+	#otherwise if there are only two items, switch them, keeping both in their respective slots.
+	elif hotbar_item_count == 2:
+				var item_1 = remove_and_get_icon_at_hotbar_slot(Vector2(0,0), ui_box)
+				var item_2 = null
+				for x in range(slot_count.x):
+					if hotbar[x] != null:
+						item_2 = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
+						place_icon_in_hotbar(item_2, Vector2(0,0), hotbar_number)
+						place_icon_in_hotbar(item_1, Vector2(x,0), hotbar_number)
+						return
+	
+	#increment the space of each item by one, moving item 1 to last place
+	else:
+		pass
 	
 	pass
 	
