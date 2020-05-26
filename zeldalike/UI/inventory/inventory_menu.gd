@@ -129,7 +129,16 @@ func _process(delta):
 	move_cursor()
 	move_held_icon()
 	
+	
+	if Input.is_action_pressed("itemchange"):
+		if Input.is_action_just_pressed("item1"):
+			print("Should increment hotbar 1")
+		elif Input.is_action_just_pressed("item2"):
+			print("Should increment hotbar 2")
+	
 	if Input.is_action_just_pressed("item1"):
+#		print("Hotbar 1 has " + String(get_hotbar_item_count(1)) + " items.")
+		increment_hotbar(1)
 #		print_inventory_contents()
 #		print("Veil is in inv matrix: " + String(is_item_in_inv("veil")))
 
@@ -142,6 +151,44 @@ func _process(delta):
 #		print("Trying to create bow icon")
 #		get_icon_at_grid_position(Vector2(0,0), UI_BOX.INV)
 		pass
+	
+	pass
+
+	
+func increment_hotbar(hotbar_number):
+	var ui_box
+	var hotbar
+	var slot_count
+	
+	print("Incrementing hotbar " + String(hotbar_number))
+	
+	match hotbar_number:
+		1:
+			ui_box = UI_BOX.HOTBAR1
+			hotbar = hotbar_1
+			slot_count = HOTBAR_1_SLOT_COUNT
+		2:
+			ui_box = UI_BOX.HOTBAR2
+			hotbar = hotbar_2
+			slot_count = HOTBAR_2_SLOT_COUNT
+			
+	match get_hotbar_item_count(hotbar_number):
+		0:
+			pass
+		1:
+			#move item to hotbar first place, if not
+			if get_icon_at_grid_position(Vector2(0,0), ui_box) == null:
+				for x in range(slot_count.x):
+					if hotbar[x] != null:
+						var icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),ui_box)
+						place_icon_in_hotbar(icon, Vector2(0,0), hotbar_number)
+		2:
+			#switch items, keeping both at the same place.
+			#if at least one is not in first place, move 2 to first place, keeping 3 in place.
+			pass
+		3:
+			#increment the space of each item by one, moving item 1 to last place
+			pass
 	
 	pass
 	
@@ -530,7 +577,25 @@ func get_icon_at_grid_position(grid_position, menu):
 	print("Error: Invalid menu type")
 	return " -error- " 
 	
+func get_hotbar_item_count(hotbar_number):
+	var hotbar
+	var slot_count
+	var item_count = 0
 	
+	match hotbar_number:
+		1:
+			hotbar = hotbar_1
+			slot_count = HOTBAR_1_SLOT_COUNT
+		2:
+			hotbar = hotbar_2
+			slot_count = HOTBAR_2_SLOT_COUNT
+	
+	for x in range(slot_count.x):
+		if(hotbar[x] != null):
+			item_count = item_count + 1
+	
+	return item_count
+	pass
 	
 func get_menu_string_name(menu):
 	match menu:
