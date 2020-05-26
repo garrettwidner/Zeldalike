@@ -266,17 +266,47 @@ func pick_icon_from_hotbar(hotbar_number):
 		reinstate_placeholder_icon()
 		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
 		if icon_at_current_slot != null:
-			var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
-			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
-			held_icon = icon
+			if same_icon_name(icon_at_current_slot.name, held_icon.name):
+				#icon is same as held icon
+				held_icon.queue_free()
+				held_icon = null
+			else:
+				#icons are different
+				var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
+				place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
+				held_icon = icon
 		else:
+			var placed_icon_name = held_icon.name
 			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
 			held_icon = null
+			remove_hotbar_duplicates(placed_icon_name, cursor_grid_position.x, hotbar_number)
 			pass
 		pass
 	
 	pass
 	
+func remove_hotbar_duplicates(item_name, slot_to_skip, hotbar_number):
+	var hotbar
+	var slot_count
+	
+	match hotbar_number:
+		1:
+			hotbar = hotbar_1
+			slot_count = HOTBAR_1_SLOT_COUNT
+		2:
+			hotbar = hotbar_2
+			slot_count = HOTBAR_2_SLOT_COUNT
+			
+	for x in range(slot_count.x):
+		if x != slot_to_skip:
+			if hotbar[x] != null:
+				if string_strip(item_name) == string_strip(hotbar[x].name):
+					var remove_icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),hotbar_number)
+					remove_icon.queue_free()
+		pass
+	
+	pass
+
 func is_item_in_inv(item_name):
 	var true_name = string_strip(item_name)
 	var is_in_inv = false
