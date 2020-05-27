@@ -4,6 +4,10 @@ extends Control
 # responsible for handling display and cycling through items through all UI.
 # includes keeping track of the 'order' of all items in the inventory and hotbars
 
+#For any remove_and_get functions, remember that removing an icon from the space only 
+#removes it in memory; within the scene it still visually occupies the space and must 
+#be queue_free()'d or moved
+
 const ICON_PREFIX = "res://UI/inventory/"
 const ICON_SUFFIX = "_icon.png"
 
@@ -176,24 +180,47 @@ func increment_hotbar(hotbar_number):
 		return
 	#if not there already, move first found item to hotbar's first place
 	if get_icon_at_grid_position(Vector2(0,0), ui_box) == null:
-				for x in range(slot_count.x):
-					if hotbar[x] != null:
-						var icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),ui_box)
-						place_icon_in_hotbar(icon, Vector2(0,0), hotbar_number)
-						return
+		for x in range(slot_count.x):
+			if hotbar[x] != null:
+				var icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),ui_box)
+				place_icon_in_hotbar(icon, Vector2(0,0), hotbar_number)
+				return
 	#otherwise if there are only two items, switch them, keeping both in their respective slots.
 	elif hotbar_item_count == 2:
-				var item_1 = remove_and_get_icon_at_hotbar_slot(Vector2(0,0), ui_box)
-				var item_2 = null
-				for x in range(slot_count.x):
-					if hotbar[x] != null:
-						item_2 = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
-						place_icon_in_hotbar(item_2, Vector2(0,0), hotbar_number)
-						place_icon_in_hotbar(item_1, Vector2(x,0), hotbar_number)
-						return
+		var item_1 = remove_and_get_icon_at_hotbar_slot(Vector2(0,0), ui_box)
+		var item_2 = null
+		for x in range(slot_count.x):
+			if hotbar[x] != null:
+				item_2 = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
+				place_icon_in_hotbar(item_2, Vector2(0,0), hotbar_number)
+				place_icon_in_hotbar(item_1, Vector2(x,0), hotbar_number)
+				return
 	
 	#increment the space of each item by one, moving item 1 to last place
 	else:
+		var first_item
+		var previous_space
+		var item_count = 0
+		for x in range(slot_count.x):
+			if x == 0:
+				first_item = remove_and_get_icon_at_hotbar_slot(Vector2(0,0), ui_box)
+				previous_space = Vector2(0,0) 
+				item_count = item_count + 1
+			else: 
+				
+				var found_icon = get_icon_at_grid_position(Vector2(x,0), ui_box)
+				if found_icon != null:
+					if item_count == hotbar_item_count - 1:
+						var move_item = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
+						place_icon_in_hotbar(move_item, previous_space, hotbar_number)
+						place_icon_in_hotbar(first_item, Vector2(x,0), hotbar_number)
+						pass
+					else: 
+						var move_item = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
+						place_icon_in_hotbar(move_item, previous_space, hotbar_number)
+						item_count = item_count + 1
+						previous_space = Vector2(x,0)
+					
 		pass
 	
 	pass
