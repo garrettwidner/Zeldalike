@@ -28,7 +28,6 @@ var held_icon = null
 var placeholder_icon = null
 var placeholder_slot = null
 
-
 #var current_slot_count
 #var current_menu_name
 
@@ -49,6 +48,8 @@ const HOTBAR_2_START_POS = Vector2(2,8)
 const HOTBAR_2_SLOT_COUNT = Vector2(3,1)
 var hotbar_2 = []
 
+var is_open 
+
 func add_to_inventory(item):
 	print("Need to add " + item + " to inventory menu")
 	create_icon(item)
@@ -56,6 +57,7 @@ func add_to_inventory(item):
 
 
 func _ready():
+	hide()
 #	inventory_ui.hide()
 #	hotbar_1.hide()
 #	hotbar_2.hide()
@@ -129,34 +131,39 @@ func create_placeholder_icon(item_name, slot):
 	placeholder_icon = icon_object
 	placeholder_slot = slot
 
-func _process(delta):
-	move_cursor()
-	move_held_icon()
+func hide_menu():
+	hide()
+	is_open = false
+	clear_picked_icon()
 	
-	
-	if Input.is_action_pressed("itemchange"):
-		if Input.is_action_just_pressed("item1"):
-			print("Should increment hotbar 1")
-		elif Input.is_action_just_pressed("item2"):
-			print("Should increment hotbar 2")
-	
-	if Input.is_action_just_pressed("item1"):
-#		print("Hotbar 1 has " + String(get_hotbar_item_count(1)) + " items.")
-		increment_hotbar(1)
-#		print_inventory_contents()
-#		print("Veil is in inv matrix: " + String(is_item_in_inv("veil")))
+func show_menu():
+	show()
+	is_open = true
 
-		pass
-	if Input.is_action_just_pressed("item2"):
-#		print("Should pick item from inventory")
-		pick_icon()
-#		place_cursor(Vector2(1,0))
-#		create_icon("bow")
-#		print("Trying to create bow icon")
-#		get_icon_at_grid_position(Vector2(0,0), UI_BOX.INV)
-		pass
+func _process(delta):
+	if Input.is_action_just_pressed("test_1"):
+		if !is_open:
+			show_menu()
+		else:
+			hide_menu()
 	
-	pass
+	if is_open:
+		move_cursor()
+		move_held_icon()
+		
+		if Input.is_action_pressed("itemchange"):
+			if Input.is_action_just_pressed("item1"):
+				print("Should increment hotbar 1")
+				increment_hotbar(1)
+			elif Input.is_action_just_pressed("item2"):
+				print("Should increment hotbar 2")
+				increment_hotbar(2)
+			pass
+		if Input.is_action_just_pressed("action"):
+			pick_icon()
+			pass
+		
+		pass
 
 	
 func increment_hotbar(hotbar_number):
@@ -324,6 +331,8 @@ func reinstate_placeholder_icon():
 		
 		pass
 
+
+
 func pick_icon_from_hotbar(hotbar_number):
 	var ui_box
 	var hotbar
@@ -363,6 +372,13 @@ func pick_icon_from_hotbar(hotbar_number):
 			pass
 		pass
 	
+	pass
+	
+func clear_picked_icon():
+	if held_icon != null:
+		held_icon.queue_free()
+		held_icon = null
+		reinstate_placeholder_icon()
 	pass
 	
 func remove_hotbar_duplicates(item_name, slot_to_skip, hotbar_number):
