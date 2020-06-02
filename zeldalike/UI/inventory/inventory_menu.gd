@@ -159,7 +159,6 @@ func remove_icon_from_play_menu(hotbar_number):
 				pass
 		2:
 			if selected_hotbar_2_item != null:
-				print("Found item to remove in selected_hotbar_2")
 				selected_hotbar_2_item.queue_free()
 				selected_hotbar_2_item = null
 				pass
@@ -264,6 +263,9 @@ func increment_hotbar(hotbar_number):
 				var icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),ui_box)
 				place_icon_in_hotbar(icon, Vector2(0,0), hotbar_number)
 				return
+	#return if there's only one item which is already in the first place
+	elif hotbar_item_count == 1:
+		return
 	#otherwise if there are only two items, switch them, keeping both in their respective slots.
 	elif hotbar_item_count == 2:
 		var item_1 = remove_and_get_icon_at_hotbar_slot(Vector2(0,0), ui_box)
@@ -432,9 +434,11 @@ func pick_icon_from_hotbar(hotbar_number):
 				held_icon = null
 			else:
 				#icons are different
+				var placed_icon_name = held_icon.name
 				var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
 				place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
 				held_icon = icon
+				remove_hotbar_duplicates(placed_icon_name, cursor_grid_position.x, hotbar_number)
 		else:
 			var placed_icon_name = held_icon.name
 			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
