@@ -4,7 +4,7 @@ extends Control
 # responsible for handling display and cycling through items through all UI.
 # includes keeping track of the 'order' of all items in the inventory and hotbars
 
-#For any remove_and_get functions, remember that removing an icon from the space only 
+#Note: For any remove_and_get functions, remember that removing an icon from the space only 
 #removes it in memory; within the scene it still visually occupies the space and must 
 #be queue_free()'d or moved
 
@@ -61,10 +61,19 @@ onready var play_menu = get_node("play_menu")
 var is_open 
 
 func add_to_inventory(item):
-	print("Need to add " + item + " to inventory menu")
+#	print("Need to add " + item + " to inventory menu")
 	create_icon(item)
 	pass
 
+func get_item_1():
+	if selected_hotbar_1_item != null:
+		return string_strip(selected_hotbar_1_item.name)
+	return null
+	
+func get_item_2():
+	if selected_hotbar_2_item != null:
+		return string_strip(selected_hotbar_2_item.name)
+	return null
 
 func _ready():
 	is_open = false
@@ -81,9 +90,9 @@ func _ready():
 	create_hotbar1()
 	create_hotbar2()
 	
-	create_icon("bow")
-	create_icon("veil")
-	create_icon("sword")
+#	create_icon("bow")
+#	create_icon("veil")
+#	create_icon("sword")
 	
 func create_cursor():
 	cursor = cursor_resource.instance()

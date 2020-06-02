@@ -51,8 +51,6 @@ var is_eating : bool = false
 var edible_is_finished : bool = false
 export var bite_just_taken : bool = false
 
-var inventory = []
-
 var isinhoparea = false
 var hoparea
 var ispullingup
@@ -111,6 +109,8 @@ var staticdir
 
 var original_zindex
 
+var inventorymanager
+
 func _ready():
 	set_state_stopped()
 	pass
@@ -131,9 +131,9 @@ func run_setup(start_position, start_direction):
 	else:
 		print("ERROR: dialogueparser not found by Player")
 		
-#	inventorymanager = get_node("/root/Level/inventorymanager")
-#	if inventorymanager == null:
-#		print("ERROR: inventorymanager not found by player")
+	inventorymanager = game_singleton.get_node("inventorymanager")
+	if inventorymanager == null:
+		print("ERROR: inventorymanager not found by player")
 		
 	original_zindex = z_index
 	
@@ -166,8 +166,13 @@ func run_setup(start_position, start_direction):
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
-	
+	add_test_items()
 	pass
+	
+func add_test_items():
+	inventorymanager.add_item("veil")
+	inventorymanager.add_item("sword")
+	inventorymanager.add_item("bow")
 	
 func run_startup():
 	#add code for starting character movement here
@@ -266,9 +271,19 @@ func state_default(delta):
 # 		find out which item corresponds to item1, and then trigger it
 # 		by passing it to another function which uses an item based on the passed string
 
+		var item1 = inventorymanager.get_item_1()
+		if item1 != null:
+			print("Item 1: " + item1)
+		
 #		use_item(preload("res://items/sword/sword.tscn"))
 #		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #		add_sprinkle()
+		pass
+		
+	elif Input.is_action_just_pressed("item2"):
+		var item2 = inventorymanager.get_item_2()
+		if item2 != null:
+			print("Item 2: " + item2)
 		pass
 		
 	elif Input.is_action_just_pressed("action"):
@@ -298,12 +313,14 @@ func state_default(delta):
 	elif Input.is_action_just_pressed("test_1"):
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
-		decrease_disease()
+#		decrease_disease()
+		pass
 
 	elif Input.is_action_just_pressed("test_2"):
 #		game_singleton.change_scene("version_0_test")
 #		set_facedir_manual(dir.RIGHT)
-		increase_disease()
+#		increase_disease()
+		pass
 	
 	elif Input.is_action_just_pressed("speech"):
 		#interact with interactible you're facing

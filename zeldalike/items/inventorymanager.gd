@@ -44,6 +44,12 @@ func has(item):
 	
 func get_item_dict():
 	return inventory["items"]
+	
+func get_item_1():
+	return inv_menu.get_item_1()
+
+func get_item_2():
+	return inv_menu.get_item_2()
 
 func add_item(item, count = 1):
 	if(!inventory_master["list"].has(item)):
@@ -52,7 +58,7 @@ func add_item(item, count = 1):
 	
 	var item_entry = inventory_master["list"][item]
 	var type = item_entry["type"]
-	print("Found item of type " + type)
+	print("Found '" + item + "' of type '" + type + "'")
 	
 	if type == "collectible":
 		if has(item):
