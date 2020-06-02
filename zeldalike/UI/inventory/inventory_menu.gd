@@ -18,6 +18,7 @@ const HELD_ICON_OFFSET = Vector2(-3,-4)
 const PLACEHOLDER_ALPHA = .5
 
 enum UI_BOX {INV, HOTBAR1, HOTBAR2}
+enum MENU {PLAY, PAUSE}
 	
 onready var CURSOR_ICON = load("res://UI/inventory/cursor.png")
 onready var cursor_resource = load("res://UI/inventory/cursor.tscn") 
@@ -33,20 +34,29 @@ var placeholder_slot = null
 
 onready var icon_resource = load("res://UI/inventory/icon.tscn")
 
-onready var inventory_ui = get_node("inventory_hold")
+onready var inventory_ui = get_node("pause_menu/inventory_hold")
 const INV_START_POS = Vector2(0,9)
 const INV_SLOT_COUNT = Vector2(6,3)
 var inv_matrix = []
 
-onready var hotbar_1_ui = get_node("hotbar_1")
+onready var hotbar_1_ui = get_node("pause_menu/hotbar_1")
 const HOTBAR_1_START_POS = Vector2(1,5)
 const HOTBAR_1_SLOT_COUNT = Vector2(3,1)
 var hotbar_1 = []
 
-onready var hotbar_2_ui = get_node("hotbar_2")
+onready var hotbar_2_ui = get_node("pause_menu/hotbar_2")
 const HOTBAR_2_START_POS = Vector2(2,8)
 const HOTBAR_2_SLOT_COUNT = Vector2(3,1)
 var hotbar_2 = []
+
+onready var selected_hotbar_1 = get_node("play_menu/selected_hotbar_icon_1")
+var selected_hotbar_1_item = null
+
+onready var selected_hotbar_2 = get_node("play_menu/selected_hotbar_icon_2")
+var selected_hotbar_2_item = null
+
+onready var pause_menu = get_node("pause_menu")
+onready var play_menu = get_node("play_menu")
 
 var is_open 
 
@@ -57,7 +67,10 @@ func add_to_inventory(item):
 
 
 func _ready():
-	hide()
+	is_open = false
+	pause_menu.hide()
+	play_menu.show()
+	
 #	inventory_ui.hide()
 #	hotbar_1.hide()
 #	hotbar_2.hide()
@@ -75,7 +88,7 @@ func _ready():
 func create_cursor():
 	cursor = cursor_resource.instance()
 
-	add_child(cursor)
+	pause_menu.add_child(cursor)
 	cursor.rect_position = inventory_ui.rect_position + CURSOR_OFFSET
 	cursor_grid_position = Vector2(0,0)
 	place_cursor(Vector2(0,0))
@@ -102,7 +115,7 @@ func create_icon(item_name):
 		var icon = load(ICON_PREFIX + item_name + ICON_SUFFIX)
 		icon_object = icon_resource.instance()
 		
-		add_child(icon_object)
+		pause_menu.add_child(icon_object)
 		icon_object.name = item_name
 		icon_object.rect_position = inventory_ui.rect_position
 		icon_object.get_node("TextureRect").texture = icon
@@ -113,6 +126,45 @@ func create_icon(item_name):
 		
 	return icon_object
 	
+func create_icon_in_play_menu(item_name, hotbar_number):
+	
+	var clean_name = string_strip(item_name)
+	
+	var icon = load(ICON_PREFIX + clean_name + ICON_SUFFIX)
+	if icon == null:
+		print("Did not find icon with name " + clean_name)
+		return
+	remove_icon_from_play_menu(hotbar_number)
+	var icon_object = icon_resource.instance()
+	play_menu.add_child(icon_object)
+	icon_object.name = clean_name
+	icon_object.get_node("TextureRect").texture = icon
+	
+	match hotbar_number:
+		1:
+			icon_object.rect_position = selected_hotbar_1.rect_position + ICON_OFFSET
+			selected_hotbar_1_item = icon_object
+		2:
+			icon_object.rect_position = selected_hotbar_2.rect_position + ICON_OFFSET
+			selected_hotbar_2_item = icon_object
+			
+	pass
+	
+func remove_icon_from_play_menu(hotbar_number):
+	match hotbar_number:
+		1:
+			if selected_hotbar_1_item != null:
+				selected_hotbar_1_item.queue_free()
+				selected_hotbar_1_item = null
+				pass
+		2:
+			if selected_hotbar_2_item != null:
+				print("Found item to remove in selected_hotbar_2")
+				selected_hotbar_2_item.queue_free()
+				selected_hotbar_2_item = null
+				pass
+	pass
+	
 func create_placeholder_icon(item_name, slot):
 	var clean_name = string_strip(item_name)
 	var icon = load(ICON_PREFIX + clean_name + ICON_SUFFIX)
@@ -120,7 +172,7 @@ func create_placeholder_icon(item_name, slot):
 	
 #	print("Placeholder base name is " + item_name)
 	
-	add_child(icon_object)
+	pause_menu.add_child(icon_object)
 	icon_object.name = clean_name
 #	print("Placeholder " + icon_object.name + " created at slot " + String(slot))
 	icon_object.rect_position = inventory_ui.rect_position
@@ -132,12 +184,28 @@ func create_placeholder_icon(item_name, slot):
 	placeholder_slot = slot
 
 func hide_menu():
-	hide()
+	populate_play_menu()
 	is_open = false
+	pause_menu.hide()
+	play_menu.show()
 	clear_picked_icon()
 	
+func populate_play_menu():
+#	var hotbar_1_item = get_icon_at_grid_position(Vector2(0,0), UI_BOX.HOTBAR1)
+#	var hotbar_2_item = get_icon_at_grid_position(Vector2(0,0), UI_BOX.HOTBAR2)
+	var hotbar_1_item = hotbar_1[0]
+	var hotbar_2_item = hotbar_2[0]
+	
+	
+	if hotbar_1_item != null:
+		create_icon_in_play_menu(hotbar_1_item.name, 1)
+	if hotbar_2_item != null:
+		create_icon_in_play_menu(hotbar_2_item.name, 2)
+	pass
+	
 func show_menu():
-	show()
+	pause_menu.show()
+	play_menu.hide()
 	is_open = true
 
 func _process(delta):
@@ -146,19 +214,23 @@ func _process(delta):
 			show_menu()
 		else:
 			hide_menu()
+			
+	if Input.is_action_pressed("itemchange"):
+			if Input.is_action_just_pressed("item1"):
+#				print("Should increment hotbar 1")
+				increment_hotbar(1)
+				populate_play_menu()
+			elif Input.is_action_just_pressed("item2"):
+#				print("Should increment hotbar 2")
+				increment_hotbar(2)
+				populate_play_menu()
+			pass
 	
 	if is_open:
 		move_cursor()
 		move_held_icon()
 		
-		if Input.is_action_pressed("itemchange"):
-			if Input.is_action_just_pressed("item1"):
-				print("Should increment hotbar 1")
-				increment_hotbar(1)
-			elif Input.is_action_just_pressed("item2"):
-				print("Should increment hotbar 2")
-				increment_hotbar(2)
-			pass
+		
 		if Input.is_action_just_pressed("action"):
 			pick_icon()
 			pass
@@ -171,7 +243,7 @@ func increment_hotbar(hotbar_number):
 	var hotbar
 	var slot_count
 	var hotbar_item_count = get_hotbar_item_count(hotbar_number)
-	print("Incrementing hotbar " + String(hotbar_number))
+#	print("Incrementing hotbar " + String(hotbar_number))
 	
 	match hotbar_number:
 		1:
@@ -221,16 +293,15 @@ func increment_hotbar(hotbar_number):
 						var move_item = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
 						place_icon_in_hotbar(move_item, previous_space, hotbar_number)
 						place_icon_in_hotbar(first_item, Vector2(x,0), hotbar_number)
-						pass
 					else: 
 						var move_item = remove_and_get_icon_at_hotbar_slot(Vector2(x,0), ui_box)
 						place_icon_in_hotbar(move_item, previous_space, hotbar_number)
 						item_count = item_count + 1
 						previous_space = Vector2(x,0)
 					
-		pass
 	
-	pass
+	
+
 	
 func print_inventory_contents():
 	print("Inv Menu Contents: ")
@@ -371,7 +442,8 @@ func pick_icon_from_hotbar(hotbar_number):
 			remove_hotbar_duplicates(placed_icon_name, cursor_grid_position.x, hotbar_number)
 			pass
 		pass
-	
+		
+#	populate_play_menu()
 	pass
 	
 func clear_picked_icon():
