@@ -104,6 +104,7 @@ var disease_3_sprite = preload("res://player/Lodan_Disease_3.png")
 var disease_2_sprite = preload("res://player/Lodan_Disease_2.png")
 var disease_1_sprite = preload("res://player/Lodan_Recalibrator.png")
 
+var item_pickup_time = 1.5
 
 var staticdir
 
@@ -230,6 +231,8 @@ func _process(delta):
 			state_speech_animating(delta)
 		"stopped":
 			state_stopped(delta)
+		"item_get":
+			state_item_get(delta)
 
 func dialogue_finished():
 	$Timer.wait_time = post_speak_wait
@@ -508,7 +511,12 @@ func try_item_pickup():
 	var pickupable
 	var areas = checkarea.get_overlapping_areas()
 	for area in areas:
-		if area.is_in_group("pickupable"):
+		if area.is_in_group("unique_item"):
+			set_state_item_get(area)
+			is_holding = true
+			held_item = area
+			pass
+		elif area.is_in_group("pickupable"):
 			
 			is_holding = true
 			held_item = area
@@ -520,6 +528,8 @@ func try_item_pickup():
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
 			return true
+		
+		
 	return false
 			
 func finish_edible():
@@ -690,8 +700,6 @@ func state_landing(delta):
 		
 func state_holding(delta):
 		
-		
-		
 	if bite_just_taken:
 		health += held_item.health
 		emit_signal("health_changed", health, 0)
@@ -709,7 +717,6 @@ func state_holding(delta):
 		
 	if !edible_is_finished:
 		held_item.global_position = hold_position.global_position
-		
 		
 	sun_damage_loop(delta)
 	
@@ -739,7 +746,13 @@ func state_holding(delta):
 		else:
 			switch_anim("holdidle")
 			heal_stamina(stamina_heal_still, delta)
-	
+
+func state_item_get(delta):
+	set_hold_position()
+	if $Timer.time_left <= 0:
+		set_state_default()
+		held_item.queue_free()
+
 func set_hold_position():
 	if facedir == dir.DOWN:
 		hold_orienter.position = Vector2(0,3)
@@ -1036,6 +1049,15 @@ func set_state_speech_animating():
 	state = "speech_animating"
 	$Timer.wait_time = speech_animation_time
 	$Timer.start()
+	
+func set_state_item_get(item):
+	state = "item_get"
+	held_item = item
+	facedir = dir.DOWN
+	set_hold_position()
+	$anim.play("itempickup")
+	held_item.global_position = hold_position.global_position
+	$Timer.start(item_pickup_time)
 	
 func set_state_stopped():
 	state = "stopped"

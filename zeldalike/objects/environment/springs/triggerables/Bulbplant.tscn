@@ -3,10 +3,9 @@
 [ext_resource path="res://objects/environment/springs/triggerables/bulb.gd" type="Script" id=1]
 [ext_resource path="res://objects/environment/springs/triggerables/bulb.png" type="Texture" id=2]
 
+[sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="RectangleShape2D" id=9]
-
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 resource_name = "bud"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -21,7 +20,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=3]
 resource_name = "grow"
 length = 0.4
 tracks/0/type = "value"
@@ -37,7 +36,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=4]
 resource_name = "grown"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -57,7 +56,7 @@ position = Vector2( 145.823, 42.9675 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -72,9 +71,9 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 0.75
-anims/bud = SubResource( 12 )
-anims/grow = SubResource( 13 )
-anims/grown = SubResource( 14 )
+anims/bud = SubResource( 2 )
+anims/grow = SubResource( 3 )
+anims/grown = SubResource( 4 )
 
 [node name="bulb_spawn_point" type="Position2D" parent="."]
 position = Vector2( 3, 1 )
