@@ -104,13 +104,16 @@ var disease_3_sprite = preload("res://player/Lodan_Disease_3.png")
 var disease_2_sprite = preload("res://player/Lodan_Disease_2.png")
 var disease_1_sprite = preload("res://player/Lodan_Recalibrator.png")
 
-var item_pickup_time = 1.5
+
 
 var staticdir
 
 var original_zindex
 
 var inventorymanager
+
+signal unique_item_picked_up
+var item_pickup_hold_time = 2.2
 
 func _ready():
 	set_state_stopped()
@@ -153,6 +156,8 @@ func run_setup(start_position, start_direction):
 #	for i in range(20):
 #   print(i, '\t', get_collision_layer_bit(i))
 #	set_state_default()
+
+	connect("unique_item_picked_up", game_singleton.get_node("system_sound_player"), "play_unique_item_sound")
 	
 	check_if_in_sunarea_at_start()
 	
@@ -1057,7 +1062,8 @@ func set_state_item_get(item):
 	set_hold_position()
 	$anim.play("itempickup")
 	held_item.global_position = hold_position.global_position
-	$Timer.start(item_pickup_time)
+	$Timer.start(item_pickup_hold_time)
+	emit_signal("unique_item_picked_up")
 	
 func set_state_stopped():
 	state = "stopped"

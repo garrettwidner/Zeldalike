@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://engine/gameinit.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://dialogue/dialogue_parser.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/inventory/inventory_menu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://items/inventorymanager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://sounds/system_cues/system_sound_player.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "black"
@@ -118,3 +119,5 @@ __meta__ = {
 [node name="inventory_menu" parent="." instance=ExtResource( 8 )]
 
 [node name="inventorymanager" parent="." instance=ExtResource( 9 )]
+
+[node name="system_sound_player" parent="." instance=ExtResource( 10 )]

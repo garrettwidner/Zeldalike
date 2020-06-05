@@ -26,14 +26,14 @@
 [ext_resource path="res://objects/environment/springs/triggerables/grass.gd" type="Script" id=24]
 [ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=25]
 [ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=26]
-[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=27]
-[ext_resource path="res://objects/environment/salt_cradle/salt_cradle.tscn" type="PackedScene" id=28]
-[ext_resource path="res://objects/environment/swamp_tree/swamp_tree.tscn" type="PackedScene" id=29]
-[ext_resource path="res://objects/environment/springs/spring.gd" type="Script" id=30]
-[ext_resource path="res://objects/environment/springs/rocks_break.png" type="Texture" id=31]
-[ext_resource path="res://objects/environment/springs/spring_water.png" type="Texture" id=32]
-[ext_resource path="res://objects/environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=33]
-[ext_resource path="res://items/pickups/sword_pickup.tscn" type="PackedScene" id=34]
+[ext_resource path="res://items/pickups/sword_pickup.tscn" type="PackedScene" id=27]
+[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=28]
+[ext_resource path="res://objects/environment/salt_cradle/salt_cradle.tscn" type="PackedScene" id=29]
+[ext_resource path="res://objects/environment/swamp_tree/swamp_tree.tscn" type="PackedScene" id=30]
+[ext_resource path="res://objects/environment/springs/spring.gd" type="Script" id=31]
+[ext_resource path="res://objects/environment/springs/rocks_break.png" type="Texture" id=32]
+[ext_resource path="res://objects/environment/springs/spring_water.png" type="Texture" id=33]
+[ext_resource path="res://objects/environment/springs/triggerables/Bulbplant.tscn" type="PackedScene" id=34]
 [ext_resource path="res://enemies/demite/demite_hurt.png" type="Texture" id=35]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=36]
 [ext_resource path="res://enemies/demite/demite.tscn" type="PackedScene" id=37]
@@ -2451,9 +2451,18 @@ polygon = PoolVector2Array( -51.5287, -7.07561, 9.78857, -6.49163, 10.0806, 53.9
 [node name="objects" type="YSort" parent="YSort"]
 position = Vector2( 501, 88 )
 
+[node name="sword" parent="YSort/objects" instance=ExtResource( 27 )]
+position = Vector2( -74.5054, 248.089 )
+
+[node name="sword2" parent="YSort/objects" instance=ExtResource( 27 )]
+position = Vector2( -76.9319, 231.104 )
+
+[node name="sword3" parent="YSort/objects" instance=ExtResource( 27 )]
+position = Vector2( -28.4024, 252.942 )
+
 [node name="sun_crystal" type="Sprite" parent="YSort/objects"]
 position = Vector2( -2.31845, 188.5 )
-texture = ExtResource( 27 )
+texture = ExtResource( 28 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal" groups=[
 "sun_area",
@@ -2474,7 +2483,7 @@ __meta__ = {
 [node name="sun_crystal2" type="Sprite" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( -315.368, 30.503 )
-texture = ExtResource( 27 )
+texture = ExtResource( 28 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal2" groups=[
 "sun_area",
@@ -2495,7 +2504,7 @@ __meta__ = {
 [node name="sun_crystal3" type="Sprite" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( -294.88, 43.047 )
-texture = ExtResource( 27 )
+texture = ExtResource( 28 )
 
 [node name="sun_area" type="Area2D" parent="YSort/objects/sun_crystal3" groups=[
 "sun_area",
@@ -2513,30 +2522,30 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="salt_cradle" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="salt_cradle" parent="YSort/objects" instance=ExtResource( 29 )]
 position = Vector2( -175.705, 145.412 )
 
-[node name="salt_cradle2" parent="YSort/objects" instance=ExtResource( 28 )]
+[node name="salt_cradle2" parent="YSort/objects" instance=ExtResource( 29 )]
 position = Vector2( -232.336, 302.116 )
 
-[node name="swamp_tree" parent="YSort/objects" instance=ExtResource( 29 )]
+[node name="swamp_tree" parent="YSort/objects" instance=ExtResource( 30 )]
 position = Vector2( -113.438, 256.903 )
 
-[node name="swamp_tree2" parent="YSort/objects" instance=ExtResource( 29 )]
+[node name="swamp_tree2" parent="YSort/objects" instance=ExtResource( 30 )]
 position = Vector2( -287.385, -31.1187 )
 
-[node name="swamp_tree3" parent="YSort/objects" instance=ExtResource( 29 )]
+[node name="swamp_tree3" parent="YSort/objects" instance=ExtResource( 30 )]
 position = Vector2( -330.872, 205.223 )
 
-[node name="swamp_tree4" parent="YSort/objects" instance=ExtResource( 29 )]
+[node name="swamp_tree4" parent="YSort/objects" instance=ExtResource( 30 )]
 position = Vector2( -380.662, 3.54472 )
 
-[node name="swamp_tree5" parent="YSort/objects" instance=ExtResource( 29 )]
+[node name="swamp_tree5" parent="YSort/objects" instance=ExtResource( 30 )]
 position = Vector2( -144.32, 181.274 )
 
 [node name="Spring" type="Position2D" parent="YSort/objects"]
 position = Vector2( -69.7754, 206.49 )
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -2555,7 +2564,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring"]
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
 hframes = 3
 __meta__ = {
 "_edit_lock_": true
@@ -2569,7 +2578,7 @@ anims/opened = SubResource( 158 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 32 )
+texture = ExtResource( 33 )
 hframes = 3
 frame = 1
 
@@ -2584,7 +2593,7 @@ anims/unblock = SubResource( 162 )
 [node name="Spring2" type="Position2D" parent="YSort/objects"]
 editor/display_folded = true
 position = Vector2( 83.2736, 137.263 )
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -2602,7 +2611,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring2"]
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
 hframes = 3
 frame = 2
 
@@ -2614,7 +2623,7 @@ anims/opened = SubResource( 165 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring2"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 32 )
+texture = ExtResource( 33 )
 hframes = 3
 frame = 1
 
@@ -2628,7 +2637,7 @@ anims/unblock = SubResource( 169 )
 
 [node name="Spring3" type="Position2D" parent="YSort/objects"]
 position = Vector2( -27.7632, -16.976 )
-script = ExtResource( 30 )
+script = ExtResource( 31 )
 works_with_sword = false
 works_with_bow = false
 works_with_speech = true
@@ -2647,7 +2656,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="YSort/objects/Spring3"]
-texture = ExtResource( 31 )
+texture = ExtResource( 32 )
 hframes = 3
 frame = 2
 __meta__ = {
@@ -2662,7 +2671,7 @@ anims/opened = SubResource( 172 )
 [node name="water" type="Sprite" parent="YSort/objects/Spring3"]
 modulate = Color( 1, 1, 1, 0.733333 )
 z_index = -1
-texture = ExtResource( 32 )
+texture = ExtResource( 33 )
 hframes = 3
 frame = 1
 
@@ -2674,13 +2683,10 @@ anims/closed = SubResource( 174 )
 anims/opened = SubResource( 175 )
 anims/unblock = SubResource( 176 )
 
-[node name="Bulbplant" parent="YSort/objects" instance=ExtResource( 33 )]
+[node name="Bulbplant" parent="YSort/objects" instance=ExtResource( 34 )]
 position = Vector2( 22.7842, 225.805 )
 
-[node name="sword" parent="YSort/objects/Bulbplant" instance=ExtResource( 34 )]
-position = Vector2( -97.2896, 22.284 )
-
-[node name="Bulbplant2" parent="YSort/objects" instance=ExtResource( 33 )]
+[node name="Bulbplant2" parent="YSort/objects" instance=ExtResource( 34 )]
 position = Vector2( -2, 1 )
 
 [node name="test_searcharea_1" type="Sprite" parent="YSort/objects" groups=[
