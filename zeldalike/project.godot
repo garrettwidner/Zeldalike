@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 dir="*res://engine/direction.gd"
 game_singleton="*res://UI/game_singleton.tscn"
+helper="*res://system/helper.gd"
 
 [display]
 

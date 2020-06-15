@@ -38,7 +38,7 @@ func _process(delta):
 	pass
 
 func has(item):
-	if inventory["items"].has(item):
+	if inventory["items"].has(helper.string_strip(item)):
 		return true
 	return false
 	
@@ -52,6 +52,7 @@ func get_item_2():
 	return inv_menu.get_item_2()
 
 func add_item(item, count = 1):
+	item = helper.string_strip(item)
 	if(!inventory_master["list"].has(item)):
 		print("Warning: '" + item + "' not found in inventory master list")
 		return

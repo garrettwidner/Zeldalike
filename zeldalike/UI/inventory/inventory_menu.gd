@@ -67,12 +67,12 @@ func add_to_inventory(item):
 
 func get_item_1():
 	if selected_hotbar_1_item != null:
-		return string_strip(selected_hotbar_1_item.name)
+		return helper.string_strip(selected_hotbar_1_item.name)
 	return null
 	
 func get_item_2():
 	if selected_hotbar_2_item != null:
-		return string_strip(selected_hotbar_2_item.name)
+		return helper.string_strip(selected_hotbar_2_item.name)
 	return null
 
 func _ready():
@@ -137,7 +137,7 @@ func create_icon(item_name):
 	
 func create_icon_in_play_menu(item_name, hotbar_number):
 	
-	var clean_name = string_strip(item_name)
+	var clean_name = helper.string_strip(item_name)
 	
 	var icon = load(ICON_PREFIX + clean_name + ICON_SUFFIX)
 	if icon == null:
@@ -174,7 +174,7 @@ func remove_icon_from_play_menu(hotbar_number):
 	pass
 	
 func create_placeholder_icon(item_name, slot):
-	var clean_name = string_strip(item_name)
+	var clean_name = helper.string_strip(item_name)
 	var icon = load(ICON_PREFIX + clean_name + ICON_SUFFIX)
 	var icon_object = icon_resource.instance()
 	
@@ -391,11 +391,8 @@ func pick_icon_from_inv():
 			held_icon = null
 		pass
 
-func string_strip(string):
-	return string.rstrip("@1234567890").lstrip("@1234567890")
-
 func same_icon_name(name1, name2):
-	if string_strip(name1) == string_strip(name2):
+	if helper.string_strip(name1) == helper.string_strip(name2):
 		return true
 	return false
 
@@ -481,7 +478,7 @@ func remove_hotbar_duplicates(item_name, slot_to_skip, hotbar_number):
 	for x in range(slot_count.x):
 		if x != slot_to_skip:
 			if hotbar[x] != null:
-				if string_strip(item_name) == string_strip(hotbar[x].name):
+				if helper.string_strip(item_name) == helper.string_strip(hotbar[x].name):
 					var remove_icon = remove_and_get_icon_at_hotbar_slot(Vector2(x,0),hotbar_number)
 					remove_icon.queue_free()
 		pass
@@ -489,12 +486,12 @@ func remove_hotbar_duplicates(item_name, slot_to_skip, hotbar_number):
 	pass
 
 func is_item_in_inv(item_name):
-	var true_name = string_strip(item_name)
+	var true_name = helper.string_strip(item_name)
 	var is_in_inv = false
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
 			if inv_matrix[x][y] != null:
-				if string_strip(inv_matrix[x][y].name) == true_name:
+				if helper.string_strip(inv_matrix[x][y].name) == true_name:
 					is_in_inv = true
 	return is_in_inv
 		
@@ -503,16 +500,16 @@ func remove_and_get_icon_at_inv_matrix_slot(slot, create_placeholder = false):
 	if icon != null:
 		inv_matrix[slot.x][slot.y] = null
 		if create_placeholder:
-			create_placeholder_icon(string_strip(icon.name), slot)
+			create_placeholder_icon(helper.string_strip(icon.name), slot)
 		return icon
 		
 func remove_and_get_icon_in_inv(item_name):
-	var true_name = string_strip(item_name)
+	var true_name = helper.string_strip(item_name)
 	var icon
 	for x in range(INV_SLOT_COUNT.x):
 		for y in range(INV_SLOT_COUNT.y):
 			if inv_matrix[x][y] != null:
-				if string_strip(inv_matrix[x][y].name) == true_name:
+				if helper.string_strip(inv_matrix[x][y].name) == true_name:
 					icon = inv_matrix[x][y] 
 					inv_matrix[x][y] = null
 					return icon

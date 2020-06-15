@@ -40,7 +40,7 @@ var stamina_previous = 0.0
 signal stamina_changed
 signal stamina_hit_zero
 
-var is_covering = false
+var is_veiled = false
 var cover_sun_decrease = 1.1
 
 var hold_orienter
@@ -79,6 +79,9 @@ var landingtimer = 0
 var bow_is_fired = false
 var bow_postfire_wait = .15
 var arrow_resource = preload("res://items/arrow/arrow.tscn")
+var sword_resource = preload("res://items/sword/sword.tscn")
+var veil_resource
+var shield_resource = preload("res://items/shield/shield.tscn")
 
 var sun
 
@@ -158,6 +161,7 @@ func run_setup(start_position, start_direction):
 #	set_state_default()
 
 	connect("unique_item_picked_up", game_singleton.get_node("system_sound_player"), "play_unique_item_sound")
+	connect("unique_item_picked_up", inventorymanager, "add_item")
 	
 	check_if_in_sunarea_at_start()
 	
@@ -214,6 +218,8 @@ func _process(delta):
 	match state:
 		"default":
 			state_default(delta)
+		"veiled":
+			state_veiled(delta)
 		"swing":
 			state_swing(delta)
 		"listen":
@@ -255,25 +261,16 @@ func state_default(delta):
 #		print(target.name)
 #	print("-----------")
 	
-	
-	if !is_covering:
-		if movedir != Vector2(0,0):
-			if is_running:
-				switch_anim("run")
-				damage_stamina(stamina_drain_run, delta)
-			else:
-				switch_anim("walk")
-				heal_stamina(stamina_heal_walk, delta)
+	if movedir != Vector2(0,0):
+		if is_running:
+			switch_anim("run")
+			damage_stamina(stamina_drain_run, delta)
 		else:
-			switch_anim("idle")
-			heal_stamina(stamina_heal_still, delta)
-	else:
-		if movedir != Vector2(0,0):
-			switch_anim("coverwalk")
+			switch_anim("walk")
 			heal_stamina(stamina_heal_walk, delta)
-		else:
-			switch_anim("coveridle")
-			heal_stamina(stamina_heal_still, delta)
+	else:
+		switch_anim("idle")
+		heal_stamina(stamina_heal_still, delta)
 		
 	if Input.is_action_just_pressed("item1"):
 # 		find out which item corresponds to item1, and then trigger it
@@ -282,6 +279,9 @@ func state_default(delta):
 		var item1 = inventorymanager.get_item_1()
 		if item1 != null:
 			print("Item 1: " + item1)
+			use_named_item(item1)
+		else:
+			print("Item 1 is null")
 		
 #		use_item(preload("res://items/sword/sword.tscn"))
 #		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
@@ -292,6 +292,9 @@ func state_default(delta):
 		var item2 = inventorymanager.get_item_2()
 		if item2 != null:
 			print("Item 2: " + item2)
+			use_named_item(item2)
+		else:
+			print("Item 2 is null")
 		pass
 		
 	elif Input.is_action_just_pressed("action"):
@@ -342,11 +345,11 @@ func state_default(delta):
 			else:
 				print("Speech resource not loaded correctly")
 			
-	if Input.is_action_pressed("y"):
-		is_covering = true;
-	else:
-		is_covering = false
-		
+#	if Input.is_action_pressed("y"):
+#		is_veiled = true
+#	else:
+#		is_veiled = false
+#
 		#if not, engage search area
 		
 		#if not speaking to interactible, trigger speechhittables
@@ -369,17 +372,51 @@ func state_default(delta):
 	
 	movement_loop()
 
-
-#func use_item(item):
-#	var use_item = inventory
-#
-#	pass
+func state_veiled(delta):
+	set_veiled_speed()
+	assign_movedir_from_input()
+	set_facedir()
+	set_spritedir()
+	damage_loop()
+	sun_damage_loop(delta)
 	
-func get_item_at_button(button):
-	if button == "item1":
-		pass
-	elif button == "item2":
-		pass	
+	if movedir != Vector2(0,0):
+		switch_anim("coverwalk")
+		heal_stamina(stamina_heal_walk, delta)
+	else:
+		switch_anim("coveridle")
+		heal_stamina(stamina_heal_still, delta)
+	
+	var veil_button = get_button_from_equipped_item("veil")
+	if veil_button != null:
+		if Input.is_action_just_released(veil_button):
+			is_veiled = false
+			set_state_default()
+	
+	movement_loop()
+	
+	pass
+
+func get_button_from_equipped_item(item_name):
+	if inventorymanager.get_item_1() == item_name:
+		return "item1"
+	elif inventorymanager.get_item_2() == item_name:
+		return "item2"
+	return null
+
+func use_named_item(item_name):
+	if inventorymanager.has(item_name):
+		print("Inventory contains " + item_name)
+		if item_name == "veil":
+			set_state_veiled()
+			pass
+		elif item_name == "bow":
+			set_state_bowusing()
+			pass
+			
+		else:
+			pass
+	pass
 
 func damage_stamina(change, delta):
 	stamina_previous = stamina
@@ -480,13 +517,15 @@ func state_bowusing(delta):
 		set_spritedir()
 		movement_loop()
 		
-		if Input.is_action_just_released("y"):
-			bow_is_fired = true
-			switch_anim_static("bowfire")
-			$Timer.wait_time = bow_postfire_wait
-			$Timer.start()
-			#Fire arrow
-			fire_arrow()
+		var bow_button = get_button_from_equipped_item("bow")
+		if bow_button != null:
+			if Input.is_action_just_released(bow_button):
+				bow_is_fired = true
+				switch_anim_static("bowfire")
+				$Timer.wait_time = bow_postfire_wait
+				$Timer.start()
+				#Fire arrow
+				fire_arrow()
 			
 	else:
 		if $Timer.time_left == 0:
@@ -621,7 +660,7 @@ func state_swing(delta):
 	heal_stamina(stamina_heal_walk, delta)
 	
 func state_listen(delta):
-	if is_covering:
+	if is_veiled:
 		switch_anim("coveridle")
 	else:
 		switch_anim("idle")
@@ -836,18 +875,20 @@ func start_ledge_pullup():
 	ispullingup = true
 
 func set_speed():
-	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout && !is_covering:
+	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout:
 		speed = runspeed
 		is_running = true
-	elif is_covering:
-		speed = coverspeed
-		is_running = false
 	else:
 		if stamina_drain_kickout:
 			if Input.is_action_just_released("action"):
 				stamina_drain_kickout = false
 		speed = walkspeed
 		is_running = false
+
+func set_veiled_speed():
+	speed = coverspeed
+	is_running = false
+	pass
 
 func create_stamina_drain_kickout():
 	stamina_drain_kickout = true
@@ -928,8 +969,13 @@ func get_sun_current_strength():
 #	print("Final calculated sun strength is " + String(sun_current_strength))
 #	print("---")
 	
-	if is_covering:
+	if is_veiled:
 		sun_current_strength -= cover_sun_decrease
+		print("Being effected by veil")
+#	else: 
+#		print("Get sun current strength not noticing veil")
+		
+	print("Final calculated sun strength with cover is " + String(sun_current_strength))
 		
 	return sun_current_strength
 	
@@ -1021,6 +1067,10 @@ func set_state_swing():
 func set_state_default():
 	state = "default"
 	
+func set_state_veiled():
+	state = "veiled"
+	is_veiled = true
+	
 func set_state_listen():
 	state = "listen"
 	
@@ -1063,7 +1113,7 @@ func set_state_item_get(item):
 	$anim.play("itempickup")
 	held_item.global_position = hold_position.global_position
 	$Timer.start(item_pickup_hold_time)
-	emit_signal("unique_item_picked_up")
+	emit_signal("unique_item_picked_up", item.name)
 	
 func set_state_stopped():
 	state = "stopped"
