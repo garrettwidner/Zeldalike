@@ -72,6 +72,7 @@ tracks/0/keys = {
 }
 
 [node name="game_singleton" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="GUI" parent="." instance=ExtResource( 2 )]

@@ -9,7 +9,7 @@ func _ready():
 	TYPE = "PLAYER"
 	$anim.play("sound")
 	purify_speech()
-	print("Speech created")
+#	print("Speech created")
 
 func purify_speech():
 	is_purified = true

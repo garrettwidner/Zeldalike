@@ -27,6 +27,8 @@ func _ready():
 			
 	inv_menu = get_node("../inventory_menu")
 	connect("on_item_added", inv_menu, "add_to_inventory")
+	inv_menu.connect("menu_opened", self, "menu_opened")
+	inv_menu.connect("menu_closed", self, "menu_closed")
 
 func add_test_items():
 	add_item("veil")
@@ -77,7 +79,14 @@ func add_item(item, count = 1):
 			emit_signal("on_item_added", item)
 			inventory["items"][item] = {}
 			inventory["items"][item] = type
-			
+		
+func menu_opened():
+	print("Inventory manager noticed menu was OPENED")
+	pass
+	
+func menu_closed():
+	print("Inventory manager noticed menu was CLOSED")
+	pass
 
 func load_file_as_JSON(file_path):
 	var file = File.new()

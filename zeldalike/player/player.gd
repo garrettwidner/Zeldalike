@@ -257,10 +257,6 @@ func state_default(delta):
 	damage_loop()
 	sun_damage_loop(delta)
 	
-#	for target in interacttargets:
-#		print(target.name)
-#	print("-----------")
-	
 	if movedir != Vector2(0,0):
 		if is_running:
 			switch_anim("run")
@@ -272,30 +268,24 @@ func state_default(delta):
 		switch_anim("idle")
 		heal_stamina(stamina_heal_still, delta)
 		
-	if Input.is_action_just_pressed("item1"):
+	if Input.is_action_just_pressed("item1") && !Input.is_action_pressed("itemchange"):
 # 		find out which item corresponds to item1, and then trigger it
 # 		by passing it to another function which uses an item based on the passed string
 
 		var item1 = inventorymanager.get_item_1()
 		if item1 != null:
-			print("Item 1: " + item1)
+#			print("Item 1: " + item1)
 			use_named_item(item1)
-		else:
-			print("Item 1 is null")
-		
-#		use_item(preload("res://items/sword/sword.tscn"))
+
 #		use_item(preload("res://items/sprinkler/sprinkler.tscn"))
 #		add_sprinkle()
 		pass
 		
-	elif Input.is_action_just_pressed("item2"):
+	elif Input.is_action_just_pressed("item2") && !Input.is_action_pressed("itemchange"):
 		var item2 = inventorymanager.get_item_2()
 		if item2 != null:
-			print("Item 2: " + item2)
+#			print("Item 2: " + item2)
 			use_named_item(item2)
-		else:
-			print("Item 2 is null")
-		pass
 		
 	elif Input.is_action_just_pressed("action"):
 		if check_hop_validity():
@@ -317,10 +307,6 @@ func state_default(delta):
 #			print("Item pickup returned true")
 			pass
 		
-	elif Input.is_action_just_pressed("y"):
-#		set_state_bowusing()
-		pass
-		
 	elif Input.is_action_just_pressed("test_1"):
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
@@ -341,34 +327,11 @@ func state_default(delta):
 				use_item(speech_resource)
 				set_state_speech_animating()
 				emit_signal("on_spoke")
-				print("Speech item should play")
-			else:
-				print("Speech resource not loaded correctly")
+#				print("Speech item should play")
+#			else:
+#				print("Speech resource not loaded correctly")
 			
-#	if Input.is_action_pressed("y"):
-#		is_veiled = true
-#	else:
-#		is_veiled = false
-#
-		#if not, engage search area
-		
-		#if not speaking to interactible, trigger speechhittables
-		
-		
-		#old logic -----------------------------
-#		if caninteract:
-##			print("Should be interacting with " + interacttarget.name + "!")
-#			var is_valid_target = dialogueparser.activate(interacttarget)
-#			if is_valid_target:
-##				print("Set state to listen")
-#				set_state_listen()
-		#old logic end-----------------------------
-		
-				
-#		staticdir = spritedir
-#		use_item(preload("res://items/shield/shield.tscn"))
 		pass
-	
 	
 	movement_loop()
 
@@ -393,8 +356,29 @@ func state_veiled(delta):
 			is_veiled = false
 			set_state_default()
 	
+	if Input.is_action_just_pressed("speech"):
+		#interact with interactible you're facing
+		var successfully_spoke = speak_to_interactibles()
+		if !successfully_spoke:
+			if speech_resource != null:
+				use_item(speech_resource)
+				set_state_speech_animating()
+				emit_signal("on_spoke")
+				print("Speech item should play")
+			else:
+				print("Speech resource not loaded correctly")
+			
+		pass
+	
 	movement_loop()
 	
+	pass
+	
+func pause():
+#	set_state_stopped()
+	pass
+	
+func unpause():
 	pass
 
 func get_button_from_equipped_item(item_name):
@@ -406,14 +390,16 @@ func get_button_from_equipped_item(item_name):
 
 func use_named_item(item_name):
 	if inventorymanager.has(item_name):
-		print("Inventory contains " + item_name)
+#		print("Inventory contains " + item_name)
 		if item_name == "veil":
 			set_state_veiled()
 			pass
 		elif item_name == "bow":
 			set_state_bowusing()
 			pass
-			
+		elif item_name == "sword":
+			use_item(sword_resource)
+			pass
 		else:
 			pass
 	pass
@@ -971,11 +957,11 @@ func get_sun_current_strength():
 	
 	if is_veiled:
 		sun_current_strength -= cover_sun_decrease
-		print("Being effected by veil")
+#		print("Being effected by veil")
 #	else: 
 #		print("Get sun current strength not noticing veil")
 		
-	print("Final calculated sun strength with cover is " + String(sun_current_strength))
+#	print("Final calculated sun strength with cover is " + String(sun_current_strength))
 		
 	return sun_current_strength
 	
@@ -1139,7 +1125,10 @@ func _on_anim_animation_finished(anim_name):
 func _on_Timer_timeout():
 	match state:
 		"listen":
-			set_state_default()
+			if is_veiled:
+				set_state_veiled()
+			else:
+				set_state_default()
 		"speech_animating":
 			set_state_default()
 			

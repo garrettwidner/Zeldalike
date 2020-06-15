@@ -3254,15 +3254,19 @@ position = Vector2( 0, 40 )
 position = Vector2( 0, -38 )
 
 [node name="Sounds" type="Node2D" parent="."]
+pause_mode = 2
 
 [node name="cracking_sound_player" parent="Sounds" instance=ExtResource( 41 )]
+pause_mode = 2
 position = Vector2( 286.347, 340.193 )
 max_time = 10.0
 
 [node name="windplayer" type="Node2D" parent="Sounds"]
+pause_mode = 2
 position = Vector2( 37.12, 0 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sounds/windplayer"]
+pause_mode = 2
 position = Vector2( -14.3472, 122.833 )
 stream = ExtResource( 42 )
 volume_db = -40.768

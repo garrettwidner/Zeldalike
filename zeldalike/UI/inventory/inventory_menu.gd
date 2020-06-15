@@ -60,6 +60,9 @@ onready var play_menu = get_node("play_menu")
 
 var is_open 
 
+signal menu_opened
+signal menu_closed
+
 func add_to_inventory(item):
 #	print("Need to add " + item + " to inventory menu")
 	create_icon(item)
@@ -197,6 +200,8 @@ func hide_menu():
 	pause_menu.hide()
 	play_menu.show()
 	clear_picked_icon()
+	emit_signal("menu_closed")
+	get_tree().paused = false
 	
 func populate_play_menu():
 #	var hotbar_1_item = get_icon_at_grid_position(Vector2(0,0), UI_BOX.HOTBAR1)
@@ -215,9 +220,11 @@ func show_menu():
 	pause_menu.show()
 	play_menu.hide()
 	is_open = true
+	emit_signal("menu_opened")
+	get_tree().paused = true
 
 func _process(delta):
-	if Input.is_action_just_pressed("test_1"):
+	if Input.is_action_just_pressed("inventory"):
 		if !is_open:
 			show_menu()
 		else:
