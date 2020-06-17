@@ -212,8 +212,12 @@ func populate_play_menu():
 	
 	if hotbar_1_item != null:
 		create_icon_in_play_menu(hotbar_1_item.name, 1)
+	else:
+		remove_icon_from_play_menu(1)
 	if hotbar_2_item != null:
 		create_icon_in_play_menu(hotbar_2_item.name, 2)
+	else:
+		remove_icon_from_play_menu(2)
 	pass
 	
 func show_menu():

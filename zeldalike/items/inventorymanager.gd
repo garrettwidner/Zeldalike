@@ -1,6 +1,7 @@
 extends Node2D
 
 #Handles all item requests, storage/deletion, and interaction. 
+#Is the only class which should interact with the inventory_menu.
 
 var inventory = {}
 var inventory_master = {}
@@ -8,6 +9,8 @@ var item_notification_panel
 var item_notification_text
 
 signal on_item_added
+signal menu_opened
+signal menu_closed
 
 var inv_menu
 
@@ -81,11 +84,11 @@ func add_item(item, count = 1):
 			inventory["items"][item] = type
 		
 func menu_opened():
-	print("Inventory manager noticed menu was OPENED")
+#	print("Inventory manager noticed menu was OPENED")
 	pass
 	
 func menu_closed():
-	print("Inventory manager noticed menu was CLOSED")
+#	print("Inventory manager noticed menu was CLOSED")
 	pass
 
 func load_file_as_JSON(file_path):

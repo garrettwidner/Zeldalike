@@ -176,7 +176,7 @@ func run_setup(start_position, start_direction):
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
-	add_test_items()
+#	add_test_items()
 	pass
 	
 func add_test_items():
@@ -782,6 +782,7 @@ func state_item_get(delta):
 	if $Timer.time_left <= 0:
 		set_state_default()
 		held_item.queue_free()
+		is_holding = false
 
 func set_hold_position():
 	if facedir == dir.DOWN:

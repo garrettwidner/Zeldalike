@@ -29,10 +29,10 @@ margin_bottom = 193.427
 texture = ExtResource( 3 )
 
 [node name="hotbar_2" type="TextureRect" parent="pause_menu"]
-margin_left = 49.8803
-margin_top = 40.9229
-margin_right = 113.88
-margin_bottom = 80.9229
+margin_left = 59.1009
+margin_top = 40.6156
+margin_right = 123.101
+margin_bottom = 80.6155
 texture = ExtResource( 2 )
 
 [node name="play_menu" type="Control" parent="."]
