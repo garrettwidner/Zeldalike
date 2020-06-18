@@ -11,13 +11,11 @@ var move_direction
 var deletion_time_flying = 1.45
 var deletion_time_enemy = .02
 var deletion_time_object = 1.3
+var deletion_time_immediate_hit = .02
 var has_hit = false
 var new_parent
 
-#LOOK---------------------------
-#TODO: Destroy self if offscreen
-#LOOK---------------------------
-
+var time_considered_immediate_hit = .08
 
 func _ready():
 	TYPE = "PLAYER"
@@ -64,6 +62,13 @@ func reparent(parent):
 #		print(global_position)
 
 func hit_object(object_parent, deletion_time):
+	
+	var time_since_release = deletion_time_flying - $Timer.time_left
+#	print("Arrow hit in " + String(time_since_release) + " seconds.") 
+	
+	if time_since_release <= time_considered_immediate_hit:
+		queue_free()
+	
 	has_hit = true
 	new_parent = object_parent
 	$Timer.stop()
@@ -71,15 +76,18 @@ func hit_object(object_parent, deletion_time):
 	$Timer.start()
 
 func _on_Area2D_body_entered(body):
-	if(!("arrow" in body.name) && !("player" in body.name)):
-#		print("Arrow hit body " + body.name)
+	if(!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name)):
+		print("Arrow hit body " + body.name)
 		hit_object(body, deletion_time_object)
 		pass
 
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
-#	print("Arrow hit " + area.get_parent().name)
 	var area_parent = area.get_parent()
-	if area_parent.get("TYPE") != null:
+	if area_parent.get("TYPE") != null && ("hitbox" in area.name):
 		if area_parent.get("TYPE") == "ENEMY":
 			hit_object(area_parent, deletion_time_enemy)
+			print("Arrow hit ENEMY " + area.get_parent().name + " and connected.")
+			return
+#	print(" --- arrow hit " + area_parent.name + " but did not connect")
+			
 	

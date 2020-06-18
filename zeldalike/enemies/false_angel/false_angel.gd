@@ -40,6 +40,7 @@ func take_damage(health, damage):
 		die()
 	else:
 		$anim.play("hurt")
+		print("False angel took damage")
 		damagetaker.disabled = true
 
 func die():
