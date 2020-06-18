@@ -63,11 +63,24 @@ var is_open
 signal menu_opened
 signal menu_closed
 
-func add_to_inventory(item):
+func add_to_inventory(item_name):
 #	print("Need to add " + item + " to inventory menu")
-	create_icon(item)
+	var created_icon = create_icon(item_name)
+	var new_slot = find_icon_slot(item_name)
+	
+	if get_item_1() == null:
+		pick_icon_from_inv(new_slot)
+		pick_icon_from_hotbar(1,Vector2(0,0))
+		populate_play_menu()
+		pass
+		
+	elif get_item_2() == null:
+		pick_icon_from_inv(new_slot)
+		pick_icon_from_hotbar(2,Vector2(0,0))
+		populate_play_menu()
+		pass
 	pass
-
+	
 func get_item_1():
 	if selected_hotbar_1_item != null:
 		return helper.string_strip(selected_hotbar_1_item.name)
@@ -131,7 +144,6 @@ func create_icon(item_name):
 		icon_object.name = item_name
 		icon_object.rect_position = inventory_ui.rect_position
 		icon_object.get_node("TextureRect").texture = icon
-		#------------------------------------------------> TODO: Add icon to inventory <---
 		
 #		print("New slot: " + String(new_slot))
 		place_icon_in_inv(icon_object, new_slot)
@@ -257,6 +269,14 @@ func _process(delta):
 		pass
 
 	
+func find_icon_slot(icon_name):
+	for y in range(INV_SLOT_COUNT.y):
+		for x in range(INV_SLOT_COUNT.x):
+			if inv_matrix[x][y] != null:
+				if helper.string_strip(inv_matrix[x][y].name) == icon_name:
+					return Vector2(x,y)
+	return null
+	
 func increment_hotbar(hotbar_number):
 	var ui_box
 	var hotbar
@@ -356,15 +376,21 @@ func pick_icon():
 		pick_icon_from_hotbar(2)
 		pass
 		
-func pick_icon_from_inv():
+func pick_icon_from_inv(chosen_slot = null):
+	var selection_position 
+	if chosen_slot == null:
+		selection_position = cursor_grid_position
+	else:
+		selection_position = chosen_slot
+	
 	if held_icon == null:
-		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
+		var icon_at_current_slot = get_icon_at_grid_position(selection_position, UI_BOX.INV)
 		if icon_at_current_slot != null:
-			var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position, true)
+			var icon = remove_and_get_icon_at_inv_matrix_slot(selection_position, true)
 			held_icon = icon
 	else:
 		remove_placeholder_icon()
-		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, UI_BOX.INV)
+		var icon_at_current_slot = get_icon_at_grid_position(selection_position, UI_BOX.INV)
 #		print("Held icon: " + held_icon.name)
 		if icon_at_current_slot != null:
 #			print("Slot icon: " + icon_at_current_slot.name)
@@ -380,16 +406,16 @@ func pick_icon_from_inv():
 					
 					remove_and_get_icon_in_inv(held_icon.name).queue_free()
 					
-					var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
+					var icon = remove_and_get_icon_at_inv_matrix_slot(selection_position)
 					var duplicate_icon = held_icon
-					place_icon_in_inv(held_icon, cursor_grid_position)
+					place_icon_in_inv(held_icon, selection_position)
 					create_placeholder_icon(icon.name, get_first_open_inv_slot())
 					held_icon = icon
 			else:
 				#switch held icon with icon in slot
 #				print("Different item found in same slot, duplicate item not found in inventory")
-				var icon = remove_and_get_icon_at_inv_matrix_slot(cursor_grid_position)
-				place_icon_in_inv(held_icon, cursor_grid_position)
+				var icon = remove_and_get_icon_at_inv_matrix_slot(selection_position)
+				place_icon_in_inv(held_icon, selection_position)
 				create_placeholder_icon(icon.name, get_first_open_inv_slot())
 				held_icon = icon
 		else:
@@ -397,7 +423,7 @@ func pick_icon_from_inv():
 			if is_item_in_inv(held_icon.name):
 				remove_and_get_icon_in_inv(held_icon.name).queue_free()
 				debug_string = "Removed item present in inventory and "
-			place_icon_in_inv(held_icon, cursor_grid_position)
+			place_icon_in_inv(held_icon, selection_position)
 #			print(debug_string + "Placed held item in empty spot")
 			held_icon = null
 		pass
@@ -423,7 +449,13 @@ func reinstate_placeholder_icon():
 
 
 
-func pick_icon_from_hotbar(hotbar_number):
+func pick_icon_from_hotbar(hotbar_number, chosen_slot = null):
+	var selection_position 
+	if chosen_slot == null:
+		selection_position = cursor_grid_position
+	else:
+		selection_position = chosen_slot
+	
 	var ui_box
 	var hotbar
 	
@@ -436,14 +468,14 @@ func pick_icon_from_hotbar(hotbar_number):
 			hotbar = hotbar_2
 	
 	if held_icon == null:
-		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
+		var icon_at_current_slot = get_icon_at_grid_position(selection_position, ui_box)
 		if icon_at_current_slot != null:
-			var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
+			var icon = remove_and_get_icon_at_hotbar_slot(selection_position,hotbar_number)
 			held_icon = icon
 		pass
 	else:
 		reinstate_placeholder_icon()
-		var icon_at_current_slot = get_icon_at_grid_position(cursor_grid_position, ui_box)
+		var icon_at_current_slot = get_icon_at_grid_position(selection_position, ui_box)
 		if icon_at_current_slot != null:
 			if same_icon_name(icon_at_current_slot.name, held_icon.name):
 				#icon is same as held icon
@@ -452,15 +484,15 @@ func pick_icon_from_hotbar(hotbar_number):
 			else:
 				#icons are different
 				var placed_icon_name = held_icon.name
-				var icon = remove_and_get_icon_at_hotbar_slot(cursor_grid_position,hotbar_number)
-				place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
+				var icon = remove_and_get_icon_at_hotbar_slot(selection_position,hotbar_number)
+				place_icon_in_hotbar(held_icon, selection_position, hotbar_number)
 				held_icon = icon
-				remove_hotbar_duplicates(placed_icon_name, cursor_grid_position.x, hotbar_number)
+				remove_hotbar_duplicates(placed_icon_name, selection_position.x, hotbar_number)
 		else:
 			var placed_icon_name = held_icon.name
-			place_icon_in_hotbar(held_icon, cursor_grid_position, hotbar_number)
+			place_icon_in_hotbar(held_icon, selection_position, hotbar_number)
 			held_icon = null
-			remove_hotbar_duplicates(placed_icon_name, cursor_grid_position.x, hotbar_number)
+			remove_hotbar_duplicates(placed_icon_name, selection_position.x, hotbar_number)
 			pass
 		pass
 		

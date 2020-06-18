@@ -77,7 +77,7 @@ func hit_object(object_parent, deletion_time):
 
 func _on_Area2D_body_entered(body):
 	if(!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name)):
-		print("Arrow hit body " + body.name)
+#		print("Arrow hit body " + body.name)
 		hit_object(body, deletion_time_object)
 		pass
 
@@ -86,7 +86,7 @@ func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
 	if area_parent.get("TYPE") != null && ("hitbox" in area.name):
 		if area_parent.get("TYPE") == "ENEMY":
 			hit_object(area_parent, deletion_time_enemy)
-			print("Arrow hit ENEMY " + area.get_parent().name + " and connected.")
+#			print("Arrow hit ENEMY " + area.get_parent().name + " and connected.")
 			return
 #	print(" --- arrow hit " + area_parent.name + " but did not connect")
 			
