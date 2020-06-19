@@ -512,7 +512,7 @@ extents = Vector2( 220, 144 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-scene_name = "base_scene"
+scene_name = "level_2_test"
 
 [node name="sun" type="Node2D" parent="."]
 script = ExtResource( 2 )

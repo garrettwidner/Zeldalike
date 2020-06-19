@@ -1,0 +1,23 @@
+{
+"SceneName": "base_scene",
+"eventTarget": {
+	"target_objects_name": {
+		"first_event_name": {
+			"Name": "name_in_story_file",
+			"Type": "Repeat",
+			"Flags": { 
+				"default" : true
+			}
+		},
+		"second_event_name": {
+				"Name":"name_in_story_file",
+				"Type": "Unique",
+				"Flags": {
+					"condition1": true,
+					"condition2": false,
+					"alreadyUsed": false
+				}
+			}
+		}
+	}
+}

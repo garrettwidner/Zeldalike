@@ -76,8 +76,8 @@ func hit_object(object_parent, deletion_time):
 	$Timer.start()
 
 func _on_Area2D_body_entered(body):
-	if(!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name)):
-#		print("Arrow hit body " + body.name)
+	if!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name) && !body.is_in_group("ground_level"):
+		print("Arrow hit body " + body.name)
 		hit_object(body, deletion_time_object)
 		pass
 

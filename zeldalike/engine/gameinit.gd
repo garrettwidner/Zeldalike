@@ -115,11 +115,18 @@ func perform_preliminary_level_setup():
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
 
+
+	var found_correct_sceneblock = false
 	for sceneblock in sceneblocks:
 		if sceneblock.entrance_number == new_entrance_number:
 			entrance_scene_block = sceneblock
+			found_correct_sceneblock = true
 #			print("Scene block chosen for entrance is " + sceneblock.name)
 #			print("It is located at " + String(sceneblock.position))
+
+	if !found_correct_sceneblock:
+		print("Unable to find starting sceneblock. Likely because the entrance number has not been set.")
+		assert(found_correct_sceneblock)
 			
 #	print("Player running setup at position " + String(entrance_scene_block.spawnpoint.global_position) + " and facedir " + String(entrance_scene_block.entrance_facedir))
 	player.run_setup(entrance_scene_block.spawnpoint.global_position, entrance_scene_block.entrance_facedir)

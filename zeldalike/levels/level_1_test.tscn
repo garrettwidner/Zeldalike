@@ -530,7 +530,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=57]
+[sub_resource type="RectangleShape2D" id=60]
 extents = Vector2( 252.56, 350 )
 
 [sub_resource type="RectangleShape2D" id=58]
@@ -615,7 +615,7 @@ position = Vector2( 1129.21, 156.387 )
 position = Vector2( 1092.67, 265.377 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 57 )
+shape = SubResource( 60 )
 __meta__ = {
 "_edit_lock_": true
 }
