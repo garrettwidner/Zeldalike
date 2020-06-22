@@ -14,6 +14,7 @@ var deletion_time_object = 1.3
 var deletion_time_immediate_hit = .02
 var has_hit = false
 var new_parent
+var elevation
 
 var time_considered_immediate_hit = .08
 
@@ -76,7 +77,9 @@ func hit_object(object_parent, deletion_time):
 	$Timer.start()
 
 func _on_Area2D_body_entered(body):
-	if!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name) && !body.is_in_group("ground_level"):
+	if!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name):
+		if body.is_in_group("terrain"):
+			pass
 		print("Arrow hit body " + body.name)
 		hit_object(body, deletion_time_object)
 		pass

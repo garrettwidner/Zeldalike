@@ -505,10 +505,10 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 220, 144 )
 
-[sub_resource type="RectangleShape2D" id=55]
+[sub_resource type="RectangleShape2D" id=56]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -541,6 +541,8 @@ position = Vector2( 199.445, 212.275 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 
+[node name="heightchangers" type="Node2D" parent="."]
+
 [node name="sounds" type="Node2D" parent="."]
 
 [node name="camareas" type="Node2D" parent="."]
@@ -551,7 +553,7 @@ position = Vector2( 199.445, 212.275 )
 position = Vector2( 253.538, 215.258 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 56 )
+shape = SubResource( 55 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -573,7 +575,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblocks/sceneblock/Area2D"]
-shape = SubResource( 55 )
+shape = SubResource( 56 )
 __meta__ = {
 "_edit_lock_": true
 }

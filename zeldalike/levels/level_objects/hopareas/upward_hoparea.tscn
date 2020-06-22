@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 7 )
+
+[node name="upward_hoparea" type="Area2D" groups=[
+"hoparea",
+]]
+position = Vector2( 599.976, 300.782 )
+z_index = 4096
+script = ExtResource( 1 )
+canhopdown = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hoptop" type="Position2D" parent="."]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopbott" type="Position2D" parent="."]
+position = Vector2( 0, 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hopcling" type="Position2D" parent="."]
+position = Vector2( 0, -5 )
+__meta__ = {
+"_edit_lock_": true
+}

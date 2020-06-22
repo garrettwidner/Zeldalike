@@ -107,7 +107,9 @@ var disease_3_sprite = preload("res://player/Lodan_Disease_3.png")
 var disease_2_sprite = preload("res://player/Lodan_Disease_2.png")
 var disease_1_sprite = preload("res://player/Lodan_Recalibrator.png")
 
-
+var elevation = 0
+var previous_height_changer
+var previous_height_change_was_decrement
 
 var staticdir
 
@@ -176,12 +178,12 @@ func run_setup(start_position, start_direction):
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
-#	add_test_items()
+	add_test_items()
 	pass
 	
 func add_test_items():
-	inventorymanager.add_item("veil")
 	inventorymanager.add_item("sword")
+	inventorymanager.add_item("veil")
 	inventorymanager.add_item("bow")
 	
 func run_startup():
@@ -1035,6 +1037,29 @@ func _on_Area2D_body_exited(body, obj):
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = false
 			hoparea = null
+		elif obj.is_in_group("heightchanger"):
+			print("Player exited heightchanger object")
+			var height_change_is_decrement
+			
+			if obj.is_point_above($CollisionShape2D.global_position):
+				height_change_is_decrement = false
+			else:
+				height_change_is_decrement = true
+				
+			if height_change_is_decrement == previous_height_change_was_decrement:
+				if previous_height_changer == obj:
+					return
+			else:
+				previous_height_changer = obj
+				if height_change_is_decrement:
+					elevation = elevation - 1
+					previous_height_change_was_decrement = true
+				else:
+					elevation = elevation + 1
+					previous_height_change_was_decrement = false
+					
+			print("Player elevation changed to " + String(elevation))
+			
 		elif obj.is_in_group("sun_area"):
 			var erasure_successful = sun_areas.erase(obj.get_instance_id())
 #			if erasure_successful:

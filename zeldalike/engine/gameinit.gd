@@ -103,6 +103,7 @@ func perform_preliminary_level_setup():
 	connect_player_to_speechhittables()
 	connect_player_to_searchareas()
 	connect_player_to_hopareas()
+	connect_player_to_heightchangers()
 	connect_cameracontroller_to_camareas()
 	connect_player_to_sun_areas()
 	
@@ -225,6 +226,13 @@ func connect_player_to_hopareas():
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		
+func connect_player_to_heightchangers():
+	var heightchangers = get_tree().get_nodes_in_group("heightchanger")
+	for i in range(heightchangers.size()):
+		var currentnode = get_node(heightchangers[i].get_path())
+		var args = Array([currentnode])
+		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
+
 func add_interactible(interactible):
 	print(interactible.name)
 	var currentnode = get_node(interactible.name)
