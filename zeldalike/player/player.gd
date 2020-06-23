@@ -182,9 +182,10 @@ func run_setup(start_position, start_direction):
 	pass
 	
 func add_test_items():
+	inventorymanager.add_item("bow")
+	
 	inventorymanager.add_item("sword")
 	inventorymanager.add_item("veil")
-	inventorymanager.add_item("bow")
 	
 func run_startup():
 	#add code for starting character movement here
@@ -533,7 +534,7 @@ func fire_arrow():
 	else:
 		arrow.set_z_index(0)
 		
-	arrow.setup(facedir)
+	arrow.setup(facedir, elevation)
 		
 	self.get_parent().add_child(arrow)
 
@@ -1038,7 +1039,7 @@ func _on_Area2D_body_exited(body, obj):
 			isinhoparea = false
 			hoparea = null
 		elif obj.is_in_group("heightchanger"):
-			print("Player exited heightchanger object")
+#			print("Player exited heightchanger object")
 			var height_change_is_decrement
 			
 			if obj.is_point_above($CollisionShape2D.global_position):
@@ -1046,19 +1047,19 @@ func _on_Area2D_body_exited(body, obj):
 			else:
 				height_change_is_decrement = true
 				
-			if height_change_is_decrement == previous_height_change_was_decrement:
-				if previous_height_changer == obj:
-					return
+			if height_change_is_decrement == previous_height_change_was_decrement && previous_height_changer == obj:
+#				print("Exiting from same side of most recent height change object; height not changed.")
+				return
 			else:
 				previous_height_changer = obj
 				if height_change_is_decrement:
-					elevation = elevation - 1
+					elevation = elevation - obj.magnitude
 					previous_height_change_was_decrement = true
 				else:
-					elevation = elevation + 1
+					elevation = elevation + obj.magnitude
 					previous_height_change_was_decrement = false
 					
-			print("Player elevation changed to " + String(elevation))
+				print("Player elevation changed to " + String(elevation))
 			
 		elif obj.is_in_group("sun_area"):
 			var erasure_successful = sun_areas.erase(obj.get_instance_id())

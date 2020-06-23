@@ -21,7 +21,7 @@ var time_considered_immediate_hit = .08
 func _ready():
 	TYPE = "PLAYER"
 
-func setup(direction):
+func setup(direction, height):
 	match direction:
 		dir.RIGHT:
 			pass
@@ -35,6 +35,7 @@ func setup(direction):
 	move_direction = direction
 	$Timer.wait_time = deletion_time_flying
 	$Timer.start()
+	elevation = height
 	is_setup = true
 	
 func _process(delta):
@@ -78,11 +79,17 @@ func hit_object(object_parent, deletion_time):
 
 func _on_Area2D_body_entered(body):
 	if!("arrow" in body.name) && !("player" in body.name) && !("perimeter" in body.name):
-		if body.is_in_group("terrain"):
-			pass
-		print("Arrow hit body " + body.name)
-		hit_object(body, deletion_time_object)
-		pass
+		if ("elevation" in body):
+			if body.elevation >= elevation:
+#				print("Connected with " + body.name + " with elevation " + String(body.elevation))
+				hit_object(body, deletion_time_object)
+			else:
+				set_collision_layer_bit(0,false)
+#				print("Skipped collision with " + body.name)
+		else:
+#			print("Arrow hit body " + body.name)
+			hit_object(body, deletion_time_object)
+	pass
 
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
 	var area_parent = area.get_parent()
@@ -93,4 +100,3 @@ func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
 			return
 #	print(" --- arrow hit " + area_parent.name + " but did not connect")
 			
-	
