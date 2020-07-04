@@ -1,3 +1,3 @@
-extends TileMap
+extends Object
 
 export var elevation = 0
