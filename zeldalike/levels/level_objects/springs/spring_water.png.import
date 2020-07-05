@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/swamp_tree.png-dd466193beb795e89bc117f573c9a7b6.stex"
+path="res://.import/spring_water.png-e2b783fbe653a1f87e06bd19041563ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/environment/swamp_tree/swamp_tree.png"
-dest_files=[ "res://.import/swamp_tree.png-dd466193beb795e89bc117f573c9a7b6.stex" ]
+source_file="res://levels/level_objects/springs/spring_water.png"
+dest_files=[ "res://.import/spring_water.png-e2b783fbe653a1f87e06bd19041563ab.stex" ]
 
 [params]
 

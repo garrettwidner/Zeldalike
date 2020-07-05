@@ -1,7 +1,7 @@
 [gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
-[ext_resource path="res://objects/environment/sun.gd" type="Script" id=2]
+[ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
 [ext_resource path="res://terrain/sand_desert/Sand_Tile.png" type="Texture" id=3]
 [ext_resource path="res://terrain/sand_desert/mountain_forms.png" type="Texture" id=4]
 [ext_resource path="res://levels/level_objects/terrain_object.gd" type="Script" id=5]
@@ -11,6 +11,7 @@
 [ext_resource path="res://levels/level_objects/hopareas/rightward_hoparea.tscn" type="PackedScene" id=9]
 [ext_resource path="res://levels/level_objects/heightchanger.tscn" type="PackedScene" id=10]
 [ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=11]
+
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"

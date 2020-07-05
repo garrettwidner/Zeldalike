@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/2x2 Grass-Dirt Bitmap.png-9f6a1591f5eb89bbcba4a0e647b5ffab.stex"
+path="res://.import/rocks_break.png-f65da18bc36afd989abdeef0c05ddcae.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png"
-dest_files=[ "res://.import/2x2 Grass-Dirt Bitmap.png-9f6a1591f5eb89bbcba4a0e647b5ffab.stex" ]
+source_file="res://levels/level_objects/springs/rocks_break.png"
+dest_files=[ "res://.import/rocks_break.png-f65da18bc36afd989abdeef0c05ddcae.stex" ]
 
 [params]
 

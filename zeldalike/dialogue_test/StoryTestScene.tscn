@@ -24,10 +24,13 @@
 [ext_resource path="res://dialogue_test/grnd -shelf back.tscn" type="PackedScene" id=22]
 [ext_resource path="res://dialogue_test/mtn - shlf side.tscn" type="PackedScene" id=23]
 [ext_resource path="res://dialogue_test/tile_test/Edge_Walls.png" type="Texture" id=24]
-[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=25]
+[ext_resource path="res://levels/level_objects/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=25]
 [ext_resource path="res://enemies/stalfos/stalfos.tscn" type="PackedScene" id=26]
-[ext_resource path="res://objects/environment/sun_area.gd" type="Script" id=27]
-[ext_resource path="res://objects/sun_crystal.tscn" type="PackedScene" id=28]
+[ext_resource path="res://levels/level_objects/sun_area.gd" type="Script" id=27]
+[ext_resource path="res://levels/level_objects/sun_crystal/sun_crystal.tscn" type="PackedScene" id=28]
+
+
+
 
 
 

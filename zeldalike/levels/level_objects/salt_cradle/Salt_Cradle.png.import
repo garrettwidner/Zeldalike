@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/seedbed.png-57718d6764eaff0883547ab032627ee3.stex"
+path="res://.import/Salt_Cradle.png-4d77b5b70dde7c433721f5de51f1ed90.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/seedbed.png"
-dest_files=[ "res://.import/seedbed.png-57718d6764eaff0883547ab032627ee3.stex" ]
+source_file="res://levels/level_objects/salt_cradle/Salt_Cradle.png"
+dest_files=[ "res://.import/Salt_Cradle.png-4d77b5b70dde7c433721f5de51f1ed90.stex" ]
 
 [params]
 

@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://dialogue_test/tile_test/Ground Template.png" type="Texture" id=1]
-[ext_resource path="res://objects/environment/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=2]
+[ext_resource path="res://levels/level_objects/springs/triggerables/2x2 Grass-Dirt Bitmap.png" type="Texture" id=2]
+
 
 
 

@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://objects/sun_crystal.png" type="Texture" id=1]
+[ext_resource path="res://levels/level_objects/sun_crystal/sun_crystal.png" type="Texture" id=1]
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0.01, 5.1, 6.94, 7.35, -0.12, 9.84, -6.69, 7.26 )

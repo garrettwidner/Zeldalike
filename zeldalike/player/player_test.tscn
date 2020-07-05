@@ -5,11 +5,12 @@
 [ext_resource path="res://items/shield/shield.png" type="Texture" id=3]
 [ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=4]
 [ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=5]
-[ext_resource path="res://objects/Plants.png" type="Texture" id=6]
+[ext_resource path="res://dialogue_test/objects/Plants.png" type="Texture" id=6]
 [ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=7]
 [ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=8]
 [ext_resource path="res://player/heat_lines.png" type="Texture" id=9]
 [ext_resource path="res://player/heat_lines.gd" type="Script" id=10]
+
 
 
 [sub_resource type="Shader" id=1]

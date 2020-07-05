@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Salt_Cradle.png-69d7829c80304d956700541eeb6f060e.stex"
+path="res://.import/Salt_Cradle_Shadow.png-e81987b7d6c6494f4f7225a92d4c128f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/environment/salt_cradle/Salt_Cradle.png"
-dest_files=[ "res://.import/Salt_Cradle.png-69d7829c80304d956700541eeb6f060e.stex" ]
+source_file="res://levels/level_objects/salt_cradle/Salt_Cradle_Shadow.png"
+dest_files=[ "res://.import/Salt_Cradle_Shadow.png-e81987b7d6c6494f4f7225a92d4c128f.stex" ]
 
 [params]
 

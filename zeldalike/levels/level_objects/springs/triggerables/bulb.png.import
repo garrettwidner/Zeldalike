@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Plants.png-fe45b40187213363ca10e72502a10afb.stex"
+path="res://.import/bulb.png-fc9fb20e88d4eadc4bb3ee8df7596797.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/Plants.png"
-dest_files=[ "res://.import/Plants.png-fe45b40187213363ca10e72502a10afb.stex" ]
+source_file="res://levels/level_objects/springs/triggerables/bulb.png"
+dest_files=[ "res://.import/bulb.png-fc9fb20e88d4eadc4bb3ee8df7596797.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sun_crystal.png-6b5988b4011e6b66131dda9ad93dc371.stex"
+path="res://.import/swamp_tree.png-8b4240910ebd8d8c0cab1099a4ad2421.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/sun_crystal.png"
-dest_files=[ "res://.import/sun_crystal.png-6b5988b4011e6b66131dda9ad93dc371.stex" ]
+source_file="res://levels/level_objects/swamp_tree/swamp_tree.png"
+dest_files=[ "res://.import/swamp_tree.png-8b4240910ebd8d8c0cab1099a4ad2421.stex" ]
 
 [params]
 

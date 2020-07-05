@@ -1,12 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://objects/environment/edible.gd" type="Script" id=1]
+[ext_resource path="res://levels/level_objects/edible.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 6 )
 
 [sub_resource type="StreamTexture" id=2]
-load_path = "res://.import/bulb.png-6ad3cf3447a4c6771285e3020ddeab5f.stex"
 
 [node name="Bulb" type="Area2D" groups=[
 "edible",
