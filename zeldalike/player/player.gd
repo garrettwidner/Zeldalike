@@ -586,7 +586,9 @@ func try_item_pickup():
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
 			return true
-		
+		elif area.is_in_group("food"):
+			print("Picked up food named " + area.name)
+			pass
 		
 	return false
 			
