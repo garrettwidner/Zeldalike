@@ -7,6 +7,8 @@ var damagetaker
 var collider
 var perimeter
 
+signal on_died
+
 func _ready():
 	TYPE = "ENEMY"
 	$anim.play("idle")
@@ -44,6 +46,7 @@ func take_damage(health, damage):
 		damagetaker.disabled = true
 
 func die():
+	emit_signal("on_died", self)
 	$anim.play("die")
 	damagetaker.disabled = true
 	collider.disabled = true

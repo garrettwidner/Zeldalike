@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://levels/level_objects/gates/rock_gate.gd" type="Script" id=1]
+[ext_resource path="res://levels/level_objects/gates/stone_gate_zip.png" type="Texture" id=2]
+[ext_resource path="res://levels/level_objects/gates/gate_free_finish.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=2]
+resource_name = "staid"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 0.7, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 6, 7, 0, 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionPolygon2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionPolygon2D:polygon")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ PoolVector2Array( 4.63876, 15.2364, 8.11817, 12.1049, 4.63876, 2.36254, 0.811401, -0.0730515, -3.53786, 2.18857, -7.01728, 2.53651, -7.53919, 13.6706, -4.75566, 15.7583 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "zip"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionPolygon2D:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ PoolVector2Array( 4.63876, 15.2364, 8.11817, 12.1049, 4.63876, 2.36254, 0.811401, -0.0730515, -3.53786, 2.18857, -7.01728, 2.53651, -7.53919, 13.6706, -4.75566, 15.7583 ), PoolVector2Array( 4.63876, 15.2364, 4.6729, 11.1781, 1.62923, 3.06164, -0.399872, 1.84417, -3.53786, 2.18857, -3.64645, 4.88784, -4.86391, 13.613, -4.75566, 15.7583 ), PoolVector2Array( 1.42632, 14.8305, 1.62923, 11.381, 1.62923, 3.06164, -0.399872, 1.84417, -3.53786, 2.18857, -2.83481, 5.49657, -2.42899, 13.2072, -2.02316, 15.4392 ), PoolVector2Array( 0.935143, 13.4777, 1.62923, 11.381, 1.64364, 7.95137, -0.340164, 6.53437, -2.04057, 6.95947, -2.83481, 5.49657, -0.623566, 12.9109, -0.481865, 14.3279 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionPolygon2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="rock_gate" type="StaticBody2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 4.63876, 15.2364, 8.11817, 12.1049, 4.63876, 2.36254, 0.811401, -0.0730515, -3.53786, 2.18857, -7.01728, 2.53651, -7.53919, 13.6706, -4.75566, 15.7583 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/staid = SubResource( 2 )
+anims/zip = SubResource( 1 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -23.223
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

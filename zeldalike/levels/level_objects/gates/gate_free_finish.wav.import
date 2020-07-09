@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gate_free_finish.wav-3d2f3be3ad04180b7f432725ad46546f.sample"
+
+[deps]
+
+source_file="res://levels/level_objects/gates/gate_free_finish.wav"
+dest_files=[ "res://.import/gate_free_finish.wav-3d2f3be3ad04180b7f432725ad46546f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
