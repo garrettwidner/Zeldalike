@@ -12,6 +12,8 @@ var istransitioning = false
 
 var player
 
+var is_setup = false
+
 func _ready():
 	player = get_node("../../player")
 	if player != null:
@@ -19,8 +21,10 @@ func _ready():
 	else:
 		print("heat_lines found player node null")
 		
+	player.connect("on_initial_sun_check", self, "run_setup")
+		
 	
-func run_setup(sun_strength):
+func run_setup(player, sun_strength):
 #	print("Setup called on heat_lines script, sun strength is " + String(sun_strength))
 	get_node("anim").play("heat")
 	visible = true
@@ -32,8 +36,13 @@ func run_setup(sun_strength):
 		modulate.a = invisible_alpha
 #		print("Heat lines saw sun strength as negative, heat lines INvisible")
 		
+	is_setup = true
 	
 func _process(delta):
+	
+	if !is_setup:
+		return
+	
 	if istransitioning:
 		var newmodulate = transitionstart + (transitionend - transitionstart) * transitionweight
 		modulate.a = newmodulate

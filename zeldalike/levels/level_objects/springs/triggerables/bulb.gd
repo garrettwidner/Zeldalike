@@ -1,6 +1,6 @@
 extends Node
 
-var bulb_resource = preload("res://objects/environment/springs/triggerables/Bulb.tscn")
+var bulb_resource = preload("res://levels/level_objects/springs/triggerables/Bulb.tscn")
 var bulb = null
 
 func _ready():

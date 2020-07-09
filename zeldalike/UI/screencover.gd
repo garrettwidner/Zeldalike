@@ -16,30 +16,34 @@ var transitionweight : float = 0
 var istransitioning = false
 
 var player
+
+var is_setup = false
 	
 func _ready():
 	var scenechanger = get_node("../scenechanger")
 	scenechanger.connect("scene_changed", self, "setup")
 	
-func setup(found_player):
+func setup(found_player, sun_strength):
 #	print("Screencover setup called")
 	player = found_player
 #	print("Setup called on screencover")
 #	player = get_node("/root/Level/YSort/actors/player")
 	player.connect("on_sun_strength_changed", self, "on_sun_changed")
 	
-	var sunstrength = player.get_sun_current_strength()
 #	print("Sun start strength seen by screencover is: " + String(sunstrength))
-	set_starting_brightness(sunstrength)
+	set_starting_brightness(sun_strength)
 	
 	visible = true
 	$anim.play("swelter")
+	is_setup = true
 	
 	pass
 	
 
 
 func _process(delta):
+	if !is_setup:
+		return
 #	if Input.is_action_just_pressed("a"):
 #		increase_brightness()
 #	elif Input.is_action_just_pressed("b"):

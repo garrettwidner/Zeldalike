@@ -120,6 +120,11 @@ var inventorymanager
 signal unique_item_picked_up
 var item_pickup_hold_time = 2.2
 
+var has_done_first_sun_check = false
+signal on_initial_sun_check
+
+var is_setup = false
+
 func _ready():
 	set_state_stopped()
 	pass
@@ -149,6 +154,9 @@ func run_setup(start_position, start_direction):
 	sun = get_node("/root/Level/sun")
 	if sun != null:
 		sun_base_strength = sun.strength
+#		print("Found sun")
+#	else:
+#		print("Warning: Sun is null")
 		
 	hold_orienter = get_node("hold_orienter")	
 	hold_position = get_node("hold_orienter/animation_mover")
@@ -170,7 +178,7 @@ func run_setup(start_position, start_direction):
 	var sunstrength = get_sun_current_strength()
 #	print("Sunstrength as seen by player script is: " + String(sunstrength))
 	
-	$heat_lines.run_setup(get_sun_current_strength())
+#	$heat_lines.run_setup(get_sun_current_strength())
 #	var sun_current_strength = get_sun_current_strength()
 #	emit_signal("on_sun_start", sun_current_strength)
 #	print("on sun start should have signaled")
@@ -179,6 +187,9 @@ func run_setup(start_position, start_direction):
 	
 #	$Sprite.texture = test_sprites
 	add_test_items()
+	
+	is_setup = true
+	
 	pass
 	
 func add_test_items():
@@ -218,6 +229,14 @@ func check_if_in_sunarea_at_start():
 	pass
 
 func _process(delta):
+	if !is_setup:
+		return
+	
+	if !has_done_first_sun_check:
+		process_initial_sun_checks()
+		has_done_first_sun_check = true
+		pass
+	
 	match state:
 		"default":
 			state_default(delta)
@@ -247,6 +266,12 @@ func _process(delta):
 			state_stopped(delta)
 		"item_get":
 			state_item_get(delta)
+			
+func process_initial_sun_checks():
+	var perceived_initial_sun_strength = get_sun_current_strength()
+#	print("Player initially perceived the sun's strength as " + String(perceived_initial_sun_strength))
+	emit_signal("on_initial_sun_check", self, perceived_initial_sun_strength)
+	pass
 
 func dialogue_finished():
 	$Timer.wait_time = post_speak_wait

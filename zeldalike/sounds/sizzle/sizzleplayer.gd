@@ -12,6 +12,8 @@ var istransitioning = false
 
 var player
 
+var is_setup = false
+
 func _ready():
 	player = get_node("../../../player")
 	if player != null:
@@ -20,9 +22,26 @@ func _ready():
 	else:
 		print("sizzleplayer found player node null")
 		
+	player.connect("on_initial_sun_check", self, "run_setup")
 		
+func run_setup(player, sun_strength):
+	start_sizzle(sun_strength)
+	is_setup = true
+	
+	
+func start_sizzle(sun_strength):
+	if sun_strength > 0:
+		begin_sizzle()
+	else:
+		set_volume_db(soft_volume)
+	
+	pass
 	
 func _process(delta):
+	if !is_setup:
+		return
+		
+	
 	if !playing:
 		playing = true
 		

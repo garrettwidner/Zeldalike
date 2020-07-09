@@ -53,6 +53,7 @@ func perform_first_setup_if_needed(default_entrance):
 		
 #		player.run_setup()
 
+
 func get_camarea_at_point(point):
 	
 	for i in range(camareas.size()):
@@ -91,7 +92,8 @@ func perform_preliminary_level_setup():
 	player = get_node("/root/Level/YSort/actors/player")
 	if player == null:
 		print("Warning: game_singleton unable to find player")
-	
+		
+	player.connect("on_initial_sun_check", self, "perform_sun_setups")
 	var start_position = Vector2(30,126)
 	
 	cameracontroller = player.get_node("cameracontroller")
@@ -111,11 +113,8 @@ func perform_preliminary_level_setup():
 	
 	connect_sceneblocks()
 	
-	
-
 	#Added or else scene is not set up enough for player to search for objects
 	yield(get_tree().create_timer(.01), "timeout")
-
 
 	var found_correct_sceneblock = false
 	for sceneblock in sceneblocks:
@@ -135,11 +134,12 @@ func perform_preliminary_level_setup():
 	var start_camarea = get_camarea_at_point(entrance_scene_block.spawnpoint.global_position)
 	cameracontroller.set_position_manual(true, entrance_scene_block.spawnpoint.global_position, start_camarea)
 	
-	
-	
-	screencover.setup(player)
 	healthbar.setup(player)
 	staminabar.setup(player)
+	
+func perform_sun_setups(player, sun_start_strength):
+	screencover.setup(player, sun_start_strength)
+	pass
 	
 func perform_concluding_level_setup():
 #	print("-Game singleton performing concluding level setup")

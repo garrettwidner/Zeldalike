@@ -1,4 +1,4 @@
-extends "res://objects/knockable.gd"
+extends "res://levels/level_objects/knockable.gd"
 
 export(NodePath) var triggerable_1
 export(NodePath) var triggerable_2
