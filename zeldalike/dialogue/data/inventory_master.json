@@ -11,6 +11,9 @@
 		},
 		"sword":{
 			"type":"usable"
+		},
+		"food_sack":{
+			"type":"usable"
 		}
 	}
 }

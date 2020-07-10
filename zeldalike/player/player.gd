@@ -117,6 +117,9 @@ var original_zindex
 
 var inventorymanager
 
+onready var food_sack_holder = get_node("food_sack_inventory")
+var food_sack_resource = preload("res://items/food_sack/food_sack_item.tscn")
+
 signal unique_item_picked_up
 var item_pickup_hold_time = 2.2
 
@@ -258,6 +261,8 @@ func _process(delta):
 			state_landing(delta)
 		"holding":
 			state_holding(delta)
+		"sackusing":
+			state_sackusing(delta)
 		"bowusing":
 			state_bowusing(delta)
 		"speech_animating":
@@ -524,6 +529,12 @@ func speak_to_interactibles():
 				return true
 	return false
 
+func state_sackusing(delta):
+	
+	
+	sun_damage_loop(delta)
+	pass
+
 func state_bowusing(delta):
 	
 	if !bow_is_fired:
@@ -588,6 +599,9 @@ func try_item_pickup():
 			return true
 		elif area.is_in_group("food"):
 			print("Picked up food named " + area.name)
+			food_sack_holder.add(area)
+			food_sack_holder.print_contents()
+			area.queue_free()
 			pass
 		
 	return false
@@ -1132,6 +1146,12 @@ func set_state_landing():
 func set_state_holding():
 	state = "holding"
 #	print("Picked up " + held_item.name)
+
+func set_state_sackusing():
+	state = "sackusing"
+	staticdir = dir.DOWN
+	switch_anim_static("sackusing")
+	pass
 
 func set_state_bowusing():
 	state = "bowusing"
