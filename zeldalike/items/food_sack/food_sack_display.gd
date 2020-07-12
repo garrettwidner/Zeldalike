@@ -1,7 +1,7 @@
 extends Node
 
 onready var inventory = $food_inventory
-onready var closed_sack_icon = preload("res://UI/inventory/food/food_sack_closed.png")
+onready var closed_sack_icon = preload("res://UI/inventory/food/food_sack_close-out.png")
 onready var ui = get_node("UI")
 onready var icon_holder = get_node("UI/ui_icon")
 

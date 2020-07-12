@@ -2,9 +2,9 @@
 
 [ext_resource path="res://items/food_sack/food_sack_display.gd" type="Script" id=1]
 [ext_resource path="res://items/food_sack/food_sack_inventory.gd" type="Script" id=2]
-[ext_resource path="res://UI/inventory/food_sack_open_icon.png" type="Texture" id=3]
+[ext_resource path="res://UI/inventory/food_sack_icon.png" type="Texture" id=3]
 [ext_resource path="res://UI/inventory/ItemSelectionUI.png" type="Texture" id=4]
-[ext_resource path="res://UI/inventory/food/food_sack_closed.png" type="Texture" id=5]
+[ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=5]
 
 [node name="food_sack_display" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,7 +14,6 @@ position = Vector2( -21.1145, -18.5963 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( -2.51824, 2.71195 )
 texture = ExtResource( 3 )
 
