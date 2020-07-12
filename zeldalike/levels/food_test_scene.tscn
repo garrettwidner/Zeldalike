@@ -537,7 +537,7 @@ tile_data = PoolIntArray( 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 393221, 1, 0
 [node name="ground_objects" type="Node2D" parent="YSort"]
 
 [node name="aspberry" parent="YSort/ground_objects" instance=ExtResource( 5 )]
-position = Vector2( 234.353, 249.538 )
+position = Vector2( 231.499, 236.339 )
 
 [node name="objects" type="YSort" parent="YSort"]
 
@@ -591,4 +591,4 @@ __meta__ = {
 position = Vector2( -123.852, 46.0273 )
 
 [node name="food_sack" parent="." instance=ExtResource( 8 )]
-position = Vector2( 251.143, 196.932 )
+position = Vector2( 352.813, 245.448 )

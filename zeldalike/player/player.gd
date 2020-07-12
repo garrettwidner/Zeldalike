@@ -117,8 +117,8 @@ var original_zindex
 
 var inventorymanager
 
-onready var food_sack_holder = get_node("food_sack_inventory")
-var food_sack_resource = preload("res://items/food_sack/food_sack_item.tscn")
+onready var food_sack = get_node("food_sack_display")
+var end_food_sack_use = false
 
 signal unique_item_picked_up
 var item_pickup_hold_time = 2.2
@@ -186,6 +186,8 @@ func run_setup(start_position, start_direction):
 #	emit_signal("on_sun_start", sun_current_strength)
 #	print("on sun start should have signaled")
 	
+	food_sack.connect("on_closed", self, "end_food_sack_use")
+	
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
@@ -196,10 +198,7 @@ func run_setup(start_position, start_direction):
 	pass
 	
 func add_test_items():
-	inventorymanager.add_item("bow")
-	
-	inventorymanager.add_item("sword")
-	inventorymanager.add_item("veil")
+	inventorymanager.add_item("food_sack")
 	
 func run_startup():
 	#add code for starting character movement here
@@ -433,6 +432,9 @@ func use_named_item(item_name):
 		elif item_name == "sword":
 			use_item(sword_resource)
 			pass
+		elif item_name == "food_sack":
+			set_state_sackusing()
+			pass
 		else:
 			pass
 	pass
@@ -530,9 +532,15 @@ func speak_to_interactibles():
 	return false
 
 func state_sackusing(delta):
-	
-	
 	sun_damage_loop(delta)
+	if end_food_sack_use:
+		end_food_sack_use = false
+		set_state_default()
+	pass
+	
+func end_food_sack_use():
+	end_food_sack_use = true
+#	print("should close out of food sack")
 	pass
 
 func state_bowusing(delta):
@@ -599,8 +607,8 @@ func try_item_pickup():
 			return true
 		elif area.is_in_group("food"):
 			print("Picked up food named " + area.name)
-			food_sack_holder.add(area)
-			food_sack_holder.print_contents()
+			food_sack.add(area)
+			food_sack.print_contents()
 			area.queue_free()
 			pass
 		
@@ -1150,7 +1158,8 @@ func set_state_holding():
 func set_state_sackusing():
 	state = "sackusing"
 	staticdir = dir.DOWN
-	switch_anim_static("sackusing")
+	food_sack.open()
+#	switch_anim_static("sackusing")
 	pass
 
 func set_state_bowusing():

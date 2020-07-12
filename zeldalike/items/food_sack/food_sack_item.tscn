@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://UI/inventory/food_sack_open_icon.png" type="Texture" id=1]
-
-[node name="food_sack_item" type="Node2D"]
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2.51824, 2.71195 )
-texture = ExtResource( 1 )
