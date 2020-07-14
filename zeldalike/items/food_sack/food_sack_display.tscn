@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://items/food_sack/food_sack_display.gd" type="Script" id=1]
 [ext_resource path="res://items/food_sack/food_sack_inventory.gd" type="Script" id=2]
 [ext_resource path="res://UI/inventory/food_sack_icon.png" type="Texture" id=3]
 [ext_resource path="res://UI/inventory/ItemSelectionUI.png" type="Texture" id=4]
 [ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=5]
+[ext_resource path="res://UI/fonts/small_pixel.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 8
+font_data = ExtResource( 6 )
 
 [node name="food_sack_display" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,7 +23,6 @@ position = Vector2( -2.31432, 6.79008 )
 texture = ExtResource( 3 )
 
 [node name="UI" type="Control" parent="."]
-visible = false
 margin_left = -21.1145
 margin_top = -18.5963
 margin_right = 18.8855
@@ -37,6 +41,15 @@ margin_top = -23.0516
 margin_right = 52.0101
 margin_bottom = 16.9484
 texture = ExtResource( 5 )
+
+[node name="count" type="Label" parent="UI"]
+margin_left = 7.34063
+margin_top = -9.5836
+margin_right = 23.3406
+margin_bottom = 4.4164
+custom_fonts/font = SubResource( 1 )
+text = "1"
+align = 1
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

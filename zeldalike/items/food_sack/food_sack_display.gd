@@ -4,6 +4,7 @@ onready var inventory = $food_inventory
 onready var closed_sack_icon = preload("res://UI/inventory/food/food_sack_close-out.png")
 onready var ui = get_node("UI")
 onready var icon_holder = get_node("UI/ui_icon")
+onready var count = get_node("UI/count")
 
 var current_item
 var is_active = false
@@ -93,6 +94,10 @@ func set_icon(food_name):
 	var new_icon = get_icon(food_name)
 	if new_icon != null:
 		icon_holder.texture = new_icon
+		if food_name == "closed_sack":
+			count.text = ""
+		else:
+			count.text = String(current_item["count"])
 	else:
 		print("WARNING: food sack display found no icon of name " + food_name)
 	

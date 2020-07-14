@@ -606,7 +606,8 @@ func try_item_pickup():
 			set_state_holding()
 			return true
 		elif area.is_in_group("food"):
-			print("Player picked up food named " + area.name)
+			var found_food = helper.string_strip(area.name)
+			print("Player picked up food named " + found_food)
 			food_sack.add(area)
 #			food_sack.print_contents()
 			area.queue_free()

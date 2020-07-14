@@ -61,8 +61,9 @@ func count():
 	return contents.count()
 
 func add(food):
-	if contains(food.name):
-		var found_food = get(food.name)
+	var food_name = helper.string_strip(food.name)
+	if contains(food_name):
+		var found_food = get(food_name)
 		found_food["count"] = found_food["count"] + 1
 	else:
 		add_new_type(food)
@@ -88,7 +89,7 @@ func get_food_index(food_name):
 	
 func add_new_type(food):
 	var new_food = { 
-		"name" : food.name,
+		"name" : helper.string_strip(food.name),
 		"food" : food,
 		"count" : 1,
 		"health" : food.health
