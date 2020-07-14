@@ -30,12 +30,13 @@ func _process(delta):
 			decrement_icon()
 			pass
 		elif Input.is_action_just_pressed("item1") || Input.is_action_just_pressed("item2"):
+			close()
+		elif Input.is_action_just_pressed("action"):
 			if current_item["name"] == "closed_sack":
 				print("Closed food sack")
 				close()
 			else:
 				use_current_item()
-				
 	pass
 
 func open():
@@ -44,6 +45,7 @@ func open():
 	is_active = true
 	inventory.reset_current_item()
 	current_item = inventory.get_current_item()
+	set_icon(current_item["name"])
 	$Timer.start(time_until_usable_at_start)
 	
 func close():
@@ -81,6 +83,7 @@ func eat_current_item():
 	print("Ate " + current_item["name"] + ", health regained was " + String(health))
 	
 	inventory.remove_single_current_item()
+	set_icon(current_item["name"])
 
 	return health
 
