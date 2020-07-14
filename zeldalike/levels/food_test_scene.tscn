@@ -1,13 +1,14 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
 [ext_resource path="res://terrain/sand_desert/Sand_Tile.png" type="Texture" id=3]
 [ext_resource path="res://terrain/sand_desert/mountain_forms.png" type="Texture" id=4]
-[ext_resource path="res://items/pickups/food/aspberry.tscn" type="PackedScene" id=5]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=7]
-[ext_resource path="res://items/pickups/food_sack_pickup.tscn" type="PackedScene" id=8]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=6]
+[ext_resource path="res://items/pickups/food_sack_pickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://items/pickups/food/spotberry.tscn" type="PackedScene" id=8]
+[ext_resource path="res://items/pickups/food/aspberry.tscn" type="PackedScene" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -536,14 +537,11 @@ tile_data = PoolIntArray( 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 393221, 1, 0
 
 [node name="ground_objects" type="Node2D" parent="YSort"]
 
-[node name="aspberry" parent="YSort/ground_objects" instance=ExtResource( 5 )]
-position = Vector2( 231.499, 236.339 )
-
 [node name="objects" type="YSort" parent="YSort"]
 
 [node name="actors" type="YSort" parent="YSort"]
 
-[node name="player" parent="YSort/actors" instance=ExtResource( 6 )]
+[node name="player" parent="YSort/actors" instance=ExtResource( 5 )]
 position = Vector2( 199.445, 212.275 )
 
 [node name="hop_areas" type="Node2D" parent="."]
@@ -571,7 +569,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 343.077, 169.238 )
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 1
@@ -590,5 +588,11 @@ __meta__ = {
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
 position = Vector2( -123.852, 46.0273 )
 
-[node name="food_sack" parent="." instance=ExtResource( 8 )]
+[node name="food_sack" parent="." instance=ExtResource( 7 )]
 position = Vector2( 352.813, 245.448 )
+
+[node name="spotberry" parent="." instance=ExtResource( 8 )]
+position = Vector2( 204.606, 233.794 )
+
+[node name="aspberry" parent="." instance=ExtResource( 9 )]
+position = Vector2( 229.725, 218.612 )

@@ -9,12 +9,14 @@ var current_item
 var is_active = false
 var is_usable = false
 var time_until_usable_at_start = .2
+var is_in_front_of_givable = false
 
 var index = 0
 
 signal on_closed
 
 func _ready():
+	inventory.connect("on_item_completely_removed", self, "switch_away_from_removed_item")
 	close()
 	
 func _process(delta):
@@ -28,9 +30,11 @@ func _process(delta):
 			pass
 		elif Input.is_action_just_pressed("item1") || Input.is_action_just_pressed("item2"):
 			if current_item["name"] == "closed_sack":
+				print("Closed food sack")
 				close()
 			else:
-				print("Eating item: " + current_item["name"])
+				use_current_item()
+				
 	pass
 
 func open():
@@ -53,15 +57,31 @@ func increment_icon():
 	inventory.increment_current_item()
 	current_item = inventory.get_current_item()
 	set_icon(current_item["name"])
-	print(current_item["name"])
+#	print(current_item["name"])
 	pass
 	
 func decrement_icon():
 	inventory.decrement_current_item()
 	current_item = inventory.get_current_item()
 	set_icon(current_item["name"])
-	print(current_item["name"])
+#	print(current_item["name"])
 	pass
+	
+func use_current_item():
+	if is_in_front_of_givable:
+		print("Should write function to give to givable")
+	else:
+		eat_current_item()
+	
+	pass
+
+func eat_current_item():
+	var health = current_item["health"]
+	print("Ate " + current_item["name"] + ", health regained was " + String(health))
+	
+	inventory.remove_single_current_item()
+
+	return health
 
 func add(food):
 	inventory.add(food)
@@ -88,3 +108,8 @@ func get_icon(food_name):
 func _on_Timer_timeout():
 #	print("timer timed out, food sack should now be usable")
 	is_usable = true
+	
+func switch_away_from_removed_item(new_current_item):
+	current_item = new_current_item
+	set_icon(current_item["name"])
+	pass

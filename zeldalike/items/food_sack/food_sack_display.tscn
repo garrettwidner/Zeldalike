@@ -14,7 +14,7 @@ position = Vector2( -21.1145, -18.5963 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2.51824, 2.71195 )
+position = Vector2( -2.31432, 6.79008 )
 texture = ExtResource( 3 )
 
 [node name="UI" type="Control" parent="."]
