@@ -1,15 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://items/food_sack/food_sack_display.gd" type="Script" id=1]
 [ext_resource path="res://items/food_sack/food_sack_inventory.gd" type="Script" id=2]
 [ext_resource path="res://UI/inventory/food_sack_icon.png" type="Texture" id=3]
-[ext_resource path="res://UI/inventory/ItemSelectionUI.png" type="Texture" id=4]
-[ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=5]
-[ext_resource path="res://UI/fonts/small_pixel.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://UI/inventory/food_sack_inner.png" type="Texture" id=4]
+[ext_resource path="res://UI/inventory/food_sack_opening.png" type="Texture" id=5]
+[ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=6]
+[ext_resource path="res://UI/fonts/small_pixel.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
-font_data = ExtResource( 6 )
+font_data = ExtResource( 7 )
 
 [node name="food_sack_display" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,28 +20,44 @@ position = Vector2( -21.1145, -18.5963 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2.31432, 6.79008 )
+position = Vector2( -2, 7.6 )
 texture = ExtResource( 3 )
 
 [node name="UI" type="Control" parent="."]
-margin_left = -21.1145
-margin_top = -18.5963
-margin_right = 18.8855
-margin_bottom = 21.4037
+margin_left = -21.3623
+margin_top = 44.7725
+margin_right = 18.6377
+margin_bottom = 84.7725
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+margin_left = -12.1241
+margin_top = -48.8284
+margin_right = 51.8759
+margin_bottom = 15.1716
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ui_box" type="TextureRect" parent="UI"]
-margin_left = 4.26164
-margin_top = -31.3812
-margin_right = 44.2616
-margin_bottom = 8.61882
-texture = ExtResource( 4 )
+margin_left = -12.0145
+margin_top = -47.6573
+margin_right = 51.9855
+margin_bottom = 16.3427
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ui_icon" type="TextureRect" parent="UI"]
 margin_left = 12.0101
 margin_top = -23.0516
 margin_right = 52.0101
 margin_bottom = 16.9484
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="count" type="Label" parent="UI"]
 margin_left = 7.34063
@@ -50,6 +67,9 @@ margin_bottom = 4.4164
 custom_fonts/font = SubResource( 1 )
 text = "1"
 align = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

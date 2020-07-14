@@ -14,6 +14,7 @@ var is_in_front_of_givable = false
 
 var index = 0
 
+signal on_eat
 signal on_closed
 
 func _ready():
@@ -80,8 +81,10 @@ func use_current_item():
 
 func eat_current_item():
 	var health = current_item["health"]
-	print("Ate " + current_item["name"] + ", health regained was " + String(health))
-	
+	var food_texture = icon_holder.texture
+	var food_name = current_item["name"]
+	print("Ate " + food_name + ", health regained was " + String(health))
+	emit_signal("on_eat", health, food_texture)
 	inventory.remove_single_current_item()
 	set_icon(current_item["name"])
 

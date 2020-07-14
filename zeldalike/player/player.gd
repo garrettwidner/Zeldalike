@@ -187,6 +187,7 @@ func run_setup(start_position, start_direction):
 #	print("on sun start should have signaled")
 	
 	food_sack.connect("on_closed", self, "end_food_sack_use")
+	food_sack.connect("on_eat", self, "eat_sacked_food")
 	
 	set_state_default()
 	
@@ -335,9 +336,9 @@ func state_default(delta):
 				set_state_downtransition()
 				transitionspeed = hopdownspeed / hoparea.height
 				switch_anim("crouch")
-		elif try_item_pickup():
-#			print("Item pickup returned true")
-			pass
+#		elif try_item_pickup():
+##			print("Item pickup returned true")
+#			pass
 		
 	elif Input.is_action_just_pressed("test_1"):
 #		game_singleton.change_scene("level_1_test")
@@ -353,17 +354,20 @@ func state_default(delta):
 	
 	elif Input.is_action_just_pressed("speech"):
 		#interact with interactible you're facing
-		var successfully_spoke = speak_to_interactibles()
-		if !successfully_spoke:
-			if speech_resource != null:
-				use_item(speech_resource)
-				set_state_speech_animating()
-				emit_signal("on_spoke")
-#				print("Speech item should play")
-#			else:
-#				print("Speech resource not loaded correctly")
-			
-		pass
+		var item_was_picked_up = try_item_pickup()
+		
+		if !item_was_picked_up:
+			var successfully_spoke = speak_to_interactibles()
+			if !successfully_spoke:
+				if speech_resource != null:
+					use_item(speech_resource)
+					set_state_speech_animating()
+					emit_signal("on_spoke")
+	#				print("Speech item should play")
+	#			else:
+	#				print("Speech resource not loaded correctly")
+				
+			pass
 	
 	movement_loop()
 
@@ -533,6 +537,11 @@ func speak_to_interactibles():
 
 func state_sackusing(delta):
 	sun_damage_loop(delta)
+	
+	heal_stamina(stamina_heal_still, delta)
+	
+	
+	
 	if end_food_sack_use:
 		end_food_sack_use = false
 		set_state_default()
@@ -592,7 +601,7 @@ func try_item_pickup():
 			set_state_item_get(area)
 			is_holding = true
 			held_item = area
-			pass
+			return true
 		elif area.is_in_group("pickupable"):
 			
 			is_holding = true
@@ -600,7 +609,6 @@ func try_item_pickup():
 			
 			if held_item.is_in_group("edible"):
 				held_item.connect("on_eaten", self, "finish_edible")
-				pass
 			
 #			add_child_below_node(hold_position,held_item, true)
 			set_state_holding()
@@ -611,7 +619,7 @@ func try_item_pickup():
 			food_sack.add(area)
 #			food_sack.print_contents()
 			area.queue_free()
-			pass
+			return true
 		
 	return false
 			
@@ -1158,8 +1166,11 @@ func set_state_holding():
 
 func set_state_sackusing():
 	state = "sackusing"
-	staticdir = dir.DOWN
+	set_facedir_manual(dir.DOWN)
+	set_spritedir()
+	staticdir = spritedir
 	food_sack.open()
+	switch_anim_static("holdidle")
 #	switch_anim_static("sackusing")
 	pass
 
@@ -1200,11 +1211,15 @@ func switch_anim_directional(animation, direction):
 
 func _on_anim_animation_finished(anim_name):
 	if anim_name == "eatdown":
-		is_eating = false
-		if held_item == null:
-			edible_is_finished = false
-			set_state_default()
-#			print("State now default")
+		if state != "sackusing":
+			is_eating = false
+			if held_item == null:
+				edible_is_finished = false
+				set_state_default()
+	#			print("State now default")
+		elif state == "sackusing":
+			switch_anim_static("holdidle")
+			
 		
 func _on_Timer_timeout():
 	match state:
@@ -1264,3 +1279,12 @@ func set_disease_sprite():
 			$Sprite.texture = disease_6_sprite
 			
 			
+
+func eat_sacked_food(food_health, food_texture):
+	if state == "sackusing":
+		print("player ate food from sack")
+		health += food_health
+		switch_anim_directional("eat", "down")
+		emit_signal("health_changed", health, 0)
+
+	pass
