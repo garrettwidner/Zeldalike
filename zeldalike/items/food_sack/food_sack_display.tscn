@@ -1,16 +1,77 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://items/food_sack/food_sack_display.gd" type="Script" id=1]
 [ext_resource path="res://items/food_sack/food_sack_inventory.gd" type="Script" id=2]
 [ext_resource path="res://UI/inventory/food_sack_icon.png" type="Texture" id=3]
 [ext_resource path="res://UI/inventory/food_sack_inner.png" type="Texture" id=4]
-[ext_resource path="res://UI/inventory/food_sack_opening.png" type="Texture" id=5]
-[ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=6]
+[ext_resource path="res://UI/inventory/food/food_sack_close-out.png" type="Texture" id=5]
+[ext_resource path="res://UI/inventory/food_sack_opening.png" type="Texture" id=6]
 [ext_resource path="res://UI/fonts/small_pixel.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://UI/inventory/reticule.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8
 font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "icon_eat"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("ui_icon:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 12.0101, -23.0516 ), Vector2( 12.01, -25.362 ), Vector2( 12.0101, -23.0516 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ui_icon:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "select"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 49.2301, -8.32393 ), Vector2( 49.23, -5.784 ), Vector2( 49.2301, -8.32393 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "select"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -7.05418, -22.5524 ), Vector2( -7.054, -21.262 ), Vector2( -7.05418, -22.5524 ) ]
+}
 
 [node name="food_sack_display" type="Node2D"]
 script = ExtResource( 1 )
@@ -39,21 +100,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="ui_icon" type="TextureRect" parent="UI"]
+anchor_right = 0.18
+margin_left = 12.0101
+margin_top = -23.0516
+margin_right = 44.8101
+margin_bottom = 16.9484
+texture = ExtResource( 5 )
+
 [node name="ui_box" type="TextureRect" parent="UI"]
 margin_left = -12.0145
 margin_top = -47.6573
 margin_right = 51.9855
 margin_bottom = 16.3427
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ui_icon" type="TextureRect" parent="UI"]
-margin_left = 12.0101
-margin_top = -23.0516
-margin_right = 52.0101
-margin_bottom = 16.9484
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
@@ -70,6 +129,30 @@ align = 1
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="anim" type="AnimationPlayer" parent="UI"]
+anims/icon_eat = SubResource( 2 )
+
+[node name="right_reticule" type="TextureRect" parent="UI"]
+margin_left = 49.2301
+margin_top = -8.32393
+margin_right = 65.2302
+margin_bottom = 7.67607
+rect_rotation = 180.0
+texture = ExtResource( 8 )
+
+[node name="anim" type="AnimationPlayer" parent="UI/right_reticule"]
+anims/select = SubResource( 3 )
+
+[node name="left_reticule" type="TextureRect" parent="UI"]
+margin_left = -7.05418
+margin_top = -22.5524
+margin_right = 8.94593
+margin_bottom = -6.55236
+texture = ExtResource( 8 )
+
+[node name="anim" type="AnimationPlayer" parent="UI/left_reticule"]
+anims/select = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

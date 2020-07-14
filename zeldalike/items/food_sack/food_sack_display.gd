@@ -24,10 +24,10 @@ func _ready():
 func _process(delta):
 	if(is_active && is_usable):
 		
-		if Input.is_action_just_pressed("up"):
+		if Input.is_action_just_pressed("up") || Input.is_action_just_pressed("right"):
 			increment_icon()
 			pass
-		elif Input.is_action_just_pressed("down"):
+		elif Input.is_action_just_pressed("down") || Input.is_action_just_pressed("left"):
 			decrement_icon()
 			pass
 		elif Input.is_action_just_pressed("item1") || Input.is_action_just_pressed("item2"):
@@ -61,6 +61,7 @@ func increment_icon():
 	inventory.increment_current_item()
 	current_item = inventory.get_current_item()
 	set_icon(current_item["name"])
+	get_node("UI/right_reticule/anim").play("select")
 #	print(current_item["name"])
 	pass
 	
@@ -68,6 +69,7 @@ func decrement_icon():
 	inventory.decrement_current_item()
 	current_item = inventory.get_current_item()
 	set_icon(current_item["name"])
+	get_node("UI/left_reticule/anim").play("select")
 #	print(current_item["name"])
 	pass
 	
@@ -87,6 +89,7 @@ func eat_current_item():
 	emit_signal("on_eat", health, food_texture)
 	inventory.remove_single_current_item()
 	set_icon(current_item["name"])
+	$UI/anim.play("icon_eat")
 
 	return health
 

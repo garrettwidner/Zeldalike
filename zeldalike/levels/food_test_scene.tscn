@@ -539,22 +539,40 @@ tile_data = PoolIntArray( 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 393221, 1, 0
 [node name="ground_objects" type="Node2D" parent="YSort"]
 
 [node name="spotberry" parent="YSort/ground_objects" instance=ExtResource( 5 )]
-position = Vector2( 204.606, 233.794 )
+position = Vector2( 219.416, 216.731 )
 
 [node name="spotberry2" parent="YSort/ground_objects" instance=ExtResource( 5 )]
-position = Vector2( 234.418, 249.804 )
+position = Vector2( 224.437, 214.389 )
 
 [node name="aspberry" parent="YSort/ground_objects" instance=ExtResource( 6 )]
 position = Vector2( 229.725, 218.612 )
 
 [node name="aspberry2" parent="YSort/ground_objects" instance=ExtResource( 6 )]
-position = Vector2( 115.432, 191.568 )
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry5" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry6" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry7" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry8" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry9" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
+
+[node name="aspberry10" parent="YSort/ground_objects" instance=ExtResource( 6 )]
+position = Vector2( 225.218, 217.646 )
 
 [node name="aspberry3" parent="YSort/ground_objects" instance=ExtResource( 6 )]
-position = Vector2( 127.344, 241.149 )
+position = Vector2( 224.574, 217.646 )
 
 [node name="aspberry4" parent="YSort/ground_objects" instance=ExtResource( 6 )]
-position = Vector2( 230.369, 176.114 )
+position = Vector2( 222.964, 208.954 )
 
 [node name="objects" type="YSort" parent="YSort"]
 
@@ -564,7 +582,7 @@ position = Vector2( 137.805, 201.222 )
 [node name="actors" type="YSort" parent="YSort"]
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 8 )]
-position = Vector2( 199.445, 212.275 )
+position = Vector2( 195.26, 232.88 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 
