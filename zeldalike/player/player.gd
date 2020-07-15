@@ -883,13 +883,19 @@ func set_hold_position():
 		hold_orienter.position = Vector2(0,3)
 		held_item.z_index = z_index + 1
 	if facedir == dir.RIGHT:
-		hold_orienter.position = Vector2(6,2)
-		held_item.z_index = z_index + 1
+#		hold_orienter.position = Vector2(6,2)
+#		held_item.z_index = z_index + 1
+		
+		hold_orienter.position = Vector2(6,-2)
+		held_item.z_index = z_index - 1
 	if facedir == dir.LEFT:
-		hold_orienter.position = Vector2(-6,2)
-		held_item.z_index = z_index + 1
+#		hold_orienter.position = Vector2(-6,2)
+#		held_item.z_index = z_index + 1
+		
+		hold_orienter.position = Vector2(-6,-2)
+		held_item.z_index = z_index - 1
 	if facedir == dir.UP:
-		hold_orienter.position = Vector2(0,-3)
+		hold_orienter.position = Vector2(0,-5)
 		held_item.z_index = z_index - 1
 	pass
 	
