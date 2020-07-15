@@ -192,7 +192,7 @@ func run_setup(start_position, start_direction):
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
-	add_test_items()
+#	add_test_items()
 	
 	is_setup = true
 	
@@ -603,26 +603,51 @@ func try_item_pickup():
 			held_item = area
 			return true
 		elif area.is_in_group("pickupable"):
-			
-			is_holding = true
-			held_item = area
-			
-			if held_item.is_in_group("edible"):
-				held_item.connect("on_eaten", self, "finish_edible")
-			
-#			add_child_below_node(hold_position,held_item, true)
-			set_state_holding()
-			return true
-		elif area.is_in_group("food"):
-			var found_food = helper.string_strip(area.name)
-			print("Player picked up food named " + found_food)
-			food_sack.add(area)
-#			food_sack.print_contents()
-			area.queue_free()
-			return true
-		
+			if area.is_in_group("food"):
+				if inventorymanager.has("food_sack"):
+					if area.fits_in_sack:
+						food_sack.add(area)
+						area.queue_free()
+						return true
+					else:
+						set_held_item(area)
+						held_item.connect("on_eaten", self, "finish_edible")
+						
+						return true
+				else:
+					set_held_item(area)
+					held_item.connect("on_eaten", self, "finish_edible")
+					
+					return true
+					
+			else:
+				set_held_item(area)
+				return true
 	return false
+#		elif area.is_in_group("pickupable"):
+#
+#			is_holding = true
+#			held_item = area
+#
+#			if held_item.is_in_group("edible"):
+#				held_item.connect("on_eaten", self, "finish_edible")
+#
+##			add_child_below_node(hold_position,held_item, true)
+#			set_state_holding()
+#			return true
+#		elif area.is_in_group("food"):
+#			var found_food = helper.string_strip(area.name)
+##			print("Player picked up food named " + found_food)
+#			food_sack.add(area)
+##			food_sack.print_contents()
+#			area.queue_free()
+#			return true
 			
+func set_held_item(item):
+	is_holding = true
+	held_item = item
+	set_state_holding()	
+
 func finish_edible():
 	edible_is_finished = true
 	is_holding = false
@@ -792,8 +817,11 @@ func state_landing(delta):
 func state_holding(delta):
 		
 	if bite_just_taken:
-		health += held_item.health
-		emit_signal("health_changed", health, 0)
+		if held_item == null:
+			return
+		increase_health(held_item.health)
+#		health += held_item.health
+#		emit_signal("health_changed", health, 0)
 		held_item.was_bitten()
 		bite_just_taken = false
 	
@@ -813,20 +841,25 @@ func state_holding(delta):
 	
 #	print(held_item.position)
 
-	if Input.is_action_just_pressed("action") && !is_eating:
+	if Input.is_action_just_pressed("speech") && !is_eating:
+		if held_item == null:
+			return
 		held_item.z_index = z_index - 1
 		held_item.position = Vector2(held_item.position.x + (facedir.x * 3), held_item.position.y + (facedir.y * 3))
 		is_holding = false
 		held_item = null
 		set_state_default()
 		
-	elif Input.is_action_just_pressed("speech"):
-		if held_item.is_in_group("edible"):
+	elif Input.is_action_just_pressed("action"):
+		if held_item == null:
+			return
+		if held_item.is_in_group("food"):
 			is_eating = true
 			facedir = dir.DOWN
 			set_hold_position()
 			
-			switch_anim_directional("eat", "down")
+#			switch_anim_directional("eat", "down")
+			switch_anim_directional("eatslow", "down")
 #			held_item.queue_free()
 			
 			
@@ -1034,9 +1067,10 @@ func take_sun_damage(sun_strength, delta):
 		check_first_time_sun_damage()
 		
 		wasdamaged = true
-		health -= damage
 #		print("Sun damage: " + String(damage))
-		emit_signal("health_changed", health, damage)
+		decrease_health(damage)
+#		health -= damage
+#		emit_signal("health_changed", health, damage)
 
 func check_first_time_sun_damage():
 	if(!dialogueparser.check_experience("burnedOnce")):
@@ -1210,7 +1244,7 @@ func switch_anim_directional(animation, direction):
 		$anim.play(nextanim)
 
 func _on_anim_animation_finished(anim_name):
-	if anim_name == "eatdown":
+	if anim_name == "eatdown" || anim_name == "eatslowdown":
 		if state != "sackusing":
 			is_eating = false
 			if held_item == null:
@@ -1282,9 +1316,12 @@ func set_disease_sprite():
 
 func eat_sacked_food(food_health, food_texture):
 	if state == "sackusing":
-		print("player ate food from sack")
-		health += food_health
+#		print("player ate food from sack")
+		
+		increase_health(food_health)
+#		health += food_health
+#		emit_signal("health_changed", health, 0)
+		
 		switch_anim_directional("eat", "down")
-		emit_signal("health_changed", health, 0)
 
 	pass

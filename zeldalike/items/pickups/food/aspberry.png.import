@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aspberry.png-8ace90394b8d10b6ad9290c9811e0430.stex"
+path="res://.import/aspberry.png-7b3f352f602b7db49ff2e064fa2217f6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/aspberry.png"
-dest_files=[ "res://.import/aspberry.png-8ace90394b8d10b6ad9290c9811e0430.stex" ]
+source_file="res://items/pickups/food/aspberry.png"
+dest_files=[ "res://.import/aspberry.png-7b3f352f602b7db49ff2e064fa2217f6.stex" ]
 
 [params]
 

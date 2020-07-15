@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/schelloleaf.png-0c4a6ed3b541251928752744e84a24e2.stex"
+path="res://.import/rezberry.png-f497afff455de8abaae9c181d6b19c06.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/schelloleaf.png"
-dest_files=[ "res://.import/schelloleaf.png-0c4a6ed3b541251928752744e84a24e2.stex" ]
+source_file="res://items/pickups/food/rezberry.png"
+dest_files=[ "res://.import/rezberry.png-f497afff455de8abaae9c181d6b19c06.stex" ]
 
 [params]
 

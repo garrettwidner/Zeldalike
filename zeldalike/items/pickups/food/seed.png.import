@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/food_sack_closed.png-777e94b488168b6ab83983aea32a11e5.stex"
+path="res://.import/seed.png-e48f9aa60c12581b53e1ee6a8dbd9d86.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/food_sack_closed.png"
-dest_files=[ "res://.import/food_sack_closed.png-777e94b488168b6ab83983aea32a11e5.stex" ]
+source_file="res://items/pickups/food/seed.png"
+dest_files=[ "res://.import/seed.png-e48f9aa60c12581b53e1ee6a8dbd9d86.stex" ]
 
 [params]
 

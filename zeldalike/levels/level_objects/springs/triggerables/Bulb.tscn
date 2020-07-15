@@ -8,11 +8,12 @@ extents = Vector2( 6, 6 )
 [sub_resource type="StreamTexture" id=2]
 
 [node name="Bulb" type="Area2D" groups=[
-"edible",
 "pickupable",
+"food",
 ]]
 script = ExtResource( 1 )
 health = 2.0
+bites = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

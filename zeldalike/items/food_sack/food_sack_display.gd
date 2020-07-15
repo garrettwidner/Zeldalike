@@ -1,7 +1,7 @@
 extends Node
 
 onready var inventory = $food_inventory
-onready var closed_sack_icon = preload("res://UI/inventory/food/food_sack_close-out.png")
+onready var closed_sack_icon = preload("res://items/pickups/food/food_sack_close-out.png")
 onready var ui = get_node("UI")
 onready var icon_holder = get_node("UI/ui_icon")
 onready var count = get_node("UI/count")
@@ -34,7 +34,7 @@ func _process(delta):
 			close()
 		elif Input.is_action_just_pressed("action"):
 			if current_item["name"] == "closed_sack":
-				print("Closed food sack")
+#				print("Closed food sack")
 				close()
 			else:
 				use_current_item()
@@ -85,7 +85,7 @@ func eat_current_item():
 	var health = current_item["health"]
 	var food_texture = icon_holder.texture
 	var food_name = current_item["name"]
-	print("Ate " + food_name + ", health regained was " + String(health))
+#	print("Ate " + food_name + ", health regained was " + String(health))
 	emit_signal("on_eat", health, food_texture)
 	inventory.remove_single_current_item()
 	set_icon(current_item["name"])
@@ -116,7 +116,7 @@ func get_icon(food_name):
 	if food_name == "closed_sack":
 		return closed_sack_icon
 	else:
-		var path_string = "res://UI/inventory/food/" + food_name + ".png"
+		var path_string = "res://items/pickups/food/" + food_name + ".png"
 		return load(path_string)
 
 func _on_Timer_timeout():

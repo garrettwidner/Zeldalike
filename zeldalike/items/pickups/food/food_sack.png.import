@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/asplu.png-119e59d1e97bd3ac527a3d9dbc66a6d1.stex"
+path="res://.import/food_sack.png-091067020b09ad3535f77a233281c014.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/asplu.png"
-dest_files=[ "res://.import/asplu.png-119e59d1e97bd3ac527a3d9dbc66a6d1.stex" ]
+source_file="res://items/pickups/food/food_sack.png"
+dest_files=[ "res://.import/food_sack.png-091067020b09ad3535f77a233281c014.stex" ]
 
 [params]
 

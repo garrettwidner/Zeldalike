@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rezberry.png-d8fdc66917172fd9003aa121026390b0.stex"
+path="res://.import/watermelon.png-136809aeb7130f1407d6cf8eaad01e92.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/rezberry.png"
-dest_files=[ "res://.import/rezberry.png-d8fdc66917172fd9003aa121026390b0.stex" ]
+source_file="res://items/pickups/food/watermelon.png"
+dest_files=[ "res://.import/watermelon.png-136809aeb7130f1407d6cf8eaad01e92.stex" ]
 
 [params]
 

@@ -16,8 +16,30 @@ export var health : float = 3
 export var maxhealth : float = 3
 
 signal health_changed
+signal on_death
 
 var wasdamaged = false
+
+func increase_health(amount):
+	if health + amount <= maxhealth:
+		health = health + amount
+		emit_signal("health_changed", health, amount)
+	else:
+		var difference = maxhealth - health
+		health = maxhealth
+		emit_signal("health_changed", health, difference)
+	
+
+func decrease_health(amount):
+	if health - amount > 0:
+		health = health - amount
+		emit_signal("health_changed", health, amount)
+	else:
+		var difference = health
+		health = 0
+		emit_signal("health_changed", health, difference)
+	pass
+	
 
 func set_movedir(direction):
 	movedir = dir.closest_cardinal(direction)
@@ -69,8 +91,9 @@ func damage_loop():
 		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE && area.name == "hitbox":
 			wasdamaged = true
 			var damage = body.get("DAMAGE")
-			health -= damage
-			emit_signal("health_changed", health, damage)
+#			health -= damage
+#			emit_signal("health_changed", health, damage)
+			decrease_health(damage)
 			
 			hitstun_timer = hitstun_amount
 			knockdir = global_transform.origin - body.global_transform.origin

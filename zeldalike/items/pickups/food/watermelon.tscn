@@ -1,19 +1,22 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://items/pickups/food/food.gd" type="Script" id=1]
-[ext_resource path="res://items/pickups/food/aspberry.png" type="Texture" id=2]
+[ext_resource path="res://items/pickups/food/watermelon.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="aspberry" type="Area2D" groups=[
+[node name="watermelon" type="Area2D" groups=[
 "pickupable",
 "food",
 ]]
 script = ExtResource( 1 )
-health = 2.0
+health = 5.0
+bites = 3
+fits_in_sack = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.184025, -2.02428 )
 texture = ExtResource( 2 )

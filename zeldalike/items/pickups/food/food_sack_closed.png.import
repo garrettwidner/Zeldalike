@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jesberry.png-f0f50627b0eecb633bed39a6ed8955d8.stex"
+path="res://.import/food_sack_closed.png-1e84f9ccf3b0f575224deb6f50d2a1b5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/inventory/food/jesberry.png"
-dest_files=[ "res://.import/jesberry.png-f0f50627b0eecb633bed39a6ed8955d8.stex" ]
+source_file="res://items/pickups/food/food_sack_closed.png"
+dest_files=[ "res://.import/food_sack_closed.png-1e84f9ccf3b0f575224deb6f50d2a1b5.stex" ]
 
 [params]
 

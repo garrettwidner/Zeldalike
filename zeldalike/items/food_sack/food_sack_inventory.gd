@@ -28,6 +28,8 @@ func remove_single_current_item():
 	else:
 		contents.remove(current_item_index)
 		decrement_current_item()
+		if contents[current_item_index]["name"] == "closed_sack":
+			increment_current_item()
 		emit_signal("on_item_completely_removed", contents[current_item_index])
 	pass
 	
