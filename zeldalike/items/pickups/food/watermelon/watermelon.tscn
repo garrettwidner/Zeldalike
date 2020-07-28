@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://items/pickups/food/food.gd" type="Script" id=1]
-[ext_resource path="res://items/pickups/food/watermelon.png" type="Texture" id=2]
+[ext_resource path="res://items/pickups/food/watermelon/watermelon.png" type="Texture" id=2]
+[ext_resource path="res://items/pickups/food/watermelon/watermelon_1bite.png" type="Texture" id=3]
+[ext_resource path="res://items/pickups/food/watermelon/watermelon_2bite.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="watermelon" type="Area2D" groups=[
-"pickupable",
 "food",
+"pickupable",
 ]]
 script = ExtResource( 1 )
 health = 5.0
 bites = 3
 fits_in_sack = false
+bite_visuals = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

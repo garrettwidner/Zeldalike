@@ -12,6 +12,8 @@ var is_usable = false
 var time_until_usable_at_start = .2
 var is_in_front_of_givable = false
 
+var can_eat_again = true
+
 var index = 0
 
 signal on_eat
@@ -31,11 +33,14 @@ func _process(delta):
 			decrement_icon()
 			pass
 		elif Input.is_action_just_pressed("item1") || Input.is_action_just_pressed("item2"):
-			close()
+			if(can_eat_again):
+			
+				close()
 		elif Input.is_action_just_pressed("action"):
 			if current_item["name"] == "closed_sack":
 #				print("Closed food sack")
-				close()
+				if(can_eat_again):
+					close()
 			else:
 				use_current_item()
 	pass
@@ -55,6 +60,7 @@ func close():
 	is_active = false
 	is_usable = false
 	emit_signal("on_closed")
+	can_eat_again = true
 	pass
 	
 func increment_icon():
@@ -82,16 +88,20 @@ func use_current_item():
 	pass
 
 func eat_current_item():
-	var health = current_item["health"]
-	var food_texture = icon_holder.texture
-	var food_name = current_item["name"]
-#	print("Ate " + food_name + ", health regained was " + String(health))
-	emit_signal("on_eat", health, food_texture)
-	inventory.remove_single_current_item()
-	set_icon(current_item["name"])
-	$UI/anim.play("icon_eat")
-
-	return health
+	if can_eat_again:
+		can_eat_again = false
+		var health = current_item["health"]
+		var food_texture = icon_holder.texture
+		var food_name = current_item["name"]
+		var food_bitten_texture = get_icon_bitten(food_name)
+		
+	#	print("Ate " + food_name + ", health regained was " + String(health))
+		emit_signal("on_eat", health, food_texture, food_bitten_texture)
+		inventory.remove_single_current_item()
+		set_icon(current_item["name"])
+		$UI/anim.play("icon_eat")
+	
+		return health
 
 func add(food):
 	inventory.add(food)
@@ -116,7 +126,14 @@ func get_icon(food_name):
 	if food_name == "closed_sack":
 		return closed_sack_icon
 	else:
-		var path_string = "res://items/pickups/food/" + food_name + ".png"
+		var path_string = "res://items/pickups/food/" + food_name + "/" + food_name + ".png"
+		return load(path_string)
+		
+func get_icon_bitten(food_name):
+	if food_name == "closed_sack":
+		return closed_sack_icon
+	else:
+		var path_string = "res://items/pickups/food/" + food_name + "/" + food_name + "_1bite.png"
 		return load(path_string)
 
 func _on_Timer_timeout():
@@ -126,4 +143,8 @@ func _on_Timer_timeout():
 func switch_away_from_removed_item(new_current_item):
 	current_item = new_current_item
 	set_icon(current_item["name"])
+	pass
+
+func eat_animation_finished():
+	can_eat_again = true
 	pass

@@ -119,6 +119,8 @@ var inventorymanager
 
 onready var food_sack = get_node("food_sack_display")
 var end_food_sack_use = false
+signal on_eat_anim_finished
+var eating_sack_food_bite_health
 
 signal unique_item_picked_up
 var item_pickup_hold_time = 2.2
@@ -188,6 +190,9 @@ func run_setup(start_position, start_direction):
 	
 	food_sack.connect("on_closed", self, "end_food_sack_use")
 	food_sack.connect("on_eat", self, "eat_sacked_food")
+	connect("on_eat_anim_finished", food_sack, "eat_animation_finished")
+	
+	get_node("hold_orienter/animation_mover/food_sprite").visible = false
 	
 	set_state_default()
 	
@@ -195,6 +200,8 @@ func run_setup(start_position, start_direction):
 #	add_test_items()
 	
 	is_setup = true
+	
+	
 	
 	pass
 	
@@ -540,6 +547,10 @@ func state_sackusing(delta):
 	
 	heal_stamina(stamina_heal_still, delta)
 	
+	if bite_just_taken:
+		increase_health(eating_sack_food_bite_health)
+		bite_just_taken = false
+		
 	
 	
 	if end_food_sack_use:
@@ -819,7 +830,7 @@ func state_holding(delta):
 	if bite_just_taken:
 		if held_item == null:
 			return
-		increase_health(held_item.health)
+		increase_health(held_item.bite_health)
 #		health += held_item.health
 #		emit_signal("health_changed", health, 0)
 		held_item.was_bitten()
@@ -858,8 +869,8 @@ func state_holding(delta):
 			facedir = dir.DOWN
 			set_hold_position()
 			
-#			switch_anim_directional("eat", "down")
-			switch_anim_directional("eatslow", "down")
+			switch_anim_directional("eat", "down")
+#			switch_anim_directional("eatslow", "down")
 #			held_item.queue_free()
 			
 			
@@ -1259,7 +1270,8 @@ func _on_anim_animation_finished(anim_name):
 	#			print("State now default")
 		elif state == "sackusing":
 			switch_anim_static("holdidle")
-			
+	elif anim_name == "eatdoubledown" && state == "sackusing":
+		emit_signal("on_eat_anim_finished")	
 		
 func _on_Timer_timeout():
 	match state:
@@ -1320,7 +1332,7 @@ func set_disease_sprite():
 			
 			
 
-func eat_sacked_food(food_health, food_texture):
+func eat_sacked_food(food_health, food_texture, food_bitten_texture):
 	if state == "sackusing":
 #		print("player ate food from sack")
 
@@ -1329,10 +1341,14 @@ func eat_sacked_food(food_health, food_texture):
 		var food_sprite = get_node("hold_orienter/animation_mover/food_sprite")
 		food_sprite.texture = food_texture
 		food_sprite.visible = true
-		increase_health(food_health)
+		var food_sprite_bitten = get_node("hold_orienter/animation_mover/food_sprite_bitten")
+		food_sprite_bitten.texture = food_bitten_texture
+		food_sprite_bitten.visible = false
+		eating_sack_food_bite_health = food_health / 2
+#		increase_health(food_health / 2)
 #		health += food_health
 #		emit_signal("health_changed", health, 0)
 		
-		switch_anim_directional("eat", "down")
+		switch_anim_directional("eatdouble", "down")
 
 	pass

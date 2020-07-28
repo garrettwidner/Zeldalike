@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aspberry.png-7b3f352f602b7db49ff2e064fa2217f6.stex"
+path="res://.import/watermelon_2bite.png-60fc3ed5d7fdfa4fc106676492996416.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/pickups/food/aspberry.png"
-dest_files=[ "res://.import/aspberry.png-7b3f352f602b7db49ff2e064fa2217f6.stex" ]
+source_file="res://items/pickups/food/watermelon/watermelon_2bite.png"
+dest_files=[ "res://.import/watermelon_2bite.png-60fc3ed5d7fdfa4fc106676492996416.stex" ]
 
 [params]
 
