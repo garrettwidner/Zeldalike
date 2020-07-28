@@ -1323,7 +1323,12 @@ func set_disease_sprite():
 func eat_sacked_food(food_health, food_texture):
 	if state == "sackusing":
 #		print("player ate food from sack")
-		
+
+
+		#TODO: Show eaten food
+		var food_sprite = get_node("hold_orienter/animation_mover/food_sprite")
+		food_sprite.texture = food_texture
+		food_sprite.visible = true
 		increase_health(food_health)
 #		health += food_health
 #		emit_signal("health_changed", health, 0)
