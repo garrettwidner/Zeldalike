@@ -72,7 +72,7 @@ func run_first_time_setup():
 
 	
 func _process(delta):
-	if isActivated and (Input.is_action_just_pressed("speech") || Input.is_action_just_pressed("x")):
+	if isActivated and (Input.is_action_just_pressed("action") || Input.is_action_just_pressed("x")):
 		
 		if isRunning:
 #			print("dialogue_parser should change dialogue branch")

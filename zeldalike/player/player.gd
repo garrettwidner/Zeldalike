@@ -328,24 +328,24 @@ func state_default(delta):
 			use_named_item(item2)
 		
 	elif Input.is_action_just_pressed("action"):
-		if check_hop_validity():
-			if is_current_hop_upward:
-				set_state_uptransition()
-#				print("Setting state as uptransition")
-				if facedir == dir.RIGHT || facedir == dir.LEFT:
-					transitionspeed = sidehopupspeed
-				elif facedir == dir.UP:
-					transitionspeed = uphopupspeed
+		var successfully_spoke = speak_to_interactibles()
+		if !successfully_spoke:
+			if check_hop_validity():
+				if is_current_hop_upward:
+					set_state_uptransition()
+	#				print("Setting state as uptransition")
+					if facedir == dir.RIGHT || facedir == dir.LEFT:
+						transitionspeed = sidehopupspeed
+					elif facedir == dir.UP:
+						transitionspeed = uphopupspeed
+					else:
+						transitionspeed = downhopupspeed
+					switch_anim("crouch")
 				else:
-					transitionspeed = downhopupspeed
-				switch_anim("crouch")
-			else:
-				set_state_downtransition()
-				transitionspeed = hopdownspeed / hoparea.height
-				switch_anim("crouch")
-#		elif try_item_pickup():
-##			print("Item pickup returned true")
-#			pass
+					set_state_downtransition()
+					transitionspeed = hopdownspeed / hoparea.height
+					switch_anim("crouch")
+
 		
 	elif Input.is_action_just_pressed("test_1"):
 #		game_singleton.change_scene("level_1_test")
@@ -359,22 +359,28 @@ func state_default(delta):
 #		increase_disease()
 		pass
 	
-	elif Input.is_action_just_pressed("speech"):
-		#interact with interactible you're facing
+	elif Input.is_action_just_pressed("sack"):
 		var item_was_picked_up = try_item_pickup()
-		
 		if !item_was_picked_up:
-			var successfully_spoke = speak_to_interactibles()
-			if !successfully_spoke:
-				if speech_resource != null:
-					use_item(speech_resource)
-					set_state_speech_animating()
-					emit_signal("on_spoke")
+			if inventorymanager.has("food_sack"):
+				set_state_sackusing()
+		
+		
+		
+		#interact with interactible you're facing
+#		var item_was_picked_up = try_item_pickup()
+#
+#		if !item_was_picked_up:
+#			var successfully_spoke = speak_to_interactibles()
+#			if !successfully_spoke:
+#				if speech_resource != null:
+#					use_item(speech_resource)
+#					set_state_speech_animating()
+#					emit_signal("on_spoke")
 	#				print("Speech item should play")
 	#			else:
 	#				print("Speech resource not loaded correctly")
 				
-			pass
 	
 	movement_loop()
 
@@ -399,17 +405,17 @@ func state_veiled(delta):
 			is_veiled = false
 			set_state_default()
 	
-	if Input.is_action_just_pressed("speech"):
+	if Input.is_action_just_pressed("action"):
 		#interact with interactible you're facing
 		var successfully_spoke = speak_to_interactibles()
-		if !successfully_spoke:
-			if speech_resource != null:
-				use_item(speech_resource)
-				set_state_speech_animating()
-				emit_signal("on_spoke")
-				print("Speech item should play")
-			else:
-				print("Speech resource not loaded correctly")
+#		if !successfully_spoke:
+#			if speech_resource != null:
+#				use_item(speech_resource)
+#				set_state_speech_animating()
+#				emit_signal("on_spoke")
+#				print("Speech item should play")
+#			else:
+#				print("Speech resource not loaded correctly")
 			
 		pass
 	
@@ -602,6 +608,17 @@ func fire_arrow():
 		
 	self.get_parent().add_child(arrow)
 
+func is_pickupable_in_vicinity():
+	var checkarea = get_node("hitbox")
+	var pickupable
+	var areas = checkarea.get_overlapping_areas()
+	for area in areas:
+		if area.is_in_group("unique_item"):
+			return true
+		elif area.is_in_group("pickupable"):
+			return true
+	return false
+
 func try_item_pickup():
 #	print("Item pickup tried")
 	var checkarea = get_node("hitbox")
@@ -760,7 +777,7 @@ func state_block(delta):
 	set_spritedir()
 	movement_loop()
 	hitback_loop()
-	if Input.is_action_just_released("speech"):
+	if Input.is_action_just_released("sack"):
 		set_state_default()
 		print("Error: this should be set up to trigger when a character is done blocking only")
 
@@ -852,7 +869,7 @@ func state_holding(delta):
 	
 #	print(held_item.position)
 
-	if Input.is_action_just_pressed("speech") && !is_eating:
+	if Input.is_action_just_pressed("sack") && !is_eating:
 		if held_item == null:
 			return
 		held_item.z_index = z_index - 1

@@ -32,7 +32,7 @@ func _process(delta):
 		elif Input.is_action_just_pressed("down") || Input.is_action_just_pressed("left"):
 			decrement_icon()
 			pass
-		elif Input.is_action_just_pressed("item1") || Input.is_action_just_pressed("item2"):
+		elif Input.is_action_just_pressed("sack"):
 			if(can_eat_again):
 			
 				close()
