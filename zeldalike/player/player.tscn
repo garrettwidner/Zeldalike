@@ -497,6 +497,30 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true, true ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("hold_orienter/animation_mover/food_sprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ null ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("hold_orienter/animation_mover/food_sprite_bitten:texture")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ null ]
+}
 
 [sub_resource type="Animation" id=33]
 length = 2.5
@@ -1434,7 +1458,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 36
 hframes = 4
-frame = 76
+frame = 74
 
 [node name="food_sack_display" parent="." instance=ExtResource( 3 )]
 
