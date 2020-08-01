@@ -363,7 +363,15 @@ func state_default(delta):
 		var item_was_picked_up = try_item_pickup()
 		if !item_was_picked_up:
 			if inventorymanager.has("food_sack"):
-				set_state_sackusing()
+				var found_food_givable = false
+				var checkarea = get_node("hitbox")
+				var areas = checkarea.get_overlapping_areas()
+				for area in areas:
+					if area.is_in_group("food_givable"):
+						print("boom, found food givable area")
+						found_food_givable = true
+				if !found_food_givable:
+					set_state_sackusing()
 		
 		
 		
@@ -449,9 +457,9 @@ func use_named_item(item_name):
 		elif item_name == "sword":
 			use_item(sword_resource)
 			pass
-		elif item_name == "food_sack":
-			set_state_sackusing()
-			pass
+#		elif item_name == "food_sack":
+#			set_state_sackusing()
+#			pass
 		else:
 			pass
 	pass
@@ -622,7 +630,6 @@ func is_pickupable_in_vicinity():
 func try_item_pickup():
 #	print("Item pickup tried")
 	var checkarea = get_node("hitbox")
-	var pickupable
 	var areas = checkarea.get_overlapping_areas()
 	for area in areas:
 		if area.is_in_group("unique_item"):
