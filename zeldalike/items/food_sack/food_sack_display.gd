@@ -19,9 +19,12 @@ var index = 0
 signal on_eat
 signal on_closed
 
+var bag_sprite
+
 func _ready():
 	inventory.connect("on_item_completely_removed", self, "switch_away_from_removed_item")
 	close()
+	bag_sprite = get_node("Sprite")
 	
 func _process(delta):
 	if(is_active && is_usable):
@@ -34,7 +37,6 @@ func _process(delta):
 			pass
 		elif Input.is_action_just_pressed("sack"):
 			if(can_eat_again):
-			
 				close()
 		elif Input.is_action_just_pressed("action"):
 			if current_item["name"] == "closed_sack":
@@ -45,9 +47,24 @@ func _process(delta):
 				use_current_item()
 	pass
 
-func open():
+func open(direction = dir.DOWN):
+	
+	remove_child(bag_sprite)
+	
+	match(direction):
+		dir.DOWN:
+			get_node("sprite_location/down").add_child(bag_sprite)
+		dir.LEFT:
+			get_node("sprite_location/left").add_child(bag_sprite)
+		dir.UP:
+			get_node("sprite_location/up").add_child(bag_sprite)
+		dir.RIGHT:
+			get_node("sprite_location/right").add_child(bag_sprite)
+			
+	bag_sprite.position = Vector2.ZERO
+
 	ui.show()
-	$Sprite.show()
+	bag_sprite.show()
 	is_active = true
 	inventory.reset_current_item()
 	current_item = inventory.get_current_item()
@@ -56,7 +73,10 @@ func open():
 	
 func close():
 	ui.hide()
-	$Sprite.hide()
+	if bag_sprite == null:
+		$Sprite.hide()
+	else:
+		bag_sprite.hide()
 	is_active = false
 	is_usable = false
 	emit_signal("on_closed")

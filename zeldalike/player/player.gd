@@ -121,6 +121,7 @@ onready var food_sack = get_node("food_sack_display")
 var end_food_sack_use = false
 signal on_eat_anim_finished
 var eating_sack_food_bite_health
+var is_foodgiving = false
 
 signal unique_item_picked_up
 var item_pickup_hold_time = 2.2
@@ -363,15 +364,7 @@ func state_default(delta):
 		var item_was_picked_up = try_item_pickup()
 		if !item_was_picked_up:
 			if inventorymanager.has("food_sack"):
-				var found_food_givable = false
-				var checkarea = get_node("hitbox")
-				var areas = checkarea.get_overlapping_areas()
-				for area in areas:
-					if area.is_in_group("food_givable"):
-						print("boom, found food givable area")
-						found_food_givable = true
-				if !found_food_givable:
-					set_state_sackusing()
+				set_state_sackusing()
 		
 		
 		
@@ -626,6 +619,20 @@ func is_pickupable_in_vicinity():
 		elif area.is_in_group("pickupable"):
 			return true
 	return false
+	
+func get_givable_in_vicinity():
+	return get_groupitem_in_vicinity("givable")
+	pass
+	
+func get_groupitem_in_vicinity(group_name):
+	var checkarea = get_node("hitbox")
+	var givable
+	var areas = checkarea.get_overlapping_areas()
+	for area in areas:
+		if area.is_in_group(group_name):
+			return area
+	return null
+	
 
 func try_item_pickup():
 #	print("Item pickup tried")
@@ -1038,7 +1045,6 @@ func set_facedir_manual(new_direction):
 	else:
 		print("Error: facedir must be a cardinal direction")
 		
-
 func sun_damage_loop(delta):
 	if sun != null:
 		
@@ -1241,11 +1247,29 @@ func set_state_holding():
 
 func set_state_sackusing():
 	state = "sackusing"
-	set_facedir_manual(dir.DOWN)
-	set_spritedir()
-	staticdir = spritedir
-	food_sack.open()
-	switch_anim_static("holdidle")
+	
+	var givable = get_givable_in_vicinity()
+	
+	if givable != null:
+		is_foodgiving = true
+		var dir_towards_givable = givable.global_position - global_position
+		var cardinal_dir = dir.closest_cardinal(dir_towards_givable)
+		set_facedir_manual(cardinal_dir)
+		set_spritedir()
+		staticdir = spritedir
+		food_sack.open(cardinal_dir)
+		print("Food sack opened with direction( " + String(cardinal_dir) + " )")
+		switch_anim_static("holdidle")
+		pass
+	else:
+		is_foodgiving = false
+		set_facedir_manual(dir.DOWN)
+		set_spritedir()
+		staticdir = spritedir
+		food_sack.open()
+		switch_anim_static("holdidle")
+	
+	
 #	switch_anim_static("sackusing")
 	pass
 
