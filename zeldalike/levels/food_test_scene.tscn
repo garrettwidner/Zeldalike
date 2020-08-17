@@ -581,7 +581,7 @@ position = Vector2( 224.574, 217.646 )
 position = Vector2( 222.964, 208.954 )
 
 [node name="food_sack" parent="YSort/ground_objects" instance=ExtResource( 8 )]
-position = Vector2( 160.285, 225.487 )
+position = Vector2( 274.831, 170.107 )
 
 [node name="objects" type="YSort" parent="YSort"]
 
@@ -592,12 +592,12 @@ position = Vector2( 137.805, 201.222 )
 position = Vector2( 261.299, 256.913 )
 
 [node name="food_basket" parent="YSort/objects" instance=ExtResource( 11 )]
-position = Vector2( 226.099, 251.884 )
+position = Vector2( 184.446, 237.447 )
 
 [node name="actors" type="YSort" parent="YSort"]
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 12 )]
-position = Vector2( 195.26, 232.88 )
+position = Vector2( 145.087, 257.73 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 

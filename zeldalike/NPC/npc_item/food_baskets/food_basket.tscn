@@ -19,10 +19,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 7.0
+radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 2.5
+radius = 4.5
 height = 4.0
 
 [node name="food_basket" type="Area2D" groups=[

@@ -49,19 +49,28 @@ func _process(delta):
 
 func open(direction = dir.DOWN):
 	
-	remove_child(bag_sprite)
+	bag_sprite.get_parent().remove_child(bag_sprite)
 	
 	match(direction):
 		dir.DOWN:
 			get_node("sprite_location/down").add_child(bag_sprite)
+			bag_sprite.z_index = 0
+			bag_sprite.scale = Vector2(1,1)
 		dir.LEFT:
 			get_node("sprite_location/left").add_child(bag_sprite)
+			bag_sprite.z_index = 1
+			bag_sprite.scale = Vector2(1,1)
 		dir.UP:
 			get_node("sprite_location/up").add_child(bag_sprite)
+			bag_sprite.z_index = -1
+			bag_sprite.scale = Vector2(1,1)
 		dir.RIGHT:
 			get_node("sprite_location/right").add_child(bag_sprite)
+			bag_sprite.z_index = 1
+#			bag_sprite.scale = Vector2(-1,1)
 			
-	bag_sprite.position = Vector2.ZERO
+			
+	bag_sprite.set_position(Vector2.ZERO)
 
 	ui.show()
 	bag_sprite.show()
