@@ -47,7 +47,7 @@ func _process(delta):
 				use_current_item()
 	pass
 
-func open(direction = dir.DOWN):
+func open(is_foodgiving = false, direction = dir.DOWN):
 	
 	bag_sprite.get_parent().remove_child(bag_sprite)
 	
@@ -72,6 +72,7 @@ func open(direction = dir.DOWN):
 			
 	bag_sprite.set_position(Vector2.ZERO)
 
+	is_in_front_of_givable = is_foodgiving
 	ui.show()
 	bag_sprite.show()
 	is_active = true

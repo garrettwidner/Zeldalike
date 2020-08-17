@@ -1257,7 +1257,7 @@ func set_state_sackusing():
 		set_facedir_manual(cardinal_dir)
 		set_spritedir()
 		staticdir = spritedir
-		food_sack.open(cardinal_dir)
+		food_sack.open(is_foodgiving, cardinal_dir)
 		print("Food sack opened with direction( " + String(cardinal_dir) + " )")
 		switch_anim_static("holdidle")
 		pass
@@ -1266,7 +1266,7 @@ func set_state_sackusing():
 		set_facedir_manual(dir.DOWN)
 		set_spritedir()
 		staticdir = spritedir
-		food_sack.open()
+		food_sack.open(is_foodgiving, dir.DOWN)
 		switch_anim_static("holdidle")
 	
 	
