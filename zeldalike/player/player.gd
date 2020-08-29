@@ -189,8 +189,10 @@ func run_setup(start_position, start_direction):
 #	emit_signal("on_sun_start", sun_current_strength)
 #	print("on sun start should have signaled")
 	
-	food_sack.connect("on_closed", self, "end_food_sack_use")
 	food_sack.connect("on_eat", self, "eat_sacked_food")
+	food_sack.connect("on_give", self, "place_food_in_basket")
+	food_sack.connect("on_closed", self, "end_food_sack_use")
+	
 	connect("on_eat_anim_finished", food_sack, "eat_animation_finished")
 	
 	get_node("hold_orienter/animation_mover/food_sprite").visible = false
@@ -1257,7 +1259,7 @@ func set_state_sackusing():
 		set_facedir_manual(cardinal_dir)
 		set_spritedir()
 		staticdir = spritedir
-		food_sack.open(is_foodgiving, cardinal_dir)
+		food_sack.open(is_foodgiving, cardinal_dir, givable)
 		print("Food sack opened with direction( " + String(cardinal_dir) + " )")
 		switch_anim_static("holdidle")
 		pass
@@ -1320,6 +1322,8 @@ func _on_anim_animation_finished(anim_name):
 			switch_anim_static("holdidle")
 	elif anim_name == "eatdoubledown" && state == "sackusing":
 		emit_signal("on_eat_anim_finished")	
+	elif "givefood" in anim_name:
+		switch_anim_static("holdidle")
 		
 func _on_Timer_timeout():
 	match state:
@@ -1399,4 +1403,9 @@ func eat_sacked_food(food_health, food_texture, food_bitten_texture):
 		
 		switch_anim_directional("eatdouble", "down")
 
+	pass
+	
+func place_food_in_basket(food_texture):
+	switch_anim("givefood")
+	
 	pass

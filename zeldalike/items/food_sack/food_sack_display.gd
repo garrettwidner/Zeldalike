@@ -11,12 +11,14 @@ var is_active = false
 var is_usable = false
 var time_until_usable_at_start = .2
 var is_in_front_of_givable = false
+var found_givable = null
 
 var can_eat_again = true
 
 var index = 0
 
 signal on_eat
+signal on_give
 signal on_closed
 
 var bag_sprite
@@ -47,7 +49,7 @@ func _process(delta):
 				use_current_item()
 	pass
 
-func open(is_foodgiving = false, direction = dir.DOWN):
+func open(is_foodgiving = false, direction = dir.DOWN, givable = null):
 	
 	bag_sprite.get_parent().remove_child(bag_sprite)
 	
@@ -73,6 +75,7 @@ func open(is_foodgiving = false, direction = dir.DOWN):
 	bag_sprite.set_position(Vector2.ZERO)
 
 	is_in_front_of_givable = is_foodgiving
+	found_givable = givable
 	ui.show()
 	bag_sprite.show()
 	is_active = true
@@ -91,6 +94,8 @@ func close():
 	is_usable = false
 	emit_signal("on_closed")
 	can_eat_again = true
+	is_in_front_of_givable = false
+	found_givable = null
 	pass
 	
 func increment_icon():
@@ -111,10 +116,19 @@ func decrement_icon():
 	
 func use_current_item():
 	if is_in_front_of_givable:
-		print("Should write function to give to givable")
+		give_current_item()
 	else:
 		eat_current_item()
 	
+	pass
+	
+func give_current_item():
+	if found_givable == null:
+		print("Warning: food sack display is not connected with a givable")
+		return
+	
+	found_givable.receive(current_item)
+	emit_signal("on_give", icon_holder.texture)
 	pass
 
 func eat_current_item():

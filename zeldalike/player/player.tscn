@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=2]
+[gd_scene load_steps=110 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -666,6 +666,102 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 18 ]
+}
+
+[sub_resource type="Animation" id=88]
+resource_name = "givefooddown"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 66, 40 ]
+}
+
+[sub_resource type="Animation" id=89]
+resource_name = "givefoodleft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 12, 22 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, -1 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=90]
+resource_name = "givefoodright"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 10, 26 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, -1 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=91]
+resource_name = "givefoodup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.991505 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=39]
@@ -1458,7 +1554,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 36
 hframes = 4
-frame = 74
+frame = 19
 
 [node name="food_sack_display" parent="." instance=ExtResource( 3 )]
 
@@ -1503,6 +1599,10 @@ anims/falldown = SubResource( 35 )
 anims/fallleft = SubResource( 36 )
 anims/fallright = SubResource( 37 )
 anims/fallup = SubResource( 38 )
+anims/givefooddown = SubResource( 88 )
+anims/givefoodleft = SubResource( 89 )
+anims/givefoodright = SubResource( 90 )
+anims/givefoodup = SubResource( 91 )
 anims/hangdown = SubResource( 39 )
 anims/hangleft = SubResource( 40 )
 anims/hangright = SubResource( 41 )
