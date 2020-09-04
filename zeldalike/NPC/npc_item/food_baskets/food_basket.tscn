@@ -35,7 +35,7 @@ position = Vector2( 0.436203, 6.51825 )
 texture = ExtResource( 2 )
 hframes = 3
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 1.8
 anims/bounce = SubResource( 1 )
 

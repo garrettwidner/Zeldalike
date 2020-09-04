@@ -131,6 +131,10 @@ signal on_initial_sun_check
 
 var is_setup = false
 
+var is_blocking = false
+var stamina_drain_block : float = 1
+var shield_icon 
+
 func _ready():
 	set_state_stopped()
 	pass
@@ -202,6 +206,8 @@ func run_setup(start_position, start_direction):
 #	$Sprite.texture = test_sprites
 	add_test_items()
 	
+	shield_icon = $shield_icon
+	
 	is_setup = true
 	
 	
@@ -210,6 +216,7 @@ func run_setup(start_position, start_direction):
 	
 func add_test_items():
 	inventorymanager.add_item("food_sack")
+	inventorymanager.add_item("veil")
 	
 func run_startup():
 	#add code for starting character movement here
@@ -299,6 +306,7 @@ func state_default(delta):
 	set_spritedir()
 	damage_loop()
 	sun_damage_loop(delta)
+	block_loop(delta)
 	
 	if movedir != Vector2(0,0):
 		if is_running:
@@ -306,10 +314,12 @@ func state_default(delta):
 			damage_stamina(stamina_drain_run, delta)
 		else:
 			switch_anim("walk")
-			heal_stamina(stamina_heal_walk, delta)
+			if !is_blocking:
+				heal_stamina(stamina_heal_walk, delta)
 	else:
 		switch_anim("idle")
-		heal_stamina(stamina_heal_still, delta)
+		if !is_blocking:
+			heal_stamina(stamina_heal_still, delta)
 		
 	if Input.is_action_just_pressed("item1") && !Input.is_action_pressed("itemchange"):
 # 		find out which item corresponds to item1, and then trigger it
@@ -386,6 +396,20 @@ func state_default(delta):
 				
 	
 	movement_loop()
+
+func block_loop(delta):
+	is_blocking = false
+	if Input.is_action_pressed("test_1"):
+		print("input pressed")
+		if stamina > 0:
+			is_blocking = true
+			print("stamina's good")
+			damage_stamina(stamina_drain_block, delta)
+	
+	if is_blocking:
+		shield_icon.visible = true
+	else:
+		shield_icon.visible = false
 
 func state_veiled(delta):
 	set_veiled_speed()
@@ -467,6 +491,7 @@ func damage_stamina(change, delta):
 	
 	var modification = change * delta
 	stamina -= modification
+	print("Stamina decreased by " + String(modification) + ", stamina now " + String(stamina))
 	if stamina < 0:
 		stamina = 0
 	else:
@@ -898,13 +923,16 @@ func state_holding(delta):
 		if held_item == null:
 			return
 		if held_item.is_in_group("food"):
-			is_eating = true
-			facedir = dir.DOWN
-			set_hold_position()
-			
-			switch_anim_directional("eat", "down")
-#			switch_anim_directional("eatslow", "down")
-#			held_item.queue_free()
+			if get_givable_in_vicinity() != null:
+				var found_givable = get_givable_in_vicinity()
+			else:
+				is_eating = true
+				facedir = dir.DOWN
+				set_hold_position()
+				
+				switch_anim_directional("eat", "down")
+	#			switch_anim_directional("eatslow", "down")
+	#			held_item.queue_free()
 			
 			
 	if !is_eating:
@@ -1407,5 +1435,6 @@ func eat_sacked_food(food_health, food_texture, food_bitten_texture):
 	
 func place_food_in_basket(food_texture):
 	switch_anim("givefood")
+	#TODO: Connect food texture so it looks correct
 	
 	pass

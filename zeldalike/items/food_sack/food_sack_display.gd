@@ -129,6 +129,8 @@ func give_current_item():
 	
 	found_givable.receive(current_item)
 	emit_signal("on_give", icon_holder.texture)
+	inventory.remove_single_current_item()
+	set_icon(current_item["name"])
 	pass
 
 func eat_current_item():
