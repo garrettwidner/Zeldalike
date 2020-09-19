@@ -491,7 +491,7 @@ func damage_stamina(change, delta):
 	
 	var modification = change * delta
 	stamina -= modification
-	print("Stamina decreased by " + String(modification) + ", stamina now " + String(stamina))
+#	print("Stamina decreased by " + String(modification) + ", stamina now " + String(stamina))
 	if stamina < 0:
 		stamina = 0
 	else:

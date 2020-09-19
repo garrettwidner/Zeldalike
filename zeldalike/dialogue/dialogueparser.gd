@@ -157,12 +157,19 @@ func start_dialogue():
 	pass
 	
 func set_experiences_from_dialogue():
+	var foundExperience = false
+	
 	if currBranch.keys().has("experiences"):
 		for experience in currBranch["experiences"]:
 			if experiences.keys().has(experience):
+				foundExperience = true
 				experiences[experience] = currBranch["experiences"][experience]
 				print("Experience *" + experience + "* set to " + String(experiences[experience]))
-		pass
+	
+	if foundExperience == false:
+		print("Warning: No dialogue experience found.")
+		print("Remember: Starts are nonrepeating and are cancelled if a Unique plays first.")
+		
 	pass
 	
 func set_items_from_dialogue():

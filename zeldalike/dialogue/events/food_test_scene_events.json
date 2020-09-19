@@ -1,0 +1,22 @@
+{
+"SceneName": "food_test_scene",
+"eventTarget": {
+	"chadley": {
+		"Beginning": {
+			"Name": "ChadleyInitial",
+			"Type": "Repeat",
+			"Flags": { 
+				"default" : true
+			}
+		},
+		"AfterFoodGet": {
+			"Name":"ChadleyAfterFood",
+			"Type": "Unique",
+			"Flags": {
+				"given_food": true,
+				"alreadyUsed": false,
+				}
+			}
+		}
+	}
+}
