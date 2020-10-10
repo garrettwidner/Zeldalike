@@ -13,7 +13,7 @@
 			"Name":"ChadleyAfterFood",
 			"Type": "Unique",
 			"Flags": {
-				"given_food": true,
+				"chadley-food_health_received->" : 3,
 				"alreadyUsed": false,
 				}
 			}

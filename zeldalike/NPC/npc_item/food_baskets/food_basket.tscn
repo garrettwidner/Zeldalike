@@ -3,7 +3,7 @@
 [ext_resource path="res://NPC/npc_item/food_baskets/food_basket.gd" type="Script" id=1]
 [ext_resource path="res://NPC/npc_item/food_baskets/food_basket.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=57]
 resource_name = "bounce"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -18,10 +18,10 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 0 ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=58]
 radius = 8.0
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=59]
 radius = 4.5
 height = 4.0
 
@@ -37,11 +37,11 @@ hframes = 3
 
 [node name="anim" type="AnimationPlayer" parent="."]
 playback_speed = 1.8
-anims/bounce = SubResource( 1 )
+anims/bounce = SubResource( 57 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.00183868, -0.225538 )
-shape = SubResource( 2 )
+shape = SubResource( 58 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 0.0874195, 2.22093 )
@@ -49,7 +49,7 @@ position = Vector2( 0.0874195, 2.22093 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -7.62939e-006, 0 )
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }

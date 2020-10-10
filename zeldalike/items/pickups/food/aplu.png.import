@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/asplu.png-d74369e343419f307398aa84c553a69d.stex"
+path="res://.import/aplu.png-7349e62d3f075fef916445fa84c6e101.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/pickups/food/asplu.png"
-dest_files=[ "res://.import/asplu.png-d74369e343419f307398aa84c553a69d.stex" ]
+source_file="res://items/pickups/food/aplu.png"
+dest_files=[ "res://.import/aplu.png-7349e62d3f075fef916445fa84c6e101.stex" ]
 
 [params]
 

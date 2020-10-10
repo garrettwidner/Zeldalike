@@ -31,15 +31,17 @@ func run_scene_setup():
 	if get_tree().get_current_scene().name == "Level":
 		var scene_name = get_tree().get_current_scene().scene_name
 		print("Scene name is " + scene_name)
+#		print("Loading scene story from 'res://dialogue/story/" + String(scene_name) + "_story.json'")
+#		print("Loading scene events from 'res://dialogue/events/" + String(scene_name) + "_events.json'")
 		
-		sceneStory = load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
-		events = load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
-		experiences = load_file_as_JSON("res://dialogue/data/experiences.json")
+		sceneStory = helper.load_file_as_JSON("res://dialogue/story/" + String(scene_name) + "_story.json")
+		events = helper.load_file_as_JSON("res://dialogue/events/" + String(scene_name) + "_events.json")
+		experiences = helper.load_file_as_JSON("res://dialogue/data/experiences.json")
 		
 		if(typeof(sceneStory) != TYPE_DICTIONARY):
-			print("ERROR: story file has errors")
+			print("ERROR: story file 'res://dialogue/story/" + String(scene_name) + "_story.json has errors'")
 		if(typeof(events) != TYPE_DICTIONARY):
-			print("ERROR: events file has errors")
+			print("ERROR: events file 'res://dialogue/events/" + String(scene_name) + "_events.json has errors'")
 		if(typeof(experiences) != TYPE_DICTIONARY):
 			print("ERROR: experiences file has errors")
 	else:
@@ -157,6 +159,10 @@ func start_dialogue():
 	pass
 	
 func set_experiences_from_dialogue():
+	
+	
+	
+	
 	var foundExperience = false
 	
 	if currBranch.keys().has("experiences"):
@@ -221,6 +227,61 @@ func choose_dialogue(possibilities):
 				
 				if inventorymanager.has(item) != possibilities[option]["Flags"][key]:
 					allTrue = false
+			
+			
+#			elif key[0] == "
+			
+			elif "-" in key:
+				
+				var event_array = key.split("-")
+				var person = event_array[0]
+				var item = event_array[1]
+				var condition = event_array[2]
+				var test_value = possibilities[option]["Flags"][key]
+				var is_true = false
+				var is_negated = false 
+				
+				if condition[0] == "!":
+					is_negated = true
+				
+				var actual_value = experiences[person][item]
+				
+				match condition.trim_prefix("!"):
+					"<":
+						if actual_value < test_value:
+							is_true = true
+					">":
+						if actual_value > test_value:
+							is_true = true
+
+					"<=": 
+						if actual_value <= test_value:
+							is_true = true
+					">=":
+						if actual_value >= test_value:
+							is_true = true
+					"=":
+						if actual_value == test_value:
+							is_true = true
+					
+				if is_negated:
+					is_true = !is_true
+					
+				if is_true == false:
+					allTrue = false
+				
+				
+				print(person + "'s " + item + " " + condition + " " + String(test_value) + ": " + String(is_true))
+				print("the actual value is " + String(actual_value))
+				
+				
+				pass
+			
+			
+			
+			
+			
+			
 			elif experiences.has(key):
 				if experiences[key] != possibilities[option]["Flags"][key]:
 					allTrue = false
@@ -316,15 +377,6 @@ func choose_dialogue(possibilities):
 	
 	return null
 	
-func load_file_as_JSON(file_path):
-	var file = File.new()
-	assert file.file_exists(file_path)
-	
-	file.open(file_path, file.READ)
-	var filejson = JSON.parse(file.get_as_text())
-	if filejson.error == 0:
-		return filejson.result
-	else:
-		return ""
+
 
 		

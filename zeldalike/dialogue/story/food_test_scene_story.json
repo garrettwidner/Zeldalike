@@ -1,5 +1,5 @@
 {
-"level": "Example",
+"level": "food_test_scene",
 "data":{
 	"ChadleyInitial":{
 		"0" : {
@@ -14,7 +14,7 @@
 			"conditions" : 
 			{
 				"isEnd": true
-			}
+			},
 		}
 	},
 	"ChadleyAfterFood":{

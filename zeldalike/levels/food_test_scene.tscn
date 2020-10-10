@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -10,10 +10,11 @@
 [ext_resource path="res://items/pickups/food_sack_pickup.tscn" type="PackedScene" id=8]
 [ext_resource path="res://levels/level_objects/swamp_tree/swamp_tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://items/pickups/other/stone_head.tscn" type="PackedScene" id=10]
-[ext_resource path="res://NPC/npc_item/food_baskets/food_basket.tscn" type="PackedScene" id=11]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://NPC/chadley.tscn" type="PackedScene" id=13]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=14]
+[ext_resource path="res://NPC/npc_item/food_baskets/food_basket.gd" type="Script" id=11]
+[ext_resource path="res://NPC/npc_item/food_baskets/food_basket.png" type="Texture" id=12]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://NPC/chadley.tscn" type="PackedScene" id=14]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=15]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -513,10 +514,32 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=55]
+[sub_resource type="Animation" id=55]
+resource_name = "bounce"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+
+[sub_resource type="CircleShape2D" id=56]
+radius = 8.0
+
+[sub_resource type="CapsuleShape2D" id=57]
+radius = 4.5
+height = 4.0
+
+[sub_resource type="RectangleShape2D" id=58]
 extents = Vector2( 220, 144 )
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=59]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -592,15 +615,43 @@ position = Vector2( 137.805, 201.222 )
 [node name="stone_head" parent="YSort/objects" instance=ExtResource( 10 )]
 position = Vector2( 261.299, 256.913 )
 
-[node name="food_basket" parent="YSort/objects" instance=ExtResource( 11 )]
+[node name="food_basket" type="Area2D" parent="YSort/objects" groups=[
+"givable",
+]]
 position = Vector2( 184.446, 237.447 )
+script = ExtResource( 11 )
+connected_character = "chadley"
+
+[node name="Sprite" type="Sprite" parent="YSort/objects/food_basket"]
+position = Vector2( 0.436203, 6.51825 )
+texture = ExtResource( 12 )
+hframes = 3
+
+[node name="anim" type="AnimationPlayer" parent="YSort/objects/food_basket"]
+playback_speed = 1.8
+anims/bounce = SubResource( 55 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/food_basket"]
+position = Vector2( -0.00183868, -0.225538 )
+shape = SubResource( 56 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort/objects/food_basket"]
+position = Vector2( 0.0874195, 2.22093 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/food_basket/StaticBody2D"]
+position = Vector2( -7.62939e-006, 0 )
+rotation = 1.5708
+shape = SubResource( 57 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="actors" type="YSort" parent="YSort"]
 
-[node name="player" parent="YSort/actors" instance=ExtResource( 12 )]
+[node name="player" parent="YSort/actors" instance=ExtResource( 13 )]
 position = Vector2( 145.087, 257.73 )
 
-[node name="chadley" parent="YSort/actors" instance=ExtResource( 13 )]
+[node name="chadley" parent="YSort/actors" instance=ExtResource( 14 )]
 position = Vector2( 227.699, 251.593 )
 
 [node name="hop_areas" type="Node2D" parent="."]
@@ -617,7 +668,7 @@ position = Vector2( 227.699, 251.593 )
 position = Vector2( 253.538, 215.258 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 55 )
+shape = SubResource( 58 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -628,7 +679,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 343.077, 169.238 )
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 connecting_level = "food_test_linked_scene"
 connecting_entrance = 1
 entrance_number = 1
@@ -639,7 +690,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblocks/sceneblock/Area2D"]
-shape = SubResource( 56 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }

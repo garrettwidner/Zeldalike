@@ -14,14 +14,6 @@ var camareas = []
 var new_entrance_number : int
 var entrance_scene_block
 
-#In order to set up a new scene, must have the full suite of objects.
-
-#Must also set up two new json files in dialogue/events and dialogue/story
-#called "scenename_events.json" and "scenename_story.json".
-
-#Must also change the Scene Name field of the base "Level" node to the actual
-#name of the scene in the file system.
-
 enum COLL_LAYER{
 	default = 0,
 	lv1 = 1,
