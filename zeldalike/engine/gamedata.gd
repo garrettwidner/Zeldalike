@@ -2,6 +2,11 @@ extends Node2D
 
 var experiences
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		save_experiences_to_disk()
+		get_tree().quit()
+
 func _ready():
 	load_experiences_from_disk()
 	pass
@@ -41,7 +46,7 @@ func save_experiences_to_disk():
 	#During testing, should save nothing
 	
 	#During final game, should save 'experiences' dictionary to json file on disk
-	#helper.save_file_as_JSON("res://dialogue/data/experiences.json", experiences)
+#	helper.save_file_as_JSON("res://dialogue/data/experiences.json", experiences)
 	
 	
 	pass

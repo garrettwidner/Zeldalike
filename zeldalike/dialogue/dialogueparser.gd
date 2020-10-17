@@ -174,20 +174,17 @@ func set_experiences_from_dialogue():
 		for experience in currBranch["experiences"]:
 			var result = gamedata.get_experience(character, experience)
 			if result.begins_with("no_"):
-				return
+				print("Warning: unable to find a valid experience in experiences file")
+				pass
 			else:
 				foundExperience = true
 				gamedata.set_experience(character, experience, result)
 				print(character + "'s Experience *" + experience + "* set to " + String(gamedata.get_experience(character,experience)))
 				
-			
-#			if experiences.keys().has(experience):
-#				foundExperience = true
-#				experiences[experience] = currBranch["experiences"][experience]
-	
 	if foundExperience == false:
-		print("Warning: No dialogue experience found.")
-		print("Remember: Starts are nonrepeating and are cancelled if a Unique plays first.")
+#		print("Warning: No dialogue experience found.")
+#		print("Remember: Starts are nonrepeating and are cancelled if a Unique plays first.")
+		pass
 		
 	pass
 	
@@ -249,6 +246,7 @@ func choose_dialogue(possibilities):
 				var event_array = key.split("-")
 				var person = event_array[0]
 				var item = event_array[1]
+				print(item)
 				var condition = event_array[2]
 				var test_value = possibilities[option]["Flags"][key]
 				var is_true = false
@@ -257,7 +255,8 @@ func choose_dialogue(possibilities):
 				if condition[0] == "!":
 					is_negated = true
 				
-				var actual_value = experiences[person][item]
+				var actual_value = gamedata.get_experience(person, item)
+#				var actual_value = experiences[person][item]
 				
 				match condition.trim_prefix("!"):
 					"<":
