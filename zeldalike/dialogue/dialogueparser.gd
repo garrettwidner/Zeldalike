@@ -42,8 +42,7 @@ func run_scene_setup():
 			print("ERROR: story file 'res://dialogue/story/" + String(scene_name) + "_story.json has errors'")
 		if(typeof(events) != TYPE_DICTIONARY):
 			print("ERROR: events file 'res://dialogue/events/" + String(scene_name) + "_events.json has errors'")
-		if(typeof(experiences) != TYPE_DICTIONARY):
-			print("ERROR: experiences file has errors")
+		
 	else:
 		print("Scene being tested is likely a test scene, no Level node")
 		
@@ -81,17 +80,17 @@ func _process(delta):
 			change_dialogue_branch()
 		pass
 		
-func check_experience(experience):
-	if experiences.keys().has(experience):
-		return experiences[experience]
-		
-func set_experience(experience, value):
-	if value != true && value != false:
-		print("ERROR: set_experience value must be true or false")
-		return
-	if experiences.keys().has(experience):
-		experiences[experience] = value
-#		print("Experience *" + experience + "* set to " + String(experiences[experience]))
+#func check_experience(experience):
+#	if experiences.keys().has(experience):
+#		return experiences[experience]
+#
+#func set_experience(experience, value):
+#	if value != true && value != false:
+#		print("ERROR: set_experience value must be true or false")
+#		return
+#	if experiences.keys().has(experience):
+#		experiences[experience] = value
+##		print("Experience *" + experience + "* set to " + String(experiences[experience]))
 		
 	
 
@@ -164,13 +163,27 @@ func set_experiences_from_dialogue():
 	
 	
 	var foundExperience = false
+	var character
 	
 	if currBranch.keys().has("experiences"):
+		if currBranch["experiences"].keys.has("character"):
+			character = currBranch["experiences"]["character"]
+		else:
+			character = "player"
+		
 		for experience in currBranch["experiences"]:
-			if experiences.keys().has(experience):
+			var result = gamedata.get_experience(character, experience)
+			if result.begins_with("no_"):
+				return
+			else:
 				foundExperience = true
-				experiences[experience] = currBranch["experiences"][experience]
-				print("Experience *" + experience + "* set to " + String(experiences[experience]))
+				gamedata.set_experience(character, experience, result)
+				print(character + "'s Experience *" + experience + "* set to " + String(gamedata.get_experience(character,experience)))
+				
+			
+#			if experiences.keys().has(experience):
+#				foundExperience = true
+#				experiences[experience] = currBranch["experiences"][experience]
 	
 	if foundExperience == false:
 		print("Warning: No dialogue experience found.")
@@ -281,12 +294,15 @@ func choose_dialogue(possibilities):
 			
 			
 			
-			
-			elif experiences.has(key):
-				if experiences[key] != possibilities[option]["Flags"][key]:
-					allTrue = false
-			elif !experiences.has(key):
-				print("Experience needs to be created/reconciled: " + key)
+			#I think that now that everything is done with specific characters, the below is taken care of by 
+			#The character-finding system above. Perhaps not though.
+#			elif experiences.has(key):
+#				if experiences[key] != possibilities[option]["Flags"][key]:
+#					allTrue = false
+#			elif !experiences.has(key):
+#				print("Experience needs to be created/reconciled: " + key)
+			else:
+				print("Problem finding experience: " + key)
 				
 		#If the current possibility is a valid option, rank it according to its priority
 		if allTrue:

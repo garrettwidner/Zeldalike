@@ -8,7 +8,9 @@
 			{
 				"divert" : "1"
 			},
-			"experiences": {"experience_to_set" : true }
+			"experiences": {
+			"character" : "character_who_has_this_experience",
+			"experience_to_set" : true }
 
 		},
 		"1" : {

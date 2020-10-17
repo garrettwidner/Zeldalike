@@ -5,6 +5,8 @@
 	"openedFloodgate": false,
 	"receivedReward": false,
 	"burnedOnce": false,
+
+	
 	"player": {
 		"destroyedOuthouse": false,
 		"lookedAtFloodgate": false,
@@ -19,5 +21,4 @@
 		"spotberry": 0,
 		"aspberry": 0, 
 	},
-	"testkey" : "testvalue"
 }

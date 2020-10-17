@@ -1150,10 +1150,14 @@ func take_sun_damage(sun_strength, delta):
 #		emit_signal("health_changed", health, damage)
 
 func check_first_time_sun_damage():
-	if(!dialogueparser.check_experience("burnedOnce")):
-		dialogueparser.set_experience("burnedOnce", true)
+	if !gamedata.get_experience("player", "burnedOnce"):
+		gamedata.set_experience("player", "burnedOnce", true)
 #		print("burned once set to " + String(dialogueparser.check_experience("burnedOnce")))
 		
+#
+#	if(!dialogueparser.check_experience("burnedOnce")):
+#		dialogueparser.set_experience("burnedOnce", true)
+#
 
 func _on_Area2D_body_entered(body, obj):
 #	print("Player entered an area2d")

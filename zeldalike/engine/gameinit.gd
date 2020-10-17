@@ -45,7 +45,6 @@ func perform_first_setup_if_needed(default_entrance):
 		
 #		player.run_setup()
 
-
 func get_camarea_at_point(point):
 	
 	for i in range(camareas.size()):
