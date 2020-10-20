@@ -15,11 +15,8 @@ func receive(food):
 	var current_health_received = gamedata.get_experience(connected_character, "food_health_received")
 	gamedata.set_experience(connected_character, "food_health_received", current_health_received + food.health)
 	
-#	experiences[connected_character][food.name] = experiences[connected_character][food.name] + 1
-#	experiences[connected_character]["food_health_received"] = experiences[connected_character]["food_health_received"] + food.health
-#
-	print(connected_character + "'s " + food.name + " is now " + String(gamedata.get_experience(connected_character, food.name)))
-	print(connected_character + "'s total food is now " + String(gamedata.get_experience(connected_character, "food_health_received")))
+#	print(connected_character + "'s " + food.name + " is now " + String(gamedata.get_experience(connected_character, food.name)))
+#	print(connected_character + "'s total food is now " + String(gamedata.get_experience(connected_character, "food_health_received")))
 	
 	
 	notify_connected_character(food.name, food.health)

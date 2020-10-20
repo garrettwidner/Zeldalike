@@ -14,5 +14,5 @@ func _ready():
 #	pass
 
 func received_food(food_name, food_health):
-	print("I, " + name + " received " + food_name + " which gave me " + String(food_health) + " health")
+#	print("I, " + name + " received " + food_name + " which gave me " + String(food_health) + " health")
 	pass

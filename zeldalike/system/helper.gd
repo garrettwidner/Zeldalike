@@ -24,6 +24,6 @@ func save_file_as_JSON(file_path, dict_to_save):
 	file.open(file_path, file.WRITE)
 	
 #	file.store_line(dict_to_save.to_json())
-	file.store_line(JSON.print(dict_to_save))
+	file.store_line(JSON.print(dict_to_save, "\t"))
 	file.close()
 	pass

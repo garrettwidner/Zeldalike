@@ -246,7 +246,7 @@ func choose_dialogue(possibilities):
 				var event_array = key.split("-")
 				var person = event_array[0]
 				var item = event_array[1]
-				print(item)
+#				print(item)
 				var condition = event_array[2]
 				var test_value = possibilities[option]["Flags"][key]
 				var is_true = false
@@ -283,8 +283,8 @@ func choose_dialogue(possibilities):
 					allTrue = false
 				
 				
-				print(person + "'s " + item + " " + condition + " " + String(test_value) + ": " + String(is_true))
-				print("the actual value is " + String(actual_value))
+#				print(person + "'s " + item + " " + condition + " " + String(test_value) + ": " + String(is_true))
+#				print("the actual value is " + String(actual_value))
 				
 				
 				pass
