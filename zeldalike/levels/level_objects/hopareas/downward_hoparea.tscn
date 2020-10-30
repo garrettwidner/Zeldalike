@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=1]
 
-[sub_resource type="RectangleShape2D" id=200]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 7 )
 
 [node name="downward_hoparea5" type="Area2D" groups=[
@@ -17,7 +17,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
-shape = SubResource( 200 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }

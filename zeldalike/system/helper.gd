@@ -7,7 +7,7 @@ func string_strip(string):
 
 func load_file_as_JSON(file_path):
 	var file = File.new()
-	assert file.file_exists(file_path)
+#	assert file.file_exists(file_path)
 	file.open(file_path, file.READ)
 	var filejson = JSON.parse(file.get_as_text())
 	file.close()

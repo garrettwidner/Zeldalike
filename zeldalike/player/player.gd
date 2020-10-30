@@ -397,6 +397,10 @@ func state_default(delta):
 	
 	movement_loop()
 
+func state_climbing(delta):
+	
+	pass
+
 func block_loop(delta):
 	is_blocking = false
 	if Input.is_action_pressed("test_1"):
@@ -830,20 +834,7 @@ func state_cling(delta):
 		#pullup()
 	pass
 	
-func add_sprinkle():
-	var sprinkle = sprinkleresource.instance()
-	sprinkle.position = transform.get_origin()
-	sprinkle.position.x += facedir.x * sprinkleoffset
-	sprinkle.position.y += facedir.y * sprinkleoffset
-	if facedir.x == 0:
-		if sprinkle.position.y < position.y:
-			sprinkle.set_z_index(-1)
-		elif sprinkle.position.y > position.y:
-			sprinkle.set_z_index(1)
-	else:
-		sprinkle.set_z_index(0)
-		
-	self.get_parent().add_child(sprinkle)
+
 
 func state_uptransition(delta):
 	if ishoppingtocling:
@@ -1442,3 +1433,18 @@ func place_food_in_basket(food_texture):
 	#TODO: Connect food texture so it looks correct
 	
 	pass
+
+#func add_sprinkle():
+#	var sprinkle = sprinkleresource.instance()
+#	sprinkle.position = transform.get_origin()
+#	sprinkle.position.x += facedir.x * sprinkleoffset
+#	sprinkle.position.y += facedir.y * sprinkleoffset
+#	if facedir.x == 0:
+#		if sprinkle.position.y < position.y:
+#			sprinkle.set_z_index(-1)
+#		elif sprinkle.position.y > position.y:
+#			sprinkle.set_z_index(1)
+#	else:
+#		sprinkle.set_z_index(0)
+#
+#	self.get_parent().add_child(sprinkle)

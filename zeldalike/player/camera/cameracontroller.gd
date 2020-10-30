@@ -49,6 +49,7 @@ func set_position_manual(starts_free, new_position, new_camarea):
 	switch_to_locked()
 	
 	var new_extents = new_camarea.get_node("CollisionShape2D").shape.extents
+	#Note: if you find yourself here, the entrance sceneblock needs to be placed within the camarea in the scene at game start
 	camerapivot.set_constraints(new_extents,new_camarea.global_position)
 	
 	if starts_free:

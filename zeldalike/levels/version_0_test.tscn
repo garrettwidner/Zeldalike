@@ -3016,7 +3016,6 @@ position = Vector2( -190.36, 174.998 )
 position = Vector2( -51.381, 338.354 )
 
 [node name="HopAreas" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="downward_hoparea5" parent="HopAreas" instance=ExtResource( 46 )]
 
@@ -3461,7 +3460,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 281.713, -356.406 )
+position = Vector2( 249.065, -348.925 )
 
 [node name="sceneblock2" type="Node2D" parent="sceneblocks" groups=[
 "sceneblock",
