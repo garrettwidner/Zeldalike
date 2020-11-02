@@ -215,8 +215,11 @@ func run_setup(start_position, start_direction):
 	pass
 	
 func add_test_items():
-	inventorymanager.add_item("food_sack")
+	inventorymanager.add_item("bow")
+	inventorymanager.add_item("sword")
+#	nventorymanager.add_item("food_sack")
 	inventorymanager.add_item("veil")
+	
 	
 func run_startup():
 	#add code for starting character movement here

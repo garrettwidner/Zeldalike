@@ -2693,7 +2693,7 @@ position = Vector2( 501, 88 )
 position = Vector2( -245.431, 332.063 )
 
 [node name="sword" parent="YSort/objects" instance=ExtResource( 29 )]
-position = Vector2( -28.4024, 252.942 )
+position = Vector2( -252.863, 356.59 )
 
 [node name="sun_crystal" type="Sprite" parent="YSort/objects"]
 position = Vector2( -2.31845, 188.5 )
@@ -3460,7 +3460,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 249.065, -348.925 )
+position = Vector2( -70.4621, -37.9809 )
 
 [node name="sceneblock2" type="Node2D" parent="sceneblocks" groups=[
 "sceneblock",
