@@ -55,6 +55,7 @@ func set_facedir():
 		facedir = dir.DOWN
 	elif movedir.y == -1: 
 		facedir = dir.UP
+#	print(facedir)
 		
 func set_spritedir():
 	match facedir:
@@ -70,8 +71,6 @@ func set_spritedir():
 func switch_anim(animation):
 	var nextanim : String = animation + spritedir
 	if $anim.current_animation != nextanim:
-#		if name == "false_angel":
-#		print("False angel is playing animation: " + nextanim)
 		$anim.play(nextanim)
 
 func movement_loop():

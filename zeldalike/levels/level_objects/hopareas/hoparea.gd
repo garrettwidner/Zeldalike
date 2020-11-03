@@ -4,9 +4,14 @@ export var updirection = dir.UP
 export var canhopup = true
 export var canhopdown = false
 
+export var topType = "walk"
+export var bottType = "walk"
+
 onready var hoptop = get_node("hoptop")
 onready var hopbott = get_node("hopbott")
 onready var hopcling = get_node("hopcling")
+
+export var shouldCling = true
 
 var highesthoppoint
 var lowesthoppoint

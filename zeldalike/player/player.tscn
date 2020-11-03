@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=2]
+[gd_scene load_steps=115 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -197,6 +197,74 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 99 ]
+}
+
+[sub_resource type="Animation" id=92]
+resource_name = "climbdown"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 136, 137, 138, 137, 136, 139, 140, 139 ]
+}
+
+[sub_resource type="Animation" id=93]
+resource_name = "climbleft"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 132, 133, 134, 135 ]
+}
+
+[sub_resource type="Animation" id=94]
+resource_name = "climbright"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 128, 129, 130, 131 ]
+}
+
+[sub_resource type="Animation" id=95]
+resource_name = "climbup"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122, 121, 120, 123, 124, 123 ]
 }
 
 [sub_resource type="Animation" id=16]
@@ -1555,9 +1623,10 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 36
 hframes = 4
-frame = 19
+frame = 138
 
 [node name="shield_icon" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.415686 )
 texture = ExtResource( 3 )
 offset = Vector2( -1, 3 )
@@ -1582,6 +1651,10 @@ anims/bowfiredown = SubResource( 12 )
 anims/bowfireleft = SubResource( 13 )
 anims/bowfireright = SubResource( 14 )
 anims/bowfireup = SubResource( 15 )
+anims/climbdown = SubResource( 92 )
+anims/climbleft = SubResource( 93 )
+anims/climbright = SubResource( 94 )
+anims/climbup = SubResource( 95 )
 anims/clingdown = SubResource( 16 )
 anims/clingleft = SubResource( 17 )
 anims/clingright = SubResource( 18 )

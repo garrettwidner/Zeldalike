@@ -7,6 +7,7 @@ var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
 var bowspeed = 20
+var climbspeed = 15
 var is_running = false
 var motion_state = "idle"
 var sprinkleoffset : float = 10
@@ -271,6 +272,8 @@ func _process(delta):
 			state_listen(delta)
 		"block":
 			state_block(delta)
+		"climb":
+			state_climb(delta)	
 		"cling":
 			state_cling(delta)
 		"uptransition":
@@ -364,6 +367,8 @@ func state_default(delta):
 
 		
 	elif Input.is_action_just_pressed("test_1"):
+		print("Switched to climbing")
+		set_state_climb()
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
 #		decrease_disease()
@@ -400,23 +405,35 @@ func state_default(delta):
 	
 	movement_loop()
 
-func state_climbing(delta):
+func state_climb(delta):
+	assign_movedir_from_input()
+	set_facedir()
+	set_spritedir()
+	
+	if movedir != Vector2(0,0):
+		switch_anim("climb")
+	else:
+		$anim.stop()
+	
+	movement_loop()
+	
 	
 	pass
 
 func block_loop(delta):
-	is_blocking = false
-	if Input.is_action_pressed("test_1"):
-		print("input pressed")
-		if stamina > 0:
-			is_blocking = true
-			print("stamina's good")
-			damage_stamina(stamina_drain_block, delta)
-	
-	if is_blocking:
-		shield_icon.visible = true
-	else:
-		shield_icon.visible = false
+#	is_blocking = false
+#	if Input.is_action_pressed("test_1"):
+#		print("input pressed")
+#		if stamina > 0:
+#			is_blocking = true
+#			print("stamina's good")
+#			damage_stamina(stamina_drain_block, delta)
+#
+#	if is_blocking:
+#		shield_icon.visible = true
+#	else:
+#		shield_icon.visible = false
+	pass
 
 func state_veiled(delta):
 	set_veiled_speed()
@@ -1257,6 +1274,11 @@ func set_state_listen():
 func set_state_block():
 	state = "block"
 	
+func set_state_climb():
+	state = "climb"
+	speed = climbspeed
+	switch_anim("climb")
+	
 func set_state_cling():
 	state = "cling"
 	
@@ -1326,11 +1348,13 @@ func set_state_item_get(item):
 func set_state_stopped():
 	state = "stopped"
 	
+#Keeps player facing the defined (static) direction during animation
 func switch_anim_static(animation):
 	var nextanim : String = animation + staticdir
 	if $anim.current_animation != nextanim:
 		$anim.play(nextanim)
 		
+#Allows for switching to a one-off singular direction for the duration of animation
 func switch_anim_directional(animation, direction):
 	var nextanim : String = animation + direction
 	if $anim.current_animation != nextanim:
