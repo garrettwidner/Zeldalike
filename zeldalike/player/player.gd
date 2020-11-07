@@ -52,8 +52,21 @@ var is_eating : bool = false
 var edible_is_finished : bool = false
 export var bite_just_taken : bool = false
 
+enum JUMPTYPE 	{
+				HOP,
+				JUMP,
+				LEAP
+				}	
+				
+var jump_type = JUMPTYPE.HOP
+
+var isinleaparea = false
+var leaparea
+var isinjumparea = false
+var jumparea
 var isinhoparea = false
 var hoparea
+
 var ispullingup
 var ishoppingtocling
 var isinclingcycle = false
@@ -73,6 +86,15 @@ var downhopupspeed = .09
 var hopdownleeway = 2.5
 var current_hop_direction = null
 var is_current_hop_upward = null
+
+enum TERRAIN {
+				LAND
+				WALL
+				WATER
+				}
+				
+var current_terrain = TERRAIN.LAND
+var previous_terrain = TERRAIN.LAND
 
 var landingtime = .2
 var landingtimer = 0
@@ -350,6 +372,7 @@ func state_default(delta):
 		var successfully_spoke = speak_to_interactibles()
 		if !successfully_spoke:
 			if check_hop_validity():
+				jump_type = JUMPTYPE.HOP
 				if is_current_hop_upward:
 					set_state_uptransition()
 	#				print("Setting state as uptransition")
@@ -364,11 +387,22 @@ func state_default(delta):
 					set_state_downtransition()
 					transitionspeed = hopdownspeed / hoparea.height
 					switch_anim("crouch")
+			elif check_jump_validity():
+				jump_type = JUMPTYPE.JUMP
+				set_state_uptransition()
+				pass
+			elif check_leap_validity():
+				#will be moving to wall, i.e. climb
+				jump_type = JUMPTYPE.LEAP
+				set_state_uptransition()
+				
+				pass
 
 		
 	elif Input.is_action_just_pressed("test_1"):
 		print("Switched to climbing")
 		set_state_climb()
+		
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
 #		decrease_disease()
@@ -420,6 +454,15 @@ func state_climb(delta):
 	
 	pass
 
+func set_previous_terrain(terrain):
+	previous_terrain = terrain
+		
+func set_previous_terrain_from_current():
+	previous_terrain = current_terrain
+		
+func set_current_terrain(terrain):
+	current_terrain = terrain
+		
 func block_loop(delta):
 #	is_blocking = false
 #	if Input.is_action_pressed("test_1"):
@@ -816,7 +859,16 @@ func check_hop_validity():
 			
 	return already_hopping
 	
-func get_hop_info():
+func check_jump_validity():
+	if isinjumparea:
+		return true
+	return false
+	pass
+	
+func check_leap_validity():
+	if isinleaparea:
+		return true
+	return false
 	pass
 
 func state_swing(delta):
@@ -854,24 +906,30 @@ func state_cling(delta):
 		#pullup()
 	pass
 	
-
-
 func state_uptransition(delta):
-	if ishoppingtocling:
-		continue_ledge_hop()
-	elif ispullingup:
-		continue_ledge_pullup()
-	else:
-		if !isinclingcycle:
-			damage_loop()
-			if wasdamaged:
-				set_state_default()
-			elif Input.is_action_just_released("action"):
-				start_ledge_hop()
-		else:
-			if Input.is_action_just_released("action"):
-				start_ledge_pullup()
-	pass
+	match jump_type:
+		JUMPTYPE.HOP:
+			if ishoppingtocling:
+				continue_ledge_hop()
+			elif ispullingup:
+				continue_ledge_pullup()
+			else:
+				if !isinclingcycle:
+					damage_loop()
+					if wasdamaged:
+						set_state_default()
+					elif Input.is_action_just_released("action"):
+						start_ledge_hop()
+				else:
+					if Input.is_action_just_released("action"):
+						start_ledge_pullup()
+			pass
+		JUMPTYPE.JUMP:
+			
+			pass
+		JUMPTYPE.LEAP:
+			
+			pass
 	
 func state_downtransition(delta):
 	if !isinjumpdowncycle:
@@ -894,6 +952,70 @@ func state_landing(delta):
 	if landingtimer >= landingtime:
 		set_state_default()
 		
+
+	
+	
+func start_down_hop():
+	switch_anim("fall")
+#	print("starting downward fall")
+	transitionstart = global_position
+	transitionend = hoparea.lowesthoppoint
+	isinjumpdowncycle = true
+	transitionweight = 0
+	#testing
+#	global_position = transitionend
+#	set_state_default()
+	pass
+	
+func continue_down_hop():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	switch_anim("jumpdown")
+	if transitionweight >= 1:
+		global_position = transitionend
+		isinjumpdowncycle = false
+		set_state_landing()
+		switch_anim("land")
+		landingtimer = 0
+	pass
+	
+func continue_ledge_hop():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+#		print("Stopped ledge hop")
+		global_position = transitionend
+		ishoppingtocling = false
+		set_state_cling()
+		
+func continue_ledge_pullup():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+		global_position = transitionend
+		ispullingup = false
+		set_state_default()
+		isinclingcycle = false
+		
+func start_ledge_hop():
+	isinclingcycle = true
+	switch_anim("jumpup")
+	transitionend = hoparea.clingpoint
+	transitionstart = global_position
+	transitionweight = 0
+	ishoppingtocling = true
+	
+func start_ledge_pullup():
+	switch_anim("pullup")
+	transitionend = hoparea.highesthoppoint
+	if facedir == dir.RIGHT || facedir == dir.LEFT:
+		transitionspeed = sidepullupspeed
+	else:
+		transitionspeed = verticalpullupspeed
+	transitionstart = global_position
+	transitionweight = 0
+	ispullingup = true
+
 func state_holding(delta):
 		
 	if bite_just_taken:
@@ -981,68 +1103,6 @@ func set_hold_position():
 		hold_orienter.position = Vector2(0,-5)
 		held_item.z_index = z_index - 1
 	pass
-	
-	
-func start_down_hop():
-	switch_anim("fall")
-#	print("starting downward fall")
-	transitionstart = global_position
-	transitionend = hoparea.lowesthoppoint
-	isinjumpdowncycle = true
-	transitionweight = 0
-	#testing
-#	global_position = transitionend
-#	set_state_default()
-	pass
-	
-func continue_down_hop():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	switch_anim("jumpdown")
-	if transitionweight >= 1:
-		global_position = transitionend
-		isinjumpdowncycle = false
-		set_state_landing()
-		switch_anim("land")
-		landingtimer = 0
-	pass
-	
-func continue_ledge_hop():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-#		print("Stopped ledge hop")
-		global_position = transitionend
-		ishoppingtocling = false
-		set_state_cling()
-		
-func continue_ledge_pullup():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-		global_position = transitionend
-		ispullingup = false
-		set_state_default()
-		isinclingcycle = false
-		
-func start_ledge_hop():
-	isinclingcycle = true
-	switch_anim("jumpup")
-	transitionend = hoparea.clingpoint
-	transitionstart = global_position
-	transitionweight = 0
-	ishoppingtocling = true
-	
-func start_ledge_pullup():
-	switch_anim("pullup")
-	transitionend = hoparea.highesthoppoint
-	if facedir == dir.RIGHT || facedir == dir.LEFT:
-		transitionspeed = sidepullupspeed
-	else:
-		transitionspeed = verticalpullupspeed
-	transitionstart = global_position
-	transitionweight = 0
-	ispullingup = true
 
 func set_speed():
 	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout:
@@ -1190,6 +1250,13 @@ func _on_Area2D_body_entered(body, obj):
 			isinhoparea = true
 			hoparea = obj
 #			print(hoparea.name)
+		elif obj.is_in_group("leaparea"):
+			isinleaparea = true
+			leaparea = obj
+		elif obj.is_in_group("jumparea"):
+			isinjumparea = true
+			jumparea = obj
+		
 		elif obj.is_in_group("sun_area"):
 			sun_areas[obj.get_instance_id()] = obj
 			
@@ -1222,6 +1289,12 @@ func _on_Area2D_body_exited(body, obj):
 		elif obj.is_in_group("hoparea"):
 			isinhoparea = false
 			hoparea = null
+		elif obj.is_in_group("leaparea"):
+			isinleaparea = false
+			leaparea = null
+		elif obj.is_in_group("jumparea"):
+			isinjumparea = false
+			jumparea = null
 		elif obj.is_in_group("heightchanger"):
 #			print("Player exited heightchanger object")
 			var height_change_is_decrement
@@ -1259,22 +1332,34 @@ func check_if_can_interact():
 		caninteract = false
 
 func set_state_swing():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "swing"
 
 func set_state_default():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "default"
 	
 func set_state_veiled():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "veiled"
 	is_veiled = true
 	
 func set_state_listen():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "listen"
 	
 func set_state_block():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "block"
 	
 func set_state_climb():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.WALL)
 	state = "climb"
 	speed = climbspeed
 	switch_anim("climb")
@@ -1292,10 +1377,14 @@ func set_state_landing():
 	state = "landing"
 	
 func set_state_holding():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "holding"
 #	print("Picked up " + held_item.name)
 
 func set_state_sackusing():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "sackusing"
 	
 	var givable = get_givable_in_vicinity()
@@ -1324,6 +1413,8 @@ func set_state_sackusing():
 	pass
 
 func set_state_bowusing():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "bowusing"
 	bow_is_fired = false
 	staticdir = spritedir
@@ -1331,11 +1422,15 @@ func set_state_bowusing():
 	speed = bowspeed
 	
 func set_state_speech_animating():
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "speech_animating"
 	$Timer.wait_time = speech_animation_time
 	$Timer.start()
 	
 func set_state_item_get(item):
+	set_previous_terrain_from_current()
+	set_current_terrain(TERRAIN.LAND)
 	state = "item_get"
 	held_item = item
 	facedir = dir.DOWN
