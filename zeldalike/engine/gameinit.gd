@@ -96,11 +96,11 @@ func perform_preliminary_level_setup():
 	connect_player_to_speechhittables()
 	connect_player_to_searchareas()
 	connect_player_to_hopareas()
+	connect_player_to_leapareas()
+	connect_player_to_jumpareas()
 	connect_player_to_heightchangers()
 	connect_cameracontroller_to_camareas()
 	connect_player_to_sun_areas()
-	
-	connect_player_to("interactible")
 	
 	connect_sceneblocks()
 	
@@ -141,14 +141,6 @@ func perform_concluding_level_setup():
 	
 func change_scene(level_name, delay = 0.5):
 	scenechanger.change_scene(level_name, delay)
-	
-
-func connect_player_to(group):
-#	var group_members = get_tree().get_nodes_in_group(group)
-#	var groupings = get_tree().get_children()
-#	for grouping in groupings:
-#		print(grouping.name
-	pass
 	
 func connect_sceneblocks():
 	sceneblocks.clear()
@@ -208,11 +200,28 @@ func connect_player_to_searchareas():
 		area2Dnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 	pass
 		
+#func connect_player_to_hopareas():
+#	var hopareas = get_tree().get_nodes_in_group("hoparea")
+#	for i in range(hopareas.size()):
+#		var currentnode = get_node(hopareas[i].get_path())
+##		print(currentnode.name + " is a found hoparea")
+#		var args = Array([currentnode])
+#		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
+#		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
+
 func connect_player_to_hopareas():
-	var hopareas = get_tree().get_nodes_in_group("hoparea")
-	for i in range(hopareas.size()):
-		var currentnode = get_node(hopareas[i].get_path())
-#		print(currentnode.name + " is a found hoparea")
+	connect_player_to_area_type("hoparea")
+	
+func connect_player_to_leapareas():
+	connect_player_to_area_type("leaparea")
+	
+func connect_player_to_jumpareas():
+	connect_player_to_area_type("jumparea")
+		
+func connect_player_to_area_type(areatype):
+	var areas = get_tree().get_nodes_in_group(areatype)
+	for i in range(areas.size()):
+		var currentnode = get_node(areas[i].get_path())
 		var args = Array([currentnode])
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)

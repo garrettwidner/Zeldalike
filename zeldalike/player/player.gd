@@ -67,6 +67,8 @@ var jumparea
 var isinhoparea = false
 var hoparea
 
+var isjumping = false
+
 var ispullingup
 var ishoppingtocling
 var isinclingcycle = false
@@ -925,8 +927,17 @@ func state_uptransition(delta):
 						start_ledge_pullup()
 			pass
 		JUMPTYPE.JUMP:
+				if previous_terrain == TERRAIN.LAND:
+					if !isjumping:
+						start_land_jump()
+					else:
+						continue_land_jump()
+				elif previous_terrain == TERRAIN.WALL:
+					if !isjumping:
+						start_wall_jump()
+					else:
+						continue_wall_jump()
 			
-			pass
 		JUMPTYPE.LEAP:
 			
 			pass
@@ -1015,6 +1026,18 @@ func start_ledge_pullup():
 	transitionstart = global_position
 	transitionweight = 0
 	ispullingup = true
+	
+func start_land_jump():
+	pass
+	
+func start_wall_jump():
+	pass
+	
+func continue_land_jump():
+	pass
+	
+func continue_wall_jump():
+	pass
 
 func state_holding(delta):
 		
