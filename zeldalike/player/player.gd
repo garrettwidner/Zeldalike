@@ -86,6 +86,7 @@ var uphopupspeed = .15
 var sidehopupspeed = .1
 var downhopupspeed = .09
 var hopdownleeway = 2.5
+var landjumpspeed = .05
 var current_hop_direction = null
 var is_current_hop_upward = null
 
@@ -1028,12 +1029,49 @@ func start_ledge_pullup():
 	ispullingup = true
 	
 func start_land_jump():
+	isjumping = true
+	
+	var linked_jumparea = jumparea.linked_area
+#	print("Linked jumparea is " + String(linked_jumparea))
+	
+	var linked_jumparea_path = helper.nodepath_to_usable_string_path("/root/Level/hop_areas/", jumparea.linked_area)
+#	print("Jumparea path is " + String(linked_jumparea_path))
+		
+	var linked_jump_area = get_node(linked_jumparea_path)
+	
+	transitionend = linked_jump_area.global_position
+	transitionstart = global_position
+	transitionweight = 0
+	transitionspeed = landjumpspeed
+	isjumping = true
+	
+	set_land_jump_animation_direction(transitionstart, transitionend)
+	pass
+	
+func set_land_jump_animation_direction(start, end):
+	var direction  = end - start
+	direction = dir.closest_cardinal(direction)
+	match direction:
+		dir.LEFT:
+			switch_anim_directional("jumpup", "left")
+		dir.RIGHT:
+			switch_anim_directional("jumpup", "right")
+		dir.UP:
+			switch_anim_directional("jumpup", "up")
+		dir.DOWN:
+			switch_anim_directional("jumpup", "down")
 	pass
 	
 func start_wall_jump():
 	pass
 	
 func continue_land_jump():
+	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+	transitionweight += transitionspeed
+	if transitionweight >= 1:
+		global_position = transitionend
+		set_state_default()
+		isjumping = false
 	pass
 	
 func continue_wall_jump():
@@ -1473,6 +1511,7 @@ func switch_anim_static(animation):
 		$anim.play(nextanim)
 		
 #Allows for switching to a one-off singular direction for the duration of animation
+#animation and direction should be strings
 func switch_anim_directional(animation, direction):
 	var nextanim : String = animation + direction
 	if $anim.current_animation != nextanim:

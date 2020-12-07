@@ -1,3 +1,3 @@
 extends Area2D
 
-export var linked_jumparea : NodePath 
+export var linked_area : NodePath 

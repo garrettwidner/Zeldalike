@@ -6,9 +6,9 @@
 [ext_resource path="res://terrain/sand_desert/mountain_forms.png" type="Texture" id=4]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=6]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=7]
-[ext_resource path="res://levels/level_objects/jumpareas/jumparea.gd" type="Script" id=8]
-[ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=9]
+[ext_resource path="res://levels/level_objects/jumpareas/jumparea.gd" type="Script" id=7]
+[ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=8]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -508,13 +508,13 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=57]
+[sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 8, 7 )
 
-[sub_resource type="RectangleShape2D" id=55]
-extents = Vector2( 220, 144 )
-
 [sub_resource type="RectangleShape2D" id=56]
+
+[sub_resource type="RectangleShape2D" id=57]
+extents = Vector2( 220, 144 )
 
 [sub_resource type="RectangleShape2D" id=58]
 
@@ -563,7 +563,7 @@ canhopdown = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/downward_hoparea5"]
 position = Vector2( 0, -1 )
-shape = SubResource( 57 )
+shape = SubResource( 55 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -583,6 +583,50 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="jumparea2" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1475.64, 961.401 )
+script = ExtResource( 7 )
+linked_area = NodePath("../jumparea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea2"]
+shape = SubResource( 56 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea2"]
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="jumparea" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1462.6, 1004.88 )
+script = ExtResource( 7 )
+linked_area = NodePath("../jumparea2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea"]
+shape = SubResource( 56 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea"]
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="heightchangers" type="Node2D" parent="."]
 
 [node name="sounds" type="Node2D" parent="."]
@@ -595,7 +639,7 @@ __meta__ = {
 position = Vector2( 1326.07, 982.273 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 55 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -606,7 +650,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 1423.93, 1088.03 )
-script = ExtResource( 7 )
+script = ExtResource( 9 )
 connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 1
@@ -617,52 +661,10 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblocks/sceneblock/Area2D"]
-shape = SubResource( 56 )
+shape = SubResource( 58 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
 position = Vector2( 0.545723, -85.8733 )
-
-[node name="jumparea" type="Area2D" parent="." groups=[
-"jumparea",
-]]
-position = Vector2( 1462.6, 1004.88 )
-script = ExtResource( 8 )
-linked_jumparea = NodePath("../jumparea2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="jumparea"]
-shape = SubResource( 58 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="jumparea"]
-texture = ExtResource( 9 )
-vframes = 2
-hframes = 4
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="jumparea2" type="Area2D" parent="." groups=[
-"jumparea",
-]]
-position = Vector2( 1475.64, 961.401 )
-script = ExtResource( 8 )
-linked_jumparea = NodePath("../jumparea")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="jumparea2"]
-shape = SubResource( 58 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="jumparea2"]
-texture = ExtResource( 9 )
-vframes = 2
-hframes = 4
-__meta__ = {
-"_edit_lock_": true
-}

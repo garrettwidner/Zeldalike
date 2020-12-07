@@ -3,6 +3,8 @@ extends Node
 func string_strip(string):
 	return string.rstrip("@1234567890").lstrip("@1234567890")
 	
+func nodepath_to_usable_string_path(generalPath, relativeNodePath):
+	return String(generalPath) + String(relativeNodePath).lstrip("..")
 	
 
 func load_file_as_JSON(file_path):
