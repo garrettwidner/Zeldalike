@@ -26,6 +26,18 @@ func randhor():
 		2: 
 			return RIGHT
 			
+func string_from_direction(direction):
+	match direction:
+		dir.LEFT:
+			return "left"
+		dir.RIGHT:
+			return "right"
+		dir.UP:
+			return "up"
+		dir.DOWN:
+			return "down"
+						
+
 func direction_from_input():
 	
 	var direction = Vector2()
