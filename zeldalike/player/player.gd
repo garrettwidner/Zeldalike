@@ -77,11 +77,8 @@ var isinjumpdowncycle = false
 
 #----------------------------------------------
 var isenddownslope = false
-var canhopup = false
-var canhopdown = false
 var jumpdirection
-var startterraintype
-var endterraintype
+var endterrain = terrain.TYPE.LAND
 
 var jumpstartpos
 var jumpendpos
@@ -319,8 +316,8 @@ func _process(delta):
 			state_jump(delta)
 		"climb":
 			state_climb(delta)	
-		"cling":
-			state_cling(delta)
+		"ledge":
+			state_ledge(delta)
 #		"uptransition":
 #			state_uptransition(delta)
 #		"downtransition":
@@ -1042,7 +1039,7 @@ func continue_ledge_hop():
 		if(Input.is_action_pressed("sack")):
 	#		print("Stopped ledge hop")
 			global_position = transitionend
-			set_state_cling()
+			set_state_ledge()
 		else:
 			start_hop_fall()
 		
@@ -1215,10 +1212,7 @@ func hide_jump_reticule():
 
 func state_crouch(delta):
 	
-		
-	if Input.is_action_just_released("action"):
-		set_state_jump()
-		hide_jump_reticule()	
+	print("Crouching")
 		
 	if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
 		increment_next_jumparea()
@@ -1239,6 +1233,10 @@ func state_crouch(delta):
 	switch_anim("crouch")
 		
 	movement_loop()
+	
+	if Input.is_action_just_released("action"):
+		set_state_jump()
+		hide_jump_reticule()	
 		
 func get_direction_towards_jumparea():
 	return dir.closest_cardinal(get_next_jumparea().global_position - global_position)
@@ -1259,12 +1257,32 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = get_next_jumparea().global_position
 	
 func set_state_jump():
+	var next_jumparea = get_next_jumparea()
+	
 	state = "jump"
 	jumpstartpos = global_position
-	jumpendpos = get_next_jumparea().global_position
+	jumpendpos = next_jumparea.global_position
 	jumpweight = 0
 	jumpspeed = .01
 	
+	if current_jumparea.terrain_type == terrain.TYPE.LAND && (next_jumparea.terrain_type == terrain.TYPE.LEDGE || next_jumparea.terrain_type == terrain.TYPE.WALL):
+		isenddownslope = false
+	elif current_jumparea.terrain_type == terrain.TYPE.WALL && next_jumparea.terrain_type == terrain.TYPE.LAND:
+		isenddownslope = true
+
+	jumpdirection = get_direction_towards_jumparea()
+	endterrain = next_jumparea.terrain_type
+	
+	var animprefix = ""
+	var animsuffix = dir.string_from_direction(jumpdirection)
+	
+	if isenddownslope:
+		animprefix = "jumpdown"
+	else:
+		animprefix = "jumpup"
+		
+	print("Animation should be " + animprefix + animsuffix)
+	switch_anim_directional(animprefix, animsuffix)
 	
 	pass	
 
@@ -1273,13 +1291,15 @@ func state_jump(delta):
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
-		global_position = jumpendpos
-		set_state_default()
-		set_terrains(get_next_jumparea().terrain_type)
+		end_jump_and_set_terrains()
 	pass
 	
+func end_jump_and_set_terrains():
+	global_position = jumpendpos
+	set_state_default()
+	set_terrains(get_next_jumparea().terrain_type)
 	
-func state_cling(delta):
+func state_ledge(delta):
 	
 	pass
 	
@@ -1672,22 +1692,15 @@ func set_state_block():
 #
 #	self.get_parent().add_child(sprinkle)
 
-#func set_state_landcrouch():
-#	pass
-#
-#func set_state_wallcrouch():
-#	pass
-#
-#func set_state_ledgecrouch():
-#	pass
+
 	
 func set_state_climb():
 	state = "climb"
 	speed = climbspeed
 	switch_anim("climb")
 	
-func set_state_cling():
-	state = "cling"
+func set_state_ledge():
+	state = "ledge"
 	
 func set_state_uptransition():
 	state = "uptransition"

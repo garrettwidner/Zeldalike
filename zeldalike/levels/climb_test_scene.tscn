@@ -594,6 +594,7 @@ __meta__ = {
 position = Vector2( 1456.28, 960.061 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
+linked_area2 = NodePath("../jumparea3")
 terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea2"]
@@ -617,6 +618,7 @@ __meta__ = {
 position = Vector2( 1510.4, 962.974 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
+linked_area2 = NodePath("../jumparea2")
 terrain_string = "ledge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea3"]
@@ -660,6 +662,7 @@ __meta__ = {
 
 [node name="ledge" type="Area2D" parent="hop_areas"]
 position = Vector2( 1510.34, 962.771 )
+z_index = -1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledge"]
 shape = SubResource( 59 )
