@@ -587,7 +587,7 @@ __meta__ = {
 [node name="jumparea2" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1454.61, 958.397 )
+position = Vector2( 1466.68, 1046.19 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
 
@@ -609,7 +609,7 @@ __meta__ = {
 [node name="jumparea3" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1481.27, 958.397 )
+position = Vector2( 1510.4, 962.974 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
 

@@ -40,6 +40,10 @@ func decrease_health(amount):
 		emit_signal("health_changed", health, difference)
 	pass
 	
+func set_directionality(direction):
+	set_movedir(direction)
+	set_facedir()
+	set_spritedir()
 
 func set_movedir(direction):
 	movedir = dir.closest_cardinal(direction)

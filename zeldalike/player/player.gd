@@ -83,6 +83,11 @@ var jumpdirection
 var startterraintype
 var endterraintype
 
+var jumpstartpos
+var jumpendpos
+var jumpweight
+var jumpspeed
+
 var linked_jumpareas
 var next_jumparea_index = 0
 #----------------------------------------------
@@ -308,6 +313,8 @@ func _process(delta):
 			state_block(delta)
 		"crouch":
 			state_crouch(delta)
+		"jump":
+			state_jump(delta)
 		"climb":
 			state_climb(delta)	
 		"cling":
@@ -344,8 +351,7 @@ func dialogue_finished():
 func state_default(delta):
 	set_speed()
 	assign_movedir_from_input()
-	set_facedir()
-	set_spritedir()
+	set_directionality(movedir)
 	damage_loop()
 	sun_damage_loop(delta)
 	block_loop(delta)
@@ -487,8 +493,7 @@ func block_loop(delta):
 func state_veiled(delta):
 	set_veiled_speed()
 	assign_movedir_from_input()
-	set_facedir()
-	set_spritedir()
+	set_directionality(movedir)
 	damage_loop()
 	sun_damage_loop(delta)
 	
@@ -1107,7 +1112,6 @@ func start_land_jump():
 	transitionstart = global_position
 	transitionweight = 0
 	transitionspeed = landjumpspeed
-	isjumping = true
 	
 	set_jump_animation_direction(transitionstart, transitionend)
 	pass
@@ -1157,12 +1161,63 @@ func log_jump_stats():
 #var jumpdirection
 #var startterraintype
 #var endterraintype
-
-	
-
 	pass
+
+func get_next_jumparea():
+	return linked_jumpareas[next_jumparea_index]
 	
+func set_state_crouch():
+	state = "crouch"
+	speed = 0
+	
+	linked_jumpareas = []
+	linked_jumpareas.clear()
+	
+	
+	var count = 0
+	for path in current_jumparea.linked_areas:
+#		count = count + 1
+#		print("Iteration count: " + String(count))
+#		print(path)
+		var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(path)
+	#	print("Jumparea path is " + String(linked_jumparea_path))
+		var linked_jump_area = get_node(full_jumparea_path)
+		if linked_jump_area.name != "hop_areas":
+			linked_jumpareas.append(linked_jump_area)
+		
+#	print("--Linked jump areas:--")
+#	for area in linked_jumpareas:
+#		print(area.name)
+#	print("----------------------")
+	
+	if linked_jumpareas.size() != 0:
+		if jump_reticule != null:
+			hide_jump_reticule()
+		
+		next_jumparea_index = 0
+		show_jump_reticule()
+		pass
+		
+	
+	
+	if current_terrain == terrain.TYPE.LAND:
+		switch_anim("crouch")
+	elif current_terrain == terrain.TYPE.WALL:
+		pass
+	elif current_terrain == terrain.TYPE.LEDGE:
+		pass
+		
+func show_jump_reticule():
+	jump_reticule = jump_reticule_resource.instance()
+	jump_reticule.global_position = linked_jumpareas[next_jumparea_index].global_position
+	self.get_parent().add_child(jump_reticule)
+	
+func hide_jump_reticule():
+	jump_reticule.queue_free()
+
 func state_crouch(delta):
+	
+	
 	if current_terrain == terrain.TYPE.WALL:
 		pass
 	elif current_terrain == terrain.TYPE.LAND:
@@ -1170,12 +1225,25 @@ func state_crouch(delta):
 	elif current_terrain == terrain.TYPE.LEDGE:
 		pass
 		
+	if Input.is_action_just_released("action"):
+		set_state_jump()
+		hide_jump_reticule()	
+		
 	if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
 		increment_next_jumparea()
 		reposition_jump_reticule()
 	elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
 		decrement_next_jumparea()
 		reposition_jump_reticule()
+		
+	movedir = get_direction_towards_jumparea()
+	set_directionality(movedir)
+	switch_anim("crouch")
+		
+	movement_loop()
+		
+func get_direction_towards_jumparea():
+	return dir.closest_cardinal(get_next_jumparea().global_position - global_position)
 	
 func increment_next_jumparea():
 	next_jumparea_index = next_jumparea_index + 1
@@ -1190,10 +1258,24 @@ func decrement_next_jumparea():
 	pass
 	
 func reposition_jump_reticule():
-	jump_reticule.global_position = linked_jumpareas[next_jumparea_index].global_position
+	jump_reticule.global_position = get_next_jumparea().global_position
 	
+func set_state_jump():
+	state = "jump"
+	jumpstartpos = global_position
+	jumpendpos = get_next_jumparea().global_position
+	jumpweight = 0
+	jumpspeed = .01
+	pass	
+
+
 func state_jump(delta):
-	
+	print("is jumping")
+	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
+	jumpweight += jumpspeed
+	if jumpweight >= 1:
+		global_position = jumpendpos
+		set_state_default()
 	pass
 	
 func state_cling(delta):
@@ -1254,8 +1336,7 @@ func state_holding(delta):
 		set_hold_position()
 		set_speed()
 		assign_movedir_from_input()
-		set_facedir()
-		set_spritedir()
+		set_directionality(movedir)
 		damage_loop()
 		movement_loop()
 		
@@ -1350,18 +1431,18 @@ func create_stamina_drain_kickout():
 func assign_movedir_from_input():
 	movedir = dir.direction_from_input()
 	
-func set_facedir():
-#	var closestdistance = 0
-#	for body in $sightbox.get_overlapping_bodies():
-#		if body.get("TYPE") == "ENEMY":
-#
-#			istrackingenemy = true
-#			var directiontowards : Vector2 = body.transform.origin - transform.origin
-#			facedir = dir.closest_cardinal(directiontowards)
-#		else:
-#			istrackingenemy = false
-#			.set_facedir()
-	.set_facedir()
+#func set_facedir():
+##	var closestdistance = 0
+##	for body in $sightbox.get_overlapping_bodies():
+##		if body.get("TYPE") == "ENEMY":
+##
+##			istrackingenemy = true
+##			var directiontowards : Vector2 = body.transform.origin - transform.origin
+##			facedir = dir.closest_cardinal(directiontowards)
+##		else:
+##			istrackingenemy = false
+##			.set_facedir()
+#	.set_facedir()
 
 func set_facedir_manual(new_direction):
 	if new_direction == dir.DOWN || new_direction == dir.UP || new_direction == dir.LEFT || new_direction == dir.RIGHT:
@@ -1580,45 +1661,7 @@ func set_state_block():
 	set_current_terrain(terrain.TYPE.LAND)
 	state = "block"
 	
-func set_state_crouch():
-	state = "crouch"
-	
-	linked_jumpareas = []
-	linked_jumpareas.clear()
-	
-	var count = 0
-	for path in current_jumparea.linked_areas:
-#		count = count + 1
-#		print("Iteration count: " + String(count))
-#		print(path)
-		var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(path)
-	#	print("Jumparea path is " + String(linked_jumparea_path))
-		var linked_jump_area = get_node(full_jumparea_path)
-		if linked_jump_area.name != "hop_areas":
-			linked_jumpareas.append(linked_jump_area)
-		
-#	print("--Linked jump areas:--")
-#	for area in linked_jumpareas:
-#		print(area.name)
-#	print("----------------------")
-	
-	if linked_jumpareas.size() != 0:
-		if jump_reticule != null:
-			jump_reticule.queue_free()
-		
-		jump_reticule = jump_reticule_resource.instance()
-		next_jumparea_index = 0
-		jump_reticule.global_position = linked_jumpareas[next_jumparea_index].global_position
-		self.get_parent().add_child(jump_reticule)
-		
-		pass
-	
-	if current_terrain == terrain.TYPE.LAND:
-		switch_anim("crouch")
-	elif current_terrain == terrain.TYPE.WALL:
-		pass
-	elif current_terrain == terrain.TYPE.LEDGE:
-		pass
+
 	
 
 
