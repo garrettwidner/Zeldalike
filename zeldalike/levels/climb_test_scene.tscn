@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=6]
 [ext_resource path="res://levels/level_objects/jumpareas/jumparea.gd" type="Script" id=7]
 [ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=8]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=9]
-[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=10]
+[ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=9]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=10]
+[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -514,6 +515,9 @@ extents = Vector2( 8, 7 )
 
 [sub_resource type="RectangleShape2D" id=56]
 
+[sub_resource type="RectangleShape2D" id=59]
+extents = Vector2( 30, 10 )
+
 [sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 220, 144 )
 
@@ -587,9 +591,10 @@ __meta__ = {
 [node name="jumparea2" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1466.68, 1046.19 )
+position = Vector2( 1456.28, 960.061 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
+terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea2"]
 shape = SubResource( 56 )
@@ -612,6 +617,7 @@ __meta__ = {
 position = Vector2( 1510.4, 962.974 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea")
+terrain_string = "ledge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea3"]
 shape = SubResource( 56 )
@@ -635,6 +641,7 @@ position = Vector2( 1462.6, 1004.88 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparea2")
 linked_area2 = NodePath("../jumparea3")
+terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea"]
 shape = SubResource( 56 )
@@ -651,11 +658,39 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="ledge" type="Area2D" parent="hop_areas"]
+position = Vector2( 1510.34, 962.771 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledge"]
+shape = SubResource( 59 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/ledge"]
+modulate = Color( 0.364706, 1, 0.313726, 1 )
+texture = ExtResource( 9 )
+vframes = 12
+hframes = 3
+region_rect = Rect2( 48, 16, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="heightchangers" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="sounds" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="camareas" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="camarea1" type="Area2D" parent="camareas" groups=[
 "camarea",
@@ -669,12 +704,15 @@ __meta__ = {
 }
 
 [node name="sceneblocks" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="sceneblock" type="Node2D" parent="sceneblocks" groups=[
 "sceneblock",
 ]]
 position = Vector2( 1423.93, 1088.03 )
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 1
@@ -693,5 +731,5 @@ __meta__ = {
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
 position = Vector2( 17.8677, -63.4709 )
 
-[node name="downward_hoparea5" parent="." instance=ExtResource( 10 )]
+[node name="downward_hoparea5" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1415.9, 899.363 )

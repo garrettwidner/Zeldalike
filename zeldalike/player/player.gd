@@ -90,6 +90,9 @@ var jumpspeed
 
 var linked_jumpareas
 var next_jumparea_index = 0
+
+var current_terrain = terrain.TYPE.LAND
+var previous_terrain = terrain.TYPE.LAND
 #----------------------------------------------
 
 var transitionweight
@@ -108,8 +111,7 @@ var landjumpspeed = .05
 var current_hop_direction = null
 var is_current_hop_ground_to_ledge = null
 				
-var current_terrain = terrain.TYPE.LAND
-var previous_terrain = terrain.TYPE.LAND
+
 
 var landingtime = .2
 var landingtimer = 0
@@ -319,10 +321,10 @@ func _process(delta):
 			state_climb(delta)	
 		"cling":
 			state_cling(delta)
-		"uptransition":
-			state_uptransition(delta)
-		"downtransition":
-			state_downtransition(delta)
+#		"uptransition":
+#			state_uptransition(delta)
+#		"downtransition":
+#			state_downtransition(delta)
 		"landing":
 			state_landing(delta)
 		"holding":
@@ -465,15 +467,12 @@ func set_hop_transition_speed():
 	else:
 		transitionspeed = hopdownspeed / hoparea.height
 	pass
-
-func set_previous_terrain(terrain):
-	previous_terrain = terrain
-		
-func set_previous_terrain_from_current():
+	
+func set_terrains(new):
 	previous_terrain = current_terrain
-		
-func set_current_terrain(terrain):
-	current_terrain = terrain
+	current_terrain = new
+#	print("Terrain set to " + String(current_terrain) + ", previous terrain set to " + String(previous_terrain))
+	
 		
 func block_loop(delta):
 #	is_blocking = false
@@ -909,95 +908,95 @@ func state_block(delta):
 		set_state_default()
 		print("Error: this should be set up to trigger when a character is done blocking only")
 	
-func state_jumptransition(delta):
-	print("is in jumptransition")
-	match jump_type:
-		JUMPTYPE.HOP:
-			if isledgehopping:
-				continue_ledge_hop()
-			elif ispullingup:
-				continue_ledge_pullup()
-			elif isledgefalling:
-				continue_hop_fall()
-			else:
-				if !isinclingcycle:
-					damage_loop()
-					if wasdamaged:
-						set_state_default()
-					elif Input.is_action_just_released("action"):
-						start_ledge_hop()
-				else:
-					if Input.is_action_just_released("action"):
-						start_ledge_pullup()
-			pass
-		JUMPTYPE.JUMP:
-			if previous_terrain == terrain.TYPE.LAND:
-				if !isjumping:
-					start_land_jump()
-				else:
-					continue_land_jump()
-			elif previous_terrain == terrain.TYPE.LAND:
-				if !isjumping:
-					start_wall_jump()
-				else:
-					continue_wall_jump()
-			
-		JUMPTYPE.LEAP:
-				
-			pass
+#func state_jumptransition(delta):
+#	print("is in jumptransition")
+#	match jump_type:
+#		JUMPTYPE.HOP:
+#			if isledgehopping:
+#				continue_ledge_hop()
+#			elif ispullingup:
+#				continue_ledge_pullup()
+#			elif isledgefalling:
+#				continue_hop_fall()
+#			else:
+#				if !isinclingcycle:
+#					damage_loop()
+#					if wasdamaged:
+#						set_state_default()
+#					elif Input.is_action_just_released("action"):
+#						start_ledge_hop()
+#				else:
+#					if Input.is_action_just_released("action"):
+#						start_ledge_pullup()
+#			pass
+#		JUMPTYPE.JUMP:
+#			if previous_terrain == terrain.TYPE.LAND:
+#				if !isjumping:
+#					start_land_jump()
+#				else:
+#					continue_land_jump()
+#			elif previous_terrain == terrain.TYPE.LAND:
+#				if !isjumping:
+#					start_wall_jump()
+#				else:
+#					continue_wall_jump()
+#
+#		JUMPTYPE.LEAP:
+#
+#			pass
 	
-func state_uptransition(delta):
-	print("is in uptransition")
-	match jump_type:
-		JUMPTYPE.HOP:
-			if isledgehopping:
-				continue_ledge_hop()
-			elif ispullingup:
-				continue_ledge_pullup()
-			elif isledgefalling:
-				continue_hop_fall()
-			else:
-				if !isinclingcycle:
-					damage_loop()
-					if wasdamaged:
-						set_state_default()
-					elif Input.is_action_just_released("action"):
-						start_ledge_hop()
-				else:
-					if Input.is_action_just_released("action"):
-						start_ledge_pullup()
-			pass
-		JUMPTYPE.JUMP:
-			if previous_terrain == terrain.TYPE.LAND:
-				if !isjumping:
-					start_land_jump()
-				else:
-					continue_land_jump()
-			elif previous_terrain == terrain.TYPE.LAND:
-				if !isjumping:
-					start_wall_jump()
-				else:
-					continue_wall_jump()
-			
-		JUMPTYPE.LEAP:
-				
-			pass
+#func state_uptransition(delta):
+#	print("is in uptransition")
+#	match jump_type:
+#		JUMPTYPE.HOP:
+#			if isledgehopping:
+#				continue_ledge_hop()
+#			elif ispullingup:
+#				continue_ledge_pullup()
+#			elif isledgefalling:
+#				continue_hop_fall()
+#			else:
+#				if !isinclingcycle:
+#					damage_loop()
+#					if wasdamaged:
+#						set_state_default()
+#					elif Input.is_action_just_released("action"):
+#						start_ledge_hop()
+#				else:
+#					if Input.is_action_just_released("action"):
+#						start_ledge_pullup()
+#			pass
+#		JUMPTYPE.JUMP:
+#			if previous_terrain == terrain.TYPE.LAND:
+#				if !isjumping:
+#					start_land_jump()
+#				else:
+#					continue_land_jump()
+#			elif previous_terrain == terrain.TYPE.LAND:
+#				if !isjumping:
+#					start_wall_jump()
+#				else:
+#					continue_wall_jump()
+#
+#		JUMPTYPE.LEAP:
+#
+#			pass
 	
-func state_downtransition(delta):
-	print("is in downtransition")
-	if !isinjumpdowncycle:
-		damage_loop()
-		if wasdamaged:
-			set_state_default()
-		elif(Input.is_action_just_released("action")):
-			start_down_hop()
-	else:
-		if isledgefalling:
-			continue_hop_fall()
-		else:
-			continue_down_hop()
-	
-	pass
+#func state_downtransition(delta):
+#	print("is in downtransition")
+#	if !isinjumpdowncycle:
+#		damage_loop()
+#		if wasdamaged:
+#			set_state_default()
+#		elif(Input.is_action_just_released("action")):
+#			start_down_hop()
+#	else:
+#		if isledgefalling:
+#			continue_hop_fall()
+#		else:
+#			continue_down_hop()
+#
+#	pass
 	
 func state_landing(delta):
 	damage_loop()
@@ -1191,9 +1190,6 @@ func set_state_crouch():
 #	print("----------------------")
 	
 	if linked_jumpareas.size() != 0:
-		if jump_reticule != null:
-			hide_jump_reticule()
-		
 		next_jumparea_index = 0
 		show_jump_reticule()
 		pass
@@ -1213,17 +1209,12 @@ func show_jump_reticule():
 	self.get_parent().add_child(jump_reticule)
 	
 func hide_jump_reticule():
-	jump_reticule.queue_free()
+	if jump_reticule != null:
+#		print("Queue freeing jump reticule: " + jump_reticule.name)
+		jump_reticule.queue_free()
 
 func state_crouch(delta):
 	
-	
-	if current_terrain == terrain.TYPE.WALL:
-		pass
-	elif current_terrain == terrain.TYPE.LAND:
-		pass
-	elif current_terrain == terrain.TYPE.LEDGE:
-		pass
 		
 	if Input.is_action_just_released("action"):
 		set_state_jump()
@@ -1235,6 +1226,13 @@ func state_crouch(delta):
 	elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
 		decrement_next_jumparea()
 		reposition_jump_reticule()
+		
+	if current_terrain == terrain.TYPE.WALL:
+		pass
+	elif current_terrain == terrain.TYPE.LAND:
+		pass
+	elif current_terrain == terrain.TYPE.LEDGE:
+		pass
 		
 	movedir = get_direction_towards_jumparea()
 	set_directionality(movedir)
@@ -1266,17 +1264,20 @@ func set_state_jump():
 	jumpendpos = get_next_jumparea().global_position
 	jumpweight = 0
 	jumpspeed = .01
+	
+	
 	pass	
 
 
 func state_jump(delta):
-	print("is jumping")
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
 		global_position = jumpendpos
 		set_state_default()
+		set_terrains(get_next_jumparea().terrain_type)
 	pass
+	
 	
 func state_cling(delta):
 	
@@ -1636,29 +1637,19 @@ func check_if_can_interact():
 		caninteract = false
 
 func set_state_swing():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "swing"
 
 func set_state_default():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "default"
 	
 func set_state_veiled():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "veiled"
 	is_veiled = true
 	
 func set_state_listen():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "listen"
 	
 func set_state_block():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "block"
 	
 
@@ -1691,8 +1682,6 @@ func set_state_block():
 #	pass
 	
 func set_state_climb():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.WALL)
 	state = "climb"
 	speed = climbspeed
 	switch_anim("climb")
@@ -1710,14 +1699,10 @@ func set_state_landing():
 	state = "landing"
 	
 func set_state_holding():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "holding"
 #	print("Picked up " + held_item.name)
 
 func set_state_sackusing():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "sackusing"
 	
 	var givable = get_givable_in_vicinity()
@@ -1746,8 +1731,6 @@ func set_state_sackusing():
 	pass
 
 func set_state_bowusing():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "bowusing"
 	bow_is_fired = false
 	staticdir = spritedir
@@ -1755,15 +1738,11 @@ func set_state_bowusing():
 	speed = bowspeed
 	
 func set_state_speech_animating():
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "speech_animating"
 	$Timer.wait_time = speech_animation_time
 	$Timer.start()
 	
 func set_state_item_get(item):
-	set_previous_terrain_from_current()
-	set_current_terrain(terrain.TYPE.LAND)
 	state = "item_get"
 	held_item = item
 	facedir = dir.DOWN
