@@ -89,6 +89,7 @@ var linked_jumpareas
 var next_jumparea_index = 0
 
 var current_ledge
+var ledge_updirection 
 var ledge_l_bound
 var ledge_r_bound
 
@@ -1313,34 +1314,47 @@ func end_jump_and_set_terrains():
 func set_state_ledge():
 	state = "ledge"
 #	print("Now on ledge")
-	speed = ledgeclimbspeed
+	
 	
 	var relative_ledge_path = current_jumparea.connected_object
 	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
 	current_ledge = get_node(full_ledge_path)
 	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
-	ledge_l_bound = current_ledge.global_position.x - ledge_bounds.shape.extents.x
-	ledge_r_bound = current_ledge.global_position.x + ledge_bounds.shape.extents.x
-	
+	ledge_updirection = current_ledge.updirection
+
+	if ledge_updirection == dir.UP:
+		speed = ledgeclimbspeed
+		ledge_l_bound = current_ledge.global_position.x - ledge_bounds.shape.extents.x
+		ledge_r_bound = current_ledge.global_position.x + ledge_bounds.shape.extents.x
+	else:
+		speed = 0
+		match ledge_updirection:
+			dir.LEFT:
+				switch_anim_directional("cling", "left")
+			dir.RIGHT:
+				switch_anim_directional("cling", "right")
+			dir.DOWN:
+				switch_anim_directional("cling", "down")
+				
 	
 func state_ledge(delta):
 #	print("Ledging")
-	
-	movedir = dir.l_r_direction_from_input()
-	if movedir.x < 0 && global_position.x <= ledge_l_bound:
-		movedir.x = 0
-	if movedir.x > 0 && global_position.x >= ledge_r_bound:
-		movedir.x = 0
+	if ledge_updirection == dir.UP:
+		movedir = dir.l_r_direction_from_input()
+		
+		if movedir.x < 0 && global_position.x <= ledge_l_bound:
+			movedir.x = 0
+		if movedir.x > 0 && global_position.x >= ledge_r_bound:
+			movedir.x = 0
+			
+		if movedir != Vector2(0,0):
+			switch_anim("climb")
+		else:
+			$anim.stop()
+	else:
+		movedir = dir.CENTER
 		
 	set_directionality(movedir)
-	
-	
-	
-	if movedir != Vector2(0,0):
-		switch_anim("climb")
-	else:
-		$anim.stop()
-	
 	movement_loop()
 	
 	pass
