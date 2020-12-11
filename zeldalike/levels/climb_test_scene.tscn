@@ -517,7 +517,7 @@ extents = Vector2( 8, 7 )
 [sub_resource type="RectangleShape2D" id=56]
 
 [sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 30, 10 )
+extents = Vector2( 12, 5 )
 
 [sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 220, 144 )

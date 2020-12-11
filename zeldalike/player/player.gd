@@ -89,6 +89,8 @@ var linked_jumpareas
 var next_jumparea_index = 0
 
 var current_ledge
+var ledge_l_bound
+var ledge_r_bound
 
 var current_terrain = terrain.TYPE.LAND
 var previous_terrain = terrain.TYPE.LAND
@@ -107,6 +109,7 @@ var sidehopupspeed = .1
 var downhopupspeed = .09
 var hopdownleeway = 2.5
 var landjumpspeed = .05
+var ledgeclimbspeed = 5
 var current_hop_direction = null
 var is_current_hop_ground_to_ledge = null
 				
@@ -1214,7 +1217,7 @@ func hide_jump_reticule():
 
 func state_crouch(delta):
 	
-	print("Crouching")
+#	print("Crouching")
 		
 	if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
 		increment_next_jumparea()
@@ -1283,7 +1286,7 @@ func set_state_jump():
 	else:
 		animprefix = "jumpup"
 		
-	print("Animation should be " + animprefix + animsuffix)
+#	print("Animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
 	
 	pass	
@@ -1309,11 +1312,36 @@ func end_jump_and_set_terrains():
 	
 func set_state_ledge():
 	state = "ledge"
-	print("Now on ledge")
+#	print("Now on ledge")
+	speed = ledgeclimbspeed
+	
+	var relative_ledge_path = current_jumparea.connected_object
+	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
+	current_ledge = get_node(full_ledge_path)
+	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
+	ledge_l_bound = current_ledge.global_position.x - ledge_bounds.shape.extents.x
+	ledge_r_bound = current_ledge.global_position.x + ledge_bounds.shape.extents.x
 	
 	
 func state_ledge(delta):
-	switch_anim("run")
+#	print("Ledging")
+	
+	movedir = dir.l_r_direction_from_input()
+	if movedir.x < 0 && global_position.x <= ledge_l_bound:
+		movedir.x = 0
+	if movedir.x > 0 && global_position.x >= ledge_r_bound:
+		movedir.x = 0
+		
+	set_directionality(movedir)
+	
+	
+	
+	if movedir != Vector2(0,0):
+		switch_anim("climb")
+	else:
+		$anim.stop()
+	
+	movement_loop()
 	
 	pass
 	

@@ -38,6 +38,18 @@ func string_from_direction(direction):
 			return "down"
 						
 
+
+func l_r_direction_from_input():
+	var direction = direction_from_input()
+	direction.y = 0
+	return direction
+	
+func u_d_direction_from_input():
+	var direction = direction_from_input()
+	direction.x = 0
+	return direction
+	
+
 func direction_from_input():
 	
 	var direction = Vector2()
