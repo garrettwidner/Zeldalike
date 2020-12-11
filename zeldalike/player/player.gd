@@ -88,6 +88,8 @@ var jumpspeed
 var linked_jumpareas
 var next_jumparea_index = 0
 
+var current_ledge
+
 var current_terrain = terrain.TYPE.LAND
 var previous_terrain = terrain.TYPE.LAND
 #----------------------------------------------
@@ -1296,10 +1298,22 @@ func state_jump(delta):
 	
 func end_jump_and_set_terrains():
 	global_position = jumpendpos
-	set_state_default()
 	set_terrains(get_next_jumparea().terrain_type)
 	
+	if current_terrain == terrain.TYPE.WALL:
+		set_state_climb()
+	elif current_terrain == terrain.TYPE.LAND:
+		set_state_default()
+	elif current_terrain == terrain.TYPE.LEDGE:
+		set_state_ledge()
+	
+func set_state_ledge():
+	state = "ledge"
+	print("Now on ledge")
+	
+	
 func state_ledge(delta):
+	switch_anim("run")
 	
 	pass
 	
@@ -1699,8 +1713,7 @@ func set_state_climb():
 	speed = climbspeed
 	switch_anim("climb")
 	
-func set_state_ledge():
-	state = "ledge"
+#---------------ledge
 	
 func set_state_uptransition():
 	state = "uptransition"
