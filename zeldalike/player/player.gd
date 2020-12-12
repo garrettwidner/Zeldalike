@@ -95,6 +95,7 @@ var ledge_r_bound
 
 var current_terrain = terrain.TYPE.LAND
 var previous_terrain = terrain.TYPE.LAND
+
 #----------------------------------------------
 
 var transitionweight
@@ -110,7 +111,7 @@ var sidehopupspeed = .1
 var downhopupspeed = .09
 var hopdownleeway = 2.5
 var landjumpspeed = .05
-var ledgeclimbspeed = 5
+var ledgeclimbspeed = 10
 var current_hop_direction = null
 var is_current_hop_ground_to_ledge = null
 				
@@ -177,6 +178,7 @@ var is_setup = false
 var is_blocking = false
 var stamina_drain_block : float = 1
 var shield_icon 
+
 var jump_reticule_resource = preload("res://items/jump_reticule.tscn")
 var jump_reticule
 
@@ -254,8 +256,6 @@ func run_setup(start_position, start_direction):
 	
 	shield_icon = $shield_icon
 	is_setup = true
-	
-	
 	
 	pass
 	
@@ -1269,7 +1269,7 @@ func set_state_jump():
 	jumpstartpos = global_position
 	jumpendpos = next_jumparea.global_position
 	jumpweight = 0
-	jumpspeed = .01
+	jumpspeed = .04
 	
 	if current_jumparea.terrain_type == terrain.TYPE.LAND && (next_jumparea.terrain_type == terrain.TYPE.LEDGE || next_jumparea.terrain_type == terrain.TYPE.WALL):
 		isenddownslope = false
@@ -1315,6 +1315,7 @@ func set_state_ledge():
 	state = "ledge"
 #	print("Now on ledge")
 	
+	$CollisionShape2D.disabled = true
 	
 	var relative_ledge_path = current_jumparea.connected_object
 	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
@@ -1357,6 +1358,10 @@ func state_ledge(delta):
 	set_directionality(movedir)
 	movement_loop()
 	
+	#At state switch:
+#	$CollisionShape2D.disabled = false
+
+
 	pass
 	
 #func state_cling(delta):
@@ -1384,9 +1389,35 @@ func state_climb(delta):
 #	movement_loop()
 #	pass
 	
+func set_state_pullup():
+	switch_anim("pullup")
+	pass
+	
+#  This is Start Pullup old function
+#	switch_anim("pullup")
+#	transitionend = hoparea.highesthoppoint
+#	if facedir == dir.RIGHT || facedir == dir.LEFT:
+#		transitionspeed = sidepullupspeed
+#	else:
+#		transitionspeed = verticalpullupspeed
+#	transitionstart = global_position
+#	transitionweight = 0
+#	ispullingup = true
+	
 func state_pullup(delta):
 	
 	pass
+	
+#func continue_ledge_pullup():
+#	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
+#	transitionweight += transitionspeed
+#	if transitionweight >= 1:
+#		global_position = transitionend
+#		ispullingup = false
+#		set_state_default()
+#		isinclingcycle = false
+	
+
 	
 	
 #----------------------------------------------------------------------------
