@@ -627,7 +627,7 @@ __meta__ = {
 [node name="jumparealeft1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1427.42, 999.984 )
+position = Vector2( 1432.09, 999.781 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -650,7 +650,7 @@ __meta__ = {
 }
 
 [node name="ledgeleft1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1426.94, 999.532 )
+position = Vector2( 1432.21, 999.126 )
 z_index = -1
 script = ExtResource( 9 )
 updirection = Vector2( -1, 0 )
@@ -769,7 +769,7 @@ __meta__ = {
 [node name="jumparearight1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1514.51, 999.181 )
+position = Vector2( 1511.46, 999.384 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -792,7 +792,7 @@ __meta__ = {
 }
 
 [node name="ledgeright1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1514.85, 999.749 )
+position = Vector2( 1510.99, 999.344 )
 z_index = -1
 script = ExtResource( 9 )
 canclimbup = false

@@ -38,6 +38,16 @@ func string_from_direction(direction):
 			return "down"
 						
 
+func opposite(direction):
+	match direction:
+		dir.LEFT:
+			return dir.RIGHT
+		dir.RIGHT:
+			return dir.LEFT
+		dir.UP:
+			return dir.DOWN
+		dir.DOWN:
+			return dir.UP
 
 func l_r_direction_from_input():
 	var direction = direction_from_input()

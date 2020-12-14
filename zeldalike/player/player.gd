@@ -183,7 +183,9 @@ var jump_reticule_resource = preload("res://items/jump_reticule.tscn")
 var jump_reticule
 
 var check_fall = false
+var ledge_fall_check_direction
 var valid_fall_location
+var general_hop_distance = 12
 
 func _ready():
 	set_state_stopped()
@@ -364,7 +366,8 @@ func _physics_process(delta):
 	
 func get_fall_end_location(space_state):
 	#Check for an empty space until you find one
-	var checkdirection = dir.DOWN
+	var checkdirection = ledge_fall_check_direction
+	print("Checking for fall in direction: " + String(checkdirection))
 	var has_found_end = false
 	var i = 0
 	var check_distance = $CollisionShape2D.shape.extents.y
@@ -1479,23 +1482,26 @@ func set_state_fall():
 	state = "fall"
 	check_fall = true
 	
-	match current_terrain:
-		terrain.TYPE.WALL:
-			print("Falling from wall")
-			pass
-		terrain.TYPE.LEDGE:
-			print("Falling from ledge")
-			var ledge_updirection = current_ledge.updirection
-#			get_fall_end_location()
-		_:
-			print("Found no correct terrain state to fall from")
-			pass
-			
 	jumpstartpos = global_position
 	jumpendpos = null
 #	jumpendpos set in fixedupdate
 	jumpweight = 0
-	jumpspeed = .1
+	
+	match current_terrain:
+		terrain.TYPE.WALL:
+#			print("Falling from wall")
+			pass
+		terrain.TYPE.LEDGE:
+#			print("Falling from ledge")
+			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
+			jumpspeed = .1
+			
+			
+		_:
+#			print("Found no correct terrain state to fall from")
+			pass
+			
+	
 	
 	$CollisionShape2D.disabled = true
 			
@@ -1504,11 +1510,17 @@ func set_state_fall():
 
 	
 func state_fall(delta):
-	print("Falling")
+#	print("Falling")
 	if jumpendpos == null:
 		if valid_fall_location != null:
 			jumpendpos = valid_fall_location
-			print("Set jump end position")
+			if jumpendpos.distance_to(jumpstartpos) < general_hop_distance:
+#				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
+#				print("Falling from a hop.")
+				#Set proper animation
+				pass
+			
+#			print("Set jump end position")
 		else:
 			return
 		
