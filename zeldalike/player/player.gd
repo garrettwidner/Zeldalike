@@ -1416,6 +1416,10 @@ func state_ledge(delta):
 	else:
 		movedir = dir.CENTER
 		
+	if Input.is_action_just_released("sack"):
+		set_state_fall()
+		pass
+		
 	set_directionality(movedir)
 	movement_loop()
 	
