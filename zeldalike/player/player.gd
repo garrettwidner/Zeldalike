@@ -182,6 +182,9 @@ var shield_icon
 var jump_reticule_resource = preload("res://items/jump_reticule.tscn")
 var jump_reticule
 
+var check_fall = false
+var fall_check_location
+
 func _ready():
 	set_state_stopped()
 	pass
@@ -304,6 +307,9 @@ func _process(delta):
 		process_initial_sun_checks()
 		has_done_first_sun_check = true
 		pass
+		
+#	if current_jumparea!= null:
+#		print("Current jumparea: " + current_jumparea.name)
 	
 	match state:
 		"default":
@@ -342,6 +348,56 @@ func _process(delta):
 			state_stopped(delta)
 		"item_get":
 			state_item_get(delta)
+			
+func _physics_process(delta):
+	if check_fall:
+		var space_state = get_world_2d().get_direct_space_state()
+		var valid_end_position = get_fall_end_location(space_state)
+		if valid_end_position != null:
+			print("Moving player to valid end position of fall.")
+			global_position = valid_end_position
+		
+		check_fall = false
+		pass
+	pass
+	
+func get_fall_end_location(space_state):
+	#Check for an empty space until you find one
+	var checkdirection = dir.DOWN
+	var has_found_end = false
+	var i = 0
+	var check_distance = $CollisionShape2D.shape.extents.y
+	while !has_found_end:
+		var checkposition = (checkdirection * check_distance * i) + global_position
+		i = i + 1
+		var results_array = space_state.intersect_point(checkposition)
+		print("--")
+		if results_array.empty():
+			print("Found fall end location: " + String(checkposition))
+			return checkposition
+		
+		else:
+		
+			var found_real_collision = false
+			
+			for a in results_array:
+				if a["collider"].name != name:
+					found_real_collision = true
+					print("End check collided with: " + a["collider"].name)
+			
+			if !found_real_collision:
+				print("Found fall end location: " + String(checkposition))
+				return checkposition
+		
+#		print("Checking at space " + String(checkposition))
+		
+		if i == 19:
+			print("Did not find a fall end location")
+			return null
+		pass
+	
+	
+	pass
 			
 func process_initial_sun_checks():
 	var perceived_initial_sun_strength = get_sun_current_strength()
@@ -1309,7 +1365,11 @@ func end_jump_and_set_terrains():
 	elif current_terrain == terrain.TYPE.LAND:
 		set_state_default()
 	elif current_terrain == terrain.TYPE.LEDGE:
-		set_state_ledge()
+		retrieve_new_ledge()
+		if Input.is_action_pressed("sack"):
+			set_state_ledge()
+		else:
+			set_state_fall()
 	
 func set_state_ledge():
 	state = "ledge"
@@ -1317,11 +1377,7 @@ func set_state_ledge():
 	
 	$CollisionShape2D.disabled = true
 	
-	var relative_ledge_path = current_jumparea.connected_object
-	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
-	current_ledge = get_node(full_ledge_path)
 	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
-	ledge_updirection = current_ledge.updirection
 
 	if ledge_updirection == dir.UP:
 		speed = ledgeclimbspeed
@@ -1336,7 +1392,14 @@ func set_state_ledge():
 				switch_anim_directional("cling", "right")
 			dir.DOWN:
 				switch_anim_directional("cling", "down")
-				
+
+func retrieve_new_ledge():
+	var relative_ledge_path = current_jumparea.connected_object
+	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
+	current_ledge = get_node(full_ledge_path)
+	
+	ledge_updirection = current_ledge.updirection
+	
 	
 func state_ledge(delta):
 #	print("Ledging")
@@ -1417,7 +1480,29 @@ func state_pullup(delta):
 #		set_state_default()
 #		isinclingcycle = false
 	
+func set_state_fall():
+	state = "fall"
+	
+	match current_terrain:
+		terrain.TYPE.WALL:
+			print("Falling from wall")
+			pass
+		terrain.TYPE.LEDGE:
+			print("Falling from ledge")
+			var ledge_updirection = current_ledge.updirection
+#			get_fall_end_location()
+			check_fall = true
+		_:
+			print("Found no correct terrain state to fall from")
+			pass
+			
+	pass
+	
 
+	
+func state_fall():
+	
+	pass
 	
 	
 #----------------------------------------------------------------------------
