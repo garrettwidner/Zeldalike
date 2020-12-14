@@ -183,7 +183,7 @@ var jump_reticule_resource = preload("res://items/jump_reticule.tscn")
 var jump_reticule
 
 var check_fall = false
-var fall_check_location
+var valid_fall_location
 
 func _ready():
 	set_state_stopped()
@@ -330,6 +330,8 @@ func _process(delta):
 			state_climb(delta)	
 		"ledge":
 			state_ledge(delta)
+		"fall":
+			state_fall(delta)
 #		"uptransition":
 #			state_uptransition(delta)
 #		"downtransition":
@@ -352,11 +354,10 @@ func _process(delta):
 func _physics_process(delta):
 	if check_fall:
 		var space_state = get_world_2d().get_direct_space_state()
-		var valid_end_position = get_fall_end_location(space_state)
-		if valid_end_position != null:
-			print("Moving player to valid end position of fall.")
-			global_position = valid_end_position
-		
+		valid_fall_location = get_fall_end_location(space_state)
+		if valid_fall_location != null:
+#			print("Found valid fall location.")
+			pass
 		check_fall = false
 		pass
 	pass
@@ -371,31 +372,25 @@ func get_fall_end_location(space_state):
 		var checkposition = (checkdirection * check_distance * i) + global_position
 		i = i + 1
 		var results_array = space_state.intersect_point(checkposition)
-		print("--")
+#		print("--")
 		if results_array.empty():
-			print("Found fall end location: " + String(checkposition))
+#			print("Found fall end location: " + String(checkposition))
 			return checkposition
-		
 		else:
-		
 			var found_real_collision = false
-			
 			for a in results_array:
 				if a["collider"].name != name:
 					found_real_collision = true
-					print("End check collided with: " + a["collider"].name)
-			
+#					print("End check collided with: " + a["collider"].name)
 			if !found_real_collision:
-				print("Found fall end location: " + String(checkposition))
+#				print("Found fall end location: " + String(checkposition))
 				return checkposition
-		
 #		print("Checking at space " + String(checkposition))
-		
-		if i == 19:
-			print("Did not find a fall end location")
+		var max_fall_position_checks = 29
+		if i == max_fall_position_checks:
+#			print("Did not find a fall end location")
 			return null
 		pass
-	
 	
 	pass
 			
@@ -1421,7 +1416,7 @@ func state_ledge(delta):
 	set_directionality(movedir)
 	movement_loop()
 	
-	#At state switch:
+	#At state switch: <---------------------------!!!!Look HERE!!!!!!!!!!!!!<------------------
 #	$CollisionShape2D.disabled = false
 
 
@@ -1482,6 +1477,7 @@ func state_pullup(delta):
 	
 func set_state_fall():
 	state = "fall"
+	check_fall = true
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
@@ -1491,16 +1487,39 @@ func set_state_fall():
 			print("Falling from ledge")
 			var ledge_updirection = current_ledge.updirection
 #			get_fall_end_location()
-			check_fall = true
 		_:
 			print("Found no correct terrain state to fall from")
 			pass
+			
+	jumpstartpos = global_position
+	jumpendpos = null
+#	jumpendpos set in fixedupdate
+	jumpweight = 0
+	jumpspeed = .1
+	
+	$CollisionShape2D.disabled = true
 			
 	pass
 	
 
 	
-func state_fall():
+func state_fall(delta):
+	print("Falling")
+	if jumpendpos == null:
+		if valid_fall_location != null:
+			jumpendpos = valid_fall_location
+			print("Set jump end position")
+		else:
+			return
+		
+	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
+	jumpweight += jumpspeed
+	if jumpweight >= 1:
+		jumpendpos = null
+		valid_fall_location = null
+		set_state_default()
+		$CollisionShape2D.disabled = false
+		
 	
 	pass
 	

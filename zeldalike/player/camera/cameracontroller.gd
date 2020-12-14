@@ -86,7 +86,7 @@ func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":
 		if camhold > 1:
 			pass
-		if body.state == "ledge":
+		if body.state == "ledge" || body.state == "fall":
 			pass
 		else:
 			if camstyle == TYPE.FREE:
