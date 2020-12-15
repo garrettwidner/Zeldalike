@@ -32,7 +32,7 @@ var searchareas = []
 export var stamina : float = 10
 export var maxstamina : float = 10
 var stamina_drain_run : float = 2
-var stamina_heal_walk : float = 1
+var stamina_heal_walk : float = 2.2
 var stamina_heal_still : float = 3
 
 var stamina_drain_kickout = false
@@ -361,6 +361,12 @@ func _physics_process(delta):
 	if check_fall:
 		var space_state = get_world_2d().get_direct_space_state()
 		valid_fall_location = get_fall_end_location(space_state)
+		
+		#Makes the character 'fall' so that it looks like he's jumping down a slope
+		if ledge_updirection == dir.LEFT || ledge_updirection == dir.RIGHT:
+			var fall_jump_illusion_strength = 3
+			valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
+		
 		if valid_fall_location != null:
 #			print("Found valid fall location.")
 			pass
@@ -1345,7 +1351,7 @@ func reposition_jump_reticule():
 func set_state_jump():
 	var next_jumparea = get_next_jumparea()
 	
-	print("----- starting jump -----")
+#	print("----- starting jump -----")
 	
 	state = "jump"
 	jumpstartpos = global_position
@@ -1399,7 +1405,7 @@ func end_jump_and_set_terrains():
 	
 func set_state_ledge():
 	state = "ledge"
-	print("---Now on ledge---")
+#	print("---Now on ledge---")
 	
 	$CollisionShape2D.disabled = true
 	
@@ -1514,7 +1520,7 @@ func state_pullup(delta):
 	if jumpweight >= 1:
 		set_state_default()
 		$CollisionShape2D.disabled = false
-		print("---- just pulled up onto ledge ----")
+#		print("---- just pulled up onto ledge ----")
 	pass
 	
 #func continue_ledge_pullup():
@@ -1539,21 +1545,21 @@ func set_state_fall():
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
-			print("About to start fall from wall")
+#			print("About to start fall from wall")
 			ledge_fall_check_direction = dir.DOWN
 			jumpspeed = .2
 			pass
 		terrain.TYPE.LEDGE:
-			print("About to start fall from ledge")
+#			print("About to start fall from ledge")
 			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
-			print("Ledge fall direction: " + String(ledge_fall_check_direction))
+#			print("Ledge fall direction: " + String(ledge_fall_check_direction))
 			jumpspeed = .1
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 				retrieve_new_ledge()
 				ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
 				jumpspeed = .1
-				print("Attempting to fall to lower ground from a ledge")
+#				print("Attempting to fall to lower ground from a ledge")
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
 		_:
@@ -1591,7 +1597,7 @@ func state_fall(delta):
 		valid_fall_location = null
 		set_state_default()
 		$CollisionShape2D.disabled = false
-		print("---- landed after fall ----")
+#		print("---- landed after fall ----")
 		
 	
 	pass
@@ -1843,7 +1849,7 @@ func _on_Area2D_body_entered(body, obj):
 			isinleaparea = true
 			leaparea = obj
 		elif obj.is_in_group("jumparea"):
-			print("Entered jumparea: " + obj.name)
+#			print("Entered jumparea: " + obj.name)
 			isinjumparea = true
 			current_jumparea = obj
 		
@@ -1884,7 +1890,7 @@ func _on_Area2D_body_exited(body, obj):
 			leaparea = null
 		elif obj.is_in_group("jumparea"):
 			if state != "jump" && current_jumparea == obj:
-				print("Left jumparea: " + obj.name)
+#				print("Left jumparea: " + obj.name)
 				isinjumparea = false
 				current_jumparea = null
 		elif obj.is_in_group("heightchanger"):
