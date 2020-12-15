@@ -1262,7 +1262,7 @@ func set_state_crouch():
 #		print(area.name)
 #	print("----------------------")
 	
-	if linked_jumpareas.size() != 0:
+	if linked_jumpareas.size() > 1:
 		next_jumparea_index = 0
 		show_jump_reticule()
 		pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -524,19 +524,22 @@ extents = Vector2( 3, 7 )
 extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=64]
-extents = Vector2( 7, 6 )
+extents = Vector2( 7, 3 )
+
+[sub_resource type="RectangleShape2D" id=68]
+extents = Vector2( 10, 3 )
 
 [sub_resource type="RectangleShape2D" id=61]
 extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=65]
-extents = Vector2( 10, 6 )
+extents = Vector2( 10, 3 )
 
 [sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 12, 5 )
+extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=66]
-extents = Vector2( 6, 7 )
+extents = Vector2( 3, 7 )
 
 [sub_resource type="RectangleShape2D" id=62]
 extents = Vector2( 5, 5 )
@@ -714,8 +717,35 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="jumparea_bottom_down1" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1464.58, 1021.21 )
+script = ExtResource( 7 )
+linked_area1 = NodePath("../jumpareadown1")
+linked_area2 = NodePath("")
+linked_area3 = NodePath("")
+linked_area4 = NodePath("")
+terrain_string = "land"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_down1"]
+shape = SubResource( 68 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_down1"]
+visible = false
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="ledgedown1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1464.32, 1031.4 )
+position = Vector2( 1464.15, 1031.07 )
 z_index = -1
 script = ExtResource( 9 )
 updirection = Vector2( 0, 1 )
@@ -740,7 +770,7 @@ __meta__ = {
 [node name="jumpareaup1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1472.55, 968.733 )
+position = Vector2( 1472.38, 967.576 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -763,14 +793,40 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="jumparea_bottom_up1" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1471.69, 978.901 )
+script = ExtResource( 7 )
+linked_area1 = NodePath("../jumpareaup1")
+linked_area2 = NodePath("")
+linked_area3 = NodePath("")
+linked_area4 = NodePath("")
+terrain_string = "land"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up1"]
+shape = SubResource( 68 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_up1"]
+visible = false
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="ledgeup1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1472.77, 968.135 )
+position = Vector2( 1472.44, 967.143 )
 z_index = -1
 script = ExtResource( 9 )
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup1"]
-visible = false
 shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
@@ -790,7 +846,7 @@ __meta__ = {
 [node name="jumparearight1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1513.44, 999.483 )
+position = Vector2( 1513.02, 999.483 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -813,8 +869,35 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="jumparea_bottom_right1" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1501.27, 1000.22 )
+script = ExtResource( 7 )
+linked_area1 = NodePath("../jumparearight1")
+linked_area2 = NodePath("")
+linked_area3 = NodePath("")
+linked_area4 = NodePath("")
+terrain_string = "land"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right1"]
+shape = SubResource( 67 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_right1"]
+visible = false
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="ledgeright1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1509.51, 996.672 )
+position = Vector2( 1513.05, 999.931 )
 z_index = -1
 script = ExtResource( 9 )
 canclimbup = false
