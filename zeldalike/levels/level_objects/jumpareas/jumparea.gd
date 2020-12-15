@@ -29,7 +29,7 @@ func _ready():
 
 		
 	if terrain_string == "land":
-		terrain_type = terrain.TYPE.LAND
+		terrain_type = terrain.TYPE.GROUND
 	elif terrain_string == "wall":
 		terrain_type = terrain.TYPE.WALL
 	elif terrain_string == "ledge":

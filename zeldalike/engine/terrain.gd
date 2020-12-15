@@ -1,7 +1,7 @@
 extends Node
 
 enum TYPE {
-				LAND
+				GROUND
 				WALL
 				LEDGE
 				}

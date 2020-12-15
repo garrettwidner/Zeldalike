@@ -514,10 +514,11 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 [sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 8, 7 )
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=67]
+extents = Vector2( 3, 6 )
 
 [sub_resource type="RectangleShape2D" id=63]
-extents = Vector2( 6, 7 )
+extents = Vector2( 3, 7 )
 
 [sub_resource type="RectangleShape2D" id=60]
 extents = Vector2( 5, 5 )
@@ -610,24 +611,25 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="jumparea_central" type="Area2D" parent="hop_areas" groups=[
+[node name="jumparea_bottom_left" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1477.16, 998.749 )
+position = Vector2( 1442.98, 1000.24 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumparealeft1")
-linked_area2 = NodePath("../jumpareaup1")
-linked_area3 = NodePath("../jumparearight1")
-linked_area4 = NodePath("../jumpareadown1")
+linked_area2 = NodePath("")
+linked_area3 = NodePath("")
+linked_area4 = NodePath("")
 terrain_string = "land"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_central"]
-shape = SubResource( 56 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left"]
+shape = SubResource( 67 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_central"]
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_left"]
+visible = false
 z_index = -1
 texture = ExtResource( 8 )
 vframes = 2
@@ -639,7 +641,7 @@ __meta__ = {
 [node name="jumparealeft1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1432.09, 999.781 )
+position = Vector2( 1432.6, 1000.04 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -653,6 +655,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparealeft1"]
+visible = false
 z_index = -1
 texture = ExtResource( 8 )
 vframes = 2
@@ -662,7 +665,7 @@ __meta__ = {
 }
 
 [node name="ledgeleft1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1432.21, 999.126 )
+position = Vector2( 1432.94, 1000.48 )
 z_index = -1
 script = ExtResource( 9 )
 updirection = Vector2( -1, 0 )
@@ -674,6 +677,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgeleft1"]
+visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
 texture = ExtResource( 10 )
 vframes = 12
@@ -701,6 +705,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/jumpareadown1"]
+visible = false
 z_index = -1
 texture = ExtResource( 8 )
 vframes = 2
@@ -722,6 +727,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgedown1"]
+visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
 texture = ExtResource( 10 )
 vframes = 12
@@ -748,6 +754,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/jumpareaup1"]
+visible = false
 z_index = -1
 texture = ExtResource( 8 )
 vframes = 2
@@ -763,12 +770,14 @@ script = ExtResource( 9 )
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup1"]
+visible = false
 shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgeup1"]
+visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
 texture = ExtResource( 10 )
 vframes = 12
@@ -781,7 +790,7 @@ __meta__ = {
 [node name="jumparearight1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1511.46, 999.384 )
+position = Vector2( 1513.44, 999.483 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -795,6 +804,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparearight1"]
+visible = false
 z_index = -1
 texture = ExtResource( 8 )
 vframes = 2
@@ -804,7 +814,7 @@ __meta__ = {
 }
 
 [node name="ledgeright1" type="Area2D" parent="hop_areas"]
-position = Vector2( 1510.99, 999.344 )
+position = Vector2( 1509.51, 996.672 )
 z_index = -1
 script = ExtResource( 9 )
 canclimbup = false
@@ -817,6 +827,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgeright1"]
+visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
 rotation = 1.5708
 texture = ExtResource( 10 )
@@ -879,7 +890,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 66.0911, -94.3022 )
+position = Vector2( 30.4642, -96.2672 )
 
 [node name="downward_hoparea5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1415.9, 899.363 )

@@ -78,7 +78,7 @@ var isinjumpdowncycle = false
 #----------------------------------------------
 var isenddownslope = false
 var jumpdirection
-var endterrain = terrain.TYPE.LAND
+var endterrain = terrain.TYPE.GROUND
 
 var jumpstartpos
 var jumpendpos
@@ -93,8 +93,8 @@ var ledge_updirection
 var ledge_l_bound
 var ledge_r_bound
 
-var current_terrain = terrain.TYPE.LAND
-var previous_terrain = terrain.TYPE.LAND
+var current_terrain = terrain.TYPE.GROUND
+var previous_terrain = terrain.TYPE.GROUND
 
 #----------------------------------------------
 
@@ -186,6 +186,8 @@ var check_fall = false
 var ledge_fall_check_direction
 var valid_fall_location
 var general_hop_distance = 12
+
+var vanish_reticule_resource = preload("res://testing/vanish_reticule.tscn")
 
 func _ready():
 	set_state_stopped()
@@ -371,10 +373,11 @@ func get_fall_end_location(space_state):
 	var checkdirection = ledge_fall_check_direction
 #	print("Checking for fall in direction: " + String(checkdirection))
 	var has_found_end = false
-	var i = 0
+	var i = 3
 	var check_distance = $CollisionShape2D.shape.extents.y
 	while !has_found_end:
 		var checkposition = (checkdirection * check_distance * i) + global_position
+#		instantiate_vanish_reticule(checkposition)
 		i = i + 1
 		var results_array = space_state.intersect_point(checkposition)
 #		print("--")
@@ -1233,15 +1236,20 @@ func set_state_crouch():
 	
 	
 	var count = 0
-	for path in current_jumparea.linked_areas:
-#		count = count + 1
-#		print("Iteration count: " + String(count))
-#		print(path)
-		var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(path)
-	#	print("Jumparea path is " + String(linked_jumparea_path))
-		var linked_jump_area = get_node(full_jumparea_path)
-		if linked_jump_area.name != "hop_areas":
-			linked_jumpareas.append(linked_jump_area)
+	if current_jumparea.linked_areas.size() == 0:
+		if current_jumparea.terrain_string == "ledge":
+			print("Crouching at a ledge")
+		
+	else:
+		for path in current_jumparea.linked_areas:
+	#		count = count + 1
+	#		print("Iteration count: " + String(count))
+	#		print(path)
+			var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(path)
+		#	print("Jumparea path is " + String(linked_jumparea_path))
+			var linked_jump_area = get_node(full_jumparea_path)
+			if linked_jump_area.name != "hop_areas":
+				linked_jumpareas.append(linked_jump_area)
 		
 #	print("--Linked jump areas:--")
 #	for area in linked_jumpareas:
@@ -1255,7 +1263,7 @@ func set_state_crouch():
 		
 	
 	
-	if current_terrain == terrain.TYPE.LAND:
+	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
 	elif current_terrain == terrain.TYPE.WALL:
 		pass
@@ -1271,6 +1279,11 @@ func hide_jump_reticule():
 	if jump_reticule != null:
 #		print("Queue freeing jump reticule: " + jump_reticule.name)
 		jump_reticule.queue_free()
+		
+func instantiate_vanish_reticule(location):
+	var reticule = vanish_reticule_resource.instance()
+	reticule.global_position = location
+	self.get_parent().add_child(reticule)
 
 func state_crouch(delta):
 	
@@ -1285,20 +1298,31 @@ func state_crouch(delta):
 		
 	if current_terrain == terrain.TYPE.WALL:
 		pass
-	elif current_terrain == terrain.TYPE.LAND:
+	elif current_terrain == terrain.TYPE.GROUND:
 		pass
 	elif current_terrain == terrain.TYPE.LEDGE:
 		pass
 		
-	movedir = get_direction_towards_jumparea()
+	if current_jumparea.terrain_string == "ledge":
+		retrieve_new_ledge()
+		movedir = dir.opposite(ledge_updirection)
+	else:
+		movedir = get_direction_towards_jumparea()
+	
 	set_directionality(movedir)
 	switch_anim("crouch")
-		
 	movement_loop()
 	
 	if Input.is_action_just_released("action"):
-		set_state_jump()
-		hide_jump_reticule()	
+		
+		if current_jumparea.terrain_string == "ledge":
+			set_state_fall()
+		else:
+			set_state_jump()
+			hide_jump_reticule()
+			
+			
+				
 		
 func get_direction_towards_jumparea():
 	return dir.closest_cardinal(get_next_jumparea().global_position - global_position)
@@ -1321,15 +1345,17 @@ func reposition_jump_reticule():
 func set_state_jump():
 	var next_jumparea = get_next_jumparea()
 	
+	print("----- starting jump -----")
+	
 	state = "jump"
 	jumpstartpos = global_position
 	jumpendpos = next_jumparea.global_position
 	jumpweight = 0
-	jumpspeed = .04
+	jumpspeed = .1
 	
-	if current_jumparea.terrain_type == terrain.TYPE.LAND && (next_jumparea.terrain_type == terrain.TYPE.LEDGE || next_jumparea.terrain_type == terrain.TYPE.WALL):
+	if current_jumparea.terrain_type == terrain.TYPE.GROUND && (next_jumparea.terrain_type == terrain.TYPE.LEDGE || next_jumparea.terrain_type == terrain.TYPE.WALL):
 		isenddownslope = false
-	elif current_jumparea.terrain_type == terrain.TYPE.WALL && next_jumparea.terrain_type == terrain.TYPE.LAND:
+	elif current_jumparea.terrain_type == terrain.TYPE.WALL && next_jumparea.terrain_type == terrain.TYPE.GROUND:
 		isenddownslope = true
 
 	jumpdirection = get_direction_towards_jumparea()
@@ -1362,7 +1388,7 @@ func end_jump_and_set_terrains():
 	
 	if current_terrain == terrain.TYPE.WALL:
 		set_state_climb()
-	elif current_terrain == terrain.TYPE.LAND:
+	elif current_terrain == terrain.TYPE.GROUND:
 		set_state_default()
 	elif current_terrain == terrain.TYPE.LEDGE:
 		retrieve_new_ledge()
@@ -1373,7 +1399,7 @@ func end_jump_and_set_terrains():
 	
 func set_state_ledge():
 	state = "ledge"
-#	print("Now on ledge")
+	print("---Now on ledge---")
 	
 	$CollisionShape2D.disabled = true
 	
@@ -1488,6 +1514,7 @@ func state_pullup(delta):
 	if jumpweight >= 1:
 		set_state_default()
 		$CollisionShape2D.disabled = false
+		print("---- just pulled up onto ledge ----")
 	pass
 	
 #func continue_ledge_pullup():
@@ -1503,6 +1530,8 @@ func set_state_fall():
 	state = "fall"
 	check_fall = true
 	
+	print("Setting state to fall")
+	
 	jumpstartpos = global_position
 	jumpendpos = null
 #	jumpendpos set in fixedupdate
@@ -1510,16 +1539,25 @@ func set_state_fall():
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
-#			print("Falling from wall")
+			print("About to start fall from wall")
 			ledge_fall_check_direction = dir.DOWN
 			jumpspeed = .2
 			pass
 		terrain.TYPE.LEDGE:
-#			print("Falling from ledge")
+			print("About to start fall from ledge")
 			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
+			print("Ledge fall direction: " + String(ledge_fall_check_direction))
 			jumpspeed = .1
+		terrain.TYPE.GROUND:
+			if current_jumparea.terrain_string == "ledge":
+				retrieve_new_ledge()
+				ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
+				jumpspeed = .1
+				print("Attempting to fall to lower ground from a ledge")
+			else:
+				print("Warning: Trying to fall from the ground with no ledge to fall from")
 		_:
-#			print("Found no correct terrain state to fall from")
+			print("!! --Found no correct terrain state to fall from-- !!")
 			pass
 	
 	$CollisionShape2D.disabled = true
@@ -1534,7 +1572,7 @@ func state_fall(delta):
 		if valid_fall_location != null:
 			jumpendpos = valid_fall_location
 			if jumpendpos.distance_to(jumpstartpos) < general_hop_distance:
-#				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
+				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
 #				print("Falling from a hop.")
 				#Set proper animation
 				pass
@@ -1553,6 +1591,7 @@ func state_fall(delta):
 		valid_fall_location = null
 		set_state_default()
 		$CollisionShape2D.disabled = false
+		print("---- landed after fall ----")
 		
 	
 	pass
@@ -1804,6 +1843,7 @@ func _on_Area2D_body_entered(body, obj):
 			isinleaparea = true
 			leaparea = obj
 		elif obj.is_in_group("jumparea"):
+			print("Entered jumparea: " + obj.name)
 			isinjumparea = true
 			current_jumparea = obj
 		
@@ -1843,8 +1883,10 @@ func _on_Area2D_body_exited(body, obj):
 			isinleaparea = false
 			leaparea = null
 		elif obj.is_in_group("jumparea"):
-			isinjumparea = false
-			current_jumparea = null
+			if state != "jump" && current_jumparea == obj:
+				print("Left jumparea: " + obj.name)
+				isinjumparea = false
+				current_jumparea = null
 		elif obj.is_in_group("heightchanger"):
 #			print("Player exited heightchanger object")
 			var height_change_is_decrement
