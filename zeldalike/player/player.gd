@@ -334,6 +334,8 @@ func _process(delta):
 			state_ledge(delta)
 		"fall":
 			state_fall(delta)
+		"pullup":
+			state_pullup(delta)
 #		"uptransition":
 #			state_uptransition(delta)
 #		"downtransition":
@@ -367,7 +369,7 @@ func _physics_process(delta):
 func get_fall_end_location(space_state):
 	#Check for an empty space until you find one
 	var checkdirection = ledge_fall_check_direction
-	print("Checking for fall in direction: " + String(checkdirection))
+#	print("Checking for fall in direction: " + String(checkdirection))
 	var has_found_end = false
 	var i = 0
 	var check_distance = $CollisionShape2D.shape.extents.y
@@ -1397,6 +1399,7 @@ func retrieve_new_ledge():
 	current_ledge = get_node(full_ledge_path)
 	
 	ledge_updirection = current_ledge.updirection
+#	print("Just connected to ledge, up direction is " + String(ledge_updirection))
 	
 	
 func state_ledge(delta):
@@ -1418,6 +1421,9 @@ func state_ledge(delta):
 		
 	if Input.is_action_just_released("sack"):
 		set_state_fall()
+		pass
+	elif Input.is_action_just_pressed("action"):
+		set_state_pullup()
 		pass
 		
 	set_directionality(movedir)
@@ -1455,22 +1461,33 @@ func state_climb(delta):
 #	pass
 	
 func set_state_pullup():
+	state = "pullup"
 	switch_anim("pullup")
-	pass
 	
-#  This is Start Pullup old function
-#	switch_anim("pullup")
-#	transitionend = hoparea.highesthoppoint
-#	if facedir == dir.RIGHT || facedir == dir.LEFT:
-#		transitionspeed = sidepullupspeed
-#	else:
-#		transitionspeed = verticalpullupspeed
-#	transitionstart = global_position
-#	transitionweight = 0
-#	ispullingup = true
+	$CollisionShape2D.disabled = true
+	
+	if ledge_updirection == dir.RIGHT || ledge_updirection == dir.LEFT:
+		jumpspeed = sidepullupspeed
+#		print("Pulling up to the side")
+	else: 
+		jumpspeed = verticalpullupspeed
+#		print("Pulling up vertically")
+	
+	jumpendpos = global_position + ($CollisionShape2D.shape.extents.x * ledge_updirection) 
+	jumpstartpos = global_position
+	
+#	print("Pullup start at: " + String(jumpstartpos))
+#	print("Pullup end   at: " + String(jumpendpos))
+	jumpweight = 0
+
 	
 func state_pullup(delta):
-	
+#	print("Pulling up")
+	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
+	jumpweight += jumpspeed
+	if jumpweight >= 1:
+		set_state_default()
+		$CollisionShape2D.disabled = false
 	pass
 	
 #func continue_ledge_pullup():
@@ -1494,18 +1511,16 @@ func set_state_fall():
 	match current_terrain:
 		terrain.TYPE.WALL:
 #			print("Falling from wall")
+			ledge_fall_check_direction = dir.DOWN
+			jumpspeed = .2
 			pass
 		terrain.TYPE.LEDGE:
 #			print("Falling from ledge")
 			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
 			jumpspeed = .1
-			
-			
 		_:
 #			print("Found no correct terrain state to fall from")
 			pass
-			
-	
 	
 	$CollisionShape2D.disabled = true
 			
@@ -1522,6 +1537,9 @@ func state_fall(delta):
 #				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
 #				print("Falling from a hop.")
 				#Set proper animation
+				pass
+			else:
+#				print("Falling from a longer distance")
 				pass
 			
 #			print("Set jump end position")

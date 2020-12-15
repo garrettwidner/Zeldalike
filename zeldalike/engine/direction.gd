@@ -124,3 +124,33 @@ func closest_cardinal(v : Vector2):
 				return dir.DOWN
 			else:
 				return dir.UP
+				
+func closest_cardinal_or_ordinal(v: Vector2):
+	var lateral_vector = dir.CENTER
+	var vertical_vector = dir.CENTER
+	
+	if v == Vector2(0,0):
+		return v
+	else:
+		if v.x > 0:
+			lateral_vector = dir.RIGHT
+		elif v.x < 0:
+			lateral_vector = dir.LEFT
+		if v.y > 0:
+			vertical_vector = dir.DOWN
+		elif v.y < 0:
+			vertical_vector = dir.UP
+			
+		return lateral_vector + vertical_vector
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

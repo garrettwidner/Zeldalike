@@ -46,7 +46,7 @@ func set_directionality(direction):
 	set_spritedir()
 
 func set_movedir(direction):
-	movedir = dir.closest_cardinal(direction)
+	movedir = dir.closest_cardinal_or_ordinal(direction)
 
 func set_facedir():
 	if movedir.x == 0 and movedir.y == 0:
