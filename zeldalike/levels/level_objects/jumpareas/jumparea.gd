@@ -27,12 +27,12 @@ func _ready():
 #	for jumparea in linked_areas:
 #		print(jumparea)
 
-		
-	if terrain_string == "land":
-		terrain_type = terrain.TYPE.GROUND
-	elif terrain_string == "wall":
-		terrain_type = terrain.TYPE.WALL
-	elif terrain_string == "ledge":
-		terrain_type = terrain.TYPE.LEDGE
+	terrain_type = terrain.get_from_string(terrain_string)
+#	if terrain_string == "land":
+#		terrain_type = terrain.TYPE.GROUND
+#	elif terrain_string == "wall":
+#		terrain_type = terrain.TYPE.WALL
+#	elif terrain_string == "ledge":
+#		terrain_type = terrain.TYPE.LEDGE
 		
 	pass
