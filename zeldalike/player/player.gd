@@ -929,7 +929,6 @@ func set_state_crouch():
 	state = "crouch"
 	speed = 0
 	
-#	var count = 0
 #	print("current_jumparea at crouch start: " + current_jumparea.name)
 #	print("current_jumparea linked areas size: " + String(current_jumparea.linked_areas.size()))
 	
@@ -1002,8 +1001,9 @@ func state_crouch(delta):
 		pass
 		
 	if current_jumparea.terrain_string == "ledge":
-#		retrieve_new_ledge()
 		movedir = dir.opposite(current_ledge.updirection)
+	elif upcoming_jumparea.terrain_string == "ledge" && upcoming_ledge.updirection == dir.UP:
+		movedir = dir.UP
 	else:
 		movedir = get_direction_towards_jumparea()
 	
@@ -1051,9 +1051,15 @@ func set_state_jump():
 	jumpweight = 0
 	jumpspeed = .1
 	
+	var animprefix = ""
+	var animsuffix = ""
+	var suffixpreset = false
+	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
 		if upcoming_ledge.updirection == dir.UP:
 			jumpendpos = Vector2(global_position.x, upcoming_jumparea.global_position.y)
+			suffixpreset = true
+			animsuffix = dir.string_from_direction(dir.UP)
 			pass
 		pass
 	
@@ -1065,8 +1071,8 @@ func set_state_jump():
 	jumpdirection = get_direction_towards_jumparea()
 	endterrain = upcoming_jumparea.terrain_type
 	
-	var animprefix = ""
-	var animsuffix = dir.string_from_direction(jumpdirection)
+	if !suffixpreset:
+		animsuffix = dir.string_from_direction(jumpdirection)
 	
 	if isenddownslope:
 		animprefix = "jumpdown"
@@ -1494,11 +1500,8 @@ func check_first_time_sun_damage():
 	if !gamedata.get_experience("player", "burnedOnce"):
 		gamedata.set_experience("player", "burnedOnce", true)
 #		print("burned once set to " + String(dialogueparser.check_experience("burnedOnce")))
-		
-#
 #	if(!dialogueparser.check_experience("burnedOnce")):
 #		dialogueparser.set_experience("burnedOnce", true)
-#
 
 func _on_Area2D_body_entered(body, obj):
 #	print("Player entered an area2d")
@@ -1544,7 +1547,6 @@ func set_current_jumparea_and_info(new_jumparea):
 			if linked_jump_area.name != "hop_areas":
 				linked_jumpareas.append(linked_jump_area)
 				
-		
 		if current_jumparea.terrain_string == "ledge":
 			current_ledge = get_ledge_from_jumparea(current_jumparea)
 			if current_ledge != null:
@@ -1643,11 +1645,6 @@ func set_state_listen():
 	
 func set_state_block():
 	state = "block"
-	
-
-	
-
-
 
 #func add_sprinkle():
 #	var sprinkle = sprinkleresource.instance()
@@ -1672,15 +1669,6 @@ func set_state_climb():
 	switch_anim("climb")
 	
 #---------------ledge
-	
-func set_state_uptransition():
-	state = "uptransition"
-	
-func set_state_downtransition():
-	state = "downtransition"
-
-func set_state_landing():
-	state = "landing"
 	
 func set_state_holding():
 	state = "holding"
