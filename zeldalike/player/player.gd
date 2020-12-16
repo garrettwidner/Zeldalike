@@ -63,7 +63,7 @@ var jump_type = JUMPTYPE.HOP
 var isinleaparea = false
 var leaparea
 var isinjumparea = false
-var current_jumparea
+#var current_jumparea
 var isinhoparea = false
 var hoparea
 
@@ -88,13 +88,27 @@ var jumpspeed
 var linked_jumpareas
 var next_jumparea_index = 0
 
-var current_ledge
+#var current_ledge
 var ledge_updirection 
 var ledge_l_bound
 var ledge_r_bound
 
-var current_terrain = terrain.TYPE.GROUND
 var previous_terrain = terrain.TYPE.GROUND
+var current_terrain = terrain.TYPE.GROUND
+var upcoming_terrain = terrain.TYPE.GROUND
+
+var current_jumparea
+
+var upcoming_jumparea
+
+var current_ledge
+var current_ledge_updirection
+var current_ledge_l_bound
+var current_ledge_r_bound
+
+
+var upcoming_ledge
+var upcoming_ledge_updirection
 
 #----------------------------------------------
 
@@ -181,6 +195,7 @@ var shield_icon
 
 var jump_reticule_resource = preload("res://items/jump_reticule.tscn")
 var jump_reticule
+var is_using_jump_reticule = false
 
 var check_fall = false
 var ledge_fall_check_direction
@@ -1265,8 +1280,10 @@ func set_state_crouch():
 	if linked_jumpareas.size() > 1:
 		next_jumparea_index = 0
 		show_jump_reticule()
+		is_using_jump_reticule = true
 		pass
-		
+	else:
+		is_using_jump_reticule = false
 	
 	
 	if current_terrain == terrain.TYPE.GROUND:
@@ -1294,13 +1311,14 @@ func instantiate_vanish_reticule(location):
 func state_crouch(delta):
 	
 #	print("Crouching")
-		
-	if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
-		increment_next_jumparea()
-		reposition_jump_reticule()
-	elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
-		decrement_next_jumparea()
-		reposition_jump_reticule()
+	
+	if is_using_jump_reticule:
+		if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
+			increment_next_jumparea()
+			reposition_jump_reticule()
+		elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
+			decrement_next_jumparea()
+			reposition_jump_reticule()
 		
 	if current_terrain == terrain.TYPE.WALL:
 		pass
@@ -1331,6 +1349,12 @@ func state_crouch(delta):
 				
 		
 func get_direction_towards_jumparea():
+#	if get_next_jumparea().terrain_string == "ledge":
+#		retrieve_new_ledge()
+#		if ledge_updirection == dir.UP:
+#			return dir.UP
+	
+	
 	return dir.closest_cardinal(get_next_jumparea().global_position - global_position)
 	
 func increment_next_jumparea():
@@ -1358,6 +1382,12 @@ func set_state_jump():
 	jumpendpos = next_jumparea.global_position
 	jumpweight = 0
 	jumpspeed = .1
+	
+	if next_jumparea.terrain_type == terrain.TYPE.LEDGE:
+		if ledge_updirection == dir.UP:
+			jumpendpos = Vector2(global_position.x, next_jumparea.global_position.y)
+			pass
+		pass
 	
 	if current_jumparea.terrain_type == terrain.TYPE.GROUND && (next_jumparea.terrain_type == terrain.TYPE.LEDGE || next_jumparea.terrain_type == terrain.TYPE.WALL):
 		isenddownslope = false
@@ -1429,10 +1459,19 @@ func retrieve_new_ledge():
 	var relative_ledge_path = current_jumparea.connected_object
 	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
 	current_ledge = get_node(full_ledge_path)
+	if current_ledge.name != "ledgeup1":
+		print("Ledge name: " + current_ledge.name)
+		print("Full ledge path: " + full_ledge_path)
+		print("Current jumparea: " + current_jumparea.name)
+		pass
 	
 	ledge_updirection = current_ledge.updirection
 #	print("Just connected to ledge, up direction is " + String(ledge_updirection))
 	
+func get_new_ledge():
+	var relative_ledge_path = current_jumparea.connected_object
+	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
+	return get_node(full_ledge_path)
 	
 func state_ledge(delta):
 #	print("Ledging")

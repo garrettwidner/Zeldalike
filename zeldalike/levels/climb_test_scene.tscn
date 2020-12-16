@@ -533,10 +533,10 @@ extents = Vector2( 10, 3 )
 extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=65]
-extents = Vector2( 10, 3 )
+extents = Vector2( 14, 3 )
 
 [sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 5, 5 )
+extents = Vector2( 9, 5 )
 
 [sub_resource type="RectangleShape2D" id=66]
 extents = Vector2( 3, 7 )
@@ -846,7 +846,7 @@ __meta__ = {
 [node name="jumparearight1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1513.02, 999.483 )
+position = Vector2( 1511.1, 999.227 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -879,6 +879,7 @@ linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
 terrain_string = "land"
+connected_object = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right1"]
 shape = SubResource( 67 )
