@@ -357,8 +357,8 @@ func _process(delta):
 #			state_uptransition(delta)
 #		"downtransition":
 #			state_downtransition(delta)
-		"landing":
-			state_landing(delta)
+#		"landing":
+#			state_landing(delta)
 		"holding":
 			state_holding(delta)
 		"sackusing":
@@ -476,27 +476,8 @@ func state_default(delta):
 	elif Input.is_action_just_pressed("action"):
 		var successfully_spoke = speak_to_interactibles()
 		if !successfully_spoke:
-			if check_jumpability():
+			if isinjumparea:
 				set_state_crouch()
-#			if check_hop_validity():
-#				jump_type = JUMPTYPE.HOP
-#				set_hop_transition_speed()
-#				if is_current_hop_ground_to_ledge:
-#					set_state_uptransition()
-#					switch_anim("crouch")
-#				else:
-#					set_state_downtransition()
-#					switch_anim("crouch")
-#			elif check_jump_validity():
-#				jump_type = JUMPTYPE.JUMP
-#				set_state_uptransition()
-#				pass
-#			elif check_leap_validity():
-#				#will be moving to wall, i.e. climb
-#				jump_type = JUMPTYPE.LEAP
-#				set_state_uptransition()
-#
-#				pass
 
 		
 	elif Input.is_action_just_pressed("test_1"):
@@ -883,86 +864,7 @@ func finish_edible():
 	held_item = null
 #	print("Item eaten")
 	pass
-
-func check_hop_validity():
-	var already_hopping = false
-	if isinhoparea:
-#		print("Character is in hoparea")
-#		print("Player:")
-#		print(position.y)
-#		print("Hoparea:")
-#		print(hoparea.position.y)
-		#character is below
-		if global_position.y > hoparea.global_position.y:
-#			print("Player is under hoparea")
-			if hoparea.updirection == dir.DOWN:
-				if facedir == dir.UP && hoparea.canhopdown:
-#					print("can hop down")
-					is_current_hop_ground_to_ledge = false
-					
-					already_hopping = true
-			elif hoparea.updirection == dir.UP:
-				if facedir == dir.UP && hoparea.canhopup:
-#					print("can hop up")
-					is_current_hop_ground_to_ledge = true
-					
-					already_hopping = true
-		#character is above
-		elif global_position.y < hoparea.global_position.y && !already_hopping:
-			if hoparea.updirection == dir.DOWN:
-				if facedir == dir.DOWN && hoparea.canhopup:
-#					print("can hop up")
-					is_current_hop_ground_to_ledge = true
-					
-					already_hopping = true
-			elif hoparea.updirection == dir.UP:
-				if facedir == dir.DOWN && hoparea.canhopdown:
-#					print("can hop down") 
-					is_current_hop_ground_to_ledge = false
-					
-					already_hopping = true
-		#character is to the right
-		if global_position.x > hoparea.global_position.x && !already_hopping:
-			if hoparea.updirection == dir.LEFT:
-				if facedir == dir.LEFT && hoparea.canhopup:
-#					print("can hop up")
-					is_current_hop_ground_to_ledge = true
-					
-					already_hopping = true
-			elif hoparea.updirection == dir.RIGHT:
-				if facedir == dir.LEFT && hoparea.canhopdown:
-#					print("can hop down")
-					is_current_hop_ground_to_ledge = false
-					
-					already_hopping = true
-		#character is to the left
-		if global_position.x < hoparea.global_position.x && !already_hopping:
-			if hoparea.updirection == dir.LEFT:
-				if facedir == dir.RIGHT && hoparea.canhopdown:
-#					print("can hop down")
-					is_current_hop_ground_to_ledge = false
-					
-					already_hopping = true
-			elif hoparea.updirection == dir.RIGHT:
-				if facedir == dir.RIGHT && hoparea.canhopup:
-#					print("can hop up")
-					is_current_hop_ground_to_ledge = true
-					already_hopping = true
-			pass
-			
-	return already_hopping
 	
-func check_jump_validity():
-	if isinjumparea:
-		return true
-	return false
-	pass
-	
-func check_leap_validity():
-	if isinleaparea:
-		return true
-	return false
-	pass
 
 func state_swing(delta):
 	switch_anim("attack")
@@ -991,212 +893,20 @@ func state_block(delta):
 		set_state_default()
 		print("Error: this should be set up to trigger when a character is done blocking only")
 	
-#func state_jumptransition(delta):
-#	print("is in jumptransition")
-#	match jump_type:
-#		JUMPTYPE.HOP:
-#			if isledgehopping:
-#				continue_ledge_hop()
-#			elif ispullingup:
-#				continue_ledge_pullup()
-#			elif isledgefalling:
-#				continue_hop_fall()
-#			else:
-#				if !isinclingcycle:
-#					damage_loop()
-#					if wasdamaged:
-#						set_state_default()
-#					elif Input.is_action_just_released("action"):
-#						start_ledge_hop()
-#				else:
-#					if Input.is_action_just_released("action"):
-#						start_ledge_pullup()
-#			pass
-#		JUMPTYPE.JUMP:
-#			if previous_terrain == terrain.TYPE.LAND:
-#				if !isjumping:
-#					start_land_jump()
-#				else:
-#					continue_land_jump()
-#			elif previous_terrain == terrain.TYPE.LAND:
-#				if !isjumping:
-#					start_wall_jump()
-#				else:
-#					continue_wall_jump()
-#
-#		JUMPTYPE.LEAP:
-#
-#			pass
-	
-#func state_uptransition(delta):
-#	print("is in uptransition")
-#	match jump_type:
-#		JUMPTYPE.HOP:
-#			if isledgehopping:
-#				continue_ledge_hop()
-#			elif ispullingup:
-#				continue_ledge_pullup()
-#			elif isledgefalling:
-#				continue_hop_fall()
-#			else:
-#				if !isinclingcycle:
-#					damage_loop()
-#					if wasdamaged:
-#						set_state_default()
-#					elif Input.is_action_just_released("action"):
-#						start_ledge_hop()
-#				else:
-#					if Input.is_action_just_released("action"):
-#						start_ledge_pullup()
-#			pass
-#		JUMPTYPE.JUMP:
-#			if previous_terrain == terrain.TYPE.LAND:
-#				if !isjumping:
-#					start_land_jump()
-#				else:
-#					continue_land_jump()
-#			elif previous_terrain == terrain.TYPE.LAND:
-#				if !isjumping:
-#					start_wall_jump()
-#				else:
-#					continue_wall_jump()
-#
-#		JUMPTYPE.LEAP:
-#
-#			pass
-	
-#func state_downtransition(delta):
-#	print("is in downtransition")
-#	if !isinjumpdowncycle:
-#		damage_loop()
-#		if wasdamaged:
-#			set_state_default()
-#		elif(Input.is_action_just_released("action")):
-#			start_down_hop()
-#	else:
-#		if isledgefalling:
-#			continue_hop_fall()
-#		else:
-#			continue_down_hop()
-#
-#	pass
-	
-func state_landing(delta):
-	damage_loop()
-	if wasdamaged:
-		set_state_default()
-		return
-	landingtimer += delta
-	if landingtimer >= landingtime:
-		set_state_default()
+#func state_landing(delta):
+#	damage_loop()
+#	if wasdamaged:
+#		set_state_default()
+#		return
+#	landingtimer += delta
+#	if landingtimer >= landingtime:
+#		set_state_default()
 		
-
-	
-	
-func start_down_hop():
-	switch_anim("fall")
-#	print("starting downward fall")
-	transitionstart = global_position
-	transitionend = hoparea.lowesthoppoint
-	isinjumpdowncycle = true
-	transitionweight = 0
-	#testing
-#	global_position = transitionend
-#	set_state_default()
-	pass
-	
-func continue_down_hop():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	switch_anim("jumpdown")
-	if transitionweight >= 1:
-		global_position = transitionend
-		isinjumpdowncycle = false
-		set_state_landing()
-		switch_anim("land")
-		landingtimer = 0
-	pass
-	
-func continue_ledge_hop():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-		isledgehopping = false
-		if(Input.is_action_pressed("sack")):
-	#		print("Stopped ledge hop")
-			global_position = transitionend
-			set_state_ledge()
-		else:
-			start_hop_fall()
-		
-func start_hop_fall():
-	switch_anim_directional("jumpup", dir.string_from_direction(facedir))
-	isledgefalling = true
-	transitionstart = global_position
-	transitionend = hoparea.lowesthoppoint
-	isinjumpdowncycle = true
-	transitionweight = 0
-	
-	pass
-	
-func continue_hop_fall():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-		global_position = transitionend
-		isledgefalling = false
-		set_state_default()
-	pass
-
-func continue_ledge_pullup():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-		global_position = transitionend
-		ispullingup = false
-		set_state_default()
-		isinclingcycle = false
-		
-func start_ledge_hop():
-	isinclingcycle = true
-	switch_anim("jumpup")
-	transitionend = hoparea.clingpoint
-	transitionstart = global_position
-	transitionweight = 0
-	isledgehopping = true
-	
-func start_ledge_pullup():
-	switch_anim("pullup")
-	transitionend = hoparea.highesthoppoint
-	if facedir == dir.RIGHT || facedir == dir.LEFT:
-		transitionspeed = sidepullupspeed
-	else:
-		transitionspeed = verticalpullupspeed
-	transitionstart = global_position
-	transitionweight = 0
-	ispullingup = true
 	
 func get_full_hoparea_path_from_relative_nodepath(nodePath):
 	return helper.nodepath_to_usable_string_path("/root/Level/hop_areas/", nodePath)
 	
-func start_land_jump():
-	isjumping = true
-	
-#	var linked_jumparea = jumparea.linked_area
-#	print("Linked jumparea is " + String(linked_jumparea))
-	
-	var linked_jumparea_path = get_full_hoparea_path_from_relative_nodepath(current_jumparea.linked_area)
-#	print("Jumparea path is " + String(linked_jumparea_path))
-		
-	var linked_jump_area = get_node(linked_jumparea_path)
-	
-	transitionend = linked_jump_area.global_position
-	transitionstart = global_position
-	transitionweight = 0
-	transitionspeed = landjumpspeed
-	
-	set_jump_animation_direction(transitionstart, transitionend)
-	pass
+
 	
 func set_jump_animation_direction(start, end):
 	var direction  = end - start
@@ -1212,41 +922,8 @@ func set_jump_animation_direction(start, end):
 			switch_anim_directional("jumpup", "down")
 	pass
 	
-func continue_land_jump():
-	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-	transitionweight += transitionspeed
-	if transitionweight >= 1:
-		global_position = transitionend
-		set_state_default()
-		isjumping = false
-	pass
-	
-func start_wall_jump():
-	pass
-	
-func continue_wall_jump():
-	pass
-	
-	
 #---------------------Jump Work Area-----------------------------------------------
 	
-func check_jumpability():
-	if isinjumparea:
-		return true
-	return false
-	
-func log_jump_stats():
-	
-#var isenddownslope = false
-#var canhopup = false
-#var canhopdown = false
-#var jumpdirection
-#var startterraintype
-#var endterraintype
-	pass
-
-#func get_next_jumparea():
-#	return linked_jumpareas[upcoming_jumparea_index]
 	
 func set_state_crouch():
 	state = "crouch"
@@ -1264,22 +941,6 @@ func set_state_crouch():
 		set_first_upcoming_jumparea()
 		set_upcoming_ledge()
 		set_upcoming_terrain()
-#
-#	else:
-#		for path in current_jumparea.linked_areas:
-#	#		count = count + 1
-#	#		print("Iteration count: " + String(count))
-#	#		print(path)
-#			var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(path)
-#		#	print("Jumparea path is " + String(linked_jumparea_path))
-#			var linked_jump_area = get_node(full_jumparea_path)
-#			if linked_jump_area.name != "hop_areas":
-#				linked_jumpareas.append(linked_jump_area)
-		
-#	print("--Linked jump areas:--")
-#	for area in linked_jumpareas:
-#		print(area.name)
-#	print("----------------------")
 	
 	if linked_jumpareas.size() > 1:
 		show_jump_reticule()
@@ -1288,7 +949,6 @@ func set_state_crouch():
 	else:
 		is_using_jump_reticule = false
 	
-	
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
 	elif current_terrain == terrain.TYPE.WALL:
@@ -1296,8 +956,6 @@ func set_state_crouch():
 	elif current_terrain == terrain.TYPE.LEDGE:
 		pass
 		
-	
-	
 func set_first_upcoming_jumparea():
 	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
 	pass
@@ -1323,9 +981,7 @@ func instantiate_vanish_reticule(location):
 	self.get_parent().add_child(reticule)
 
 func state_crouch(delta):
-	
 #	print("Crouching")
-	
 	if is_using_jump_reticule:
 		if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
 			increment_upcoming_jumparea()
@@ -1362,17 +1018,9 @@ func state_crouch(delta):
 		else:
 			set_state_jump()
 			hide_jump_reticule()
-			
-			
-				
+	pass
 		
 func get_direction_towards_jumparea():
-#	if get_next_jumparea().terrain_string == "ledge":
-#		retrieve_new_ledge()
-#		if ledge_updirection == dir.UP:
-#			return dir.UP
-	
-	
 	return dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
 	
 func increment_upcoming_jumparea():
@@ -1396,9 +1044,7 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = upcoming_jumparea.global_position
 	
 func set_state_jump():
-	
 #	print("----- starting jump -----")
-	
 	state = "jump"
 	jumpstartpos = global_position
 	jumpendpos = upcoming_jumparea.global_position
@@ -1429,9 +1075,7 @@ func set_state_jump():
 		
 #	print("Animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
-	
 	pass	
-
 
 func state_jump(delta):
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
@@ -1478,19 +1122,6 @@ func set_state_ledge():
 				switch_anim_directional("cling", "right")
 			dir.DOWN:
 				switch_anim_directional("cling", "down")
-
-#func retrieve_new_ledge():
-#	var relative_ledge_path = current_jumparea.connected_object
-#	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
-#	current_ledge = get_node(full_ledge_path)
-##	if current_ledge.name != "ledgeup1":
-##		print("Ledge name: " + current_ledge.name)
-##		print("Full ledge path: " + full_ledge_path)
-##		print("Current jumparea: " + current_jumparea.name)
-##		pass
-#
-#	ledge_updirection = current_ledge.updirection
-#	print("Just connected to ledge, up direction is " + String(ledge_updirection))
 	
 func get_new_ledge():
 	var relative_ledge_path = current_jumparea.connected_object
@@ -1526,17 +1157,7 @@ func state_ledge(delta):
 	
 	#At state switch: <---------------------------!!!!Look HERE!!!!!!!!!!!!!<------------------
 #	$CollisionShape2D.disabled = false
-
-
 	pass
-	
-#func state_cling(delta):
-#	switch_anim("cling")
-#	if Input.is_action_just_pressed("action"):
-#		switch_anim("hang")
-#		set_state_uptransition()
-#		#pullup()
-#	pass
 	
 func state_climb(delta):
 	
@@ -1585,15 +1206,6 @@ func state_pullup(delta):
 		$CollisionShape2D.disabled = false
 #		print("---- just pulled up onto ledge ----")
 	pass
-	
-#func continue_ledge_pullup():
-#	global_position = transitionstart.linear_interpolate(transitionend, transitionweight)
-#	transitionweight += transitionspeed
-#	if transitionweight >= 1:
-#		global_position = transitionend
-#		ispullingup = false
-#		set_state_default()
-#		isinclingcycle = false
 	
 func set_state_fall():
 	state = "fall"
@@ -1903,14 +1515,6 @@ func _on_Area2D_body_entered(body, obj):
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = obj.player_z_index
-		elif obj.is_in_group("hoparea"):
-#			print("entered hoparea")
-			isinhoparea = true
-			hoparea = obj
-#			print(hoparea.name)
-		elif obj.is_in_group("leaparea"):
-			isinleaparea = true
-			leaparea = obj
 		elif obj.is_in_group("jumparea"):
 #			print("Entered jumparea: " + obj.name)
 			set_current_jumparea_and_info(obj)
@@ -1983,12 +1587,6 @@ func _on_Area2D_body_exited(body, obj):
 #		elif obj.is_in_group("zindexchanger"):
 #			if(get_collision_layer_bit(obj.ground_level)):
 #				z_index = original_zindex
-		elif obj.is_in_group("hoparea"):
-			isinhoparea = false
-			hoparea = null
-		elif obj.is_in_group("leaparea"):
-			isinleaparea = false
-			leaparea = null
 		elif obj.is_in_group("jumparea"):
 			if state != "jump" && current_jumparea == obj:
 #				print("Left jumparea: " + obj.name)
