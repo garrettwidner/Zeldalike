@@ -671,6 +671,7 @@ __meta__ = {
 position = Vector2( 1432.94, 1000.48 )
 z_index = -1
 script = ExtResource( 9 )
+canclimbup = true
 updirection = Vector2( -1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeleft1"]
@@ -748,6 +749,7 @@ __meta__ = {
 position = Vector2( 1464.15, 1031.07 )
 z_index = -1
 script = ExtResource( 9 )
+canclimbup = false
 updirection = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgedown1"]
@@ -824,6 +826,7 @@ __meta__ = {
 position = Vector2( 1472.44, 967.143 )
 z_index = -1
 script = ExtResource( 9 )
+canclimbup = false
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup1"]

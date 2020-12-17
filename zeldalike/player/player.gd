@@ -102,11 +102,17 @@ var current_jumparea
 var upcoming_jumparea
 var upcoming_jumparea_index = 0
 
+var min_ledge_width_for_side_climb = 11
+
 var current_ledge
 var current_ledge_l_bound
 var current_ledge_r_bound
+var can_side_climb_current_ledge = false
 
 var upcoming_ledge
+var upcoming_ledge_l_bound
+var upcoming_ledge_r_bound
+var can_side_climb_upcoming_ledge = false
 
 #----------------------------------------------
 
@@ -961,8 +967,16 @@ func set_first_upcoming_jumparea():
 	
 func set_upcoming_ledge():
 	upcoming_ledge = null
+	can_side_climb_upcoming_ledge = false
 	if upcoming_jumparea.terrain_string == "ledge":
 		upcoming_ledge = get_ledge_from_jumparea(upcoming_jumparea)
+		var upcoming_ledge_bounds = upcoming_ledge.get_node("CollisionShape2D")
+		upcoming_ledge_l_bound = upcoming_ledge.global_position.x - upcoming_ledge_bounds.shape.extents.x
+		upcoming_ledge_r_bound = upcoming_ledge.global_position.x + upcoming_ledge_bounds.shape.extents.x
+		var upcoming_ledge_width = upcoming_ledge_bounds.shape.extents.x * 2
+#		print("Upcoming ledge width: " + String(upcoming_ledge_width))
+		if upcoming_ledge_width >= min_ledge_width_for_side_climb:
+			can_side_climb_upcoming_ledge = true
 		
 func show_jump_reticule():
 	jump_reticule = jump_reticule_resource.instance()
@@ -1056,7 +1070,7 @@ func set_state_jump():
 	var suffixpreset = false
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
-		if upcoming_ledge.updirection == dir.UP:
+		if upcoming_ledge.updirection == dir.UP && can_side_climb_upcoming_ledge:
 			jumpendpos = Vector2(global_position.x, upcoming_jumparea.global_position.y)
 			suffixpreset = true
 			animsuffix = dir.string_from_direction(dir.UP)
@@ -1117,7 +1131,7 @@ func set_state_ledge():
 	
 	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
 
-	if current_ledge.updirection == dir.UP:
+	if current_ledge.updirection == dir.UP && can_side_climb_current_ledge:
 		speed = ledgeclimbspeed
 	else:
 		speed = 0
@@ -1128,6 +1142,8 @@ func set_state_ledge():
 				switch_anim_directional("cling", "right")
 			dir.DOWN:
 				switch_anim_directional("cling", "down")
+			dir.UP:
+				switch_anim_directional("cling", "up")
 	
 func get_new_ledge():
 	var relative_ledge_path = current_jumparea.connected_object
@@ -1136,9 +1152,11 @@ func get_new_ledge():
 	
 func state_ledge(delta):
 #	print("Ledging")
-	if current_ledge.updirection == dir.UP:
-		movedir = dir.l_r_direction_from_input()
+	var upledge_not_side_climbable
+
+	if current_ledge.updirection == dir.UP && can_side_climb_current_ledge:
 		
+		movedir = dir.l_r_direction_from_input()
 		if movedir.x < 0 && global_position.x <= current_ledge_l_bound:
 			movedir.x = 0
 		if movedir.x > 0 && global_position.x >= current_ledge_r_bound:
@@ -1151,11 +1169,16 @@ func state_ledge(delta):
 	else:
 		movedir = dir.CENTER
 		
+		
 	if Input.is_action_just_released("sack"):
 		set_state_fall()
 		pass
 	elif Input.is_action_just_pressed("action"):
-		set_state_pullup()
+		if current_ledge.canclimbup:
+			set_state_pullup()
+		else:
+#			print("Can't climb up ledge " + current_ledge.name)
+			movedir = dir.CENTER
 		pass
 		
 	set_directionality(movedir)
@@ -1550,10 +1573,16 @@ func set_current_jumparea_and_info(new_jumparea):
 		if current_jumparea.terrain_string == "ledge":
 			current_ledge = get_ledge_from_jumparea(current_jumparea)
 			if current_ledge != null:
+				can_side_climb_current_ledge = false
 				if current_ledge.updirection == dir.UP:
 					var ledge_bounds = current_ledge.get_node("CollisionShape2D")
 					current_ledge_l_bound = current_ledge.global_position.x - ledge_bounds.shape.extents.x
 					current_ledge_r_bound = current_ledge.global_position.x + ledge_bounds.shape.extents.x
+					var current_ledge_width = ledge_bounds.shape.extents.x * 2
+#					print("Current ledge width: " + String(current_ledge_width))
+					if current_ledge_width >= min_ledge_width_for_side_climb:
+						can_side_climb_current_ledge = true
+
 	pass
 	
 func get_ledge_from_jumparea(jumparea):
