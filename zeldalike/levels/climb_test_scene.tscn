@@ -527,7 +527,7 @@ extents = Vector2( 5, 5 )
 extents = Vector2( 7, 3 )
 
 [sub_resource type="RectangleShape2D" id=68]
-extents = Vector2( 10, 3 )
+extents = Vector2( 7, 3 )
 
 [sub_resource type="RectangleShape2D" id=61]
 extents = Vector2( 5, 5 )
@@ -578,7 +578,7 @@ tile_data = PoolIntArray( 3014732, 1, 2, 3014733, 1, 3, 3014734, 1, 3, 3014735, 
 [node name="actors" type="YSort" parent="YSort"]
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 5 )]
-position = Vector2( 1121.37, 648.186 )
+position = Vector2( 1486.46, 1007.27 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 
@@ -721,7 +721,7 @@ __meta__ = {
 [node name="jumparea_bottom_down1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1464.58, 1021.21 )
+position = Vector2( 1464.32, 1018.65 )
 script = ExtResource( 7 )
 linked_area1 = NodePath("../jumpareadown1")
 linked_area2 = NodePath("")

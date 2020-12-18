@@ -1058,7 +1058,7 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = upcoming_jumparea.global_position
 	
 func set_state_jump():
-#	print("----- starting jump -----")
+	print("----- starting jump -----")
 	state = "jump"
 	jumpstartpos = global_position
 	jumpendpos = upcoming_jumparea.global_position
@@ -1105,10 +1105,12 @@ func state_jump(delta):
 	pass
 	
 func end_jump_and_set_terrains():
+#	print("End_jump_and_set_terrains() called")
 	global_position = jumpendpos
 	
 	set_current_jumparea_and_info(upcoming_jumparea)
 #	print("At end of jump, new current_jumparea set to: " + current_jumparea.name)
+	print("At end of jump, new terrain set to " + terrain.string_from_terrain(current_terrain))
 	
 	set_terrains(current_jumparea.terrain_type)
 	
@@ -1254,7 +1256,7 @@ func set_state_fall():
 			jumpspeed = .2
 			pass
 		terrain.TYPE.LEDGE:
-#			print("About to start fall from ledge")
+			print("About to start fall from ledge")
 			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
 #			print("Ledge fall direction: " + String(ledge_fall_check_direction))
 			jumpspeed = .1
@@ -1277,6 +1279,9 @@ func set_state_fall():
 
 	
 func state_fall(delta):
+
+
+
 #	print("Falling")
 	if jumpendpos == null:
 		if valid_fall_location != null:
@@ -1301,7 +1306,11 @@ func state_fall(delta):
 		valid_fall_location = null
 		set_state_default()
 		$CollisionShape2D.disabled = false
-#		print("---- landed after fall ----")
+		print("fall ended")
+		# NOTE: If not sensing correct jumparea after fall (especially for downward jumpareas),
+		#       try moving the jumparea at the base of the cliff further away from the cliff physically.
+		#       this seems to make it so that if the one at the top of the cliff is sensed, it is sensed
+		#       first and overridden by the second.
 		
 	
 	pass
@@ -1544,6 +1553,7 @@ func _on_Area2D_body_entered(body, obj):
 		elif obj.is_in_group("jumparea"):
 #			print("Entered jumparea: " + obj.name)
 			set_current_jumparea_and_info(obj)
+			
 		
 		elif obj.is_in_group("sun_area"):
 			sun_areas[obj.get_instance_id()] = obj
@@ -1552,6 +1562,8 @@ func set_current_jumparea_and_info(new_jumparea):
 	
 	current_jumparea = new_jumparea
 	isinjumparea = true
+	
+	print("Setting jumparea to new jumparea: " + new_jumparea.name)
 	
 	linked_jumpareas = []
 	linked_jumpareas.clear()
@@ -1696,8 +1708,6 @@ func set_state_climb():
 	state = "climb"
 	speed = climbspeed
 	switch_anim("climb")
-	
-#---------------ledge
 	
 func set_state_holding():
 	state = "holding"
