@@ -20,6 +20,7 @@ tracks/0/keys = {
 }
 
 [node name="jump_reticule" type="Sprite"]
+z_index = 20
 texture = ExtResource( 1 )
 hframes = 3
 script = ExtResource( 2 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jumparea.png-935a569fb49e560619b71c9db3b5f289.stex"
+path="res://.import/jumparea.png-4fdb0043acf4583025cd356fba377b86.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/level_objects/climb_areas/jumparea.png"
-dest_files=[ "res://.import/jumparea.png-935a569fb49e560619b71c9db3b5f289.stex" ]
+source_file="res://levels/level_objects/jumpareas/jumparea.png"
+dest_files=[ "res://.import/jumparea.png-4fdb0043acf4583025cd356fba377b86.stex" ]
 
 [params]
 

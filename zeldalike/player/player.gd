@@ -200,6 +200,7 @@ var shield_icon
 var jump_reticule_resource = preload("res://UI/jump_reticule.tscn")
 var jump_reticule
 var is_using_jump_reticule = false
+var reticule_visibility_min_distance = 20
 
 var check_fall = false
 var ledge_fall_check_direction
@@ -947,12 +948,23 @@ func set_state_crouch():
 		set_upcoming_ledge()
 		set_upcoming_terrain()
 	
-	if linked_jumpareas.size() > 1:
-		show_jump_reticule()
-		is_using_jump_reticule = true
+	if linked_jumpareas.size() > 0:
+		var jumpdistance = global_position.distance_to(upcoming_jumparea.global_position)
+		if jumpdistance > reticule_visibility_min_distance:
+			print("Reticule should appear. Distance is " + String(jumpdistance))
+			show_jump_reticule()
+			is_using_jump_reticule = true
+		else:
+			print("Reticule should --NOT-- appear. Distance is " + String(jumpdistance))
+			is_using_jump_reticule = false
 		pass
-	else:
-		is_using_jump_reticule = false
+	
+#	if linked_jumpareas.size() > 1:
+#		show_jump_reticule()
+#		is_using_jump_reticule = true
+#		pass
+#	else:
+#		is_using_jump_reticule = false
 	
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
@@ -1006,6 +1018,9 @@ func state_crouch(delta):
 			set_upcoming_ledge()
 			set_upcoming_terrain()
 			reposition_jump_reticule()
+			
+	if Input.is_action_just_pressed("sack"):
+		set_state_default()
 		
 	if current_terrain == terrain.TYPE.WALL:
 		pass

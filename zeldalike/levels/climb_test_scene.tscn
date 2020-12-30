@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=9]
 [ext_resource path="res://levels/level_objects/ledge.gd" type="Script" id=10]
 [ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=11]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=12]
-[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=13]
+[ext_resource path="res://levels/level_objects/jumpareas/jumparea.png" type="Texture" id=12]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=13]
+[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -707,6 +708,9 @@ extents = Vector2( 3, 7 )
 [sub_resource type="RectangleShape2D" id=65]
 extents = Vector2( 5, 5 )
 
+[sub_resource type="RectangleShape2D" id=85]
+extents = Vector2( 4, 4 )
+
 [sub_resource type="RectangleShape2D" id=66]
 extents = Vector2( 220, 144 )
 
@@ -752,7 +756,7 @@ position = Vector2( 1486.46, 1007.27 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 
-[node name="downward_hoparea5" type="Area2D" parent="hop_areas" groups=[
+[node name="downward_hoparea6" type="Area2D" parent="hop_areas" groups=[
 "hoparea",
 ]]
 position = Vector2( 1284.89, 1063.66 )
@@ -762,23 +766,23 @@ script = ExtResource( 7 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/downward_hoparea5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/downward_hoparea6"]
 position = Vector2( 0, -1 )
 shape = SubResource( 55 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="hoptop" type="Position2D" parent="hop_areas/downward_hoparea5"]
+[node name="hoptop" type="Position2D" parent="hop_areas/downward_hoparea6"]
 position = Vector2( 0, -8 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="hopbott" type="Position2D" parent="hop_areas/downward_hoparea5"]
+[node name="hopbott" type="Position2D" parent="hop_areas/downward_hoparea6"]
 position = Vector2( 0, 9 )
 
-[node name="hopcling" type="Position2D" parent="hop_areas/downward_hoparea5"]
+[node name="hopcling" type="Position2D" parent="hop_areas/downward_hoparea6"]
 position = Vector2( 0, -5 )
 __meta__ = {
 "_edit_lock_": true
@@ -1095,6 +1099,47 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="ground_jumpup" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1312.88, 1000.85 )
+script = ExtResource( 8 )
+linked_area1 = NodePath("../wall_connect1")
+terrain_string = "land"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jumpup"]
+shape = SubResource( 85 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/ground_jumpup"]
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="wall_connect1" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1295.8, 959.481 )
+z_index = 2
+script = ExtResource( 8 )
+linked_area1 = NodePath("../ground_jumpup")
+terrain_string = "wall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect1"]
+shape = SubResource( 85 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect1"]
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="heightchangers" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -1130,7 +1175,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 1423.93, 1088.03 )
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 1
@@ -1147,7 +1192,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 30.4642, -96.2672 )
+position = Vector2( -95.267, -74.5777 )
 
-[node name="downward_hoparea5" parent="." instance=ExtResource( 13 )]
+[node name="downward_hoparea5" parent="." instance=ExtResource( 14 )]
 position = Vector2( 1415.9, 899.363 )
