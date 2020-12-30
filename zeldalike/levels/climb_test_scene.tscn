@@ -1,17 +1,18 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
 [ext_resource path="res://terrain/sand_desert/Sand_Tile.png" type="Texture" id=3]
 [ext_resource path="res://terrain/sand_desert/mountain_forms.png" type="Texture" id=4]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=6]
-[ext_resource path="res://levels/level_objects/jumpareas/jumparea.gd" type="Script" id=7]
-[ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=8]
-[ext_resource path="res://levels/level_objects/ledge.gd" type="Script" id=9]
-[ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=10]
-[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=11]
-[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=12]
+[ext_resource path="res://levels/level_objects/climb_areas/Climbable_Area.png" type="Texture" id=5]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://levels/level_objects/hopareas/hoparea.gd" type="Script" id=7]
+[ext_resource path="res://levels/level_objects/jumpareas/jumparea.gd" type="Script" id=8]
+[ext_resource path="res://dialogue_test/DialogueTestObjects.png" type="Texture" id=9]
+[ext_resource path="res://levels/level_objects/ledge.gd" type="Script" id=10]
+[ext_resource path="res://dialogue_test/Desert_Tiles_V1.png" type="Texture" id=11]
+[ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=12]
+[ext_resource path="res://levels/level_objects/hopareas/downward_hoparea.tscn" type="PackedScene" id=13]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sand_Tile.png 0"
@@ -511,43 +512,205 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 4, 4, 8, 12, 8, 16, 4 )
 } ]
 1/z_index = 0
 
+[sub_resource type="ConvexPolygonShape2D" id=68]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 6, 10, 6, 6, 10, 6, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=69]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 6, 0, 6 )
+
+[sub_resource type="ConvexPolygonShape2D" id=70]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 10, 16, 10, 10, 6, 6, 0, 6 )
+
+[sub_resource type="ConvexPolygonShape2D" id=71]
+points = PoolVector2Array( 10, 0, 16, 0, 16, 6, 12, 6, 10, 4 )
+
+[sub_resource type="ConvexPolygonShape2D" id=72]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 10, 16, 10, 10, 6, 6, 0, 6 )
+
+[sub_resource type="ConvexPolygonShape2D" id=73]
+points = PoolVector2Array( 6, 0, 6, 4, 4, 6, 0, 6, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=74]
+points = PoolVector2Array( 0, 16, 0, 0, 16, 0, 16, 6, 10, 6, 6, 10, 6, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=75]
+points = PoolVector2Array( 6, 0, 6, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=76]
+points = PoolVector2Array( 6, 0, 6, 6, 10, 10, 16, 10, 16, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=77]
+points = PoolVector2Array( 0, 10, 4, 10, 6, 12, 6, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=78]
+points = PoolVector2Array( 0, 0, 6, 0, 6, 6, 10, 10, 16, 10, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=79]
+points = PoolVector2Array( 0, 10, 16, 10, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=80]
+points = PoolVector2Array( 0, 10, 6, 10, 10, 6, 10, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=81]
+points = PoolVector2Array( 10, 16, 10, 12, 12, 10, 16, 10, 16, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=82]
+points = PoolVector2Array( 0, 16, 0, 10, 6, 10, 10, 6, 10, 0, 16, 0, 16, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=83]
+points = PoolVector2Array( 10, 16, 10, 0, 16, 0, 16, 16 )
+
+[sub_resource type="TileSet" id=84]
+0/name = "Climbable_Area.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 80, 80 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [ {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 68 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 69 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 70 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 71 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 4, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 72 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 73 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 74 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 75 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 76 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 77 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 78 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 79 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 80 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 81 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 4, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 82 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 4, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 83 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
 [sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 8, 7 )
 
-[sub_resource type="RectangleShape2D" id=67]
+[sub_resource type="RectangleShape2D" id=56]
 extents = Vector2( 3, 6 )
 
-[sub_resource type="RectangleShape2D" id=63]
+[sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 3, 7 )
 
-[sub_resource type="RectangleShape2D" id=60]
+[sub_resource type="RectangleShape2D" id=58]
 extents = Vector2( 5, 5 )
 
-[sub_resource type="RectangleShape2D" id=64]
+[sub_resource type="RectangleShape2D" id=59]
 extents = Vector2( 7, 3 )
 
-[sub_resource type="RectangleShape2D" id=68]
+[sub_resource type="RectangleShape2D" id=60]
 extents = Vector2( 7, 3 )
 
 [sub_resource type="RectangleShape2D" id=61]
 extents = Vector2( 5, 5 )
 
-[sub_resource type="RectangleShape2D" id=65]
+[sub_resource type="RectangleShape2D" id=62]
 extents = Vector2( 14, 3 )
 
-[sub_resource type="RectangleShape2D" id=59]
+[sub_resource type="RectangleShape2D" id=63]
 extents = Vector2( 9, 5 )
 
-[sub_resource type="RectangleShape2D" id=66]
+[sub_resource type="RectangleShape2D" id=64]
 extents = Vector2( 3, 7 )
 
-[sub_resource type="RectangleShape2D" id=62]
+[sub_resource type="RectangleShape2D" id=65]
 extents = Vector2( 5, 5 )
 
-[sub_resource type="RectangleShape2D" id=57]
+[sub_resource type="RectangleShape2D" id=66]
 extents = Vector2( 220, 144 )
 
-[sub_resource type="RectangleShape2D" id=58]
+[sub_resource type="RectangleShape2D" id=67]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -569,6 +732,13 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 3014732, 1, 2, 3014733, 1, 3, 3014734, 1, 3, 3014735, 1, 3, 3014736, 1, 3, 3014737, 1, 3, 3014738, 1, 3, 3014739, 1, 4, 3080268, 1, 65537, 3080275, 1, 65536, 3145804, 1, 65537, 3145811, 1, 65536, 3211340, 1, 65537, 3211347, 1, 65536, 3276876, 1, 65538, 3276877, 1, 65539, 3276878, 1, 65539, 3276879, 1, 65539, 3276880, 1, 65539, 3276881, 1, 65542, 3276882, 1, 65539, 3276883, 1, 65540, 3342412, 1, 131074, 3342413, 1, 131075, 3342414, 1, 131075, 3342415, 1, 131075, 3342416, 1, 131075, 3342417, 1, 131075, 3342418, 1, 131075, 3342419, 1, 131076, 3407948, 1, 131074, 3407949, 1, 131075, 3407950, 1, 131075, 3407951, 1, 131075, 3407952, 1, 131075, 3407953, 1, 131075, 3407954, 1, 131075, 3407955, 1, 131076, 3473484, 1, 131074, 3473485, 1, 131075, 3473486, 1, 131075, 3473487, 1, 131075, 3473488, 1, 131075, 3473489, 1, 131075, 3473490, 1, 131075, 3473491, 1, 131076, 3539020, 1, 131074, 3539021, 1, 131075, 3539022, 1, 131075, 3539023, 1, 131075, 3539024, 1, 131075, 3539025, 1, 131075, 3539026, 1, 131075, 3539027, 1, 131076, 3604556, 1, 131074, 3604557, 1, 131075, 3604558, 1, 131075, 3604559, 1, 131075, 3604560, 1, 131075, 3604561, 1, 131075, 3604562, 1, 131075, 3604563, 1, 131076, 3670092, 1, 131074, 3670093, 1, 131075, 3670094, 1, 131075, 3670095, 1, 131075, 3670096, 1, 131075, 3670097, 1, 131075, 3670098, 1, 131075, 3670099, 1, 131076, 3670102, 1, 262144, 3670103, 1, 262144, 3670104, 1, 196614, 3670105, 1, 262144, 3670106, 1, 262144, 3735628, 1, 131074, 3735629, 1, 131075, 3735630, 1, 131075, 3735631, 1, 131075, 3735632, 1, 131075, 3735633, 1, 131075, 3735634, 1, 131075, 3735635, 1, 131076, 3801164, 1, 131074, 3801165, 1, 131075, 3801166, 1, 131075, 3801167, 1, 131075, 3801168, 1, 131075, 3801169, 1, 131075, 3801170, 1, 131075, 3801171, 1, 131076, 3866700, 1, 131074, 3866701, 1, 131075, 3866702, 1, 131075, 3866703, 1, 131075, 3866704, 1, 131075, 3866705, 1, 131075, 3866706, 1, 131075, 3866707, 1, 131076, 3932236, 1, 131074, 3932237, 1, 131075, 3932238, 1, 131075, 3932239, 1, 131075, 3932240, 1, 131075, 3932241, 1, 131075, 3932242, 1, 131075, 3932243, 1, 131076, 3932249, 1, 262145, 3932250, 1, 196608, 3932251, 1, 327685, 3932252, 1, 327686, 3932253, 1, 196608, 3932254, 1, 196609, 3997772, 1, 196610, 3997773, 1, 196611, 3997774, 1, 196611, 3997775, 1, 196611, 3997776, 1, 196611, 3997777, 1, 196611, 3997778, 1, 196611, 3997779, 1, 196612, 3997785, 1, 65536, 3997790, 1, 65537, 4063321, 1, 262150, 4063326, 1, 131078, 4128857, 1, 65536, 4128862, 1, 65537, 4194393, 1, 131072, 4194394, 1, 262144, 4194395, 1, 196614, 4194396, 1, 262144, 4194397, 1, 65543, 4194398, 1, 131073 )
 
+[node name="climb" type="TileMap" parent="."]
+z_index = 1
+tile_set = SubResource( 84 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 3342416, 0, 65536, 3342417, 0, 2, 3342418, 0, 3, 3407950, 0, 65536, 3407951, 0, 2, 3407952, 0, 65537, 3407953, 0, 131073, 3407954, 0, 131076, 3473486, 0, 131072, 3473487, 0, 131073, 3473488, 0, 131073, 3473489, 0, 131073, 3473490, 0, 131076, 3539022, 0, 131072, 3539023, 0, 131073, 3539024, 0, 131073, 3539025, 0, 196611, 3539026, 0, 262147, 3604558, 0, 131072, 3604559, 0, 131073, 3604560, 0, 196611, 3604561, 0, 196612, 3670093, 0, 65536, 3670094, 0, 65537, 3670095, 0, 131073, 3670096, 0, 131076, 3735629, 0, 131072, 3735630, 0, 131073, 3735631, 0, 131073, 3735632, 0, 131076, 3735633, 0, 65536, 3735634, 0, 3, 3801165, 0, 262145, 3801166, 0, 262146, 3801167, 0, 262146, 3801168, 0, 262147, 3801169, 0, 131072, 3801170, 0, 131076, 3866704, 0, 1, 3866705, 0, 65537, 3866706, 0, 131076, 3932240, 0, 262145, 3932241, 0, 262146, 3932242, 0, 262147 )
+
 [node name="YSort" type="YSort" parent="."]
 
 [node name="ground_objects" type="Node2D" parent="YSort"]
@@ -577,7 +747,7 @@ tile_data = PoolIntArray( 3014732, 1, 2, 3014733, 1, 3, 3014734, 1, 3, 3014735, 
 
 [node name="actors" type="YSort" parent="YSort"]
 
-[node name="player" parent="YSort/actors" instance=ExtResource( 5 )]
+[node name="player" parent="YSort/actors" instance=ExtResource( 6 )]
 position = Vector2( 1486.46, 1007.27 )
 
 [node name="hop_areas" type="Node2D" parent="."]
@@ -588,7 +758,7 @@ position = Vector2( 1486.46, 1007.27 )
 position = Vector2( 1284.89, 1063.66 )
 rotation = 3.14159
 z_index = 4096
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
 
@@ -618,7 +788,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1442.98, 1000.24 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparealeft1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
@@ -626,7 +796,7 @@ linked_area4 = NodePath("")
 terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left"]
-shape = SubResource( 67 )
+shape = SubResource( 56 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -634,7 +804,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_left"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -645,14 +815,14 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1432.6, 1000.04 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
 terrain_string = "ledge"
 connected_object = NodePath("../ledgeleft1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparealeft1"]
-shape = SubResource( 63 )
+shape = SubResource( 57 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -660,7 +830,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparealeft1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -670,12 +840,12 @@ __meta__ = {
 [node name="ledgeleft1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1432.94, 1000.48 )
 z_index = -1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 canclimbup = true
 updirection = Vector2( -1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeleft1"]
-shape = SubResource( 60 )
+shape = SubResource( 58 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -683,7 +853,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgeleft1"]
 visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 vframes = 12
 hframes = 3
 region_rect = Rect2( 48, 16, 0, 0 )
@@ -695,7 +865,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1464.18, 1031.36 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
@@ -703,7 +873,7 @@ terrain_string = "ledge"
 connected_object = NodePath("../ledgedown1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumpareadown1"]
-shape = SubResource( 64 )
+shape = SubResource( 59 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -711,7 +881,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumpareadown1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -722,7 +892,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1464.32, 1018.65 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("../jumpareadown1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
@@ -730,7 +900,7 @@ linked_area4 = NodePath("")
 terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_down1"]
-shape = SubResource( 68 )
+shape = SubResource( 60 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -738,7 +908,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_down1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -748,8 +918,8 @@ __meta__ = {
 [node name="ledgedown1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1464.15, 1031.07 )
 z_index = -1
-script = ExtResource( 9 )
-canclimbup = false
+script = ExtResource( 10 )
+canclimbup = true
 updirection = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgedown1"]
@@ -761,7 +931,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgedown1"]
 visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 vframes = 12
 hframes = 3
 region_rect = Rect2( 48, 16, 0, 0 )
@@ -773,14 +943,14 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1472.38, 967.576 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
 terrain_string = "ledge"
 connected_object = NodePath("../ledgeup1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumpareaup1"]
-shape = SubResource( 65 )
+shape = SubResource( 62 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -788,7 +958,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumpareaup1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -799,7 +969,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1471.69, 978.901 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("../jumpareaup1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
@@ -807,7 +977,7 @@ linked_area4 = NodePath("")
 terrain_string = "land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up1"]
-shape = SubResource( 68 )
+shape = SubResource( 60 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -815,7 +985,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_up1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -825,12 +995,12 @@ __meta__ = {
 [node name="ledgeup1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1472.44, 967.143 )
 z_index = -1
-script = ExtResource( 9 )
-canclimbup = false
+script = ExtResource( 10 )
+canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup1"]
-shape = SubResource( 59 )
+shape = SubResource( 63 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -838,7 +1008,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/ledgeup1"]
 visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 vframes = 12
 hframes = 3
 region_rect = Rect2( 48, 16, 0, 0 )
@@ -850,14 +1020,14 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1511.1, 999.227 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
 terrain_string = "ledge"
 connected_object = NodePath("../ledgeright1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparearight1"]
-shape = SubResource( 66 )
+shape = SubResource( 64 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -865,7 +1035,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparearight1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -876,7 +1046,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1501.27, 1000.22 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparearight1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
@@ -885,7 +1055,7 @@ terrain_string = "land"
 connected_object = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right1"]
-shape = SubResource( 67 )
+shape = SubResource( 56 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -893,7 +1063,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_right1"]
 visible = false
 z_index = -1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 2
 hframes = 4
 __meta__ = {
@@ -903,12 +1073,12 @@ __meta__ = {
 [node name="ledgeright1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1513.05, 999.931 )
 z_index = -1
-script = ExtResource( 9 )
-canclimbup = false
+script = ExtResource( 10 )
+canclimbup = true
 updirection = Vector2( 1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeright1"]
-shape = SubResource( 62 )
+shape = SubResource( 65 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -917,7 +1087,7 @@ __meta__ = {
 visible = false
 modulate = Color( 0.364706, 1, 0.313726, 1 )
 rotation = 1.5708
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 vframes = 12
 hframes = 3
 region_rect = Rect2( 48, 16, 0, 0 )
@@ -946,7 +1116,7 @@ __meta__ = {
 position = Vector2( 1326.07, 982.273 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 57 )
+shape = SubResource( 66 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -960,7 +1130,7 @@ __meta__ = {
 "sceneblock",
 ]]
 position = Vector2( 1423.93, 1088.03 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 connecting_level = "level_1_test"
 connecting_entrance = 1
 entrance_number = 1
@@ -971,7 +1141,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblocks/sceneblock/Area2D"]
-shape = SubResource( 58 )
+shape = SubResource( 67 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -979,5 +1149,5 @@ __meta__ = {
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
 position = Vector2( 30.4642, -96.2672 )
 
-[node name="downward_hoparea5" parent="." instance=ExtResource( 12 )]
+[node name="downward_hoparea5" parent="." instance=ExtResource( 13 )]
 position = Vector2( 1415.9, 899.363 )
