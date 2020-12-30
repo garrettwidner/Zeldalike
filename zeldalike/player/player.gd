@@ -7,7 +7,9 @@ var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
 var bowspeed = 20
-var climbspeed = 15
+#var climbspeed = 15
+var climbspeed = 150
+
 var is_running = false
 var motion_state = "idle"
 var sprinkleoffset : float = 10
@@ -959,13 +961,6 @@ func set_state_crouch():
 			is_using_jump_reticule = false
 		pass
 	
-#	if linked_jumpareas.size() > 1:
-#		show_jump_reticule()
-#		is_using_jump_reticule = true
-#		pass
-#	else:
-#		is_using_jump_reticule = false
-	
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
 	elif current_terrain == terrain.TYPE.WALL:
@@ -1021,6 +1016,7 @@ func state_crouch(delta):
 			
 	if Input.is_action_just_pressed("sack"):
 		set_state_default()
+		hide_jump_reticule()
 		
 	if current_terrain == terrain.TYPE.WALL:
 		pass
@@ -1124,10 +1120,10 @@ func end_jump_and_set_terrains():
 	global_position = jumpendpos
 	
 	set_current_jumparea_and_info(upcoming_jumparea)
-#	print("At end of jump, new current_jumparea set to: " + current_jumparea.name)
+	set_terrains(current_jumparea.terrain_type)
 	print("At end of jump, new terrain set to " + terrain.string_from_terrain(current_terrain))
 	
-	set_terrains(current_jumparea.terrain_type)
+	
 	
 	if current_terrain == terrain.TYPE.WALL:
 		set_state_climb()
@@ -1205,22 +1201,27 @@ func state_ledge(delta):
 #	$CollisionShape2D.disabled = false
 	pass
 	
-func state_climb(delta):
-	
-	pass
+func set_state_climb():
+	state = "climb"
+	speed = climbspeed
+	switch_anim("climb")
 	
 #func state_climb(delta):
-#	assign_movedir_from_input()
-#	set_facedir()
-#	set_spritedir()
 #
-#	if movedir != Vector2(0,0):
-#		switch_anim("climb")
-#	else:
-#		$anim.stop()
-#
-#	movement_loop()
 #	pass
+	
+func state_climb(delta):
+	assign_movedir_from_input()
+	print("Movedir while climbing is: " + String(movedir))
+	set_directionality(movedir)
+
+	if movedir != Vector2(0,0):
+		switch_anim("climb")
+	else:
+		$anim.stop()
+
+	movement_loop()
+	pass
 	
 func set_state_pullup():
 	state = "pullup"
@@ -1716,13 +1717,7 @@ func set_state_block():
 #		sprinkle.set_z_index(0)
 #
 #	self.get_parent().add_child(sprinkle)
-
-
 	
-func set_state_climb():
-	state = "climb"
-	speed = climbspeed
-	switch_anim("climb")
 	
 func set_state_holding():
 	state = "holding"

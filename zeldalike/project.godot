@@ -26,6 +26,7 @@ game_singleton="*res://UI/game_singleton.tscn"
 helper="*res://system/helper.gd"
 gamedata="*res://engine/gamedata.gd"
 terrain="*res://engine/terrain.gd"
+coll="*res://engine/collisionmanager.gd"
 
 [display]
 
@@ -151,12 +152,11 @@ cling={
 [layer_names]
 
 2d_physics/layer_1="default"
-2d_physics/layer_2="groundlevel"
-2d_physics/layer_3="shelf"
-2d_physics/layer_4="mountain"
-2d_physics/layer_5="heights"
-2d_physics/layer_6="player"
-2d_physics/layer_7="enemy"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="ground"
+2d_physics/layer_5="mountain"
+2d_physics/layer_6="enemycorral"
 
 [rendering]
 

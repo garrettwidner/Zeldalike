@@ -83,6 +83,7 @@ func movement_loop():
 		motion = movedir.normalized() * speed
 	else:
 		motion = knockdir.normalized() * speed * knock_strength
+	
 	move_and_slide(motion, dir.CENTER)
 	
 func damage_loop():
