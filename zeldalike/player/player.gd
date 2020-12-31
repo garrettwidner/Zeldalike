@@ -7,8 +7,7 @@ var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
 var bowspeed = 20
-#var climbspeed = 15
-var climbspeed = 150
+var climbspeed = 15
 
 var is_running = false
 var motion_state = "idle"
@@ -205,7 +204,7 @@ var is_using_jump_reticule = false
 var reticule_visibility_min_distance = 20
 
 var check_fall = false
-var ledge_fall_check_direction
+var fall_check_direction
 var valid_fall_location
 var general_hop_distance = 12
 
@@ -386,47 +385,92 @@ func _physics_process(delta):
 		var space_state = get_world_2d().get_direct_space_state()
 		valid_fall_location = get_fall_end_location(space_state)
 		
-		#Makes the character 'fall' so that it looks like he's jumping down a slope
-		if current_ledge.updirection == dir.LEFT || current_ledge.updirection == dir.RIGHT:
-			var fall_jump_illusion_strength = 3
-			valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
 		
-		if valid_fall_location != null:
-#			print("Found valid fall location.")
-			pass
+		if current_ledge != null:
+			#Makes the character 'fall' so that it looks like he's jumping down a slope
+			if valid_fall_location != null:
+				if current_ledge.updirection == dir.LEFT || current_ledge.updirection == dir.RIGHT:
+					var fall_jump_illusion_strength = 3
+					valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
+			else:
+				pass
+				print("Error: no valid fall location")
+#		if valid_fall_location != null:
+##			print("Found valid fall location.")
+#			pass
 		check_fall = false
 		pass
 	pass
 	
+#    old version of function before collision change
+#func get_fall_end_location(space_state):
+#	#Check for an empty space until you find one
+#	var checkdirection = fall_check_direction
+##	print("Checking for fall in direction: " + String(checkdirection))
+#	var has_found_end = false
+#	var i = 3
+#	var check_distance = $CollisionShape2D.shape.extents.y
+#	while !has_found_end:
+#		var checkposition = (checkdirection * check_distance * i) + global_position
+##		instantiate_vanish_reticule(checkposition)
+#		i = i + 1
+#		var results_array = space_state.intersect_point(checkposition)
+##		print("--")
+#		if results_array.empty():
+##			print("Found fall end location: " + String(checkposition))
+#			return checkposition
+#		else:
+#			var found_real_collision = false
+#			for a in results_array:
+#				if a["collider"].name != name:
+#					found_real_collision = true
+##					print("End check collided with: " + a["collider"].name)
+#			if !found_real_collision:
+##				print("Found fall end location: " + String(checkposition))
+#				return checkposition
+##		print("Checking at space " + String(checkposition))
+#		var max_fall_position_checks = 29
+#		if i == max_fall_position_checks:
+##			print("Did not find a fall end location")
+#			return null
+#		pass
+#
+#	pass
+
 func get_fall_end_location(space_state):
 	#Check for an empty space until you find one
-	var checkdirection = ledge_fall_check_direction
+	var checkdirection = fall_check_direction
 #	print("Checking for fall in direction: " + String(checkdirection))
 	var has_found_end = false
 	var i = 3
 	var check_distance = $CollisionShape2D.shape.extents.y
+#	print("Fall check distance is " + String(check_distance))
 	while !has_found_end:
 		var checkposition = (checkdirection * check_distance * i) + global_position
 #		instantiate_vanish_reticule(checkposition)
 		i = i + 1
-		var results_array = space_state.intersect_point(checkposition)
-#		print("--")
+		var results_array = space_state.intersect_point(checkposition, 32, [], 2147483647, false, true)
+#		print("-next check results-")
 		if results_array.empty():
-#			print("Found fall end location: " + String(checkposition))
-			return checkposition
+			pass
 		else:
 			var found_real_collision = false
 			for a in results_array:
-				if a["collider"].name != name:
-					found_real_collision = true
-#					print("End check collided with: " + a["collider"].name)
-			if !found_real_collision:
-#				print("Found fall end location: " + String(checkposition))
-				return checkposition
-#		print("Checking at space " + String(checkposition))
-		var max_fall_position_checks = 29
+				var found_area = a["collider"]
+#				print("Found collider: " + found_area.name)
+				if found_area.name != name:
+					if found_area.is_in_group("fallarea"):
+						found_real_collision = true
+#						print("Found a fallarea named: " + found_area.name)
+						return checkposition
+			
+			pass
+		
+		
+		
+		var max_fall_position_checks = 90
 		if i == max_fall_position_checks:
-#			print("Did not find a fall end location")
+			print("Did not find a fall end location after checking a distance of " + String(max_fall_position_checks * check_distance))
 			return null
 		pass
 	
@@ -953,12 +997,13 @@ func set_state_crouch():
 	if linked_jumpareas.size() > 0:
 		var jumpdistance = global_position.distance_to(upcoming_jumparea.global_position)
 		if jumpdistance > reticule_visibility_min_distance:
-			print("Reticule should appear. Distance is " + String(jumpdistance))
+#			print("Reticule should appear. Distance is " + String(jumpdistance))
 			show_jump_reticule()
-			is_using_jump_reticule = true
+#			is_using_jump_reticule = true
 		else:
-			print("Reticule should --NOT-- appear. Distance is " + String(jumpdistance))
-			is_using_jump_reticule = false
+#			print("Reticule should --NOT-- appear. Distance is " + String(jumpdistance))
+#			is_using_jump_reticule = false
+			pass
 		pass
 	
 	if current_terrain == terrain.TYPE.GROUND:
@@ -986,14 +1031,17 @@ func set_upcoming_ledge():
 			can_side_climb_upcoming_ledge = true
 		
 func show_jump_reticule():
+	is_using_jump_reticule = true
 	jump_reticule = jump_reticule_resource.instance()
 	jump_reticule.global_position = linked_jumpareas[upcoming_jumparea_index].global_position
 	self.get_parent().add_child(jump_reticule)
 	
 func hide_jump_reticule():
-	if jump_reticule != null:
-#		print("Queue freeing jump reticule: " + jump_reticule.name)
-		jump_reticule.queue_free()
+	if is_using_jump_reticule:
+		is_using_jump_reticule = false
+		if jump_reticule != null:
+	#		print("Queue freeing jump reticule: " + jump_reticule.name)
+			jump_reticule.queue_free()
 		
 func instantiate_vanish_reticule(location):
 	var reticule = vanish_reticule_resource.instance()
@@ -1042,6 +1090,7 @@ func state_crouch(delta):
 			set_state_fall()
 		else:
 			set_state_jump()
+#			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
 	pass
 		
@@ -1069,7 +1118,7 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = upcoming_jumparea.global_position
 	
 func set_state_jump():
-	print("----- starting jump -----")
+#	print("----- starting jump -----")
 	state = "jump"
 	jumpstartpos = global_position
 	jumpendpos = upcoming_jumparea.global_position
@@ -1121,7 +1170,7 @@ func end_jump_and_set_terrains():
 	
 	set_current_jumparea_and_info(upcoming_jumparea)
 	set_terrains(current_jumparea.terrain_type)
-	print("At end of jump, new terrain set to " + terrain.string_from_terrain(current_terrain))
+#	print("At end of jump, new terrain set to " + terrain.string_from_terrain(current_terrain))
 	
 	
 	
@@ -1206,6 +1255,7 @@ func set_state_climb():
 	state = "climb"
 	speed = climbspeed
 	switch_anim("climb")
+	set_level_collision_to_mountain()
 	
 #func state_climb(delta):
 #
@@ -1213,7 +1263,7 @@ func set_state_climb():
 	
 func state_climb(delta):
 	assign_movedir_from_input()
-	print("Movedir while climbing is: " + String(movedir))
+#	print("Movedir while climbing is: " + String(movedir))
 	set_directionality(movedir)
 
 	if movedir != Vector2(0,0):
@@ -1222,6 +1272,10 @@ func state_climb(delta):
 		$anim.stop()
 
 	movement_loop()
+	
+	if Input.is_action_just_released("sack"):
+		set_state_fall()
+	
 	pass
 	
 func set_state_pullup():
@@ -1259,6 +1313,8 @@ func state_pullup(delta):
 	
 func set_state_fall():
 	state = "fall"
+	
+	#This starts a process in _physics_process() of finding where the fall ends
 	check_fall = true
 	
 #	print("Setting state to fall")
@@ -1271,18 +1327,18 @@ func set_state_fall():
 	match current_terrain:
 		terrain.TYPE.WALL:
 #			print("About to start fall from wall")
-			ledge_fall_check_direction = dir.DOWN
+			fall_check_direction = dir.DOWN
 			jumpspeed = .2
 			pass
 		terrain.TYPE.LEDGE:
-			print("About to start fall from ledge")
-			ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
-#			print("Ledge fall direction: " + String(ledge_fall_check_direction))
+#			print("About to start fall from ledge")
+			fall_check_direction = dir.opposite(current_ledge.updirection)
+#			print("Ledge fall direction: " + String(fall_check_direction))
 			jumpspeed = .1
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 #				retrieve_new_ledge()
-				ledge_fall_check_direction = dir.opposite(current_ledge.updirection)
+				fall_check_direction = dir.opposite(current_ledge.updirection)
 				jumpspeed = .1
 #				print("Attempting to fall to lower ground from a ledge")
 			else:
@@ -1325,9 +1381,10 @@ func state_fall(delta):
 		jumpendpos = null
 		valid_fall_location = null
 		set_state_default()
+		set_terrains(terrain.TYPE.GROUND)
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
-		print("fall ended")
+#		print("fall ended")
 		# NOTE: If not sensing correct jumparea after fall (especially for downward jumpareas),
 		#       try moving the jumparea at the base of the cliff further away from the cliff physically.
 		#       this seems to make it so that if the one at the top of the cliff is sensed, it is sensed
@@ -1584,7 +1641,7 @@ func set_current_jumparea_and_info(new_jumparea):
 	current_jumparea = new_jumparea
 	isinjumparea = true
 	
-	print("Setting jumparea to new jumparea: " + new_jumparea.name)
+#	print("Setting jumparea to new jumparea: " + new_jumparea.name)
 	
 	linked_jumpareas = []
 	linked_jumpareas.clear()

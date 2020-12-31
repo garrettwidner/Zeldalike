@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=2]
+[gd_scene load_steps=101 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -691,7 +691,7 @@ extents = Vector2( 5, 5 )
 extents = Vector2( 7, 3 )
 
 [sub_resource type="RectangleShape2D" id=60]
-extents = Vector2( 7, 3 )
+extents = Vector2( 14, 3 )
 
 [sub_resource type="RectangleShape2D" id=61]
 extents = Vector2( 5, 5 )
@@ -710,6 +710,9 @@ extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=85]
 extents = Vector2( 4, 4 )
+
+[sub_resource type="RectangleShape2D" id=86]
+extents = Vector2( 65, 3 )
 
 [sub_resource type="RectangleShape2D" id=66]
 extents = Vector2( 220, 144 )
@@ -796,6 +799,7 @@ __meta__ = {
 
 [node name="jumparea_bottom_left" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1442.98, 1000.24 )
 collision_mask = 2
@@ -904,6 +908,7 @@ __meta__ = {
 
 [node name="jumparea_bottom_down1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1464.32, 1018.65 )
 collision_mask = 2
@@ -984,6 +989,7 @@ __meta__ = {
 
 [node name="jumparea_bottom_up1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1471.69, 978.901 )
 collision_mask = 2
@@ -1064,6 +1070,7 @@ __meta__ = {
 
 [node name="jumparea_bottom_right1" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1501.27, 1000.22 )
 collision_mask = 2
@@ -1120,7 +1127,7 @@ __meta__ = {
 [node name="ground_jumpup" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1312.88, 1000.85 )
+position = Vector2( 1307.07, 1016.45 )
 collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../wall_connect1")
@@ -1156,6 +1163,19 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="hop_areas/wall_connect1"]
 texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="fallarea1" type="Area2D" parent="hop_areas" groups=[
+"fallarea",
+]]
+position = Vector2( 1280.16, 1003.98 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/fallarea1"]
+shape = SubResource( 86 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1212,7 +1232,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -95.267, -74.5777 )
+position = Vector2( -27.8565, -87.9436 )
 
 [node name="downward_hoparea5" parent="." instance=ExtResource( 14 )]
 position = Vector2( 1415.9, 899.363 )
