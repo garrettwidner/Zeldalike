@@ -733,6 +733,8 @@ tile_data = PoolIntArray( 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0,
 [node name="terrain" type="TileMap" parent="."]
 tile_set = SubResource( 54 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 8
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 3014732, 1, 2, 3014733, 1, 3, 3014734, 1, 3, 3014735, 1, 3, 3014736, 1, 3, 3014737, 1, 3, 3014738, 1, 3, 3014739, 1, 4, 3080268, 1, 65537, 3080275, 1, 65536, 3145804, 1, 65537, 3145811, 1, 65536, 3211340, 1, 65537, 3211347, 1, 65536, 3276876, 1, 65538, 3276877, 1, 65539, 3276878, 1, 65539, 3276879, 1, 65539, 3276880, 1, 65539, 3276881, 1, 65542, 3276882, 1, 65539, 3276883, 1, 65540, 3342412, 1, 131074, 3342413, 1, 131075, 3342414, 1, 131075, 3342415, 1, 131075, 3342416, 1, 131075, 3342417, 1, 131075, 3342418, 1, 131075, 3342419, 1, 131076, 3407948, 1, 131074, 3407949, 1, 131075, 3407950, 1, 131075, 3407951, 1, 131075, 3407952, 1, 131075, 3407953, 1, 131075, 3407954, 1, 131075, 3407955, 1, 131076, 3473484, 1, 131074, 3473485, 1, 131075, 3473486, 1, 131075, 3473487, 1, 131075, 3473488, 1, 131075, 3473489, 1, 131075, 3473490, 1, 131075, 3473491, 1, 131076, 3539020, 1, 131074, 3539021, 1, 131075, 3539022, 1, 131075, 3539023, 1, 131075, 3539024, 1, 131075, 3539025, 1, 131075, 3539026, 1, 131075, 3539027, 1, 131076, 3604556, 1, 131074, 3604557, 1, 131075, 3604558, 1, 131075, 3604559, 1, 131075, 3604560, 1, 131075, 3604561, 1, 131075, 3604562, 1, 131075, 3604563, 1, 131076, 3670092, 1, 131074, 3670093, 1, 131075, 3670094, 1, 131075, 3670095, 1, 131075, 3670096, 1, 131075, 3670097, 1, 131075, 3670098, 1, 131075, 3670099, 1, 131076, 3670102, 1, 262144, 3670103, 1, 262144, 3670104, 1, 196614, 3670105, 1, 262144, 3670106, 1, 262144, 3735628, 1, 131074, 3735629, 1, 131075, 3735630, 1, 131075, 3735631, 1, 131075, 3735632, 1, 131075, 3735633, 1, 131075, 3735634, 1, 131075, 3735635, 1, 131076, 3801164, 1, 131074, 3801165, 1, 131075, 3801166, 1, 131075, 3801167, 1, 131075, 3801168, 1, 131075, 3801169, 1, 131075, 3801170, 1, 131075, 3801171, 1, 131076, 3866700, 1, 131074, 3866701, 1, 131075, 3866702, 1, 131075, 3866703, 1, 131075, 3866704, 1, 131075, 3866705, 1, 131075, 3866706, 1, 131075, 3866707, 1, 131076, 3932236, 1, 131074, 3932237, 1, 131075, 3932238, 1, 131075, 3932239, 1, 131075, 3932240, 1, 131075, 3932241, 1, 131075, 3932242, 1, 131075, 3932243, 1, 131076, 3932249, 1, 262145, 3932250, 1, 196608, 3932251, 1, 327685, 3932252, 1, 327686, 3932253, 1, 196608, 3932254, 1, 196609, 3997772, 1, 196610, 3997773, 1, 196611, 3997774, 1, 196611, 3997775, 1, 196611, 3997776, 1, 196611, 3997777, 1, 196611, 3997778, 1, 196611, 3997779, 1, 196612, 3997785, 1, 65536, 3997790, 1, 65537, 4063321, 1, 262150, 4063326, 1, 131078, 4128857, 1, 65536, 4128862, 1, 65537, 4194393, 1, 131072, 4194394, 1, 262144, 4194395, 1, 196614, 4194396, 1, 262144, 4194397, 1, 65543, 4194398, 1, 131073 )
 
@@ -740,6 +742,8 @@ tile_data = PoolIntArray( 3014732, 1, 2, 3014733, 1, 3, 3014734, 1, 3, 3014735, 
 z_index = 1
 tile_set = SubResource( 84 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 16
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 3342416, 0, 65536, 3342417, 0, 2, 3342418, 0, 3, 3407950, 0, 65536, 3407951, 0, 2, 3407952, 0, 65537, 3407953, 0, 131073, 3407954, 0, 131076, 3473486, 0, 131072, 3473487, 0, 131073, 3473488, 0, 131073, 3473489, 0, 131073, 3473490, 0, 131076, 3539022, 0, 131072, 3539023, 0, 131073, 3539024, 0, 131073, 3539025, 0, 196611, 3539026, 0, 262147, 3604558, 0, 131072, 3604559, 0, 131073, 3604560, 0, 196611, 3604561, 0, 196612, 3670093, 0, 65536, 3670094, 0, 65537, 3670095, 0, 131073, 3670096, 0, 131076, 3735629, 0, 131072, 3735630, 0, 131073, 3735631, 0, 131073, 3735632, 0, 131076, 3735633, 0, 65536, 3735634, 0, 3, 3801165, 0, 262145, 3801166, 0, 262146, 3801167, 0, 262146, 3801168, 0, 262147, 3801169, 0, 131072, 3801170, 0, 131076, 3866704, 0, 1, 3866705, 0, 65537, 3866706, 0, 131076, 3932240, 0, 262145, 3932241, 0, 262146, 3932242, 0, 262147 )
 
@@ -762,6 +766,8 @@ position = Vector2( 1486.46, 1007.27 )
 position = Vector2( 1284.89, 1063.66 )
 rotation = 3.14159
 z_index = 4096
+collision_layer = 8
+collision_mask = 2
 script = ExtResource( 7 )
 updirection = Vector2( 0, 1 )
 canhopdown = true
@@ -792,6 +798,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1442.98, 1000.24 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparealeft1")
 linked_area2 = NodePath("")
@@ -819,6 +826,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1432.6, 1000.04 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -844,6 +852,7 @@ __meta__ = {
 [node name="ledgeleft1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1432.94, 1000.48 )
 z_index = -1
+collision_mask = 2
 script = ExtResource( 10 )
 canclimbup = true
 updirection = Vector2( -1, 0 )
@@ -869,6 +878,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1464.18, 1031.36 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -896,6 +906,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1464.32, 1018.65 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumpareadown1")
 linked_area2 = NodePath("")
@@ -922,6 +933,7 @@ __meta__ = {
 [node name="ledgedown1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1464.15, 1031.07 )
 z_index = -1
+collision_mask = 2
 script = ExtResource( 10 )
 canclimbup = true
 updirection = Vector2( 0, 1 )
@@ -947,6 +959,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1472.38, 967.576 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -973,6 +986,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1471.69, 978.901 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumpareaup1")
 linked_area2 = NodePath("")
@@ -999,6 +1013,7 @@ __meta__ = {
 [node name="ledgeup1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1472.44, 967.143 )
 z_index = -1
+collision_mask = 2
 script = ExtResource( 10 )
 canclimbup = true
 updirection = Vector2( 0, -1 )
@@ -1024,6 +1039,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1511.1, 999.227 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("")
 linked_area2 = NodePath("")
@@ -1050,6 +1066,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1501.27, 1000.22 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparearight1")
 linked_area2 = NodePath("")
@@ -1077,6 +1094,7 @@ __meta__ = {
 [node name="ledgeright1" type="Area2D" parent="hop_areas"]
 position = Vector2( 1513.05, 999.931 )
 z_index = -1
+collision_mask = 2
 script = ExtResource( 10 )
 canclimbup = true
 updirection = Vector2( 1, 0 )
@@ -1103,6 +1121,7 @@ __meta__ = {
 "jumparea",
 ]]
 position = Vector2( 1312.88, 1000.85 )
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../wall_connect1")
 terrain_string = "land"
@@ -1124,6 +1143,7 @@ __meta__ = {
 ]]
 position = Vector2( 1295.8, 959.481 )
 z_index = 2
+collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jumpup")
 terrain_string = "wall"

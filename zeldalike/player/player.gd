@@ -1140,7 +1140,8 @@ func set_state_ledge():
 	state = "ledge"
 #	print("---Now on ledge---")
 	
-	$CollisionShape2D.disabled = true
+#	$CollisionShape2D.disabled = true
+	set_level_collision_to_off()
 	
 	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
 
@@ -1227,7 +1228,8 @@ func set_state_pullup():
 	state = "pullup"
 	switch_anim("pullup")
 	
-	$CollisionShape2D.disabled = true
+#	$CollisionShape2D.disabled = true
+	set_level_collision_to_off()
 	
 	if current_ledge.updirection == dir.RIGHT || current_ledge.updirection == dir.LEFT:
 		jumpspeed = sidepullupspeed
@@ -1250,7 +1252,8 @@ func state_pullup(delta):
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
 		set_state_default()
-		$CollisionShape2D.disabled = false
+#		$CollisionShape2D.disabled = false
+		set_level_collision_to_ground()
 #		print("---- just pulled up onto ledge ----")
 	pass
 	
@@ -1288,7 +1291,8 @@ func set_state_fall():
 			print("!! --Found no correct terrain state to fall from-- !!")
 			pass
 	
-	$CollisionShape2D.disabled = true
+#	$CollisionShape2D.disabled = true
+	set_level_collision_to_off()
 			
 	pass
 	
@@ -1321,7 +1325,8 @@ func state_fall(delta):
 		jumpendpos = null
 		valid_fall_location = null
 		set_state_default()
-		$CollisionShape2D.disabled = false
+#		$CollisionShape2D.disabled = false
+		set_level_collision_to_ground()
 		print("fall ended")
 		# NOTE: If not sensing correct jumparea after fall (especially for downward jumpareas),
 		#       try moving the jumparea at the base of the cliff further away from the cliff physically.
@@ -1888,6 +1893,21 @@ func place_food_in_basket(food_texture):
 	switch_anim("givefood")
 	#TODO: Connect food texture so it looks correct
 	
+	pass
+	
+func set_level_collision_to_ground():
+	set_collision_mask_bit(coll.LAYER.GROUND, true)
+	set_collision_mask_bit(coll.LAYER.MOUNTAIN, false)
+	pass
+	
+func set_level_collision_to_mountain():
+	set_collision_mask_bit(coll.LAYER.GROUND, false)
+	set_collision_mask_bit(coll.LAYER.MOUNTAIN, true)
+	pass
+	
+func set_level_collision_to_off():
+	set_collision_mask_bit(coll.LAYER.GROUND, false)
+	set_collision_mask_bit(coll.LAYER.MOUNTAIN, false)
 	pass
 
 #func add_sprinkle():
