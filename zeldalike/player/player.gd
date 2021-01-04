@@ -89,11 +89,6 @@ var jumpspeed
 var linked_jumpareas
 var next_jumparea_index = 0
 
-#var current_ledge
-#var ledge_updirection 
-#var ledge_l_bound
-#var ledge_r_bound
-
 var previous_terrain = terrain.TYPE.GROUND
 var current_terrain = terrain.TYPE.GROUND
 var upcoming_terrain = terrain.TYPE.GROUND
@@ -102,6 +97,8 @@ var current_jumparea
 
 var upcoming_jumparea
 var upcoming_jumparea_index = 0
+var direction_to_upcoming_jumparea
+var distance_to_upcoming_jumparea
 
 var min_ledge_width_for_side_climb = 11
 
@@ -463,11 +460,7 @@ func get_fall_end_location(space_state):
 						found_real_collision = true
 #						print("Found a fallarea named: " + found_area.name)
 						return checkposition
-			
 			pass
-		
-		
-		
 		var max_fall_position_checks = 90
 		if i == max_fall_position_checks:
 			print("Did not find a fall end location after checking a distance of " + String(max_fall_position_checks * check_distance))
@@ -1009,12 +1002,15 @@ func set_state_crouch():
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
 	elif current_terrain == terrain.TYPE.WALL:
+		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
 		pass
 	elif current_terrain == terrain.TYPE.LEDGE:
 		pass
 		
 func set_first_upcoming_jumparea():
 	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
+	set_upcoming_jumparea_distance_and_direction()
+#	print("direction to upcoming jumparea is: " + String(direction_to_upcoming_jumparea))
 	pass
 	
 func set_upcoming_ledge():
@@ -1053,11 +1049,13 @@ func state_crouch(delta):
 	if is_using_jump_reticule:
 		if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
 			increment_upcoming_jumparea()
+			set_upcoming_jumparea_distance_and_direction()
 			set_upcoming_ledge()
 			set_upcoming_terrain()
 			reposition_jump_reticule()
 		elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
 			decrement_upcoming_jumparea()
+			set_upcoming_jumparea_distance_and_direction()
 			set_upcoming_ledge()
 			set_upcoming_terrain()
 			reposition_jump_reticule()
@@ -1078,10 +1076,18 @@ func state_crouch(delta):
 	elif upcoming_jumparea.terrain_string == "ledge" && upcoming_ledge.updirection == dir.UP:
 		movedir = dir.UP
 	else:
-		movedir = get_direction_towards_jumparea()
+		movedir = direction_to_upcoming_jumparea
 	
 	set_directionality(movedir)
-	switch_anim("crouch")
+	
+	if current_terrain == terrain.TYPE.GROUND:
+		switch_anim("crouch")
+	elif current_terrain == terrain.TYPE.WALL:
+		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
+		pass
+	elif current_terrain == terrain.TYPE.LEDGE:
+		pass
+		
 	movement_loop()
 	
 	if Input.is_action_just_released("action"):
@@ -1094,8 +1100,14 @@ func state_crouch(delta):
 			hide_jump_reticule()
 	pass
 		
-func get_direction_towards_jumparea():
-	return dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
+#func get_direction_towards_jumparea():
+#	return dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
+	
+func set_upcoming_jumparea_distance_and_direction():
+	direction_to_upcoming_jumparea = dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
+	distance_to_upcoming_jumparea = upcoming_jumparea.global_position.distance_to(global_position)
+	print("Distance to upcoming jumparea is " + String(distance_to_upcoming_jumparea))
+	pass
 	
 func increment_upcoming_jumparea():
 	upcoming_jumparea_index = upcoming_jumparea_index + 1
@@ -1142,7 +1154,7 @@ func set_state_jump():
 	elif current_jumparea.terrain_type == terrain.TYPE.WALL && upcoming_jumparea.terrain_type == terrain.TYPE.GROUND:
 		isenddownslope = true
 
-	jumpdirection = get_direction_towards_jumparea()
+	jumpdirection = direction_to_upcoming_jumparea
 	endterrain = upcoming_jumparea.terrain_type
 	
 	if !suffixpreset:
@@ -1156,6 +1168,10 @@ func set_state_jump():
 #	print("Animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
 	pass	
+	
+func calculate_jump_speed():
+	
+	pass
 
 func state_jump(delta):
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
@@ -1272,6 +1288,10 @@ func state_climb(delta):
 		$anim.stop()
 
 	movement_loop()
+	
+	if Input.is_action_pressed("action"):
+		if isinjumparea:
+			set_state_crouch()
 	
 	if Input.is_action_just_released("sack"):
 		set_state_fall()

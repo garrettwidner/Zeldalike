@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -214,6 +214,70 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 136, 137, 138, 137, 136, 139, 140, 139 ]
+}
+
+[sub_resource type="Animation" id=96]
+resource_name = "climbhangdown"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 147 ]
+}
+
+[sub_resource type="Animation" id=97]
+resource_name = "climbhangleft"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 146 ]
+}
+
+[sub_resource type="Animation" id=98]
+resource_name = "climbhangright"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 145 ]
+}
+
+[sub_resource type="Animation" id=99]
+resource_name = "climbhangup"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 144 ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -1612,7 +1676,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 40
 hframes = 4
-frame = 22
+frame = 148
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false
@@ -1641,6 +1705,10 @@ anims/bowfireleft = SubResource( 13 )
 anims/bowfireright = SubResource( 14 )
 anims/bowfireup = SubResource( 15 )
 anims/climbdown = SubResource( 16 )
+anims/climbhangdown = SubResource( 96 )
+anims/climbhangleft = SubResource( 97 )
+anims/climbhangright = SubResource( 98 )
+anims/climbhangup = SubResource( 99 )
 anims/climbleft = SubResource( 17 )
 anims/climbright = SubResource( 18 )
 anims/climbup = SubResource( 19 )
