@@ -7,7 +7,7 @@ var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
 var bowspeed = 20
-var climbspeed = 15
+var climbspeed = 25
 
 var is_running = false
 var motion_state = "idle"
@@ -986,25 +986,18 @@ func set_state_crouch():
 		set_first_upcoming_jumparea()
 		set_upcoming_ledge()
 		set_upcoming_terrain()
-	
-	if linked_jumpareas.size() > 0:
-		var jumpdistance = global_position.distance_to(upcoming_jumparea.global_position)
-		if jumpdistance > reticule_visibility_min_distance:
-#			print("Reticule should appear. Distance is " + String(jumpdistance))
+		if distance_to_upcoming_jumparea > reticule_visibility_min_distance:
 			show_jump_reticule()
-#			is_using_jump_reticule = true
-		else:
-#			print("Reticule should --NOT-- appear. Distance is " + String(jumpdistance))
-#			is_using_jump_reticule = false
-			pass
-		pass
 	
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
+#		print("Terrain type is ground")
 	elif current_terrain == terrain.TYPE.WALL:
 		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
+#		print("Terrain type is wall")
 		pass
 	elif current_terrain == terrain.TYPE.LEDGE:
+#		print("Terrain type is ledge")
 		pass
 		
 func set_first_upcoming_jumparea():
@@ -1082,6 +1075,7 @@ func state_crouch(delta):
 	
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
+		
 	elif current_terrain == terrain.TYPE.WALL:
 		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
 		pass
@@ -1135,7 +1129,11 @@ func set_state_jump():
 	jumpstartpos = global_position
 	jumpendpos = upcoming_jumparea.global_position
 	jumpweight = 0
-	jumpspeed = .1
+	jumpspeed = 2.2
+	
+	#TEST
+	jumpspeed = jumpspeed / distance_to_upcoming_jumparea
+	#END TEST
 	
 	var animprefix = ""
 	var animsuffix = ""
@@ -1165,7 +1163,7 @@ func set_state_jump():
 	else:
 		animprefix = "jumpup"
 		
-#	print("Animation should be " + animprefix + animsuffix)
+	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
 	pass	
 	
@@ -1328,7 +1326,9 @@ func state_pullup(delta):
 		set_state_default()
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
-#		print("---- just pulled up onto ledge ----")
+		set_terrains(terrain.TYPE.GROUND)
+		print("Current terrain is " + terrain.string_from_terrain(current_terrain))
+		print("---- just pulled up onto ledge ----")
 	pass
 	
 func set_state_fall():
@@ -1341,25 +1341,28 @@ func set_state_fall():
 	
 	jumpstartpos = global_position
 	jumpendpos = null
-#	jumpendpos set in fixedupdate
+#	jumpendpos set in physics_process
 	jumpweight = 0
+	
+	switch_anim("fall")
+	
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
 #			print("About to start fall from wall")
 			fall_check_direction = dir.DOWN
-			jumpspeed = .2
+			jumpspeed = 1
 			pass
 		terrain.TYPE.LEDGE:
 #			print("About to start fall from ledge")
 			fall_check_direction = dir.opposite(current_ledge.updirection)
 #			print("Ledge fall direction: " + String(fall_check_direction))
-			jumpspeed = .1
+			jumpspeed = 1
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 #				retrieve_new_ledge()
 				fall_check_direction = dir.opposite(current_ledge.updirection)
-				jumpspeed = .1
+				jumpspeed = 1
 #				print("Attempting to fall to lower ground from a ledge")
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
@@ -1382,13 +1385,18 @@ func state_fall(delta):
 	if jumpendpos == null:
 		if valid_fall_location != null:
 			jumpendpos = valid_fall_location
+			
+			var jumpdistance = jumpendpos.distance_to(jumpstartpos)
+			
 			if jumpendpos.distance_to(jumpstartpos) < general_hop_distance:
+				jumpspeed = .1
 #				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
 #				print("Falling from a hop.")
 				#Set proper animation
 				pass
 			else:
 #				print("Falling from a longer distance")
+				jumpspeed = jumpspeed / jumpdistance
 				pass
 			
 #			print("Set jump end position")
