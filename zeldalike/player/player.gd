@@ -1415,7 +1415,10 @@ func state_fall(delta):
 		else:
 			return
 			
-	check_for_fall_grab()
+	if Input.is_action_just_pressed("sack"):
+		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
+		check_fallgrab = true
+
 	if fallgrab_area != null:
 		jumpendpos = null
 		valid_fall_location = null
@@ -1423,10 +1426,8 @@ func state_fall(delta):
 		set_terrains(terrain.TYPE.WALL)
 		global_position = fallgrab_area.global_position
 		fallgrab_area = null
-#		print("Connected to wall after fall----------------------------------------!!!")
 		return
 		
-#	print("After connection, shouldn't move past this")	
 		
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed
@@ -1442,28 +1443,10 @@ func state_fall(delta):
 		#       try moving the jumparea at the base of the cliff further away from the cliff physically.
 		#       this seems to make it so that if the one at the top of the cliff is sensed, it is sensed
 		#       first and overridden by the second.
-		
-	
-	pass
-	
-func check_for_fall_grab():
-	if Input.is_action_just_pressed("sack"):
-		check_fallgrab = true
-		
-		pass
-	
-	
 	pass
 	
 #----------------------------------------------------------------------------
 	
-	
-	
-	
-	
-	
-	
-
 func state_holding(delta):
 		
 	if bite_just_taken:
