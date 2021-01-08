@@ -123,7 +123,10 @@ func perform_preliminary_level_setup():
 	player.run_setup(entrance_scene_block.spawnpoint.global_position, entrance_scene_block.entrance_facedir)
 
 	var start_camarea = get_camarea_at_point(entrance_scene_block.spawnpoint.global_position)
-	cameracontroller.set_position_manual(true, entrance_scene_block.spawnpoint.global_position, start_camarea)
+	if start_camarea == null:
+		pass
+	else:
+		cameracontroller.set_position_manual(true, entrance_scene_block.spawnpoint.global_position, start_camarea)
 	
 	healthbar.setup(player)
 	staminabar.setup(player)

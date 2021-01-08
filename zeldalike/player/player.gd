@@ -204,6 +204,10 @@ var check_fall = false
 var fall_check_direction
 var valid_fall_location
 var general_hop_distance = 12
+var fallspeed = 1.2
+
+var check_fallgrab = false
+var fallgrab_area = null
 
 var vanish_reticule_resource = preload("res://testing/vanish_reticule.tscn")
 
@@ -324,6 +328,10 @@ func check_if_in_sunarea_at_start():
 	pass
 
 func _process(delta):
+	
+#	print("Last terrain is " + terrain.string_from_terrain(current_terrain))
+	
+	
 	if !is_setup:
 		return
 	
@@ -379,60 +387,32 @@ func _process(delta):
 			
 func _physics_process(delta):
 	if check_fall:
-		var space_state = get_world_2d().get_direct_space_state()
-		valid_fall_location = get_fall_end_location(space_state)
+		get_valid_fall_end_location()
+	check_fall = false
 		
-		
-		if current_ledge != null:
-			#Makes the character 'fall' so that it looks like he's jumping down a slope
-			if valid_fall_location != null:
-				if current_ledge.updirection == dir.LEFT || current_ledge.updirection == dir.RIGHT:
-					var fall_jump_illusion_strength = 3
-					valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
-			else:
-				pass
-				print("Error: no valid fall location")
+	if check_fallgrab:
+		get_valid_fallgrab_area()
+	check_fallgrab = false
+	
+	
+func get_valid_fall_end_location():
+	var space_state = get_world_2d().get_direct_space_state()
+	valid_fall_location = get_fall_end_location(space_state)
+	
+	
+	if current_ledge != null:
+		#Makes the character 'fall' so that it looks like he's jumping down a slope
+		if valid_fall_location != null:
+			if current_ledge.updirection == dir.LEFT || current_ledge.updirection == dir.RIGHT:
+				var fall_jump_illusion_strength = 3
+				valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
+		else:
+			pass
+			print("Error: no valid fall location")
 #		if valid_fall_location != null:
 ##			print("Found valid fall location.")
 #			pass
-		check_fall = false
-		pass
-	pass
-	
-#    old version of function before collision change
-#func get_fall_end_location(space_state):
-#	#Check for an empty space until you find one
-#	var checkdirection = fall_check_direction
-##	print("Checking for fall in direction: " + String(checkdirection))
-#	var has_found_end = false
-#	var i = 3
-#	var check_distance = $CollisionShape2D.shape.extents.y
-#	while !has_found_end:
-#		var checkposition = (checkdirection * check_distance * i) + global_position
-##		instantiate_vanish_reticule(checkposition)
-#		i = i + 1
-#		var results_array = space_state.intersect_point(checkposition)
-##		print("--")
-#		if results_array.empty():
-##			print("Found fall end location: " + String(checkposition))
-#			return checkposition
-#		else:
-#			var found_real_collision = false
-#			for a in results_array:
-#				if a["collider"].name != name:
-#					found_real_collision = true
-##					print("End check collided with: " + a["collider"].name)
-#			if !found_real_collision:
-##				print("Found fall end location: " + String(checkposition))
-#				return checkposition
-##		print("Checking at space " + String(checkposition))
-#		var max_fall_position_checks = 29
-#		if i == max_fall_position_checks:
-##			print("Did not find a fall end location")
-#			return null
-#		pass
-#
-#	pass
+	pass	
 
 func get_fall_end_location(space_state):
 	#Check for an empty space until you find one
@@ -468,6 +448,44 @@ func get_fall_end_location(space_state):
 		pass
 	
 	pass
+	
+func get_valid_fallgrab_area():
+	var did_we_find_it = false
+	var found_jumparea = null
+	var space_state = get_world_2d().get_direct_space_state()
+	var checkposition = global_position
+	# Old results array based on checking a point
+#	var results_array = space_state.intersect_point(checkposition, 32, [], 2147483647, false, true)
+	
+	#Start TEST area
+	
+	var shape_query : Physics2DShapeQueryParameters = Physics2DShapeQueryParameters.new()
+	var collision_object = $climbbox
+	var shape = $climbbox/CollisionShape2D.shape
+	
+	shape_query.collide_with_areas = true
+	shape_query.collide_with_bodies = false
+	shape_query.shape_rid = shape.get_rid()
+	shape_query.transform = collision_object.global_transform
+	
+	var results_array = space_state.intersect_shape(shape_query)
+	
+	if results_array.empty():
+#			print("Fall check array was totally empty")
+		pass
+	else:
+		for a in results_array:
+			var found_area = a["collider"]
+#				print("Found area while falling: " + found_area.name)
+			if found_area.name != name:
+				if found_area.is_in_group("jumparea"):
+					if found_area.terrain_string == "wall":
+						fallgrab_area = found_area
+#							print("Found a grabbable area!")
+						did_we_find_it = true
+#		if !did_we_find_it:
+#			print("Did not find a grabbable area.")
+	
 			
 func process_initial_sun_checks():
 	var perceived_initial_sun_strength = get_sun_current_strength()
@@ -1100,7 +1118,7 @@ func state_crouch(delta):
 func set_upcoming_jumparea_distance_and_direction():
 	direction_to_upcoming_jumparea = dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
 	distance_to_upcoming_jumparea = upcoming_jumparea.global_position.distance_to(global_position)
-	print("Distance to upcoming jumparea is " + String(distance_to_upcoming_jumparea))
+#	print("Distance to upcoming jumparea is " + String(distance_to_upcoming_jumparea))
 	pass
 	
 func increment_upcoming_jumparea():
@@ -1163,7 +1181,7 @@ func set_state_jump():
 	else:
 		animprefix = "jumpup"
 		
-	print("Jump animation should be " + animprefix + animsuffix)
+#	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
 	pass	
 	
@@ -1327,8 +1345,8 @@ func state_pullup(delta):
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
 		set_terrains(terrain.TYPE.GROUND)
-		print("Current terrain is " + terrain.string_from_terrain(current_terrain))
-		print("---- just pulled up onto ledge ----")
+#		print("Current terrain is " + terrain.string_from_terrain(current_terrain))
+#		print("---- just pulled up onto ledge ----")
 	pass
 	
 func set_state_fall():
@@ -1346,23 +1364,22 @@ func set_state_fall():
 	
 	switch_anim("fall")
 	
+	jumpspeed = fallspeed
+	
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
 #			print("About to start fall from wall")
 			fall_check_direction = dir.DOWN
-			jumpspeed = 1
 			pass
 		terrain.TYPE.LEDGE:
 #			print("About to start fall from ledge")
 			fall_check_direction = dir.opposite(current_ledge.updirection)
 #			print("Ledge fall direction: " + String(fall_check_direction))
-			jumpspeed = 1
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 #				retrieve_new_ledge()
 				fall_check_direction = dir.opposite(current_ledge.updirection)
-				jumpspeed = 1
 #				print("Attempting to fall to lower ground from a ledge")
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
@@ -1375,12 +1392,8 @@ func set_state_fall():
 			
 	pass
 	
-
 	
 func state_fall(delta):
-
-
-
 #	print("Falling")
 	if jumpendpos == null:
 		if valid_fall_location != null:
@@ -1398,10 +1411,22 @@ func state_fall(delta):
 #				print("Falling from a longer distance")
 				jumpspeed = jumpspeed / jumpdistance
 				pass
-			
 #			print("Set jump end position")
 		else:
 			return
+			
+	check_for_fall_grab()
+	if fallgrab_area != null:
+		jumpendpos = null
+		valid_fall_location = null
+		set_state_climb()
+		set_terrains(terrain.TYPE.WALL)
+		global_position = fallgrab_area.global_position
+		fallgrab_area = null
+#		print("Connected to wall after fall----------------------------------------!!!")
+		return
+		
+#	print("After connection, shouldn't move past this")	
 		
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed
@@ -1421,6 +1446,14 @@ func state_fall(delta):
 	
 	pass
 	
+func check_for_fall_grab():
+	if Input.is_action_just_pressed("sack"):
+		check_fallgrab = true
+		
+		pass
+	
+	
+	pass
 	
 #----------------------------------------------------------------------------
 	

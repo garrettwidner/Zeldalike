@@ -5,7 +5,7 @@ const DAMAGE : int = 1
 
 #how many of each item can be active in scene at once (ex 3 bombs)
 var maxamount : int = 2
-var speed = 130
+export var speed = 130
 var is_setup = false
 var move_direction
 var deletion_time_flying = 1.45
