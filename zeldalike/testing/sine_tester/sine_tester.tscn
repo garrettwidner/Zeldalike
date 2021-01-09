@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://testing/sine_tester/sineboy.gd" type="Script" id=1]
+[ext_resource path="res://player/Lodan_Recalibrator_Color_Test.png" type="Texture" id=2]
+[ext_resource path="res://levels/level_objects/salt_cradle/Salt_Cradle.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 2.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 2 )
+
+[node name="level" type="Node2D"]
+
+[node name="sineboy" type="KinematicBody2D" parent="."]
+position = Vector2( 50.285, 76.3581 )
+script = ExtResource( 1 )
+jumparea_path = NodePath("../destination")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sineboy"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="sineboy"]
+texture = ExtResource( 2 )
+vframes = 36
+hframes = 4
+frame = 9
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="destination" type="StaticBody2D" parent="."]
+position = Vector2( 165.395, 78.4689 )
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="destination"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="destination"]
+position = Vector2( 7.37857, 10.5408 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
