@@ -102,6 +102,10 @@ var distance_to_upcoming_jumparea
 
 var min_ledge_width_for_side_climb = 11
 
+var is_grace_timing = false
+var short_jump_grace_time = 2
+var grace_timer = 0
+
 var current_ledge
 var current_ledge_l_bound
 var current_ledge_r_bound
@@ -331,6 +335,7 @@ func _process(delta):
 	
 #	print("Last terrain is " + terrain.string_from_terrain(current_terrain))
 	
+#	print(Performance.get_monitor(Performance.TIME_FPS))
 	
 	if !is_setup:
 		return
@@ -342,6 +347,71 @@ func _process(delta):
 		
 #	if current_jumparea!= null:
 #		print("Current jumparea: " + current_jumparea.name)
+
+	if is_grace_timing:
+		grace_timer = grace_timer - delta
+		print("grace timer now " + String(grace_timer))
+		if grace_timer <= 0:
+			grace_timer = 0
+			is_grace_timing = false
+			print(" - grace time has ended - ")
+	
+#	match state:
+#		"default":
+#			state_default(delta)
+#		"veiled":
+#			state_veiled(delta)
+#		"swing":
+#			state_swing(delta)
+#		"listen":
+#			state_listen(delta)
+#		"block":
+#			state_block(delta)
+#		"crouch":
+#			state_crouch(delta)
+#		"jump":
+#			state_jump(delta)
+#		"climb":
+#			state_climb(delta)	
+#		"ledge":
+#			state_ledge(delta)
+#		"fall":
+#			state_fall(delta)
+#		"pullup":
+#			state_pullup(delta)
+##		"uptransition":
+##			state_uptransition(delta)
+##		"downtransition":
+##			state_downtransition(delta)
+##		"landing":
+##			state_landing(delta)
+#		"holding":
+#			state_holding(delta)
+#		"sackusing":
+#			state_sackusing(delta)
+#		"bowusing":
+#			state_bowusing(delta)
+#		"speech_animating":
+#			state_speech_animating(delta)
+#		"stopped":
+#			state_stopped(delta)
+#		"item_get":
+#			state_item_get(delta)
+		
+func reset_and_start_grace_timer(grace_time = short_jump_grace_time):
+	is_grace_timing = true
+	grace_timer = grace_time
+	print("Starting grace timer with time: " + String(grace_time) + " seconds")
+	
+	
+func _physics_process(delta):
+	if check_fall:
+		get_valid_fall_end_location()
+	check_fall = false
+		
+	if check_fallgrab:
+		get_valid_fallgrab_area()
+	check_fallgrab = false
 	
 	match state:
 		"default":
@@ -384,15 +454,6 @@ func _process(delta):
 			state_stopped(delta)
 		"item_get":
 			state_item_get(delta)
-			
-func _physics_process(delta):
-	if check_fall:
-		get_valid_fall_end_location()
-	check_fall = false
-		
-	if check_fallgrab:
-		get_valid_fallgrab_area()
-	check_fallgrab = false
 	
 	
 func get_valid_fall_end_location():
@@ -1015,7 +1076,7 @@ func set_state_crouch():
 #		print("Terrain type is wall")
 		pass
 	elif current_terrain == terrain.TYPE.LEDGE:
-#		print("Terrain type is ledge")
+#		#Should not be able to crouch on ledge
 		pass
 		
 func set_first_upcoming_jumparea():
@@ -1142,16 +1203,15 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = upcoming_jumparea.global_position
 	
 func set_state_jump():
-#	print("----- starting jump -----")
+	
 	state = "jump"
 	jumpstartpos = global_position
 	jumpendpos = upcoming_jumparea.global_position
 	jumpweight = 0
 	jumpspeed = 2.2
-	
-	#TEST
 	jumpspeed = jumpspeed / distance_to_upcoming_jumparea
-	#END TEST
+	
+	reset_and_start_grace_timer()
 	
 	var animprefix = ""
 	var animsuffix = ""
@@ -1184,12 +1244,11 @@ func set_state_jump():
 #	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
 	pass	
-	
-func calculate_jump_speed():
-	
-	pass
 
 func state_jump(delta):
+	
+	
+	
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
@@ -1207,12 +1266,15 @@ func end_jump_and_set_terrains():
 	
 	
 	if current_terrain == terrain.TYPE.WALL:
-		set_state_climb()
+		if Input.is_action_pressed("sack") || is_grace_timing:
+			set_state_climb()
+		else:
+			set_state_fall()
 	elif current_terrain == terrain.TYPE.GROUND:
 		set_state_default()
 	elif current_terrain == terrain.TYPE.LEDGE:
 #		retrieve_new_ledge()
-		if Input.is_action_pressed("sack"):
+		if Input.is_action_pressed("sack") || is_grace_timing:
 			set_state_ledge()
 		else:
 			set_state_fall()
@@ -1265,7 +1327,7 @@ func state_ledge(delta):
 		movedir = dir.CENTER
 		
 		
-	if Input.is_action_just_released("sack"):
+	if !Input.is_action_pressed("sack"):
 		set_state_fall()
 		pass
 	elif Input.is_action_just_pressed("action"):
@@ -1309,7 +1371,7 @@ func state_climb(delta):
 		if isinjumparea:
 			set_state_crouch()
 	
-	if Input.is_action_just_released("sack"):
+	if !Input.is_action_pressed("sack"):
 		set_state_fall()
 	
 	pass
