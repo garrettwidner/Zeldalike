@@ -224,8 +224,6 @@ func run_setup(start_position, start_direction):
 	speed = 42
 	TYPE = "PLAYER"
 	
-	
-	
 	global_position = start_position
 	set_facedir_manual(start_direction)
 	
@@ -353,48 +351,7 @@ func _process(delta):
 		if grace_timer <= 0:
 			grace_timer = 0
 			is_grace_timing = false
-	
-#	match state:
-#		"default":
-#			state_default(delta)
-#		"veiled":
-#			state_veiled(delta)
-#		"swing":
-#			state_swing(delta)
-#		"listen":
-#			state_listen(delta)
-#		"block":
-#			state_block(delta)
-#		"crouch":
-#			state_crouch(delta)
-#		"jump":
-#			state_jump(delta)
-#		"climb":
-#			state_climb(delta)	
-#		"ledge":
-#			state_ledge(delta)
-#		"fall":
-#			state_fall(delta)
-#		"pullup":
-#			state_pullup(delta)
-##		"uptransition":
-##			state_uptransition(delta)
-##		"downtransition":
-##			state_downtransition(delta)
-##		"landing":
-##			state_landing(delta)
-#		"holding":
-#			state_holding(delta)
-#		"sackusing":
-#			state_sackusing(delta)
-#		"bowusing":
-#			state_bowusing(delta)
-#		"speech_animating":
-#			state_speech_animating(delta)
-#		"stopped":
-#			state_stopped(delta)
-#		"item_get":
-#			state_item_get(delta)
+			
 		
 func reset_and_start_grace_timer(grace_time = short_jump_grace_time):
 	is_grace_timing = true
@@ -433,6 +390,8 @@ func _physics_process(delta):
 			state_fall(delta)
 		"pullup":
 			state_pullup(delta)
+		"landing":
+			state_landing(delta)
 #		"uptransition":
 #			state_uptransition(delta)
 #		"downtransition":
@@ -1268,7 +1227,7 @@ func end_jump_and_set_terrains():
 		else:
 			set_state_fall()
 	elif current_terrain == terrain.TYPE.GROUND:
-		set_state_default()
+		set_state_landing()
 	elif current_terrain == terrain.TYPE.LEDGE:
 #		retrieve_new_ledge()
 		if Input.is_action_pressed("sack") || is_grace_timing:
@@ -1338,9 +1297,6 @@ func state_ledge(delta):
 		
 	set_directionality(movedir)
 	movement_loop()
-	
-	#At state switch: <---------------------------!!!!Look HERE!!!!!!!!!!!!!<------------------
-#	$CollisionShape2D.disabled = false
 	pass
 	
 func set_state_climb():
@@ -1348,10 +1304,6 @@ func set_state_climb():
 	speed = climbspeed
 	switch_anim("climb")
 	set_level_collision_to_mountain()
-	
-#func state_climb(delta):
-#
-#	pass
 	
 func state_climb(delta):
 	assign_movedir_from_input()
@@ -1480,6 +1432,7 @@ func state_fall(delta):
 		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
 		check_fallgrab = true
 
+	#again, this has been previously set in physics_process
 	if fallgrab_area != null:
 		jumpendpos = null
 		valid_fall_location = null
@@ -1495,7 +1448,8 @@ func state_fall(delta):
 	if jumpweight >= 1:
 		jumpendpos = null
 		valid_fall_location = null
-		set_state_default()
+#		set_state_default()
+		set_state_landing()
 		set_terrains(terrain.TYPE.GROUND)
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
@@ -1505,6 +1459,22 @@ func state_fall(delta):
 		#       this seems to make it so that if the one at the top of the cliff is sensed, it is sensed
 		#       first and overridden by the second.
 	pass
+	
+func set_state_landing():
+	state = "landing"
+	landingtimer = landingtime
+	switch_anim("land")
+	
+	pass
+	
+func state_landing(delta):
+	
+	landingtimer = landingtimer - delta
+	if landingtimer <= 0:
+		landingtimer = 0
+		set_state_default()
+	pass
+	
 	
 #----------------------------------------------------------------------------
 	

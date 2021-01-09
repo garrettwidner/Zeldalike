@@ -804,7 +804,7 @@ __meta__ = {
 "jumparea",
 "fallarea",
 ]]
-position = Vector2( 1442.98, 1000.24 )
+position = Vector2( 1444.58, 1000.24 )
 collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparealeft1")
@@ -1075,7 +1075,7 @@ __meta__ = {
 "jumparea",
 "fallarea",
 ]]
-position = Vector2( 1501.27, 1000.22 )
+position = Vector2( 1499.3, 1000.13 )
 collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparearight1")
