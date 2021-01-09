@@ -103,7 +103,7 @@ var distance_to_upcoming_jumparea
 var min_ledge_width_for_side_climb = 11
 
 var is_grace_timing = false
-var short_jump_grace_time = 2
+var short_jump_grace_time = .32
 var grace_timer = 0
 
 var current_ledge
@@ -350,11 +350,9 @@ func _process(delta):
 
 	if is_grace_timing:
 		grace_timer = grace_timer - delta
-		print("grace timer now " + String(grace_timer))
 		if grace_timer <= 0:
 			grace_timer = 0
 			is_grace_timing = false
-			print(" - grace time has ended - ")
 	
 #	match state:
 #		"default":
@@ -401,7 +399,6 @@ func _process(delta):
 func reset_and_start_grace_timer(grace_time = short_jump_grace_time):
 	is_grace_timing = true
 	grace_timer = grace_time
-	print("Starting grace timer with time: " + String(grace_time) + " seconds")
 	
 	
 func _physics_process(delta):
@@ -1328,7 +1325,8 @@ func state_ledge(delta):
 		
 		
 	if !Input.is_action_pressed("sack"):
-		set_state_fall()
+		if !is_grace_timing:
+			set_state_fall()
 		pass
 	elif Input.is_action_just_pressed("action"):
 		if current_ledge.canclimbup:
@@ -1372,7 +1370,8 @@ func state_climb(delta):
 			set_state_crouch()
 	
 	if !Input.is_action_pressed("sack"):
-		set_state_fall()
+		if !is_grace_timing:
+			set_state_fall()
 	
 	pass
 	
