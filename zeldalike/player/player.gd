@@ -86,6 +86,13 @@ var jumpendpos
 var jumpweight
 var jumpspeed
 
+var tiny_jumpheight = 1.2
+var short_jumpheight = 5
+var long_jumpheight = 10
+var min_distance_for_short_jump = 15
+var min_distance_for_long_jump = 45
+var current_jumpheight
+
 var linked_jumpareas
 var next_jumparea_index = 0
 
@@ -1166,6 +1173,7 @@ func set_state_jump():
 	jumpweight = 0
 	jumpspeed = 2.2
 	jumpspeed = jumpspeed / distance_to_upcoming_jumparea
+	set_current_jumpheight()
 	
 	reset_and_start_grace_timer()
 	
@@ -1201,11 +1209,29 @@ func set_state_jump():
 	switch_anim_directional(animprefix, animsuffix)
 	pass	
 
+func set_current_jumpheight():
+#	print("Dist to upcoming area: " + String(distance_to_upcoming_jumparea))
+	if distance_to_upcoming_jumparea >= min_distance_for_long_jump:
+		current_jumpheight = long_jumpheight
+#		print("Making a longer jump")
+	elif distance_to_upcoming_jumparea >= min_distance_for_short_jump:
+		current_jumpheight = short_jumpheight
+#		print("Making a short jump")
+	else:
+		current_jumpheight = tiny_jumpheight
+#		print("Making a tiny jump")
+
 func state_jump(delta):
 	
 	
 	
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
+	
+	#Y jump arc modification
+	var pi_weight = jumpweight * 3.14
+	var sine_y = current_jumpheight * sin(pi_weight)
+	global_position = Vector2(global_position.x, global_position.y - sine_y)
+	
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
 		end_jump_and_set_terrains()

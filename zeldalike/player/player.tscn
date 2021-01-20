@@ -1655,7 +1655,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=100]
-extents = Vector2( 2.5, 5 )
+extents = Vector2( 2.6, 6 )
 
 [node name="player" type="KinematicBody2D"]
 z_index = 3
