@@ -86,6 +86,8 @@ var jumpendpos
 var jumpweight
 var jumpspeed
 
+var tiny_jump_speed_modifier = 0.6
+
 var tiny_jumpheight = 1.2
 var short_jumpheight = 5
 var long_jumpheight = 10
@@ -1173,6 +1175,11 @@ func set_state_jump():
 	jumpweight = 0
 	jumpspeed = 2.2
 	jumpspeed = jumpspeed / distance_to_upcoming_jumparea
+	
+	#Tiny hop slowing
+	if distance_to_upcoming_jumparea < min_distance_for_short_jump:
+		jumpspeed = jumpspeed * tiny_jump_speed_modifier
+	
 	set_current_jumpheight()
 	
 	reset_and_start_grace_timer()
