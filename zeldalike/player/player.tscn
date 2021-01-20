@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -731,6 +731,74 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=104]
+resource_name = "fallbehinddown"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 150, 151 ]
+}
+
+[sub_resource type="Animation" id=101]
+resource_name = "fallbehindleft"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 141, 142 ]
+}
+
+[sub_resource type="Animation" id=102]
+resource_name = "fallbehindright"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 125, 126 ]
+}
+
+[sub_resource type="Animation" id=103]
+resource_name = "fallbehindup"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 148, 149 ]
 }
 
 [sub_resource type="Animation" id=43]
@@ -1676,7 +1744,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 40
 hframes = 4
-frame = 148
+frame = 151
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false
@@ -1731,6 +1799,10 @@ anims/crouchup = SubResource( 39 )
 anims/eatdoubledown = SubResource( 40 )
 anims/eatdown = SubResource( 41 )
 anims/eatslowdown = SubResource( 42 )
+anims/fallbehinddown = SubResource( 104 )
+anims/fallbehindleft = SubResource( 101 )
+anims/fallbehindright = SubResource( 102 )
+anims/fallbehindup = SubResource( 103 )
 anims/falldown = SubResource( 43 )
 anims/fallleft = SubResource( 44 )
 anims/fallright = SubResource( 45 )

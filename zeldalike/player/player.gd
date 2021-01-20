@@ -70,12 +70,6 @@ var hoparea
 
 var isjumping = false
 
-var ispullingup
-var isledgehopping
-var isledgefalling = false
-var isinclingcycle = false
-var isinjumpdowncycle = false
-
 #----------------------------------------------
 var isenddownslope = false
 var jumpdirection
@@ -94,6 +88,8 @@ var long_jumpheight = 10
 var min_distance_for_short_jump = 15
 var min_distance_for_long_jump = 45
 var current_jumpheight
+
+var falldirection = dir.DOWN
 
 var linked_jumpareas
 var next_jumparea_index = 0
@@ -571,8 +567,9 @@ func state_default(delta):
 
 		
 	elif Input.is_action_just_pressed("test_1"):
-		print("Switched to climbing")
-		set_state_climb()
+#		print("Switched to climbing")
+#		set_state_climb()
+		
 		
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
@@ -1408,7 +1405,7 @@ func set_state_fall():
 #	jumpendpos set in physics_process
 	jumpweight = 0
 	
-	switch_anim("fall")
+#	switch_anim("fall")
 	
 	jumpspeed = fallspeed
 	
@@ -1417,18 +1414,29 @@ func set_state_fall():
 		terrain.TYPE.WALL:
 #			print("About to start fall from wall")
 			fall_check_direction = dir.DOWN
+			movedir = dir.DOWN
+			facedir = dir.UP
+			switch_anim_directional("fallbehind", dir.string_from_direction(facedir))
 			pass
 		terrain.TYPE.LEDGE:
 #			print("About to start fall from ledge")
 			fall_check_direction = dir.opposite(current_ledge.updirection)
 #			print("Ledge fall direction: " + String(fall_check_direction))
+			switch_anim("fallbehind")
+
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 #				retrieve_new_ledge()
-				fall_check_direction = dir.opposite(current_ledge.updirection)
+				var ledge_jumpdown_direction = dir.opposite(current_ledge.updirection)
+				fall_check_direction = ledge_jumpdown_direction
 #				print("Attempting to fall to lower ground from a ledge")
+				movedir = ledge_jumpdown_direction
+				facedir = ledge_jumpdown_direction
+				switch_anim_directional("fallbehind", dir.string_from_direction(facedir))
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
+			switch_anim("fallbehind")
+			
 		_:
 			print("!! --Found no correct terrain state to fall from-- !!")
 			pass
@@ -1451,7 +1459,6 @@ func state_fall(delta):
 				jumpspeed = .1
 #				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
 #				print("Falling from a hop.")
-				#Set proper animation
 				pass
 			else:
 #				print("Falling from a longer distance")
@@ -1460,6 +1467,16 @@ func state_fall(delta):
 #			print("Set jump end position")
 		else:
 			return
+	
+	#TEST area for turning during a fall	
+	
+	var direction_input = dir.direction_just_pressed_from_input()
+	
+	if direction_input != dir.CENTER && direction_input != facedir:
+		facedir = dir.rotate_90_towards_direction(facedir, direction_input)
+		switch_anim_directional("fallbehind", dir.string_from_direction(facedir))
+			
+	#END TEST area for turning during a fall
 			
 	if Input.is_action_just_pressed("sack"):
 		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
@@ -1496,9 +1513,10 @@ func state_fall(delta):
 func set_state_landing():
 	state = "landing"
 	landingtimer = landingtime
-	switch_anim("land")
-	
-	pass
+	if current_terrain == terrain.TYPE.WALL:
+		switch_anim_directional("land", "down")
+	else:
+		switch_anim("land")
 	
 func state_landing(delta):
 	
@@ -1820,7 +1838,7 @@ func _on_Area2D_body_exited(body, obj):
 			if state != "jump" && current_jumparea == obj:
 #				print("Left jumparea: " + obj.name)
 				isinjumparea = false
-				current_jumparea = null
+#				current_jumparea = null
 		elif obj.is_in_group("heightchanger"):
 #			print("Player exited heightchanger object")
 			var height_change_is_decrement

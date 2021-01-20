@@ -1353,7 +1353,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 36.1568, -91.705 )
+position = Vector2( -149.826, -315.731 )
 
 [node name="downward_hoparea5" parent="." instance=ExtResource( 14 )]
 position = Vector2( 1415.9, 899.363 )

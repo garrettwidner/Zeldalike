@@ -6,6 +6,21 @@ const UP : Vector2 = Vector2(0,-1)
 const DOWN : Vector2 = Vector2(0,1)
 const CENTER : Vector2 = Vector2(0,0)
 
+func is_cardinal(vector: Vector2):
+	if vector == LEFT || vector == RIGHT || vector == UP || vector == DOWN:
+		return true
+	return false
+	
+func is_vertical(vector: Vector2):
+	if vector == UP || vector == DOWN:
+		return true
+	return false
+
+func is_horizontal(vector: Vector2):
+	if vector == RIGHT || vector == LEFT:
+		return true
+	return false
+
 func rand():
 	var d = randi() % 4 + 1
 	match d:
@@ -143,10 +158,40 @@ func closest_cardinal_or_ordinal(v: Vector2):
 			
 		return lateral_vector + vertical_vector
 		
+#rotates and returns the start vector 90 degrees towards the given direction.
+#if a 180 degree rotation is necessary, takes an optional bool to determine if it rotates left or right first
+func rotate_90_towards_direction(start: Vector2, towards: Vector2, prioritize_left: bool = true):
+	if start == towards:
+		return towards
+
+	if is_90_degrees_away(start, towards):
+		return towards
+		pass
+	else:
+		var rotation
+		if prioritize_left:
+			rotation = deg2rad(-90)
+		else:
+			rotation = deg2rad(90)
 		
+		var rotated_output = start.rotated(rotation)
 		
+		return clean_up_rotated_output(rotated_output)
+	pass
+	
+#Godot uses floats for Vector2s, which results in -0 =\= 0. This cleans it for the direction class by casting to ints.
+func clean_up_rotated_output(output):
+	return Vector2(int(output.x), int(output.y))
+	pass
 		
-		
+func is_90_degrees_away(start: Vector2, comparison: Vector2):
+	if is_cardinal(start) && is_cardinal(comparison):
+		if (is_vertical(start) && is_horizontal(comparison)) || (is_horizontal(start) && is_vertical(comparison)):
+			return true
+			pass
+		else:
+			return false
+	return false
 		
 		
 		
