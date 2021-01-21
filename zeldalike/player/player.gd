@@ -1468,30 +1468,30 @@ func state_fall(delta):
 		else:
 			return
 	
-	#TEST area for turning during a fall	
-	
+	#Turning during a fall	
 	var direction_input = dir.direction_just_pressed_from_input()
 	
 	if direction_input != dir.CENTER && direction_input != facedir:
 		facedir = dir.rotate_90_towards_direction(facedir, direction_input)
 		switch_anim_directional("fallbehind", dir.string_from_direction(facedir))
+	#End turning during a fall
 			
-	#END TEST area for turning during a fall
-			
-	if Input.is_action_just_pressed("sack"):
-		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
-		check_fallgrab = true
-
-	#again, this has been previously set in physics_process
-	if fallgrab_area != null:
-		jumpendpos = null
-		valid_fall_location = null
-		set_state_climb()
-		set_terrains(terrain.TYPE.WALL)
-		global_position = fallgrab_area.global_position
-		fallgrab_area = null
-		return
-		
+	#Reconnecting to wall
+	if facedir == dir.UP:		
+		if Input.is_action_just_pressed("sack"):
+			#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
+			check_fallgrab = true
+	
+		#again, this has been previously set in physics_process
+		if fallgrab_area != null:
+			jumpendpos = null
+			valid_fall_location = null
+			set_state_climb()
+			set_terrains(terrain.TYPE.WALL)
+			global_position = fallgrab_area.global_position
+			fallgrab_area = null
+			return
+	#End reconnecting to wall
 		
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	jumpweight += jumpspeed

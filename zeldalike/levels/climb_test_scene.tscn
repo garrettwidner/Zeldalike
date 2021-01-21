@@ -751,7 +751,7 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 16
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 3342416, 0, 65536, 3342417, 0, 2, 3342418, 0, 3, 3407950, 0, 65536, 3407951, 0, 2, 3407952, 0, 65537, 3407953, 0, 131073, 3407954, 0, 131076, 3473486, 0, 131072, 3473487, 0, 131073, 3473488, 0, 131073, 3473489, 0, 131073, 3473490, 0, 131076, 3539022, 0, 131072, 3539023, 0, 131073, 3539024, 0, 131073, 3539025, 0, 196611, 3539026, 0, 262147, 3604558, 0, 131072, 3604559, 0, 131073, 3604560, 0, 196611, 3604561, 0, 196612, 3670093, 0, 65536, 3670094, 0, 65537, 3670095, 0, 131073, 3670096, 0, 131076, 3735629, 0, 131072, 3735630, 0, 131073, 3735631, 0, 131073, 3735632, 0, 131076, 3735633, 0, 65536, 3735634, 0, 3, 3801165, 0, 262145, 3801166, 0, 262146, 3801167, 0, 262146, 3801168, 0, 262147, 3801169, 0, 131072, 3801170, 0, 131076, 3866704, 0, 1, 3866705, 0, 65537, 3866706, 0, 131076, 3932240, 0, 262145, 3932241, 0, 262146, 3932242, 0, 262147 )
+tile_data = PoolIntArray( 3342416, 0, 65536, 3342417, 0, 2, 3342418, 0, 3, 3407950, 0, 65536, 3407951, 0, 2, 3407952, 0, 65537, 3407953, 0, 131073, 3407954, 0, 131076, 3473486, 0, 131072, 3473487, 0, 131073, 3473488, 0, 131073, 3473489, 0, 131073, 3473490, 0, 131076, 3539022, 0, 131072, 3539023, 0, 131073, 3539024, 0, 131073, 3539025, 0, 131075, 3539026, 0, 131076, 3604558, 0, 131072, 3604559, 0, 131073, 3604560, 0, 131075, 3604561, 0, 131075, 3604562, 0, 131076, 3670093, 0, 65536, 3670094, 0, 65537, 3670095, 0, 131073, 3670096, 0, 196611, 3670097, 0, 262146, 3670098, 0, 262147, 3735629, 0, 131072, 3735630, 0, 131073, 3735631, 0, 131073, 3735632, 0, 131076, 3735633, 0, 65536, 3735634, 0, 3, 3801165, 0, 262145, 3801166, 0, 262146, 3801167, 0, 262146, 3801168, 0, 262147, 3801169, 0, 131072, 3801170, 0, 131076, 3866704, 0, 1, 3866705, 0, 65537, 3866706, 0, 131076, 3932240, 0, 262145, 3932241, 0, 262146, 3932242, 0, 262147 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -1173,7 +1173,7 @@ __meta__ = {
 [node name="wall_connect2" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1312.36, 928.013 )
+position = Vector2( 1311.57, 928.804 )
 z_index = 2
 collision_mask = 2
 script = ExtResource( 8 )
@@ -1231,6 +1231,50 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="hop_areas/wall_connect4"]
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="wall_connect5" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1304.76, 894.798 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 8 )
+linked_area1 = NodePath("../wall_connect6")
+terrain_string = "wall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect5"]
+shape = SubResource( 83 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect5"]
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="wall_connect6" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 1285.28, 848.328 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 8 )
+linked_area1 = NodePath("../wall_connect5")
+terrain_string = "wall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect6"]
+shape = SubResource( 83 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect6"]
 texture = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true
