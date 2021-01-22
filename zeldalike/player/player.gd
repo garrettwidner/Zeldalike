@@ -89,7 +89,6 @@ var min_distance_for_short_jump = 15
 var min_distance_for_long_jump = 45
 var current_jumpheight
 
-var falldirection = dir.DOWN
 
 var linked_jumpareas
 var next_jumparea_index = 0
@@ -139,8 +138,6 @@ var landjumpspeed = .05
 var ledgeclimbspeed = 10
 var current_hop_direction = null
 var is_current_hop_ground_to_ledge = null
-				
-
 
 var landingtime = .2
 var landingtimer = 0
@@ -212,8 +209,30 @@ var reticule_visibility_min_distance = 20
 var check_fall = false
 var fall_check_direction
 var valid_fall_location
+var falldistance
 var general_hop_distance = 12
 var fallspeed = 1.2
+
+var proper_landing_damage_reducer = .5
+var side_landing_damage_reducer = .85
+
+var max_falldamage_height = 150
+#var max_mid_fall_height = 150
+#var max_bouldering_height = 100
+var max_low_fall_height = 30
+
+
+export var fall_damage_curve : Curve
+var max_fall_damage = 50
+var min_fall_damage	= 1
+
+#var max_high_fall_damage = 50
+#var min_high_fall_damage = 30
+#var max_mid_fall_damage = 30
+#var min_mid_fall_damage = 8
+#var max_bouldering_damage = 4
+#var min_bouldering_damage = 1
+#var low_fall_damage = 0
 
 var check_fallgrab = false
 var fallgrab_area = null
@@ -569,7 +588,8 @@ func state_default(delta):
 	elif Input.is_action_just_pressed("test_1"):
 #		print("Switched to climbing")
 #		set_state_climb()
-		
+		increase_health(90)
+		print("TESTING: Health brought back to full")
 		
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
@@ -1453,7 +1473,7 @@ func state_fall(delta):
 		if valid_fall_location != null:
 			jumpendpos = valid_fall_location
 			
-			var jumpdistance = jumpendpos.distance_to(jumpstartpos)
+			falldistance = jumpendpos.distance_to(jumpstartpos)
 			
 			if jumpendpos.distance_to(jumpstartpos) < general_hop_distance:
 				jumpspeed = .1
@@ -1462,7 +1482,7 @@ func state_fall(delta):
 				pass
 			else:
 #				print("Falling from a longer distance")
-				jumpspeed = jumpspeed / jumpdistance
+				jumpspeed = jumpspeed / falldistance
 				pass
 #			print("Set jump end position")
 		else:
@@ -1517,9 +1537,70 @@ func set_state_landing():
 		switch_anim_directional("land", "down")
 	else:
 		switch_anim("land")
+	take_landing_damage()
+	
+func take_landing_damage():
+	print("Fall distance was " + String(falldistance))
+	var damage = 0
+	var t
+
+#	if falldistance < max_low_fall_height:
+#		damage = low_fall_damage
+#	elif falldistance < max_bouldering_height:
+#		t = get_landing_t(max_low_fall_height, max_bouldering_height, falldistance)
+#		damage = interpolate(min_bouldering_damage, max_bouldering_damage, t)
+#		pass
+#	elif falldistance < max_mid_fall_height:
+#		t = get_landing_t(max_bouldering_height, max_mid_fall_height, falldistance)
+#		damage = interpolate(min_mid_fall_damage, max_mid_fall_damage, t)
+#	elif falldistance < max_falldamage_height:
+#		t = get_landing_t(max_mid_fall_height, max_falldamage_height, falldistance)
+#		damage = interpolate(min_high_fall_damage, max_high_fall_damage, t)
+#	else:
+#		damage = max_high_fall_damage
+#		pass
+		
+	t = get_landing_t(max_low_fall_height, max_falldamage_height, falldistance)
+	
+	var curved_damage_t = fall_damage_curve.interpolate(t)
+	
+	damage = interpolate(min_fall_damage, max_fall_damage, curved_damage_t)
+	
+	
+	print("T was: " + String(t))
+	print("Curved T was: " + String(curved_damage_t))
+	
+	#Reduces damage if you fall correctly
+#	if fall_check_direction == facedir:
+#		damage = damage * proper_landing_damage_reducer
+#	elif dir.is_90_degrees_away(fall_check_direction, facedir):
+#		damage = damage * side_landing_damage_reducer
+	
+	print("Damage was: " + String(damage))
+	decrease_health(damage)
+	
+	pass
+
+func interpolate(start, end, t):
+	return (start + (end - start) * t)
+	
+func get_landing_t(minval, maxval, currentval):
+	var t = (currentval - float(minval)) / (maxval - minval)
+	
+	#	print("Min: " + String(minval))
+#	print("Max: " + String(maxval))
+#	print("Curr: " + String(currentval))
+#
+#	print("T for this value is: " + String(t))
+	
+	if t > 1:
+		return 1
+	elif t < 0:
+		return 0
+		
+	return t
 	
 func state_landing(delta):
-	
 	landingtimer = landingtimer - delta
 	if landingtimer <= 0:
 		landingtimer = 0
