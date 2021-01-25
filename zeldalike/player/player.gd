@@ -89,7 +89,6 @@ var min_distance_for_short_jump = 15
 var min_distance_for_long_jump = 45
 var current_jumpheight
 
-
 var linked_jumpareas
 var next_jumparea_index = 0
 
@@ -122,22 +121,9 @@ var can_side_climb_upcoming_ledge = false
 
 #----------------------------------------------
 
-var transitionweight
-var transitionspeed = .15
-var transitionstart
-var transitionend
-
-var hopdownspeed = 1
 var sidepullupspeed = .09
 var verticalpullupspeed = .20
-var uphopupspeed = .15
-var sidehopupspeed = .1
-var downhopupspeed = .09
-var hopdownleeway = 2.5
-var landjumpspeed = .05
 var ledgeclimbspeed = 10
-var current_hop_direction = null
-var is_current_hop_ground_to_ledge = null
 
 var landingtime = .2
 var landingtimer = 0
@@ -416,12 +402,6 @@ func _physics_process(delta):
 			state_pullup(delta)
 		"landing":
 			state_landing(delta)
-#		"uptransition":
-#			state_uptransition(delta)
-#		"downtransition":
-#			state_downtransition(delta)
-#		"landing":
-#			state_landing(delta)
 		"holding":
 			state_holding(delta)
 		"sackusing":
@@ -627,17 +607,17 @@ func state_default(delta):
 	
 	movement_loop()
 
-func set_hop_transition_speed():
-	if is_current_hop_ground_to_ledge:
-		if facedir == dir.RIGHT || facedir == dir.LEFT:
-			transitionspeed = sidehopupspeed
-		elif facedir == dir.UP:
-			transitionspeed = uphopupspeed
-		else:
-			transitionspeed = downhopupspeed
-	else:
-		transitionspeed = hopdownspeed / hoparea.height
-	pass
+#func set_hop_transition_speed():
+#	if is_current_hop_ground_to_ledge:
+#		if facedir == dir.RIGHT || facedir == dir.LEFT:
+#			transitionspeed = sidehopupspeed
+#		elif facedir == dir.UP:
+#			transitionspeed = uphopupspeed
+#		else:
+#			transitionspeed = downhopupspeed
+#	else:
+#		transitionspeed = hopdownspeed / hoparea.height
+#	pass
 	
 func set_terrains(new):
 	previous_terrain = current_terrain
@@ -1000,16 +980,6 @@ func state_block(delta):
 		set_state_default()
 		print("Error: this should be set up to trigger when a character is done blocking only")
 	
-#func state_landing(delta):
-#	damage_loop()
-#	if wasdamaged:
-#		set_state_default()
-#		return
-#	landingtimer += delta
-#	if landingtimer >= landingtime:
-#		set_state_default()
-		
-	
 func get_full_hoparea_path_from_relative_nodepath(nodePath):
 	return helper.nodepath_to_usable_string_path("/root/Level/hop_areas/", nodePath)
 	
@@ -1040,6 +1010,7 @@ func set_state_crouch():
 #	print("current_jumparea linked areas size: " + String(current_jumparea.linked_areas.size()))
 	
 	if linked_jumpareas.size() == 0:
+		print("Crouching, and linked jumpareas size is 0")
 		if current_jumparea.terrain_string == "ledge":
 #			print("Crouching at a ledge")
 			pass
@@ -1114,16 +1085,10 @@ func state_crouch(delta):
 			set_upcoming_terrain()
 			reposition_jump_reticule()
 			
-	if Input.is_action_just_pressed("sack"):
-		set_state_default()
-		hide_jump_reticule()
-		
-	if current_terrain == terrain.TYPE.WALL:
-		pass
-	elif current_terrain == terrain.TYPE.GROUND:
-		pass
-	elif current_terrain == terrain.TYPE.LEDGE:
-		pass
+	if current_terrain == terrain.TYPE.GROUND:
+		if Input.is_action_just_pressed("sack"):
+			set_state_default()
+			hide_jump_reticule()
 		
 	if current_jumparea.terrain_string == "ledge":
 		movedir = dir.opposite(current_ledge.updirection)
@@ -1154,9 +1119,6 @@ func state_crouch(delta):
 #			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
 	pass
-		
-#func get_direction_towards_jumparea():
-#	return dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
 	
 func set_upcoming_jumparea_distance_and_direction():
 	direction_to_upcoming_jumparea = dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
