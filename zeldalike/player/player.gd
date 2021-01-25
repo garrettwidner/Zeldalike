@@ -1540,7 +1540,7 @@ func set_state_landing():
 	take_landing_damage()
 	
 func take_landing_damage():
-	print("Fall distance was " + String(falldistance))
+#	print("Fall distance was " + String(falldistance))
 	var damage = 0
 	var t
 
@@ -1567,16 +1567,16 @@ func take_landing_damage():
 	damage = interpolate(min_fall_damage, max_fall_damage, curved_damage_t)
 	
 	
-	print("T was: " + String(t))
-	print("Curved T was: " + String(curved_damage_t))
+#	print("T was: " + String(t))
+#	print("Curved T was: " + String(curved_damage_t))
 	
 	#Reduces damage if you fall correctly
-#	if fall_check_direction == facedir:
-#		damage = damage * proper_landing_damage_reducer
-#	elif dir.is_90_degrees_away(fall_check_direction, facedir):
-#		damage = damage * side_landing_damage_reducer
+	if fall_check_direction == facedir:
+		damage = damage * proper_landing_damage_reducer
+	elif dir.is_90_degrees_away(fall_check_direction, facedir):
+		damage = damage * side_landing_damage_reducer
 	
-	print("Damage was: " + String(damage))
+#	print("Damage was: " + String(damage))
 	decrease_health(damage)
 	
 	pass
