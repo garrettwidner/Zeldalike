@@ -198,6 +198,7 @@ var valid_fall_location
 var falldistance
 var general_hop_distance = 12
 var fallspeed = 1.2
+var is_coming_from_fall = false
 
 var proper_landing_damage_reducer = .5
 var side_landing_damage_reducer = .85
@@ -1010,7 +1011,7 @@ func set_state_crouch():
 #	print("current_jumparea linked areas size: " + String(current_jumparea.linked_areas.size()))
 	
 	if linked_jumpareas.size() == 0:
-		print("Crouching, and linked jumpareas size is 0")
+#		print("Crouching, and linked jumpareas size is 0")
 		if current_jumparea.terrain_string == "ledge":
 #			print("Crouching at a ledge")
 			pass
@@ -1021,16 +1022,16 @@ func set_state_crouch():
 		if distance_to_upcoming_jumparea > reticule_visibility_min_distance:
 			show_jump_reticule()
 	
-	if current_terrain == terrain.TYPE.GROUND:
-		switch_anim("crouch")
-#		print("Terrain type is ground")
-	elif current_terrain == terrain.TYPE.WALL:
-		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
-#		print("Terrain type is wall")
-		pass
-	elif current_terrain == terrain.TYPE.LEDGE:
-#		#Should not be able to crouch on ledge
-		pass
+		if current_terrain == terrain.TYPE.GROUND:
+			switch_anim("crouch")
+	#		print("Terrain type is ground")
+		elif current_terrain == terrain.TYPE.WALL:
+			switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
+	#		print("Terrain type is wall")
+			pass
+		elif current_terrain == terrain.TYPE.LEDGE:
+	#		#Should not be able to crouch on ledge
+			pass
 		
 func set_first_upcoming_jumparea():
 	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
@@ -1377,6 +1378,8 @@ func state_pullup(delta):
 func set_state_fall():
 	state = "fall"
 	
+	is_coming_from_fall = true
+	
 	#This starts a process in _physics_process() of finding where the fall ends
 	check_fall = true
 	
@@ -1499,7 +1502,9 @@ func set_state_landing():
 		switch_anim_directional("land", "down")
 	else:
 		switch_anim("land")
-	take_landing_damage()
+	if is_coming_from_fall:
+		take_landing_damage()
+		is_coming_from_fall = false
 	
 func take_landing_damage():
 #	print("Fall distance was " + String(falldistance))

@@ -810,7 +810,7 @@ linked_area1 = NodePath("../jumparealeft1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left"]
 shape = SubResource( 73 )
@@ -919,7 +919,7 @@ linked_area1 = NodePath("../jumpareadown1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_down1"]
 shape = SubResource( 77 )
@@ -1000,7 +1000,7 @@ linked_area1 = NodePath("../jumpareaup1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up1"]
 shape = SubResource( 77 )
@@ -1074,14 +1074,14 @@ __meta__ = {
 "fallarea",
 "jumparea",
 ]]
-position = Vector2( 1499.3, 1000.13 )
+position = Vector2( 1499.3, 999.714 )
 collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../jumparearight1")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
-terrain_string = "land"
+terrain_string = "ground"
 connected_object = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right1"]
@@ -1133,7 +1133,7 @@ position = Vector2( 1307.07, 1016.45 )
 collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../wall_connect1")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jumpup"]
 shape = SubResource( 83 )
@@ -1155,7 +1155,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_up")
 linked_area2 = NodePath("../ground_jump_down")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_left"]
 shape = SubResource( 83 )
@@ -1177,7 +1177,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_left")
 linked_area2 = NodePath("../ground_jump_right")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_up"]
 shape = SubResource( 83 )
@@ -1199,7 +1199,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_up")
 linked_area2 = NodePath("../ground_jump_down")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_right"]
 shape = SubResource( 83 )
@@ -1221,7 +1221,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_left")
 linked_area2 = NodePath("../ground_jump_right")
-terrain_string = "land"
+terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_down"]
 shape = SubResource( 83 )

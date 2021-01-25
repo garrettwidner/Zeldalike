@@ -14,6 +14,8 @@ func get_from_string(string):
 			return TYPE.WALL
 		"ledge":
 			return TYPE.LEDGE
+		_:
+			print("WARNING: terrain.get_from_string() received string '" + string + "', which is not a valid type of terrain.")
 			
 func string_from_terrain(terrain):
 	match terrain:
