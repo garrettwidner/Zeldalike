@@ -286,6 +286,8 @@ func run_setup(start_position, start_direction):
 	food_sack.connect("on_eat", self, "eat_sacked_food")
 	food_sack.connect("on_give", self, "place_food_in_basket")
 	food_sack.connect("on_closed", self, "end_food_sack_use")
+	food_sack.visible = true
+	
 	
 	connect("on_eat_anim_finished", food_sack, "eat_animation_finished")
 	
@@ -303,10 +305,10 @@ func run_setup(start_position, start_direction):
 	pass
 	
 func add_test_items():
-	inventorymanager.add_item("bow")
-	inventorymanager.add_item("sword")
-#	nventorymanager.add_item("food_sack")
-	inventorymanager.add_item("veil")
+#	inventorymanager.add_item("bow")
+#	inventorymanager.add_item("sword")
+	inventorymanager.add_item("food_sack")
+#	inventorymanager.add_item("veil")
 	
 	
 func run_startup():
@@ -606,23 +608,14 @@ func state_default(delta):
 				
 	
 	movement_loop()
-
-#func set_hop_transition_speed():
-#	if is_current_hop_ground_to_ledge:
-#		if facedir == dir.RIGHT || facedir == dir.LEFT:
-#			transitionspeed = sidehopupspeed
-#		elif facedir == dir.UP:
-#			transitionspeed = uphopupspeed
-#		else:
-#			transitionspeed = downhopupspeed
-#	else:
-#		transitionspeed = hopdownspeed / hoparea.height
-#	pass
 	
 func set_terrains(new):
 	previous_terrain = current_terrain
 	current_terrain = new
-#	print("Terrain set to " + String(current_terrain) + ", previous terrain set to " + String(previous_terrain))
+	
+	
+	
+#	print("Terrain set to " + terrain.string_from_terrain(current_terrain) + ", previous terrain set to " + terrain.string_from_terrain(previous_terrain))
 	
 		
 func block_loop(delta):
@@ -704,9 +697,9 @@ func use_named_item(item_name):
 		elif item_name == "sword":
 			use_item(sword_resource)
 			pass
-#		elif item_name == "food_sack":
-#			set_state_sackusing()
-#			pass
+		elif item_name == "food_sack":
+			set_state_sackusing()
+			pass
 		else:
 			pass
 	pass
