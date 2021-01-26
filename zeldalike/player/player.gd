@@ -71,10 +71,6 @@ var hoparea
 var isjumping = false
 
 #----------------------------------------------
-var isenddownslope = false
-var jumpdirection
-var endterrain = terrain.TYPE.GROUND
-
 var jumpstartpos
 var jumpendpos
 var jumpweight
@@ -1012,9 +1008,10 @@ func set_state_crouch():
 	
 	if linked_jumpareas.size() == 0:
 #		print("Crouching, and linked jumpareas size is 0")
-		if current_jumparea.terrain_string == "ledge":
-#			print("Crouching at a ledge")
-			pass
+		clear_upcoming_jumparea()
+#		if current_jumparea.terrain_string == "ledge":
+##			print("Crouching at a ledge")
+#			pass
 	else:
 		set_first_upcoming_jumparea()
 		set_upcoming_ledge()
@@ -1072,50 +1069,61 @@ func instantiate_vanish_reticule(location):
 
 func state_crouch(delta):
 #	print("Crouching")
-	if is_using_jump_reticule:
-		if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
-			increment_upcoming_jumparea()
-			set_upcoming_jumparea_distance_and_direction()
-			set_upcoming_ledge()
-			set_upcoming_terrain()
-			reposition_jump_reticule()
-		elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
-			decrement_upcoming_jumparea()
-			set_upcoming_jumparea_distance_and_direction()
-			set_upcoming_ledge()
-			set_upcoming_terrain()
-			reposition_jump_reticule()
+	if upcoming_jumparea != null:
+		if is_using_jump_reticule:
+			if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
+				increment_upcoming_jumparea()
+				set_upcoming_jumparea_distance_and_direction()
+				set_upcoming_ledge()
+				set_upcoming_terrain()
+				reposition_jump_reticule()
+			elif Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down"):
+				decrement_upcoming_jumparea()
+				set_upcoming_jumparea_distance_and_direction()
+				set_upcoming_ledge()
+				set_upcoming_terrain()
+				reposition_jump_reticule()
 			
+		#Set Movedir
+		if current_jumparea.terrain_string == "ledge":
+			movedir = dir.opposite(current_ledge.updirection)
+		elif upcoming_jumparea.terrain_string == "ledge" && upcoming_ledge.updirection == dir.UP:
+			movedir = dir.UP
+		else:
+			movedir = direction_to_upcoming_jumparea
+		
+		set_directionality(movedir)
+		
+		
+				
+	
+	#Allow Crouch Cancellation	
 	if current_terrain == terrain.TYPE.GROUND:
 		if Input.is_action_just_pressed("sack"):
 			set_state_default()
 			hide_jump_reticule()
-		
-	if current_jumparea.terrain_string == "ledge":
-		movedir = dir.opposite(current_ledge.updirection)
-	elif upcoming_jumparea.terrain_string == "ledge" && upcoming_ledge.updirection == dir.UP:
-		movedir = dir.UP
-	else:
-		movedir = direction_to_upcoming_jumparea
-	
-	set_directionality(movedir)
-	
+			
+	#Set Animation
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
-		
 	elif current_terrain == terrain.TYPE.WALL:
-		switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
+		if upcoming_jumparea != null:
+			switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
+		else:
+			switch_anim_directional("climbhang", "up")
 		pass
 	elif current_terrain == terrain.TYPE.LEDGE:
 		pass
 		
 	movement_loop()
 	
+	#Start Jump
 	if Input.is_action_just_released("action"):
 		
 		if current_jumparea.terrain_string == "ledge":
 			set_state_fall()
 		else:
+#			if linked_jumpareas.size() != 0:
 			set_state_jump()
 #			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
@@ -1141,6 +1149,12 @@ func decrement_upcoming_jumparea():
 	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
 	pass
 	
+func clear_upcoming_jumparea():
+	upcoming_jumparea = null
+	direction_to_upcoming_jumparea = null
+	distance_to_upcoming_jumparea = null
+	upcoming_terrain = null
+	
 func set_upcoming_terrain():
 	upcoming_terrain = upcoming_jumparea.terrain_type
 	
@@ -1151,22 +1165,37 @@ func set_state_jump():
 	
 	state = "jump"
 	jumpstartpos = global_position
-	jumpendpos = upcoming_jumparea.global_position
 	jumpweight = 0
 	jumpspeed = 2.2
-	jumpspeed = jumpspeed / distance_to_upcoming_jumparea
 	
-	#Tiny hop slowing
-	if distance_to_upcoming_jumparea < min_distance_for_short_jump:
-		jumpspeed = jumpspeed * tiny_jump_speed_modifier
-	
-	set_current_jumpheight()
+	if upcoming_jumparea != null:
+		jumpendpos = upcoming_jumparea.global_position
+		jumpspeed = jumpspeed / distance_to_upcoming_jumparea
+		
+		#Tiny hop slowing
+		if distance_to_upcoming_jumparea < min_distance_for_short_jump:
+			jumpspeed = jumpspeed * tiny_jump_speed_modifier
+			
+		set_current_jumpheight()
+		set_jump_animation()
+		
+	else:
+		jumpendpos = global_position
+		current_jumpheight = short_jumpheight
+		switch_anim("jump")
+		jumpspeed = 0.05
+		
 	
 	reset_and_start_grace_timer()
 	
+	pass	
+	
+func set_jump_animation():
 	var animprefix = ""
 	var animsuffix = ""
 	var suffixpreset = false
+	var isenddownslope = false
+	var jumpdirection
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
 		if upcoming_ledge.updirection == dir.UP && can_side_climb_upcoming_ledge:
@@ -1182,7 +1211,6 @@ func set_state_jump():
 		isenddownslope = true
 
 	jumpdirection = direction_to_upcoming_jumparea
-	endterrain = upcoming_jumparea.terrain_type
 	
 	if !suffixpreset:
 		animsuffix = dir.string_from_direction(jumpdirection)
@@ -1194,7 +1222,9 @@ func set_state_jump():
 		
 #	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
-	pass	
+	
+	
+	
 
 func set_current_jumpheight():
 #	print("Dist to upcoming area: " + String(distance_to_upcoming_jumparea))
@@ -1221,19 +1251,19 @@ func state_jump(delta):
 	
 	jumpweight += jumpspeed
 	if jumpweight >= 1:
-		end_jump_and_set_terrains()
+		global_position = jumpendpos
+		
+		if upcoming_jumparea != null:
+#			print("There is an upcoming jumparea")
+			set_current_jumparea_and_info(upcoming_jumparea)
+			set_terrains(current_jumparea.terrain_type)
+			
+		set_post_jump_state()
+		
 	pass
 	
-func end_jump_and_set_terrains():
-#	print("End_jump_and_set_terrains() called")
-	global_position = jumpendpos
-	
-	set_current_jumparea_and_info(upcoming_jumparea)
-	set_terrains(current_jumparea.terrain_type)
-#	print("At end of jump, new terrain set to " + terrain.string_from_terrain(current_terrain))
-	
-	
-	
+			
+func set_post_jump_state():
 	if current_terrain == terrain.TYPE.WALL:
 		if Input.is_action_pressed("sack") || is_grace_timing:
 			set_state_climb()
@@ -1247,6 +1277,7 @@ func end_jump_and_set_terrains():
 			set_state_ledge()
 		else:
 			set_state_fall()
+	
 	
 func set_state_ledge():
 	state = "ledge"
