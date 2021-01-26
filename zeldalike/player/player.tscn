@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=2]
+[gd_scene load_steps=129 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -1410,6 +1410,74 @@ tracks/0/keys = {
 "values": [ 41 ]
 }
 
+[sub_resource type="Animation" id=107]
+resource_name = "landjumpdown"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 155 ]
+}
+
+[sub_resource type="Animation" id=108]
+resource_name = "landjumpleft"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 153 ]
+}
+
+[sub_resource type="Animation" id=109]
+resource_name = "landjumpright"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 152 ]
+}
+
+[sub_resource type="Animation" id=106]
+resource_name = "landjumpup"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 154 ]
+}
+
 [sub_resource type="Animation" id=82]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -1739,7 +1807,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 40
 hframes = 4
-frame = 151
+frame = 155
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false
@@ -1832,6 +1900,10 @@ anims/jumpupleft = SubResource( 78 )
 anims/jumpupright = SubResource( 79 )
 anims/jumpupup = SubResource( 80 )
 anims/landdown = SubResource( 81 )
+anims/landjumpdown = SubResource( 107 )
+anims/landjumpleft = SubResource( 108 )
+anims/landjumpright = SubResource( 109 )
+anims/landjumpup = SubResource( 106 )
 anims/landleft = SubResource( 82 )
 anims/landright = SubResource( 83 )
 anims/landup = SubResource( 84 )

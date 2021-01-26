@@ -1177,6 +1177,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_left")
 linked_area2 = NodePath("../ground_jump_right")
+linked_area3 = NodePath("../ground_jump_down")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_up"]
@@ -1243,6 +1244,7 @@ collision_mask = 2
 script = ExtResource( 8 )
 linked_area1 = NodePath("../ground_jump_left")
 linked_area2 = NodePath("../ground_jump_right")
+linked_area3 = NodePath("../ground_jump_up")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_down"]
@@ -1506,4 +1508,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -7.88399, -154.248 )
+position = Vector2( -89.7645, -65.2588 )

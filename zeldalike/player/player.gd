@@ -121,7 +121,8 @@ var sidepullupspeed = .09
 var verticalpullupspeed = .20
 var ledgeclimbspeed = 10
 
-var landingtime = .2
+var falllandingtime = .2
+var jumplandingtime = .1
 var landingtimer = 0
 
 var bow_is_fired = false
@@ -1177,25 +1178,36 @@ func set_state_jump():
 			jumpspeed = jumpspeed * tiny_jump_speed_modifier
 			
 		set_current_jumpheight()
-		set_jump_animation()
 		
+		if upcoming_jumparea.terrain_type == terrain.TYPE.GROUND:
+			print("Should be ground jump animating")
+			set_ground_jump_animation()
+		else:
+			set_wall_jump_animation()
 	else:
 		jumpendpos = global_position
 		current_jumpheight = short_jumpheight
-		switch_anim("jump")
+		if current_jumparea.terrain_type == terrain.TYPE.WALL:
+			switch_anim_directional("landjump", "up")
+		else:
+			switch_anim("jump")
 		jumpspeed = 0.05
-		
 	
 	reset_and_start_grace_timer()
-	
 	pass	
 	
-func set_jump_animation():
+func set_ground_jump_animation():
+	var animprefix = "landjump"
+	var animsuffix = dir.string_from_direction(direction_to_upcoming_jumparea)
+	switch_anim_directional(animprefix, animsuffix)
+	
+	pass
+	
+func set_wall_jump_animation():
 	var animprefix = ""
 	var animsuffix = ""
 	var suffixpreset = false
 	var isenddownslope = false
-	var jumpdirection
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
 		if upcoming_ledge.updirection == dir.UP && can_side_climb_upcoming_ledge:
@@ -1205,20 +1217,25 @@ func set_jump_animation():
 			pass
 		pass
 	
-	if current_jumparea.terrain_type == terrain.TYPE.GROUND && (upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE || upcoming_jumparea.terrain_type == terrain.TYPE.WALL):
-		isenddownslope = false
-	elif current_jumparea.terrain_type == terrain.TYPE.WALL && upcoming_jumparea.terrain_type == terrain.TYPE.GROUND:
-		isenddownslope = true
-
-	jumpdirection = direction_to_upcoming_jumparea
 	
-	if !suffixpreset:
-		animsuffix = dir.string_from_direction(jumpdirection)
-	
-	if isenddownslope:
-		animprefix = "jumpdown"
-	else:
+	if upcoming_jumparea.terrain_type == terrain.TYPE.WALL:
+		animprefix = "landjump"
+	elif current_jumparea.terrain_type == terrain.TYPE.GROUND && (upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE || upcoming_jumparea.terrain_type == terrain.TYPE.WALL):
+#		isenddownslope = false
 		animprefix = "jumpup"
+	else:
+		animprefix = "jumpdown"
+		
+#	else:
+#		print("Extra downslope case")
+
+	if !suffixpreset:
+		animsuffix = dir.string_from_direction(direction_to_upcoming_jumparea)
+	
+#	if isenddownslope:
+#		animprefix = "jumpdown"
+#	else:
+#		animprefix = "jumpup"
 		
 #	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
@@ -1239,8 +1256,6 @@ func set_current_jumpheight():
 #		print("Making a tiny jump")
 
 func state_jump(delta):
-	
-	
 	
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	
@@ -1528,11 +1543,13 @@ func state_fall(delta):
 	
 func set_state_landing():
 	state = "landing"
-	landingtimer = landingtime
 	if current_terrain == terrain.TYPE.WALL:
 		switch_anim_directional("land", "down")
+		landingtimer = falllandingtime
 	else:
 		switch_anim("land")
+		landingtimer = jumplandingtime
+		
 	if is_coming_from_fall:
 		take_landing_damage()
 		is_coming_from_fall = false
