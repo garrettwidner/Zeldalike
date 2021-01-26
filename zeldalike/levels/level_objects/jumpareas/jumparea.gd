@@ -10,7 +10,7 @@ var linked_areas
 export var terrain_string : String
 var terrain_type 
 
-export var connected_object : NodePath
+#export var connected_object : NodePath
 
 func _ready():
 	linked_areas = []

@@ -105,12 +105,14 @@ var is_grace_timing = false
 var short_jump_grace_time = .32
 var grace_timer = 0
 
-var current_ledge
+#var current_ledge
+var is_on_ledge
 var current_ledge_l_bound
 var current_ledge_r_bound
 var can_side_climb_current_ledge = false
 
-var upcoming_ledge
+#var upcoming_ledge
+var will_be_on_ledge
 var upcoming_ledge_l_bound
 var upcoming_ledge_r_bound
 var can_side_climb_upcoming_ledge = false
@@ -419,10 +421,10 @@ func get_valid_fall_end_location():
 	valid_fall_location = get_fall_end_location(space_state)
 	
 	
-	if current_ledge != null:
+	if is_on_ledge:
 		#Makes the character 'fall' so that it looks like he's jumping down a slope
 		if valid_fall_location != null:
-			if current_ledge.updirection == dir.LEFT || current_ledge.updirection == dir.RIGHT:
+			if current_jumparea.updirection == dir.LEFT || current_jumparea.updirection == dir.RIGHT:
 				var fall_jump_illusion_strength = 3
 				valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
 		else:
@@ -1038,17 +1040,18 @@ func set_first_upcoming_jumparea():
 	pass
 	
 func set_upcoming_ledge():
-	upcoming_ledge = null
+	will_be_on_ledge = false
 	can_side_climb_upcoming_ledge = false
 	if upcoming_jumparea.terrain_string == "ledge":
-		upcoming_ledge = get_ledge_from_jumparea(upcoming_jumparea)
-		var upcoming_ledge_bounds = upcoming_ledge.get_node("CollisionShape2D")
-		upcoming_ledge_l_bound = upcoming_ledge.global_position.x - upcoming_ledge_bounds.shape.extents.x
-		upcoming_ledge_r_bound = upcoming_ledge.global_position.x + upcoming_ledge_bounds.shape.extents.x
+		will_be_on_ledge = true
+		var upcoming_ledge_bounds = upcoming_jumparea.get_node("CollisionShape2D")
+		upcoming_ledge_l_bound = upcoming_jumparea.global_position.x - upcoming_ledge_bounds.shape.extents.x
+		upcoming_ledge_r_bound = upcoming_jumparea.global_position.x + upcoming_ledge_bounds.shape.extents.x
 		var upcoming_ledge_width = upcoming_ledge_bounds.shape.extents.x * 2
 #		print("Upcoming ledge width: " + String(upcoming_ledge_width))
 		if upcoming_ledge_width >= min_ledge_width_for_side_climb:
 			can_side_climb_upcoming_ledge = true
+	pass
 		
 func show_jump_reticule():
 	is_using_jump_reticule = true
@@ -1087,8 +1090,8 @@ func state_crouch(delta):
 			
 		#Set Movedir
 		if current_jumparea.terrain_string == "ledge":
-			movedir = dir.opposite(current_ledge.updirection)
-		elif upcoming_jumparea.terrain_string == "ledge" && upcoming_ledge.updirection == dir.UP:
+			movedir = dir.opposite(current_jumparea.updirection)
+		elif upcoming_jumparea.terrain_string == "ledge" && upcoming_jumparea.updirection == dir.UP:
 			movedir = dir.UP
 		else:
 			movedir = direction_to_upcoming_jumparea
@@ -1180,7 +1183,6 @@ func set_state_jump():
 		set_current_jumpheight()
 		
 		if upcoming_jumparea.terrain_type == terrain.TYPE.GROUND:
-			print("Should be ground jump animating")
 			set_ground_jump_animation()
 		else:
 			set_wall_jump_animation()
@@ -1210,7 +1212,7 @@ func set_wall_jump_animation():
 	var isenddownslope = false
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
-		if upcoming_ledge.updirection == dir.UP && can_side_climb_upcoming_ledge:
+		if upcoming_jumparea.updirection == dir.UP && can_side_climb_upcoming_ledge:
 			jumpendpos = Vector2(global_position.x, upcoming_jumparea.global_position.y)
 			suffixpreset = true
 			animsuffix = dir.string_from_direction(dir.UP)
@@ -1301,13 +1303,13 @@ func set_state_ledge():
 #	$CollisionShape2D.disabled = true
 	set_level_collision_to_off()
 	
-	var ledge_bounds = current_ledge.get_node("CollisionShape2D")
+	var ledge_bounds = current_jumparea.get_node("CollisionShape2D")
 
-	if current_ledge.updirection == dir.UP && can_side_climb_current_ledge:
+	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
 		speed = ledgeclimbspeed
 	else:
 		speed = 0
-		match current_ledge.updirection:
+		match current_jumparea.updirection:
 			dir.LEFT:
 				switch_anim_directional("cling", "left")
 			dir.RIGHT:
@@ -1323,10 +1325,9 @@ func get_new_ledge():
 	return get_node(full_ledge_path)
 	
 func state_ledge(delta):
-#	print("Ledging")
 	var upledge_not_side_climbable
 
-	if current_ledge.updirection == dir.UP && can_side_climb_current_ledge:
+	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
 		
 		movedir = dir.l_r_direction_from_input()
 		if movedir.x < 0 && global_position.x <= current_ledge_l_bound:
@@ -1347,7 +1348,7 @@ func state_ledge(delta):
 			set_state_fall()
 		pass
 	elif Input.is_action_just_pressed("action"):
-		if current_ledge.canclimbup:
+		if current_jumparea.canclimbup:
 			set_state_pullup()
 		else:
 #			print("Can't climb up ledge " + current_ledge.name)
@@ -1393,14 +1394,14 @@ func set_state_pullup():
 #	$CollisionShape2D.disabled = true
 	set_level_collision_to_off()
 	
-	if current_ledge.updirection == dir.RIGHT || current_ledge.updirection == dir.LEFT:
+	if current_jumparea.updirection == dir.RIGHT || current_jumparea.updirection == dir.LEFT:
 		jumpspeed = sidepullupspeed
 #		print("Pulling up to the side")
 	else: 
 		jumpspeed = verticalpullupspeed
 #		print("Pulling up vertically")
 	
-	jumpendpos = global_position + ($CollisionShape2D.shape.extents.x * current_ledge.updirection) 
+	jumpendpos = global_position + ($CollisionShape2D.shape.extents.x * current_jumparea.updirection) 
 	jumpstartpos = global_position
 	
 #	print("Pullup start at: " + String(jumpstartpos))
@@ -1451,14 +1452,14 @@ func set_state_fall():
 			pass
 		terrain.TYPE.LEDGE:
 #			print("About to start fall from ledge")
-			fall_check_direction = dir.opposite(current_ledge.updirection)
+			fall_check_direction = dir.opposite(current_jumparea.updirection)
 #			print("Ledge fall direction: " + String(fall_check_direction))
 			switch_anim("fallbehind")
 
 		terrain.TYPE.GROUND:
 			if current_jumparea.terrain_string == "ledge":
 #				retrieve_new_ledge()
-				var ledge_jumpdown_direction = dir.opposite(current_ledge.updirection)
+				var ledge_jumpdown_direction = dir.opposite(current_jumparea.updirection)
 				fall_check_direction = ledge_jumpdown_direction
 #				print("Attempting to fall to lower ground from a ledge")
 				movedir = ledge_jumpdown_direction
@@ -1881,28 +1882,30 @@ func set_current_jumparea_and_info(new_jumparea):
 			var linked_jump_area = get_node(full_jumparea_path)
 			if linked_jump_area.name != "hop_areas":
 				linked_jumpareas.append(linked_jump_area)
-				
+		
+		is_on_ledge = false
 		if current_jumparea.terrain_string == "ledge":
-			current_ledge = get_ledge_from_jumparea(current_jumparea)
-			if current_ledge != null:
-				can_side_climb_current_ledge = false
-				if current_ledge.updirection == dir.UP:
-					var ledge_bounds = current_ledge.get_node("CollisionShape2D")
-					current_ledge_l_bound = current_ledge.global_position.x - ledge_bounds.shape.extents.x
-					current_ledge_r_bound = current_ledge.global_position.x + ledge_bounds.shape.extents.x
-					var current_ledge_width = ledge_bounds.shape.extents.x * 2
+#			current_ledge = get_ledge_from_jumparea(current_jumparea)
+#			if current_ledge != null:
+			is_on_ledge = true
+			can_side_climb_current_ledge = false
+			if current_jumparea.updirection == dir.UP:
+				var ledge_bounds = current_jumparea.get_node("CollisionShape2D")
+				current_ledge_l_bound = current_jumparea.global_position.x - ledge_bounds.shape.extents.x
+				current_ledge_r_bound = current_jumparea.global_position.x + ledge_bounds.shape.extents.x
+				var current_ledge_width = ledge_bounds.shape.extents.x * 2
 #					print("Current ledge width: " + String(current_ledge_width))
-					if current_ledge_width >= min_ledge_width_for_side_climb:
-						can_side_climb_current_ledge = true
+				if current_ledge_width >= min_ledge_width_for_side_climb:
+					can_side_climb_current_ledge = true
 
 	pass
 	
-func get_ledge_from_jumparea(jumparea):
-	if jumparea.terrain_string == "ledge":
-		var relative_ledge_path = jumparea.connected_object
-		var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
-		return get_node(full_ledge_path)
-	return 
+#func get_ledge_from_jumparea(jumparea):
+#	if jumparea.terrain_string == "ledge":
+#		var relative_ledge_path = jumparea.connected_object
+#		var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
+#		return get_node(full_ledge_path)
+#	return 
 			
 func _on_Area2D_body_exited(body, obj):
 	if body.get_name() == "player":

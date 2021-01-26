@@ -1,5 +1,4 @@
-extends Area2D
-
+extends "res://levels/level_objects/jumpareas/jumparea.gd"
 
 export var canclimbup : bool
 export var updirection : Vector2
