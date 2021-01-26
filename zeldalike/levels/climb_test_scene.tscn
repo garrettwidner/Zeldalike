@@ -858,7 +858,7 @@ __meta__ = {
 [node name="ledgedown2" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1175.11, 1100.51 )
+position = Vector2( 1175.11, 1100.19 )
 collision_mask = 2
 script = ExtResource( 9 )
 terrain_string = "ledge"
@@ -917,7 +917,7 @@ __meta__ = {
 position = Vector2( 1176.18, 1084.58 )
 collision_mask = 2
 script = ExtResource( 7 )
-linked_area1 = NodePath("../ledgedown1")
+linked_area1 = NodePath("../ledgedown2")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
@@ -1027,7 +1027,7 @@ __meta__ = {
 position = Vector2( 1175.25, 1027.31 )
 collision_mask = 2
 script = ExtResource( 7 )
-linked_area1 = NodePath("../ledgeup1")
+linked_area1 = NodePath("../ledgeup3")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
@@ -1134,10 +1134,10 @@ __meta__ = {
 "fallarea",
 "jumparea",
 ]]
-position = Vector2( 1211.16, 1062.88 )
+position = Vector2( 1210.89, 1062.88 )
 collision_mask = 2
 script = ExtResource( 7 )
-linked_area1 = NodePath("../ledgeright1")
+linked_area1 = NodePath("../ledgeright2")
 linked_area2 = NodePath("")
 linked_area3 = NodePath("")
 linked_area4 = NodePath("")
@@ -1205,11 +1205,13 @@ __meta__ = {
 [node name="ground_jump_left2" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1182.26, 1057.37 )
+position = Vector2( 1182.26, 1056.93 )
 collision_mask = 2
 script = ExtResource( 7 )
-linked_area1 = NodePath("")
-linked_area2 = NodePath("")
+linked_area1 = NodePath("../ledgedown2")
+linked_area2 = NodePath("../ledgeleft2")
+linked_area3 = NodePath("../ledgeup3")
+linked_area4 = NodePath("../ledgeright2")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_left2"]
@@ -1472,6 +1474,35 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="jumparea_bottom_left2" type="Area2D" parent="hop_areas" groups=[
+"fallarea",
+"jumparea",
+]]
+position = Vector2( 1155.49, 1050.04 )
+collision_mask = 2
+script = ExtResource( 7 )
+linked_area1 = NodePath("../ledgeleft2")
+linked_area2 = NodePath("")
+linked_area3 = NodePath("")
+linked_area4 = NodePath("")
+terrain_string = "ground"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left2"]
+shape = SubResource( 73 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/jumparea_bottom_left2"]
+visible = false
+z_index = -1
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="fallarea1" type="Area2D" parent="hop_areas" groups=[
 "fallarea",
 ]]
@@ -1481,35 +1512,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/fallarea1"]
 shape = SubResource( 85 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="jumparea_bottom_left2" type="Area2D" parent="." groups=[
-"fallarea",
-"jumparea",
-]]
-position = Vector2( 1155.28, 1050.04 )
-collision_mask = 2
-script = ExtResource( 7 )
-linked_area1 = NodePath("../jumparealeft1")
-linked_area2 = NodePath("")
-linked_area3 = NodePath("")
-linked_area4 = NodePath("")
-terrain_string = "ground"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="jumparea_bottom_left2"]
-shape = SubResource( 73 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="jumparea_bottom_left2"]
-visible = false
-z_index = -1
-texture = ExtResource( 8 )
-vframes = 2
-hframes = 4
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1566,4 +1568,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -93.1132, -76.8307 )
+position = Vector2( -223.631, -44.4201 )
