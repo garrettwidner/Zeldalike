@@ -121,7 +121,7 @@ var can_side_climb_upcoming_ledge = false
 
 var sidepullupspeed = .09
 var verticalpullupspeed = .20
-var ledgeclimbspeed = 15
+var ledgeclimbspeed = 20
 
 var falllandingtime = .2
 var jumplandingtime = .1
