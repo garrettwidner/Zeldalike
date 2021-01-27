@@ -117,6 +117,8 @@ var upcoming_ledge_l_bound
 var upcoming_ledge_r_bound
 var can_side_climb_upcoming_ledge = false
 
+var checking_crouch_ledge_fall_validity = false
+
 #----------------------------------------------
 
 var sidepullupspeed = .09
@@ -431,7 +433,9 @@ func get_valid_fall_end_location():
 				valid_fall_location.y = valid_fall_location.y + fall_jump_illusion_strength
 		else:
 			pass
-			print("Error: no valid fall location")
+#			print("Error: no valid fall location")
+			
+			
 #		if valid_fall_location != null:
 ##			print("Found valid fall location.")
 #			pass
@@ -466,7 +470,7 @@ func get_fall_end_location(space_state):
 			pass
 		var max_fall_position_checks = 90
 		if i == max_fall_position_checks:
-			print("Did not find a fall end location after checking a distance of " + String(max_fall_position_checks * check_distance))
+#			print("Did not find a fall end location after checking a distance of " + String(max_fall_position_checks * check_distance))
 			return null
 		pass
 	
@@ -1025,6 +1029,13 @@ func set_state_crouch():
 		elif current_terrain == terrain.TYPE.LEDGE:
 	#		#Should not be able to crouch on ledge
 			pass
+			
+	#Testing ability to jump down a ledge. Will follow up on in state_crouch()
+	if current_terrain == terrain.TYPE.GROUND && current_jumparea.terrain_string == "ledge" && current_jumparea.updirection == dir.UP:
+		fall_check_direction = dir.DOWN
+		check_fall = true
+		checking_crouch_ledge_fall_validity = true
+		pass
 		
 func set_first_upcoming_jumparea():
 	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
@@ -1066,6 +1077,19 @@ func instantiate_vanish_reticule(location):
 
 func state_crouch(delta):
 #	print("Crouching")
+
+
+	#Check for ability to jump down a ledge. If impossible, play head shaking animation then exit state.
+	#This should be resuming after fall direction was checked in the last frame.
+	if checking_crouch_ledge_fall_validity:
+		checking_crouch_ledge_fall_validity = false
+		if valid_fall_location == null:
+			$anim.play("headshake")
+			checking_crouch_ledge_fall_validity = true
+			return
+		return
+	
+	
 	if upcoming_jumparea != null:
 		if is_using_jump_reticule:
 			if Input.is_action_just_pressed("left") || Input.is_action_just_pressed("up"):
@@ -1092,13 +1116,14 @@ func state_crouch(delta):
 		set_directionality(movedir)
 		
 		
-				
-	
 	#Allow Crouch Cancellation	
 	if current_terrain == terrain.TYPE.GROUND:
 		if Input.is_action_just_pressed("sack"):
 			set_state_default()
 			hide_jump_reticule()
+			
+	
+		
 			
 	#Set Animation
 	if current_terrain == terrain.TYPE.GROUND:
@@ -1296,6 +1321,9 @@ func set_state_ledge():
 #	$CollisionShape2D.disabled = true
 	set_level_collision_to_off()
 	
+	fall_check_direction = dir.opposite(current_jumparea.updirection)
+	
+	
 	var ledge_bounds = current_jumparea.get_node("CollisionShape2D")
 
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
@@ -1323,23 +1351,37 @@ func state_ledge(delta):
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
 		
 		movedir = dir.l_r_direction_from_input()
+		
+		if $anim.current_animation.begins_with("climbheadshake") || !Input.is_action_pressed("sack"):
+			movedir = Vector2(0,0)
+		
 		if movedir.x < 0 && global_position.x <= current_ledge_l_bound:
 			movedir.x = 0
 		if movedir.x > 0 && global_position.x >= current_ledge_r_bound:
 			movedir.x = 0
 			
 		if movedir != Vector2(0,0):
-			switch_anim("climb")
-		else:
+			if !$anim.current_animation.begins_with("climbheadshake"):
+				switch_anim("ledgeclimb")
+		elif !$anim.current_animation.begins_with("climbheadshake"):
 			$anim.stop()
 	else:
 		movedir = dir.CENTER
 		
 		
+	if Input.is_action_just_released("sack"):
+		if valid_fall_location == null:
+			switch_anim("climbheadshake")
+		
 	if !Input.is_action_pressed("sack"):
-		if !is_grace_timing:
-			set_state_fall()
-		pass
+		if valid_fall_location != null:
+			if !is_grace_timing:
+				set_state_fall()
+#				print("falling")
+
+#		if !is_grace_timing:
+#			set_state_fall()
+#		pass
 	elif Input.is_action_just_pressed("action"):
 		if current_jumparea.canclimbup:
 			set_state_pullup()
@@ -1350,22 +1392,34 @@ func state_ledge(delta):
 		
 	set_directionality(movedir)
 	movement_loop()
+	
+	check_fall = true
 	pass
 	
 func set_state_climb():
 	state = "climb"
+	fall_check_direction = dir.DOWN
 	speed = climbspeed
 	switch_anim("climb")
 	set_level_collision_to_mountain()
 	
 func state_climb(delta):
 	assign_movedir_from_input()
+	if $anim.current_animation.begins_with("climbheadshake") || !Input.is_action_pressed("sack"):
+		movedir = Vector2(0,0)
+		
 #	print("Movedir while climbing is: " + String(movedir))
 	set_directionality(movedir)
 
+#	if movedir != Vector2(0,0):
+#		switch_anim("climb")
+#	else:
+#		$anim.stop()
+		
 	if movedir != Vector2(0,0):
-		switch_anim("climb")
-	else:
+		if !$anim.current_animation.begins_with("climbheadshake"):
+			switch_anim("climb")
+	elif !$anim.current_animation.begins_with("climbheadshake"):
 		$anim.stop()
 
 	movement_loop()
@@ -1374,9 +1428,23 @@ func state_climb(delta):
 		if isinjumparea:
 			set_state_crouch()
 	
+#	if !Input.is_action_pressed("sack"):
+#		if !is_grace_timing:
+#			set_state_fall()
+			
+	if Input.is_action_just_released("sack"):
+		if valid_fall_location == null:
+			if facedir == dir.LEFT:
+				$anim.play("climbheadshakeleft")
+			else:
+				$anim.play("climbheadshakeright")
+		
 	if !Input.is_action_pressed("sack"):
-		if !is_grace_timing:
-			set_state_fall()
+		if valid_fall_location != null:
+			if !is_grace_timing:
+				set_state_fall()
+			
+	check_fall = true		
 	
 	pass
 	
@@ -2081,6 +2149,8 @@ func _on_anim_animation_finished(anim_name):
 			switch_anim_static("holdidle")
 	elif anim_name == "eatdoubledown" && state == "sackusing":
 		emit_signal("on_eat_anim_finished")	
+	elif anim_name == "headshake":
+		set_state_default()
 	elif "givefood" in anim_name:
 		switch_anim_static("holdidle")
 		

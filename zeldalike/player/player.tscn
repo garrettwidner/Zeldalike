@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=2]
+[gd_scene load_steps=134 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
@@ -276,6 +276,38 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 144 ]
+}
+
+[sub_resource type="Animation" id=112]
+resource_name = "climbheadshakeleft"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 164, 167, 166, 165 ]
+}
+
+[sub_resource type="Animation" id=114]
+resource_name = "climbheadshakeright"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 164, 165, 166, 167 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -999,6 +1031,22 @@ tracks/0/keys = {
 "values": [ 19 ]
 }
 
+[sub_resource type="Animation" id=113]
+resource_name = "headshake"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 39, 168, 169, 170, 171 ]
+}
+
 [sub_resource type="Animation" id=60]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -1520,6 +1568,40 @@ tracks/0/keys = {
 "values": [ 34 ]
 }
 
+[sub_resource type="Animation" id=110]
+resource_name = "ledgeclimbleft"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 160, 161, 162, 163 ]
+}
+
+[sub_resource type="Animation" id=111]
+resource_name = "ledgeclimbright"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 156, 157, 158, 159 ]
+}
+
 [sub_resource type="Animation" id=85]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -1805,9 +1887,9 @@ fall_damage_curve = SubResource( 1 )
 material = SubResource( 3 )
 scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
-vframes = 40
+vframes = 44
 hframes = 4
-frame = 155
+frame = 166
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false
@@ -1841,6 +1923,8 @@ anims/climbhangdown = SubResource( 18 )
 anims/climbhangleft = SubResource( 19 )
 anims/climbhangright = SubResource( 20 )
 anims/climbhangup = SubResource( 21 )
+anims/climbheadshakeleft = SubResource( 112 )
+anims/climbheadshakeright = SubResource( 114 )
 anims/climbleft = SubResource( 22 )
 anims/climbright = SubResource( 23 )
 anims/climbup = SubResource( 24 )
@@ -1879,6 +1963,7 @@ anims/hangdown = SubResource( 56 )
 anims/hangleft = SubResource( 57 )
 anims/hangright = SubResource( 58 )
 anims/hangup = SubResource( 59 )
+anims/headshake = SubResource( 113 )
 anims/holdidledown = SubResource( 60 )
 anims/holdidleleft = SubResource( 61 )
 anims/holdidleright = SubResource( 62 )
@@ -1908,6 +1993,8 @@ anims/landjumpup = SubResource( 106 )
 anims/landleft = SubResource( 82 )
 anims/landright = SubResource( 83 )
 anims/landup = SubResource( 84 )
+anims/ledgeclimbleft = SubResource( 110 )
+anims/ledgeclimbright = SubResource( 111 )
 anims/pullupdown = SubResource( 85 )
 anims/pullupleft = SubResource( 86 )
 anims/pullupright = SubResource( 87 )
