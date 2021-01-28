@@ -1078,6 +1078,11 @@ func instantiate_vanish_reticule(location):
 func state_crouch(delta):
 #	print("Crouching")
 
+	#Using downward ledge
+	if current_terrain == terrain.TYPE.GROUND && current_jumparea.terrain_string == "ledge" && current_jumparea.updirection == dir.UP:
+		if Input.is_action_just_pressed("down"):
+			print("Switching to ledge")
+			set_state_ledge()
 
 	#Check for ability to jump down a ledge. If impossible, play head shaking animation then exit state.
 	#This should be resuming after fall direction was checked in the last frame.
@@ -1108,6 +1113,7 @@ func state_crouch(delta):
 		#Set Movedir
 		if current_jumparea.terrain_string == "ledge":
 			movedir = dir.opposite(current_jumparea.updirection)
+		#Deals with edge case where a wide ledge causes player to look to the side before jumping up
 		elif upcoming_jumparea.terrain_string == "ledge" && upcoming_jumparea.updirection == dir.UP:
 			movedir = dir.UP
 		else:
@@ -1122,7 +1128,7 @@ func state_crouch(delta):
 			set_state_default()
 			hide_jump_reticule()
 			
-	
+	#Switch to Ledge
 		
 			
 	#Set Animation
@@ -1197,6 +1203,11 @@ func set_state_jump():
 		#Tiny hop slowing
 		if distance_to_upcoming_jumparea < min_distance_for_short_jump:
 			jumpspeed = jumpspeed * tiny_jump_speed_modifier
+		
+		#Jumping up to wide ledge
+		if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
+			if upcoming_jumparea.updirection == dir.UP && can_side_climb_upcoming_ledge:
+				jumpendpos = Vector2(global_position.x, upcoming_jumparea.global_position.y)	
 			
 		set_current_jumpheight()
 		
@@ -1227,40 +1238,24 @@ func set_wall_jump_animation():
 	var animprefix = ""
 	var animsuffix = ""
 	var suffixpreset = false
-	var isenddownslope = false
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE:
 		if upcoming_jumparea.updirection == dir.UP && can_side_climb_upcoming_ledge:
-			jumpendpos = Vector2(global_position.x, upcoming_jumparea.global_position.y)
 			suffixpreset = true
 			animsuffix = dir.string_from_direction(dir.UP)
-			pass
-		pass
-	
 	
 	if upcoming_jumparea.terrain_type == terrain.TYPE.WALL:
 		animprefix = "landjump"
 	elif current_jumparea.terrain_type == terrain.TYPE.GROUND && (upcoming_jumparea.terrain_type == terrain.TYPE.LEDGE || upcoming_jumparea.terrain_type == terrain.TYPE.WALL):
-#		isenddownslope = false
 		animprefix = "jumpup"
 	else:
 		animprefix = "jumpdown"
-		
-#	else:
-#		print("Extra downslope case")
 
 	if !suffixpreset:
 		animsuffix = dir.string_from_direction(direction_to_upcoming_jumparea)
 	
-#	if isenddownslope:
-#		animprefix = "jumpdown"
-#	else:
-#		animprefix = "jumpup"
-		
 #	print("Jump animation should be " + animprefix + animsuffix)
 	switch_anim_directional(animprefix, animsuffix)
-	
-	
 	
 
 func set_current_jumpheight():
@@ -1276,7 +1271,6 @@ func set_current_jumpheight():
 #		print("Making a tiny jump")
 
 func state_jump(delta):
-	
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
 	
 	#Y jump arc modification
@@ -1339,11 +1333,6 @@ func set_state_ledge():
 				switch_anim_directional("cling", "down")
 			dir.UP:
 				switch_anim_directional("cling", "up")
-	
-func get_new_ledge():
-	var relative_ledge_path = current_jumparea.connected_object
-	var full_ledge_path = get_full_hoparea_path_from_relative_nodepath(relative_ledge_path)
-	return get_node(full_ledge_path)
 	
 func state_ledge(delta):
 	var upledge_not_side_climbable
