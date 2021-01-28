@@ -68,7 +68,10 @@ var isinjumparea = false
 var isinhoparea = false
 var hoparea
 
-var isjumping = false
+var ledge_catch_leeway = .22
+var ledge_catch_timer = 0
+var can_ledge_catch = false
+var min_height_for_ledge_catch = 30
 
 #----------------------------------------------
 var jumpstartpos
@@ -224,6 +227,7 @@ var min_fall_damage	= 1
 
 var check_fallgrab = false
 var fallgrab_area = null
+var fallgrab_type = terrain.TYPE.NONE
 
 var vanish_reticule_resource = preload("res://testing/vanish_reticule.tscn")
 
@@ -424,7 +428,6 @@ func get_valid_fall_end_location():
 	var space_state = get_world_2d().get_direct_space_state()
 	valid_fall_location = get_fall_end_location(space_state)
 	
-	
 	if is_on_ledge:
 		#Makes the character 'fall' so that it looks like he's jumping down a slope
 		if valid_fall_location != null:
@@ -484,8 +487,6 @@ func get_valid_fallgrab_area():
 	# Old results array based on checking a point
 #	var results_array = space_state.intersect_point(checkposition, 32, [], 2147483647, false, true)
 	
-	#Start TEST area
-	
 	var shape_query : Physics2DShapeQueryParameters = Physics2DShapeQueryParameters.new()
 	var collision_object = $climbbox
 	var shape = $climbbox/CollisionShape2D.shape
@@ -506,10 +507,10 @@ func get_valid_fallgrab_area():
 #				print("Found area while falling: " + found_area.name)
 			if found_area.name != name:
 				if found_area.is_in_group("jumparea"):
-					if found_area.terrain_string == "wall":
+					if found_area.terrain_string == "wall" || found_area.terrain_string == "ledge":
 						fallgrab_area = found_area
-#							print("Found a grabbable area!")
 						did_we_find_it = true
+						fallgrab_type = terrain.get_from_string(found_area.terrain_string)
 #		if !did_we_find_it:
 #			print("Did not find a grabbable area.")
 	
@@ -590,9 +591,9 @@ func state_default(delta):
 	
 	elif Input.is_action_just_pressed("sack"):
 		var item_was_picked_up = try_item_pickup()
-		if !item_was_picked_up:
-			if inventorymanager.has("food_sack"):
-				set_state_sackusing()
+#		if !item_was_picked_up:
+#			if inventorymanager.has("food_sack"):
+##				set_state_sackusing()
 		
 		
 		
@@ -609,8 +610,7 @@ func state_default(delta):
 	#				print("Speech item should play")
 	#			else:
 	#				print("Speech resource not loaded correctly")
-				
-	
+
 	movement_loop()
 	
 func set_terrains(new):
@@ -1009,6 +1009,10 @@ func set_state_crouch():
 	if linked_jumpareas.size() == 0:
 #		print("Crouching, and linked jumpareas size is 0")
 		clear_upcoming_jumparea()
+		if current_jumparea.terrain_string == "ledge":
+			movedir = dir.opposite(current_jumparea.updirection)
+			set_directionality(movedir)
+			switch_anim("crouch")
 #		if current_jumparea.terrain_string == "ledge":
 ##			print("Crouching at a ledge")
 #			pass
@@ -1020,6 +1024,7 @@ func set_state_crouch():
 			show_jump_reticule()
 	
 		if current_terrain == terrain.TYPE.GROUND:
+			
 			switch_anim("crouch")
 	#		print("Terrain type is ground")
 		elif current_terrain == terrain.TYPE.WALL:
@@ -1077,13 +1082,7 @@ func instantiate_vanish_reticule(location):
 
 func state_crouch(delta):
 #	print("Crouching")
-
-	#Using downward ledge
-	if current_terrain == terrain.TYPE.GROUND && current_jumparea.terrain_string == "ledge" && current_jumparea.updirection == dir.UP:
-		if Input.is_action_just_pressed("down"):
-			print("Switching to ledge")
-			set_state_ledge()
-
+	
 	#Check for ability to jump down a ledge. If impossible, play head shaking animation then exit state.
 	#This should be resuming after fall direction was checked in the last frame.
 	if checking_crouch_ledge_fall_validity:
@@ -1134,6 +1133,7 @@ func state_crouch(delta):
 	#Set Animation
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
+		
 	elif current_terrain == terrain.TYPE.WALL:
 		if upcoming_jumparea != null:
 			switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
@@ -1315,6 +1315,9 @@ func set_state_ledge():
 #	$CollisionShape2D.disabled = true
 	set_level_collision_to_off()
 	
+#	if current_jumparea == null:
+#		print("Problem: jumparea is null.")
+#		return
 	fall_check_direction = dir.opposite(current_jumparea.updirection)
 	
 	
@@ -1333,8 +1336,10 @@ func set_state_ledge():
 				switch_anim_directional("cling", "down")
 			dir.UP:
 				switch_anim_directional("cling", "up")
+				
 	
 func state_ledge(delta):
+	
 	var upledge_not_side_climbable
 
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
@@ -1365,6 +1370,8 @@ func state_ledge(delta):
 	if !Input.is_action_pressed("sack"):
 		if valid_fall_location != null:
 			if !is_grace_timing:
+				movedir = dir.UP
+				set_directionality(movedir)
 				set_state_fall()
 #				print("falling")
 
@@ -1477,20 +1484,20 @@ func set_state_fall():
 	
 	is_coming_from_fall = true
 	
+	#Sets timer window within which player can regrab a ledge he just jumped off
+	if current_terrain == terrain.TYPE.GROUND && current_jumparea.terrain_string == "ledge":
+		ledge_catch_timer = ledge_catch_leeway
+		can_ledge_catch = true
+#		print("Setting can_catch_ledge to true")
+	
 	#This starts a process in _physics_process() of finding where the fall ends
 	check_fall = true
-	
-#	print("Setting state to fall")
 	
 	jumpstartpos = global_position
 	jumpendpos = null
 #	jumpendpos set in physics_process
 	jumpweight = 0
-	
-#	switch_anim("fall")
-	
 	jumpspeed = fallspeed
-	
 	
 	match current_terrain:
 		terrain.TYPE.WALL:
@@ -1537,6 +1544,11 @@ func state_fall(delta):
 			
 			falldistance = jumpendpos.distance_to(jumpstartpos)
 			
+			#Invalidates ledge catch ability if the jump is too short
+			if falldistance < min_height_for_ledge_catch:
+				can_ledge_catch = false
+				ledge_catch_timer = 0
+			
 			if jumpendpos.distance_to(jumpstartpos) < general_hop_distance:
 				jumpspeed = .1
 #				print("Fall distance: " + String(jumpendpos.distance_to(jumpstartpos)))
@@ -1550,6 +1562,19 @@ func state_fall(delta):
 		else:
 			return
 	
+	#Immediately catching a ledge after jump
+	if can_ledge_catch:
+		ledge_catch_timer = ledge_catch_timer - delta
+		if ledge_catch_timer <= 0 || Input.is_action_just_pressed("sack"):
+			ledge_catch_timer = 0
+			can_ledge_catch = false
+#			print("-no more ledge catching-")
+		if Input.is_action_just_pressed("sack"):
+			global_position = Vector2(global_position.x, current_jumparea.global_position.y)
+			set_state_ledge()
+			set_terrains(terrain.TYPE.LEDGE)
+			return
+	
 	#Turning during a fall	
 	var direction_input = dir.direction_just_pressed_from_input()
 	
@@ -1559,20 +1584,28 @@ func state_fall(delta):
 	#End turning during a fall
 			
 	#Reconnecting to wall
-	if facedir == dir.UP:		
+	if facedir == dir.UP:
+		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
+		check_fallgrab = true
+			
 		if Input.is_action_just_pressed("sack"):
-			#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
-			check_fallgrab = true
-	
 		#again, this has been previously set in physics_process
-		if fallgrab_area != null:
-			jumpendpos = null
-			valid_fall_location = null
-			set_state_climb()
-			set_terrains(terrain.TYPE.WALL)
-			global_position = fallgrab_area.global_position
-			fallgrab_area = null
-			return
+			if fallgrab_area != null:
+				jumpendpos = null
+				valid_fall_location = null
+				
+				if fallgrab_type == terrain.TYPE.WALL:
+					set_state_climb()
+					set_terrains(terrain.TYPE.WALL)
+					global_position = fallgrab_area.global_position
+					return
+				elif fallgrab_type == terrain.TYPE.LEDGE:
+					set_state_ledge()
+					set_terrains(terrain.TYPE.LEDGE)
+					global_position = Vector2(global_position.x, fallgrab_area.global_position.y)
+					return
+				fallgrab_area = null
+			
 	#End reconnecting to wall
 		
 	global_position = jumpstartpos.linear_interpolate(jumpendpos, jumpweight)
