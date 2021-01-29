@@ -1928,4 +1928,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 165.561, -218.928 )
+position = Vector2( 44.5854, -88.2636 )

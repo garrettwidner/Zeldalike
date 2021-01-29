@@ -73,6 +73,8 @@ var ledge_catch_timer = 0
 var can_ledge_catch = false
 var min_height_for_ledge_catch = 30
 
+var ledge_animation_stop_leeway = false
+
 #----------------------------------------------
 var jumpstartpos
 var jumpendpos
@@ -1325,6 +1327,8 @@ func set_state_ledge():
 
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
 		speed = ledgeclimbspeed
+		ledge_animation_stop_leeway = true
+		
 	else:
 		speed = 0
 		match current_jumparea.updirection:
@@ -1340,49 +1344,61 @@ func set_state_ledge():
 	
 func state_ledge(delta):
 	
-	var upledge_not_side_climbable
+	
+#	print("The current animation is " + $anim.current_animation)
+	
+	if ledge_animation_stop_leeway:
+		movedir = dir.RIGHT
+		set_directionality(movedir)
+		switch_anim("ledgeclimb")	
+		ledge_animation_stop_leeway = false
+#		print("The current animation is " + $anim.current_animation)
+		return
 
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
-		
+
 		movedir = dir.l_r_direction_from_input()
-		
+
 		if $anim.current_animation.begins_with("climbheadshake") || !Input.is_action_pressed("sack"):
 			movedir = Vector2(0,0)
-		
+
 		if movedir.x < 0 && global_position.x <= current_ledge_l_bound:
 			movedir.x = 0
 		if movedir.x > 0 && global_position.x >= current_ledge_r_bound:
 			movedir.x = 0
-			
-		if movedir != Vector2(0,0):
+
+
+		
+		elif movedir != Vector2(0,0):
 			if !$anim.current_animation.begins_with("climbheadshake"):
 				switch_anim("ledgeclimb")
 		elif !$anim.current_animation.begins_with("climbheadshake"):
 			$anim.stop()
+			pass
 	else:
 		movedir = dir.CENTER
+		switch_anim("ledgeclimb")
 		
 		
 	if Input.is_action_just_released("sack"):
 		if valid_fall_location == null:
 			switch_anim("climbheadshake")
-		
+
 	if !Input.is_action_pressed("sack"):
 		if valid_fall_location != null:
 			if !is_grace_timing:
 				movedir = dir.UP
 				set_directionality(movedir)
 				set_state_fall()
-#				print("falling")
 
-#		if !is_grace_timing:
-#			set_state_fall()
-#		pass
+
+
 	elif Input.is_action_just_pressed("action"):
 		if current_jumparea.canclimbup:
 			set_state_pullup()
 		else:
 #			print("Can't climb up ledge " + current_ledge.name)
+			switch_anim("climbheadshake")
 			movedir = dir.CENTER
 		pass
 		
@@ -1537,7 +1553,6 @@ func set_state_fall():
 	
 	
 func state_fall(delta):
-#	print("Falling")
 	if jumpendpos == null:
 		if valid_fall_location != null:
 			jumpendpos = valid_fall_location
