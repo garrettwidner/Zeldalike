@@ -1333,30 +1333,28 @@ func set_state_ledge():
 		speed = 0
 		match current_jumparea.updirection:
 			dir.LEFT:
-				switch_anim_directional("cling", "left")
+				switch_anim_directional("hang", "left")
 			dir.RIGHT:
-				switch_anim_directional("cling", "right")
+				switch_anim_directional("hang", "right")
 			dir.DOWN:
-				switch_anim_directional("cling", "down")
+				switch_anim_directional("hang", "down")
 			dir.UP:
-				switch_anim_directional("cling", "up")
+				switch_anim_directional("hang", "up")
 				
 	
 func state_ledge(delta):
 	
-	
 #	print("The current animation is " + $anim.current_animation)
 	
+	#handles issue where animation doesn't switch at state start due to animation stop call below
 	if ledge_animation_stop_leeway:
-		movedir = dir.RIGHT
-		set_directionality(movedir)
-		switch_anim("ledgeclimb")	
+		$anim.play("ledgeclimbright")
 		ledge_animation_stop_leeway = false
+#		print("setting animation through ledge stop leeway")
 #		print("The current animation is " + $anim.current_animation)
 		return
 
 	if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
-
 		movedir = dir.l_r_direction_from_input()
 
 		if $anim.current_animation.begins_with("climbheadshake") || !Input.is_action_pressed("sack"):
@@ -1376,8 +1374,10 @@ func state_ledge(delta):
 			$anim.stop()
 			pass
 	else:
-		movedir = dir.CENTER
-		switch_anim("ledgeclimb")
+		movedir = current_jumparea.updirection
+		set_directionality(current_jumparea.updirection)
+		switch_anim("hang")
+#		print("Movedir = " + dir.string_from_direction(movedir))
 		
 		
 	if Input.is_action_just_released("sack"):
@@ -1387,7 +1387,8 @@ func state_ledge(delta):
 	if !Input.is_action_pressed("sack"):
 		if valid_fall_location != null:
 			if !is_grace_timing:
-				movedir = dir.UP
+				if current_jumparea.updirection == dir.UP && can_side_climb_current_ledge:
+					movedir = dir.UP
 				set_directionality(movedir)
 				set_state_fall()
 
@@ -1463,6 +1464,7 @@ func state_climb(delta):
 func set_state_pullup():
 	state = "pullup"
 	switch_anim("pullup")
+	
 	
 #	$CollisionShape2D.disabled = true
 	set_level_collision_to_off()

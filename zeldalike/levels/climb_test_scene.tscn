@@ -829,7 +829,7 @@ tile_data = PoolIntArray( 2818112, 0, 1, 2818113, 0, 65536, 2818114, 0, 65537, 2
 [node name="actors" type="YSort" parent="YSort"]
 
 [node name="player" parent="YSort/actors" instance=ExtResource( 8 )]
-position = Vector2( 1486.46, 1007.27 )
+position = Vector2( 1389.84, 1021.59 )
 
 [node name="hop_areas" type="Node2D" parent="."]
 
@@ -1053,7 +1053,7 @@ __meta__ = {
 [node name="long_mountain_ledge" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1015.78, 867.894 )
+position = Vector2( 1015.78, 871.857 )
 collision_mask = 2
 script = ExtResource( 11 )
 terrain_string = "ledge"
@@ -1928,4 +1928,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 44.5854, -88.2636 )
+position = Vector2( -422.385, -239.958 )
