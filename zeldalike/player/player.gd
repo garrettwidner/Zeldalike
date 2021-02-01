@@ -225,6 +225,9 @@ var min_fall_damage	= 1
 #var min_bouldering_damage = 1
 #var low_fall_damage = 0
 
+var ground_z_layer = 0
+var overmountain_z_layer = 12
+
 var check_fallgrab = false
 var fallgrab_area = null
 var fallgrab_type = terrain.TYPE.NONE
@@ -349,7 +352,7 @@ func check_if_in_sunarea_at_start():
 
 func _process(delta):
 	
-#	print("Last terrain is " + terrain.string_from_terrain(current_terrain))
+#	print("Current terrain is " + terrain.string_from_terrain(current_terrain))
 	
 #	print(Performance.get_monitor(Performance.TIME_FPS))
 	
@@ -512,8 +515,10 @@ func get_valid_fallgrab_area():
 						fallgrab_area = found_area
 						did_we_find_it = true
 						fallgrab_type = terrain.get_from_string(found_area.terrain_string)
-#		if !did_we_find_it:
+	if !did_we_find_it:
 #			print("Did not find a grabbable area.")
+		fallgrab_area = null
+		fallgrab_type = terrain.TYPE.NONE
 	
 			
 func process_initial_sun_checks():
@@ -624,6 +629,13 @@ func set_terrains(new):
 	
 	
 #	print("Terrain set to " + terrain.string_from_terrain(current_terrain) + ", previous terrain set to " + terrain.string_from_terrain(previous_terrain))
+	
+func update_sprite_z_layer():
+	if current_terrain == terrain.TYPE.GROUND:
+		$Sprite.z_index = ground_z_layer
+	else:
+		$Sprite.z_index = overmountain_z_layer
+	pass
 	
 		
 func block_loop(delta):
@@ -1154,9 +1166,13 @@ func state_crouch(delta):
 		
 		if current_jumparea.terrain_string == "ledge":
 			set_state_fall()
+			set_terrains(terrain.TYPE.AIR)
+			update_sprite_z_layer()
 		else:
 #			if linked_jumpareas.size() != 0:
 			set_state_jump()
+			set_terrains(terrain.TYPE.AIR)
+			update_sprite_z_layer()
 #			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
 	pass
@@ -1290,6 +1306,7 @@ func state_jump(delta):
 #			print("There is an upcoming jumparea")
 			set_current_jumparea_and_info(upcoming_jumparea)
 			set_terrains(current_jumparea.terrain_type)
+			update_sprite_z_layer()
 			
 		set_post_jump_state()
 		
@@ -1302,6 +1319,8 @@ func set_post_jump_state():
 			set_state_climb()
 		else:
 			set_state_fall()
+			set_terrains(terrain.TYPE.AIR)
+			update_sprite_z_layer()
 	elif current_terrain == terrain.TYPE.GROUND:
 		set_state_landing()
 	elif current_terrain == terrain.TYPE.LEDGE:
@@ -1310,6 +1329,8 @@ func set_post_jump_state():
 			set_state_ledge()
 		else:
 			set_state_fall()
+			set_terrains(terrain.TYPE.AIR)
+			update_sprite_z_layer()
 	
 	
 func set_state_ledge():
@@ -1393,6 +1414,8 @@ func state_ledge(delta):
 					movedir = dir.UP
 				set_directionality(movedir)
 				set_state_fall()
+				set_terrains(terrain.TYPE.AIR)
+				update_sprite_z_layer()
 
 
 
@@ -1488,6 +1511,8 @@ func state_climb(delta):
 		if valid_fall_location != null:
 			if !is_grace_timing:
 				set_state_fall()
+				set_terrains(terrain.TYPE.AIR)
+				update_sprite_z_layer()
 			
 	check_fall = true		
 	
@@ -1512,6 +1537,7 @@ func switch_climb_type():
 				global_position = Vector2(global_position.x, current_jumparea.global_position.y)
 				set_state_ledge()
 				set_terrains(terrain.TYPE.LEDGE)
+				update_sprite_z_layer()
 			else: 
 				print("WARNING: Current jumparea is not shown as being a ledge. Cannot switch.")
 				return
@@ -1520,6 +1546,7 @@ func switch_climb_type():
 #			print("Switching from ledge to wall")
 			set_state_climb()
 			set_terrains(terrain.TYPE.WALL)
+			update_sprite_z_layer()
 			pass
 	
 	pass
@@ -1556,6 +1583,7 @@ func state_pullup(delta):
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
 		set_terrains(terrain.TYPE.GROUND)
+		update_sprite_z_layer()
 #		print("Current terrain is " + terrain.string_from_terrain(current_terrain))
 #		print("---- just pulled up onto ledge ----")
 	pass
@@ -1653,6 +1681,7 @@ func state_fall(delta):
 			global_position = Vector2(global_position.x, current_jumparea.global_position.y)
 			set_state_ledge()
 			set_terrains(terrain.TYPE.LEDGE)
+			update_sprite_z_layer()
 			return
 	
 	#Turning during a fall	
@@ -1667,7 +1696,13 @@ func state_fall(delta):
 	if facedir == dir.UP:
 		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
 		check_fallgrab = true
-			
+		
+		#Test area
+#		get_valid_fallgrab_area()
+		#End test area
+		
+		
+		
 		if Input.is_action_just_pressed("sack"):
 		#again, this has been previously set in physics_process
 			if fallgrab_area != null:
@@ -1677,11 +1712,13 @@ func state_fall(delta):
 				if fallgrab_type == terrain.TYPE.WALL:
 					set_state_climb()
 					set_terrains(terrain.TYPE.WALL)
+					update_sprite_z_layer()
 					global_position = fallgrab_area.global_position
 					return
 				elif fallgrab_type == terrain.TYPE.LEDGE:
 					set_state_ledge()
 					set_terrains(terrain.TYPE.LEDGE)
+					update_sprite_z_layer()
 					global_position = Vector2(global_position.x, fallgrab_area.global_position.y)
 					return
 				fallgrab_area = null
@@ -1696,6 +1733,7 @@ func state_fall(delta):
 #		set_state_default()
 		set_state_landing()
 		set_terrains(terrain.TYPE.GROUND)
+		update_sprite_z_layer()
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
 #		print("fall ended")

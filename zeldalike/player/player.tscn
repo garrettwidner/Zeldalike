@@ -1867,7 +1867,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=114]
-extents = Vector2( 2.6, 7 )
+extents = Vector2( 2.6, 6 )
 
 [node name="player" type="KinematicBody2D"]
 z_index = 3
@@ -2127,8 +2127,12 @@ script = ExtResource( 16 )
 ohs = [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ]
 
 [node name="climbbox" type="Area2D" parent="."]
+position = Vector2( -0.0375233, -0.300192 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="climbbox"]
 shape = SubResource( 114 )
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

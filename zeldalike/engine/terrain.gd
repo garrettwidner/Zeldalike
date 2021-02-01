@@ -4,6 +4,7 @@ enum TYPE {
 				GROUND
 				WALL
 				LEDGE
+				AIR
 				NONE
 				}
 				
@@ -15,6 +16,8 @@ func get_from_string(string):
 			return TYPE.WALL
 		"ledge":
 			return TYPE.LEDGE
+		"air":
+			return TYPE.AIR
 		"none":
 			return TYPE.NONE
 		_:
@@ -28,5 +31,7 @@ func string_from_terrain(terrain):
 			return "wall"
 		TYPE.LEDGE:
 			return "ledge"
+		TYPE.AIR:
+			return "air"
 		TYPE.NONE:
 			return "none"

@@ -1763,6 +1763,28 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="wall_connect13" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 934.988, 980.452 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 10 )
+linked_area1 = NodePath("../wall_connect11")
+terrain_string = "wall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect13"]
+shape = SubResource( 87 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect13"]
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="wall_connect9" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
