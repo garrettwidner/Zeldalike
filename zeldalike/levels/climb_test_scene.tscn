@@ -775,7 +775,7 @@ extents = Vector2( 65, 3 )
 extents = Vector2( 210, 3 )
 
 [sub_resource type="RectangleShape2D" id=93]
-extents = Vector2( 10, 3 )
+extents = Vector2( 12, 5 )
 
 [sub_resource type="RectangleShape2D" id=91]
 extents = Vector2( 220, 144 )
@@ -1235,7 +1235,7 @@ __meta__ = {
 [node name="long_mountain_ledge3" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 880.462, 803.611 )
+position = Vector2( 879.59, 809.132 )
 collision_mask = 2
 script = ExtResource( 12 )
 terrain_string = "ledge"
