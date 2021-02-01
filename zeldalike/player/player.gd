@@ -1400,7 +1400,7 @@ func state_ledge(delta):
 		if isinclimbswitcharea:
 			switch_climb_type()
 		
-		elif current_jumparea.canclimbup:
+		elif current_jumparea.canclimbup && !has_pullup_obstacle():
 			set_state_pullup()
 		else:
 #			print("Can't climb up ledge " + current_ledge.name)
@@ -1413,6 +1413,30 @@ func state_ledge(delta):
 	
 	check_fall = true
 	pass
+	
+func has_pullup_obstacle():
+	var checkdirection = dir.UP
+	var checkdistance = 9
+	var checkposition = global_position + (checkdirection * checkdistance)
+	
+#	instantiate_vanish_reticule(checkposition)
+		
+	var space_state = get_world_2d().get_direct_space_state()
+	
+	var results_array = space_state.intersect_point(checkposition, 32, [], 2147483647, false, true)
+	
+	if results_array.empty():
+		pass
+	else:
+		for a in results_array:
+			var found_area = a["collider"]
+#				print("Found collider: " + found_area.name)
+			if found_area.name != name:
+				if found_area.is_in_group("pullup_obstacle"):
+#					print("Found a pullup_obstacle named: " + found_area.name)
+					return true
+	return false
+
 	
 func set_state_climb():
 	state = "climb"
@@ -1483,7 +1507,7 @@ func switch_climb_type():
 	
 	match next_climb_type:
 		terrain.TYPE.LEDGE:
-			print("Switching from wall to ledge")
+#			print("Switching from wall to ledge")
 			if current_jumparea.terrain_string == "ledge":
 				global_position = Vector2(global_position.x, current_jumparea.global_position.y)
 				set_state_ledge()
@@ -1493,7 +1517,7 @@ func switch_climb_type():
 				return
 			pass
 		terrain.TYPE.WALL:
-			print("Switching from ledge to wall")
+#			print("Switching from ledge to wall")
 			set_state_climb()
 			set_terrains(terrain.TYPE.WALL)
 			pass
