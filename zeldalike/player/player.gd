@@ -122,6 +122,8 @@ var checking_crouch_ledge_fall_validity = false
 var isinclimbswitcharea = false
 var current_climbswitcharea
 
+var is_airborne = false
+
 #----------------------------------------------
 
 var sidepullupspeed = .09
@@ -352,6 +354,8 @@ func check_if_in_sunarea_at_start():
 
 func _process(delta):
 	
+#	print("Is airborne: " + String(is_airborne))
+	update_sprite_z_layer()
 #	print("Current terrain is " + terrain.string_from_terrain(current_terrain))
 	
 #	print(Performance.get_monitor(Performance.TIME_FPS))
@@ -405,7 +409,9 @@ func _physics_process(delta):
 		"jump":
 			state_jump(delta)
 		"climb":
-			state_climb(delta)	
+			state_climb(delta)
+		"cling":
+			state_cling(delta)	
 		"ledge":
 			state_ledge(delta)
 		"fall":
@@ -511,7 +517,7 @@ func get_valid_fallgrab_area():
 #				print("Found area while falling: " + found_area.name)
 			if found_area.name != name:
 				if found_area.is_in_group("jumparea"):
-					if found_area.terrain_string == "wall" || found_area.terrain_string == "ledge":
+					if found_area.terrain_string == "wall" || found_area.terrain_string == "ledge" || found_area.terrain_string == "cling":
 						fallgrab_area = found_area
 						did_we_find_it = true
 						fallgrab_type = terrain.get_from_string(found_area.terrain_string)
@@ -631,11 +637,11 @@ func set_terrains(new):
 #	print("Terrain set to " + terrain.string_from_terrain(current_terrain) + ", previous terrain set to " + terrain.string_from_terrain(previous_terrain))
 	
 func update_sprite_z_layer():
-	if current_terrain == terrain.TYPE.GROUND:
-		$Sprite.z_index = ground_z_layer
+	if current_terrain != terrain.TYPE.GROUND || is_airborne:
+		$Sprite.z_index = overmountain_z_layer
 #		print("Setting z layer to low")
 	else:
-		$Sprite.z_index = overmountain_z_layer
+		$Sprite.z_index = ground_z_layer
 #		print("Setting z layer to high")
 	pass
 	
@@ -1168,13 +1174,11 @@ func state_crouch(delta):
 		
 		if current_jumparea.terrain_string == "ledge":
 			set_state_fall()
-			set_terrains(terrain.TYPE.AIR)
-			update_sprite_z_layer()
+#			set_terrains(terrain.TYPE.AIR)
 		else:
 #			if linked_jumpareas.size() != 0:
 			set_state_jump()
-			set_terrains(terrain.TYPE.AIR)
-			update_sprite_z_layer()
+#			set_terrains(terrain.TYPE.AIR)
 #			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
 	pass
@@ -1212,8 +1216,10 @@ func reposition_jump_reticule():
 	jump_reticule.global_position = upcoming_jumparea.global_position
 	
 func set_state_jump():
-	
 	state = "jump"
+	
+	is_airborne = true
+	
 	jumpstartpos = global_position
 	jumpweight = 0
 	jumpspeed = 2.2
@@ -1247,6 +1253,7 @@ func set_state_jump():
 		jumpspeed = 0.05
 	
 	reset_and_start_grace_timer()
+	
 	pass	
 	
 func set_ground_jump_animation():
@@ -1308,7 +1315,6 @@ func state_jump(delta):
 #			print("There is an upcoming jumparea")
 			set_current_jumparea_and_info(upcoming_jumparea)
 			set_terrains(current_jumparea.terrain_type)
-			update_sprite_z_layer()
 			
 		set_post_jump_state()
 		
@@ -1316,13 +1322,17 @@ func state_jump(delta):
 	
 			
 func set_post_jump_state():
+	print("Current terrain is: " + terrain.string_from_terrain(current_terrain))
+
+	print("Previous terrain was: " + terrain.string_from_terrain(previous_terrain))
+
+
+
 	if current_terrain == terrain.TYPE.WALL:
 		if Input.is_action_pressed("sack") || is_grace_timing:
 			set_state_climb()
 		else:
 			set_state_fall()
-			set_terrains(terrain.TYPE.AIR)
-			update_sprite_z_layer()
 	elif current_terrain == terrain.TYPE.GROUND:
 		set_state_landing()
 	elif current_terrain == terrain.TYPE.LEDGE:
@@ -1331,12 +1341,19 @@ func set_post_jump_state():
 			set_state_ledge()
 		else:
 			set_state_fall()
-			set_terrains(terrain.TYPE.AIR)
-			update_sprite_z_layer()
 	
+	elif current_terrain == terrain.TYPE.CLING:
+		if Input.is_action_pressed("sack") || is_grace_timing:
+			set_state_cling()
+		else:
+			set_state_fall()
+
 	
 func set_state_ledge():
 	state = "ledge"
+	
+	is_airborne = false
+	
 #	print("---Now on ledge---")
 	
 #	$CollisionShape2D.disabled = true
@@ -1346,7 +1363,7 @@ func set_state_ledge():
 #		print("Problem: jumparea is null.")
 #		return
 	fall_check_direction = dir.opposite(current_jumparea.updirection)
-	
+		
 	
 	var ledge_bounds = current_jumparea.get_node("CollisionShape2D")
 
@@ -1416,8 +1433,7 @@ func state_ledge(delta):
 					movedir = dir.UP
 				set_directionality(movedir)
 				set_state_fall()
-				set_terrains(terrain.TYPE.AIR)
-				update_sprite_z_layer()
+#				set_terrains(terrain.TYPE.AIR)
 
 
 
@@ -1465,6 +1481,8 @@ func has_pullup_obstacle():
 	
 func set_state_climb():
 	state = "climb"
+	
+	is_airborne = false
 	fall_check_direction = dir.DOWN
 	speed = climbspeed
 	switch_anim("climb")
@@ -1513,8 +1531,60 @@ func state_climb(delta):
 		if valid_fall_location != null:
 			if !is_grace_timing:
 				set_state_fall()
-				set_terrains(terrain.TYPE.AIR)
-				update_sprite_z_layer()
+#				set_terrains(terrain.TYPE.AIR)
+			
+	check_fall = true		
+	
+	pass
+	
+func set_state_cling():
+	state = "cling"
+	
+	is_airborne = false
+	fall_check_direction = dir.DOWN
+	speed = 0
+	switch_anim("climbhang")
+	set_level_collision_to_mountain()
+	pass
+	
+func state_cling(delta):
+	assign_movedir_from_input()
+	set_directionality(movedir)
+
+#	if movedir != Vector2(0,0):
+#		if !$anim.current_animation.begins_with("climbheadshake"):
+#			switch_anim("climb")
+#	elif !$anim.current_animation.begins_with("climbheadshake"):
+#		$anim.stop()
+
+	movement_loop()
+	
+	if Input.is_action_just_pressed("action"):
+		if isinjumparea:
+			set_state_crouch()
+		else:
+			if facedir == dir.LEFT:
+				$anim.play("climbheadshakeleft")
+			else:
+				$anim.play("climbheadshakeright")
+		
+	
+#	if !Input.is_action_pressed("sack"):
+#		if !is_grace_timing:
+#			set_state_fall()
+			
+	if Input.is_action_just_released("sack"):
+		if valid_fall_location == null:
+			if facedir == dir.LEFT:
+				$anim.play("climbheadshakeleft")
+			else:
+				$anim.play("climbheadshakeright")
+		
+	if !Input.is_action_pressed("sack"):
+		if valid_fall_location != null:
+			if !is_grace_timing:
+				set_state_fall()
+#				set_terrains(terrain.TYPE.AIR)
 			
 	check_fall = true		
 	
@@ -1539,7 +1609,6 @@ func switch_climb_type():
 				global_position = Vector2(global_position.x, current_jumparea.global_position.y)
 				set_state_ledge()
 				set_terrains(terrain.TYPE.LEDGE)
-				update_sprite_z_layer()
 			else: 
 				print("WARNING: Current jumparea is not shown as being a ledge. Cannot switch.")
 				return
@@ -1548,7 +1617,6 @@ func switch_climb_type():
 #			print("Switching from ledge to wall")
 			set_state_climb()
 			set_terrains(terrain.TYPE.WALL)
-			update_sprite_z_layer()
 			pass
 	
 	pass
@@ -1585,13 +1653,14 @@ func state_pullup(delta):
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
 		set_terrains(terrain.TYPE.GROUND)
-		update_sprite_z_layer()
 #		print("Current terrain is " + terrain.string_from_terrain(current_terrain))
 #		print("---- just pulled up onto ledge ----")
 	pass
 	
 func set_state_fall():
 	state = "fall"
+	
+	is_airborne = true
 	
 	is_coming_from_fall = true
 	
@@ -1611,7 +1680,7 @@ func set_state_fall():
 	jumpspeed = fallspeed
 	
 	match current_terrain:
-		terrain.TYPE.WALL:
+		terrain.TYPE.WALL, terrain.TYPE.CLING:
 #			print("About to start fall from wall")
 			fall_check_direction = dir.DOWN
 			movedir = dir.DOWN
@@ -1636,7 +1705,8 @@ func set_state_fall():
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
 			switch_anim("fallbehind")
-			
+		terrain.TYPE.AIR:
+			print("It's thinking you're still in the air")	
 		_:
 			print("!! --Found no correct terrain state to fall from-- !!")
 			pass
@@ -1683,7 +1753,6 @@ func state_fall(delta):
 			global_position = Vector2(global_position.x, current_jumparea.global_position.y)
 			set_state_ledge()
 			set_terrains(terrain.TYPE.LEDGE)
-			update_sprite_z_layer()
 			return
 	
 	#Turning during a fall	
@@ -1710,18 +1779,21 @@ func state_fall(delta):
 			if fallgrab_area != null:
 				jumpendpos = null
 				valid_fall_location = null
-				
+				print("Trying to reconnect ----------------------")
 				if fallgrab_type == terrain.TYPE.WALL:
 					set_state_climb()
 					set_terrains(terrain.TYPE.WALL)
-					update_sprite_z_layer()
 					global_position = fallgrab_area.global_position
 					return
 				elif fallgrab_type == terrain.TYPE.LEDGE:
 					set_state_ledge()
 					set_terrains(terrain.TYPE.LEDGE)
-					update_sprite_z_layer()
 					global_position = Vector2(global_position.x, fallgrab_area.global_position.y)
+					return
+				elif fallgrab_type == terrain.TYPE.CLING:
+					set_state_cling()
+					set_terrains(terrain.TYPE.CLING)
+					global_position = fallgrab_area.global_position
 					return
 				fallgrab_area = null
 			
@@ -1735,7 +1807,6 @@ func state_fall(delta):
 #		set_state_default()
 		set_state_landing()
 		set_terrains(terrain.TYPE.GROUND)
-		update_sprite_z_layer()
 #		$CollisionShape2D.disabled = false
 		set_level_collision_to_ground()
 #		print("fall ended")
@@ -1747,6 +1818,9 @@ func state_fall(delta):
 	
 func set_state_landing():
 	state = "landing"
+	
+	is_airborne = false
+	
 	if current_terrain == terrain.TYPE.WALL:
 		switch_anim_directional("land", "down")
 		landingtimer = falllandingtime

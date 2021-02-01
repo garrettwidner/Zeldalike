@@ -1766,11 +1766,11 @@ __meta__ = {
 [node name="wall_connect13" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 934.988, 980.452 )
+position = Vector2( 845.188, 982.603 )
 z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
-linked_area1 = NodePath("../wall_connect11")
+linked_area1 = NodePath("../wall_connect9")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect13"]
@@ -1793,7 +1793,8 @@ z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
 linked_area1 = NodePath("../wall_connect10")
-terrain_string = "wall"
+linked_area2 = NodePath("../wall_connect14")
+terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect9"]
 shape = SubResource( 87 )
@@ -1807,6 +1808,28 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="wall_connect14" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 805.535, 806.61 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 10 )
+linked_area1 = NodePath("")
+terrain_string = "cling"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect14"]
+shape = SubResource( 87 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect14"]
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="wall_connect10" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
@@ -1815,7 +1838,7 @@ z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
 linked_area1 = NodePath("../wall_connect11")
-terrain_string = "wall"
+terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect10"]
 shape = SubResource( 87 )
@@ -1837,7 +1860,7 @@ z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
 linked_area1 = NodePath("../wall_connect12")
-terrain_string = "wall"
+terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect11"]
 shape = SubResource( 87 )
@@ -1851,6 +1874,50 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="wall_connect15" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 841.13, 898.325 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 10 )
+linked_area1 = NodePath("../wall_connect9")
+terrain_string = "cling"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect15"]
+shape = SubResource( 87 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect15"]
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="wall_connect16" type="Area2D" parent="hop_areas" groups=[
+"jumparea",
+]]
+position = Vector2( 877.474, 907.262 )
+z_index = 2
+collision_mask = 2
+script = ExtResource( 10 )
+linked_area1 = NodePath("")
+terrain_string = "cling"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect16"]
+shape = SubResource( 87 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="hop_areas/wall_connect16"]
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="wall_connect12" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
@@ -1859,7 +1926,7 @@ z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
 linked_area1 = NodePath("../long_mountain_ledge2")
-terrain_string = "wall"
+terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect12"]
 shape = SubResource( 87 )
@@ -1964,7 +2031,7 @@ __meta__ = {
 [node name="wall_connect7" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 1643.63, 909.845 )
+position = Vector2( 1621.75, 913.898 )
 z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
@@ -2172,4 +2239,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -441.386, -324.499 )
+position = Vector2( -544.471, -295.79 )
