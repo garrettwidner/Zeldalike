@@ -633,8 +633,10 @@ func set_terrains(new):
 func update_sprite_z_layer():
 	if current_terrain == terrain.TYPE.GROUND:
 		$Sprite.z_index = ground_z_layer
+#		print("Setting z layer to low")
 	else:
 		$Sprite.z_index = overmountain_z_layer
+#		print("Setting z layer to high")
 	pass
 	
 		
