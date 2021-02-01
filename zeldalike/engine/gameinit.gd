@@ -101,6 +101,7 @@ func perform_preliminary_level_setup():
 	connect_player_to_heightchangers()
 	connect_cameracontroller_to_camareas()
 	connect_player_to_sun_areas()
+	connect_player_to_climbswitchareas()
 	
 	connect_sceneblocks()
 	
@@ -265,3 +266,6 @@ func connect_player_to_sun_areas():
 		currentnode.connect("body_entered", player, "_on_Area2D_body_entered", args)
 		currentnode.connect("body_exited", player, "_on_Area2D_body_exited", args)
 #	print("Connected " + String(sun_area_count) + " sun areas to player") 
+
+func connect_player_to_climbswitchareas():
+	connect_player_to_area_type("climbswitcharea")

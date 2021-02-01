@@ -7,7 +7,7 @@ var walkspeed = 40
 var runspeed = 50
 var coverspeed = 30
 var bowspeed = 20
-var climbspeed = 25
+var climbspeed = 22
 
 var is_running = false
 var motion_state = "idle"
@@ -61,13 +61,6 @@ enum JUMPTYPE 	{
 				
 var jump_type = JUMPTYPE.HOP
 
-var isinleaparea = false
-var leaparea
-var isinjumparea = false
-#var current_jumparea
-var isinhoparea = false
-var hoparea
-
 var ledge_catch_leeway = .22
 var ledge_catch_timer = 0
 var can_ledge_catch = false
@@ -76,6 +69,7 @@ var min_height_for_ledge_catch = 30
 var ledge_animation_stop_leeway = false
 
 #----------------------------------------------
+
 var jumpstartpos
 var jumpendpos
 var jumpweight
@@ -97,6 +91,7 @@ var previous_terrain = terrain.TYPE.GROUND
 var current_terrain = terrain.TYPE.GROUND
 var upcoming_terrain = terrain.TYPE.GROUND
 
+var isinjumparea = false
 var current_jumparea
 
 var upcoming_jumparea
@@ -124,11 +119,14 @@ var can_side_climb_upcoming_ledge = false
 
 var checking_crouch_ledge_fall_validity = false
 
+var isinclimbswitcharea = false
+var current_climbswitcharea
+
 #----------------------------------------------
 
 var sidepullupspeed = .09
 var verticalpullupspeed = .20
-var ledgeclimbspeed = 20
+var ledgeclimbspeed = 30
 
 var falllandingtime = .2
 var jumplandingtime = .1
@@ -379,6 +377,7 @@ func reset_and_start_grace_timer(grace_time = short_jump_grace_time):
 	
 	
 func _physics_process(delta):
+	
 	if check_fall:
 		get_valid_fall_end_location()
 	check_fall = false
@@ -575,10 +574,13 @@ func state_default(delta):
 
 		
 	elif Input.is_action_just_pressed("test_1"):
-#		print("Switched to climbing")
-#		set_state_climb()
-		increase_health(90)
-		print("TESTING: Health brought back to full")
+
+
+
+#		increase_health(90)
+#		print("TESTING: Health brought back to full")
+
+		
 		
 #		game_singleton.change_scene("level_1_test")
 #		set_facedir_manual(dir.UP)
@@ -1395,7 +1397,10 @@ func state_ledge(delta):
 
 
 	elif Input.is_action_just_pressed("action"):
-		if current_jumparea.canclimbup:
+		if isinclimbswitcharea:
+			switch_climb_type()
+		
+		elif current_jumparea.canclimbup:
 			set_state_pullup()
 		else:
 #			print("Can't climb up ledge " + current_ledge.name)
@@ -1437,9 +1442,12 @@ func state_climb(delta):
 
 	movement_loop()
 	
-	if Input.is_action_pressed("action"):
-		if isinjumparea:
+	if Input.is_action_just_pressed("action"):
+		if isinclimbswitcharea:
+			switch_climb_type()
+		elif isinjumparea:
 			set_state_crouch()
+		
 	
 #	if !Input.is_action_pressed("sack"):
 #		if !is_grace_timing:
@@ -1458,6 +1466,37 @@ func state_climb(delta):
 				set_state_fall()
 			
 	check_fall = true		
+	
+	pass
+	
+func switch_climb_type():
+	
+	var next_climb_type
+#	print("Climb string 1 on climbswitcharea: " + current_climbswitcharea.climb_string_1)
+	
+	if current_climbswitcharea.climb_type_1 == current_terrain:
+		next_climb_type = current_climbswitcharea.climb_type_2
+		pass
+	elif current_climbswitcharea.climb_type_2 == current_terrain:
+		next_climb_type = current_climbswitcharea.climb_type_1		
+		pass
+	
+	match next_climb_type:
+		terrain.TYPE.LEDGE:
+			print("Switching from wall to ledge")
+			if current_jumparea.terrain_string == "ledge":
+				global_position = Vector2(global_position.x, current_jumparea.global_position.y)
+				set_state_ledge()
+				set_terrains(terrain.TYPE.LEDGE)
+			else: 
+				print("WARNING: Current jumparea is not shown as being a ledge. Cannot switch.")
+				return
+			pass
+		terrain.TYPE.WALL:
+			print("Switching from ledge to wall")
+			set_state_climb()
+			set_terrains(terrain.TYPE.WALL)
+			pass
 	
 	pass
 	
@@ -1937,7 +1976,8 @@ func check_first_time_sun_damage():
 #		dialogueparser.set_experience("burnedOnce", true)
 
 func _on_Area2D_body_entered(body, obj):
-#	print("Player entered an area2d")
+	#NOTE !!!! If it's not detecting area entrances, remember to add new area connection function in gameinit.gd
+#	print("Player entered an area2d named" + obj.name)
 	if body.get_name() == "player":
 		if obj.is_in_group("interactible"):
 #			interacttarget = obj
@@ -1958,6 +1998,8 @@ func _on_Area2D_body_entered(body, obj):
 		
 		elif obj.is_in_group("sun_area"):
 			sun_areas[obj.get_instance_id()] = obj
+		elif obj.is_in_group("climbswitcharea"):
+			set_current_climbswitch_area_and_info(obj)
 			
 func set_current_jumparea_and_info(new_jumparea):
 	
@@ -1998,6 +2040,11 @@ func set_current_jumparea_and_info(new_jumparea):
 				if current_ledge_width >= min_ledge_width_for_side_climb:
 					can_side_climb_current_ledge = true
 
+	pass
+	
+func set_current_climbswitch_area_and_info(new_climbswitcharea):
+	current_climbswitcharea = new_climbswitcharea
+	isinclimbswitcharea = true
 	pass
 	
 #func get_ledge_from_jumparea(jumparea):
@@ -2067,6 +2114,9 @@ func _on_Area2D_body_exited(body, obj):
 #				print("Successfully removed sun area from dictionary")
 #			else:
 #				print("Had some problem removing sun area from dictionary")
+		elif obj.is_in_group("climbswitcharea"):
+			current_climbswitcharea = null
+			isinclimbswitcharea = false
 
 func check_if_can_interact():
 	if interacttargets.size() >= 1:
