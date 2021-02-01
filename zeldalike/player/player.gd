@@ -1322,12 +1322,9 @@ func state_jump(delta):
 	
 			
 func set_post_jump_state():
-	print("Current terrain is: " + terrain.string_from_terrain(current_terrain))
-
-	print("Previous terrain was: " + terrain.string_from_terrain(previous_terrain))
-
-
-
+#	print("Current terrain is: " + terrain.string_from_terrain(current_terrain))
+#
+#	print("Previous terrain was: " + terrain.string_from_terrain(previous_terrain))
 	if current_terrain == terrain.TYPE.WALL:
 		if Input.is_action_pressed("sack") || is_grace_timing:
 			set_state_climb()
@@ -1766,10 +1763,13 @@ func state_fall(delta):
 	#Reconnecting to wall
 	if facedir == dir.UP:
 		#Note: setting check_fallgrab to true triggers a check to be performed in the physics_process function
-		check_fallgrab = true
+		
+		#Old way of doing it
+#		check_fallgrab = true
+		#End old way
 		
 		#Test area
-#		get_valid_fallgrab_area()
+		get_valid_fallgrab_area()
 		#End test area
 		
 		
@@ -1779,7 +1779,7 @@ func state_fall(delta):
 			if fallgrab_area != null:
 				jumpendpos = null
 				valid_fall_location = null
-				print("Trying to reconnect ----------------------")
+#				print("Trying to reconnect ----------------------")
 				if fallgrab_type == terrain.TYPE.WALL:
 					set_state_climb()
 					set_terrains(terrain.TYPE.WALL)
