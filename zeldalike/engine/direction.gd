@@ -51,6 +51,11 @@ func string_from_direction(direction):
 			return "up"
 		dir.DOWN:
 			return "down"
+		dir.CENTER:
+			return "center"
+		_:
+			print("Warning: improper direction passed to function. Must be cardinal.")
+			return " - "
 						
 
 func opposite(direction):

@@ -354,6 +354,8 @@ func check_if_in_sunarea_at_start():
 
 func _process(delta):
 	
+	
+	
 #	print("Is airborne: " + String(is_airborne))
 	update_sprite_z_layer()
 #	print("Current terrain is " + terrain.string_from_terrain(current_terrain))
@@ -1051,7 +1053,7 @@ func set_state_crouch():
 			
 			switch_anim("crouch")
 	#		print("Terrain type is ground")
-		elif current_terrain == terrain.TYPE.WALL:
+		elif current_terrain == terrain.TYPE.WALL || current_terrain == terrain.TYPE.CLING:
 			switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
 	#		print("Terrain type is wall")
 			pass
@@ -1067,9 +1069,14 @@ func set_state_crouch():
 		pass
 		
 func set_first_upcoming_jumparea():
-	upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
+	if linked_jumpareas.size() == 0:
+		upcoming_jumparea = null
+	else:
+		upcoming_jumparea = linked_jumpareas[upcoming_jumparea_index]
 	set_upcoming_jumparea_distance_and_direction()
-#	print("direction to upcoming jumparea is: " + String(direction_to_upcoming_jumparea))
+	
+#	if direction_to_upcoming_jumparea != null:
+#		print("direction to upcoming jumparea is: " + String(direction_to_upcoming_jumparea))
 	pass
 	
 func set_upcoming_ledge():
@@ -1150,15 +1157,21 @@ func state_crouch(delta):
 		if Input.is_action_just_pressed("sack"):
 			set_state_default()
 			hide_jump_reticule()
+	elif current_terrain == terrain.TYPE.CLING:
+		if DualInput.is_action_just_doublepressed("down"):
+			set_state_cling()
+			hide_jump_reticule()
+	elif current_terrain == terrain.TYPE.WALL:
+		if DualInput.is_action_just_doublepressed("down"):
+			set_state_climb()
+			hide_jump_reticule()
 			
-	#Switch to Ledge
-		
 			
 	#Set Animation
 	if current_terrain == terrain.TYPE.GROUND:
 		switch_anim("crouch")
 		
-	elif current_terrain == terrain.TYPE.WALL:
+	elif current_terrain == terrain.TYPE.WALL || current_terrain == terrain.TYPE.CLING:
 		if upcoming_jumparea != null:
 			switch_anim_directional("climbhang", dir.string_from_direction(direction_to_upcoming_jumparea))
 		else:
@@ -1174,18 +1187,19 @@ func state_crouch(delta):
 		
 		if current_jumparea.terrain_string == "ledge":
 			set_state_fall()
-#			set_terrains(terrain.TYPE.AIR)
 		else:
-#			if linked_jumpareas.size() != 0:
 			set_state_jump()
-#			set_terrains(terrain.TYPE.AIR)
 #			print("About to call hide jump reticule from state_crouch")
 			hide_jump_reticule()
 	pass
 	
 func set_upcoming_jumparea_distance_and_direction():
-	direction_to_upcoming_jumparea = dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
-	distance_to_upcoming_jumparea = upcoming_jumparea.global_position.distance_to(global_position)
+	if upcoming_jumparea == null:
+		direction_to_upcoming_jumparea = null
+		distance_to_upcoming_jumparea = null
+	else:
+		direction_to_upcoming_jumparea = dir.closest_cardinal(upcoming_jumparea.global_position - global_position)
+		distance_to_upcoming_jumparea = upcoming_jumparea.global_position.distance_to(global_position)
 #	print("Distance to upcoming jumparea is " + String(distance_to_upcoming_jumparea))
 	pass
 	
@@ -1430,7 +1444,6 @@ func state_ledge(delta):
 					movedir = dir.UP
 				set_directionality(movedir)
 				set_state_fall()
-#				set_terrains(terrain.TYPE.AIR)
 
 
 
@@ -1528,7 +1541,6 @@ func state_climb(delta):
 		if valid_fall_location != null:
 			if !is_grace_timing:
 				set_state_fall()
-#				set_terrains(terrain.TYPE.AIR)
 			
 	check_fall = true		
 	
@@ -1542,22 +1554,22 @@ func set_state_cling():
 	speed = 0
 	switch_anim("climbhang")
 	set_level_collision_to_mountain()
+	check_fall = true		
+	
 	pass
 	
 func state_cling(delta):
 	assign_movedir_from_input()
+	movedir = dir.direction_from_input()
+	
 	set_directionality(movedir)
 
-#	if movedir != Vector2(0,0):
-#		if !$anim.current_animation.begins_with("climbheadshake"):
-#			switch_anim("climb")
-#	elif !$anim.current_animation.begins_with("climbheadshake"):
-#		$anim.stop()
+	set_first_upcoming_jumparea()
 
 	movement_loop()
 	
 	if Input.is_action_just_pressed("action"):
-		if isinjumparea:
+		if upcoming_jumparea != null:
 			set_state_crouch()
 		else:
 			if facedir == dir.LEFT:
@@ -1565,10 +1577,9 @@ func state_cling(delta):
 			else:
 				$anim.play("climbheadshakeright")
 		
-	
-#	if !Input.is_action_pressed("sack"):
-#		if !is_grace_timing:
-#			set_state_fall()
+	if !$anim.current_animation.begins_with("climbheadshake"):
+		switch_anim("climbhang")
+
 			
 	if Input.is_action_just_released("sack"):
 		if valid_fall_location == null:
@@ -1581,9 +1592,7 @@ func state_cling(delta):
 		if valid_fall_location != null:
 			if !is_grace_timing:
 				set_state_fall()
-#				set_terrains(terrain.TYPE.AIR)
 			
-	check_fall = true		
 	
 	pass
 	
@@ -1701,9 +1710,7 @@ func set_state_fall():
 				switch_anim_directional("fallbehind", dir.string_from_direction(facedir))
 			else:
 				print("Warning: Trying to fall from the ground with no ledge to fall from")
-			switch_anim("fallbehind")
-		terrain.TYPE.AIR:
-			print("It's thinking you're still in the air")	
+			switch_anim("fallbehind")	
 		_:
 			print("!! --Found no correct terrain state to fall from-- !!")
 			pass

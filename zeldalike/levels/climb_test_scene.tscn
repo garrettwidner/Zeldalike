@@ -712,75 +712,75 @@ points = PoolVector2Array( 10, 16, 10, 0, 16, 0, 16, 16 )
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=94]
-
-[sub_resource type="RectangleShape2D" id=95]
-extents = Vector2( 44, 3 )
-
-[sub_resource type="RectangleShape2D" id=96]
-extents = Vector2( 34, 3 )
-
-[sub_resource type="RectangleShape2D" id=97]
-extents = Vector2( 30, 3 )
-
 [sub_resource type="RectangleShape2D" id=74]
-extents = Vector2( 3, 6 )
 
 [sub_resource type="RectangleShape2D" id=75]
-extents = Vector2( 3, 7 )
+extents = Vector2( 44, 3 )
 
 [sub_resource type="RectangleShape2D" id=76]
-extents = Vector2( 7, 3 )
+extents = Vector2( 34, 3 )
 
 [sub_resource type="RectangleShape2D" id=77]
-extents = Vector2( 14, 3 )
+extents = Vector2( 30, 3 )
 
 [sub_resource type="RectangleShape2D" id=78]
-extents = Vector2( 14, 3 )
+extents = Vector2( 3, 6 )
 
 [sub_resource type="RectangleShape2D" id=79]
-extents = Vector2( 116, 3 )
-
-[sub_resource type="RectangleShape2D" id=80]
-extents = Vector2( 32, 3 )
-
-[sub_resource type="RectangleShape2D" id=81]
-extents = Vector2( 20, 3 )
-
-[sub_resource type="RectangleShape2D" id=82]
-extents = Vector2( 6, 3 )
-
-[sub_resource type="RectangleShape2D" id=83]
-extents = Vector2( 12, 3 )
-
-[sub_resource type="RectangleShape2D" id=84]
-extents = Vector2( 36, 3 )
-
-[sub_resource type="RectangleShape2D" id=85]
-extents = Vector2( 40, 3 )
-
-[sub_resource type="RectangleShape2D" id=86]
 extents = Vector2( 3, 7 )
 
+[sub_resource type="RectangleShape2D" id=80]
+extents = Vector2( 7, 3 )
+
+[sub_resource type="RectangleShape2D" id=81]
+extents = Vector2( 14, 3 )
+
+[sub_resource type="RectangleShape2D" id=82]
+extents = Vector2( 14, 3 )
+
+[sub_resource type="RectangleShape2D" id=83]
+extents = Vector2( 116, 3 )
+
+[sub_resource type="RectangleShape2D" id=84]
+extents = Vector2( 32, 3 )
+
+[sub_resource type="RectangleShape2D" id=85]
+extents = Vector2( 20, 3 )
+
+[sub_resource type="RectangleShape2D" id=86]
+extents = Vector2( 6, 3 )
+
 [sub_resource type="RectangleShape2D" id=87]
-extents = Vector2( 4, 4 )
+extents = Vector2( 12, 3 )
 
 [sub_resource type="RectangleShape2D" id=88]
-extents = Vector2( 5, 3 )
+extents = Vector2( 36, 3 )
 
 [sub_resource type="RectangleShape2D" id=89]
-extents = Vector2( 65, 3 )
+extents = Vector2( 40, 3 )
 
 [sub_resource type="RectangleShape2D" id=90]
-extents = Vector2( 210, 3 )
-
-[sub_resource type="RectangleShape2D" id=93]
-extents = Vector2( 12, 5 )
+extents = Vector2( 3, 7 )
 
 [sub_resource type="RectangleShape2D" id=91]
-extents = Vector2( 220, 144 )
+extents = Vector2( 4, 4 )
 
 [sub_resource type="RectangleShape2D" id=92]
+extents = Vector2( 5, 3 )
+
+[sub_resource type="RectangleShape2D" id=93]
+extents = Vector2( 65, 3 )
+
+[sub_resource type="RectangleShape2D" id=94]
+extents = Vector2( 210, 3 )
+
+[sub_resource type="RectangleShape2D" id=95]
+extents = Vector2( 12, 5 )
+
+[sub_resource type="RectangleShape2D" id=96]
+extents = Vector2( 220, 144 )
+
+[sub_resource type="RectangleShape2D" id=97]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -858,7 +858,7 @@ position = Vector2( 1389.84, 1021.59 )
 position = Vector2( 1013.83, 859.934 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pullup_obstacles/pullup_obstacle"]
-shape = SubResource( 94 )
+shape = SubResource( 74 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -875,7 +875,7 @@ position = Vector2( 1094.32, 866.051 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pullup_obstacles/ledge_pullup_obstacle"]
 z_index = 3
-shape = SubResource( 95 )
+shape = SubResource( 75 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -887,7 +887,7 @@ position = Vector2( 930.123, 865.085 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pullup_obstacles/ledge_pullup_obstacle2"]
 z_index = 3
-shape = SubResource( 96 )
+shape = SubResource( 76 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -899,7 +899,7 @@ position = Vector2( 1022.63, 770.048 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pullup_obstacles/ledge_pullup_obstacle3"]
 z_index = 3
-shape = SubResource( 97 )
+shape = SubResource( 77 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -923,7 +923,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left"]
-shape = SubResource( 74 )
+shape = SubResource( 78 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -949,7 +949,7 @@ canclimbup = true
 updirection = Vector2( -1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeleft1"]
-shape = SubResource( 75 )
+shape = SubResource( 79 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -975,7 +975,7 @@ canclimbup = true
 updirection = Vector2( -1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeleft2"]
-shape = SubResource( 75 )
+shape = SubResource( 79 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1001,7 +1001,7 @@ canclimbup = true
 updirection = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgedown1"]
-shape = SubResource( 76 )
+shape = SubResource( 80 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1027,7 +1027,7 @@ canclimbup = true
 updirection = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgedown2"]
-shape = SubResource( 76 )
+shape = SubResource( 80 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1058,7 +1058,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_down1"]
-shape = SubResource( 77 )
+shape = SubResource( 81 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1087,7 +1087,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_down2"]
-shape = SubResource( 77 )
+shape = SubResource( 81 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1113,7 +1113,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup1"]
-shape = SubResource( 78 )
+shape = SubResource( 82 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1139,7 +1139,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/long_mountain_ledge"]
-shape = SubResource( 79 )
+shape = SubResource( 83 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1165,7 +1165,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/long_mountain_ledge2"]
-shape = SubResource( 80 )
+shape = SubResource( 84 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1191,7 +1191,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/long_mountain_ledge4"]
-shape = SubResource( 81 )
+shape = SubResource( 85 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1217,7 +1217,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/long_mountain_ledge5"]
-shape = SubResource( 82 )
+shape = SubResource( 86 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1243,7 +1243,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/long_mountain_ledge3"]
-shape = SubResource( 83 )
+shape = SubResource( 87 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1269,7 +1269,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup4"]
-shape = SubResource( 84 )
+shape = SubResource( 88 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1295,7 +1295,7 @@ canclimbup = false
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup5"]
-shape = SubResource( 84 )
+shape = SubResource( 88 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1321,7 +1321,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup3"]
-shape = SubResource( 78 )
+shape = SubResource( 82 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1350,7 +1350,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up1"]
-shape = SubResource( 77 )
+shape = SubResource( 81 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1379,7 +1379,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up3"]
-shape = SubResource( 77 )
+shape = SubResource( 81 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1408,7 +1408,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up4"]
-shape = SubResource( 85 )
+shape = SubResource( 89 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1437,7 +1437,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_up2"]
-shape = SubResource( 77 )
+shape = SubResource( 81 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1463,7 +1463,7 @@ canclimbup = true
 updirection = Vector2( 1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeright1"]
-shape = SubResource( 86 )
+shape = SubResource( 90 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1489,7 +1489,7 @@ canclimbup = true
 updirection = Vector2( 1, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeright2"]
-shape = SubResource( 86 )
+shape = SubResource( 90 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1518,7 +1518,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right1"]
-shape = SubResource( 74 )
+shape = SubResource( 78 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1547,7 +1547,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_right2"]
-shape = SubResource( 74 )
+shape = SubResource( 78 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1572,7 +1572,7 @@ linked_area1 = NodePath("../wall_connect1")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jumpup"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1594,7 +1594,7 @@ linked_area2 = NodePath("../ground_jump_down")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_left"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1618,7 +1618,7 @@ linked_area4 = NodePath("../ledgeright2")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_left2"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1641,7 +1641,7 @@ linked_area3 = NodePath("../ground_jump_down")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_up"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1663,7 +1663,7 @@ linked_area2 = NodePath("../ground_jump_down")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_right"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1685,7 +1685,7 @@ linked_area2 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_noconnect"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1708,7 +1708,7 @@ linked_area3 = NodePath("../ground_jump_up")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ground_jump_down"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1730,7 +1730,7 @@ linked_area1 = NodePath("")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect1"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1752,7 +1752,7 @@ linked_area1 = NodePath("../wall_connect9")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect8"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1774,7 +1774,7 @@ linked_area1 = NodePath("../wall_connect9")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect13"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1797,7 +1797,7 @@ linked_area2 = NodePath("../wall_connect14")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect9"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1819,7 +1819,7 @@ linked_area1 = NodePath("")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect14"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1841,7 +1841,7 @@ linked_area1 = NodePath("../wall_connect11")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect10"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1863,7 +1863,7 @@ linked_area1 = NodePath("../wall_connect12")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect11"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1885,7 +1885,7 @@ linked_area1 = NodePath("../wall_connect9")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect15"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1907,7 +1907,7 @@ linked_area1 = NodePath("")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect16"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1929,7 +1929,7 @@ linked_area1 = NodePath("../long_mountain_ledge2")
 terrain_string = "cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect12"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1951,7 +1951,7 @@ linked_area1 = NodePath("../wall_connect3")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect2"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1973,7 +1973,7 @@ linked_area1 = NodePath("../wall_connect2")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect3"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1995,7 +1995,7 @@ linked_area1 = NodePath("../ledgeup2")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect4"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2017,7 +2017,7 @@ linked_area1 = NodePath("../wall_connect6")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect5"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2039,7 +2039,7 @@ linked_area1 = NodePath("../wall_connect6")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect7"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2061,7 +2061,7 @@ linked_area1 = NodePath("../wall_connect5")
 terrain_string = "wall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/wall_connect6"]
-shape = SubResource( 87 )
+shape = SubResource( 91 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2083,7 +2083,7 @@ canclimbup = true
 updirection = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/ledgeup2"]
-shape = SubResource( 88 )
+shape = SubResource( 92 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2112,7 +2112,7 @@ linked_area4 = NodePath("")
 terrain_string = "ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/jumparea_bottom_left2"]
-shape = SubResource( 74 )
+shape = SubResource( 78 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2135,7 +2135,7 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/fallarea1"]
-shape = SubResource( 89 )
+shape = SubResource( 93 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2148,7 +2148,7 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hop_areas/fallarea2"]
-shape = SubResource( 90 )
+shape = SubResource( 94 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2166,7 +2166,7 @@ climb_string_2 = "ledge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="climbswitchareas/climb_switch_area"]
 z_index = 3
-shape = SubResource( 93 )
+shape = SubResource( 95 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2182,7 +2182,7 @@ climb_string_2 = "ledge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="climbswitchareas/climb_switch_area2"]
 z_index = 3
-shape = SubResource( 93 )
+shape = SubResource( 95 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2208,7 +2208,7 @@ __meta__ = {
 position = Vector2( 977.021, 880.631 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
-shape = SubResource( 91 )
+shape = SubResource( 96 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2233,7 +2233,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sceneblocks/sceneblock/Area2D"]
-shape = SubResource( 92 )
+shape = SubResource( 97 )
 __meta__ = {
 "_edit_lock_": true
 }
