@@ -778,7 +778,7 @@ extents = Vector2( 210, 3 )
 extents = Vector2( 12, 5 )
 
 [sub_resource type="RectangleShape2D" id=96]
-extents = Vector2( 220, 144 )
+extents = Vector2( 500, 250 )
 
 [sub_resource type="RectangleShape2D" id=97]
 
@@ -910,8 +910,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_left" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1444.58, 1000.24 )
 collision_mask = 2
@@ -1045,8 +1045,8 @@ __meta__ = {
 [node name="Node2D" type="Node2D" parent="hop_areas/ledgedown2"]
 
 [node name="jumparea_bottom_down1" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1464.32, 1018.65 )
 collision_mask = 2
@@ -1074,8 +1074,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_down2" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1176.18, 1084.58 )
 collision_mask = 2
@@ -1337,8 +1337,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up1" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1471.69, 978.901 )
 collision_mask = 2
@@ -1366,8 +1366,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up3" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1568.58, 900.231 )
 collision_mask = 2
@@ -1395,8 +1395,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up4" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1637.33, 965.618 )
 collision_mask = 2
@@ -1424,8 +1424,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up2" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1175.25, 1027.31 )
 collision_mask = 2
@@ -1505,8 +1505,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_right1" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1499.3, 999.714 )
 collision_mask = 2
@@ -1534,8 +1534,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_right2" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1210.89, 1062.88 )
 collision_mask = 2
@@ -1766,7 +1766,7 @@ __meta__ = {
 [node name="wall_connect13" type="Area2D" parent="hop_areas" groups=[
 "jumparea",
 ]]
-position = Vector2( 845.188, 982.603 )
+position = Vector2( 889.424, 979.099 )
 z_index = 2
 collision_mask = 2
 script = ExtResource( 10 )
@@ -2099,8 +2099,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_left2" type="Area2D" parent="hop_areas" groups=[
-"fallarea",
 "jumparea",
+"fallarea",
 ]]
 position = Vector2( 1155.49, 1050.04 )
 collision_mask = 2
@@ -2205,7 +2205,7 @@ __meta__ = {
 [node name="camarea1" type="Area2D" parent="camareas" groups=[
 "camarea",
 ]]
-position = Vector2( 977.021, 880.631 )
+position = Vector2( 1239.83, 877.795 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camareas/camarea1"]
 shape = SubResource( 96 )
@@ -2239,4 +2239,4 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -544.471, -295.79 )
+position = Vector2( -289.432, -106.769 )

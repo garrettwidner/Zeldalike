@@ -1,6 +1,7 @@
 extends Node2D
 
 var experiences
+var experiences_loaded_correctly = false
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
@@ -15,20 +16,34 @@ func _ready():
 func load_experiences_from_disk():
 	experiences = helper.load_file_as_JSON("res://dialogue/data/experiences.json")
 	if(typeof(experiences) != TYPE_DICTIONARY):
-			print("ERROR: experiences file has errors")
+		print("ERROR: experiences file has errors")
+		experiences_loaded_correctly = false
+	else:
+		experiences_loaded_correctly = true
 
 func set_experience(character,experience,new_value):
+	
+#	print("Experiences is of type" + String(typeof(experiences)))
+	
+	if !experiences_loaded_correctly:
+		return
+	
 	if experiences.keys().has(character):
 		if experiences[character].keys().has(experience):
 			experiences[character][experience] = new_value
 		else:
 			print("Error: in experiences file, " + character + " has no '" + experience + "' experience.")
+			pass
 	else:
 		print("ERROR: experiences file has no '" + character + "' character.")
 #		print("Experience *" + experience + "* set to " + String(experiences[experience]))
 	pass
 	
 func get_experience(character,experience):
+	
+	if !experiences_loaded_correctly:
+		return
+	
 	if experiences.keys().has(character):
 		if experiences[character].keys().has(experience):
 			return experiences[character][experience]
