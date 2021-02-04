@@ -3,11 +3,13 @@ extends "res://engine/entity.gd"
 var input : Vector2 = dir.CENTER
 var istrackingenemy : bool = false
 var state = "stopped"
-var walkspeed = 40
-var runspeed = 50
+var walkspeed = 50
+var runspeed = 68
 var coverspeed = 30
 var bowspeed = 20
-var climbspeed = 22
+var climbspeed = 25
+var ledgeclimbspeed = 35
+
 
 var is_running = false
 var motion_state = "idle"
@@ -128,7 +130,6 @@ var is_airborne = false
 
 var sidepullupspeed = .09
 var verticalpullupspeed = .20
-var ledgeclimbspeed = 30
 
 var falllandingtime = .2
 var jumplandingtime = .1
