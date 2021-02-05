@@ -130,6 +130,8 @@ var is_airborne = false
 
 var sidepullupspeed = .09
 var verticalpullupspeed = .20
+var original_testing_jumpspeed = 2.2
+var standard_jumpspeed = 1.5
 
 var falllandingtime = .2
 var jumplandingtime = .1
@@ -318,7 +320,7 @@ func run_setup(start_position, start_direction):
 	
 func add_test_items():
 #	inventorymanager.add_item("bow")
-#	inventorymanager.add_item("sword")
+	inventorymanager.add_item("sword")
 	inventorymanager.add_item("food_sack")
 #	inventorymanager.add_item("veil")
 	
@@ -1237,7 +1239,8 @@ func set_state_jump():
 	
 	jumpstartpos = global_position
 	jumpweight = 0
-	jumpspeed = 2.2
+#	jumpspeed = original_testing_jumpspeed
+	jumpspeed = standard_jumpspeed
 	
 	if upcoming_jumparea != null:
 		jumpendpos = upcoming_jumparea.global_position
