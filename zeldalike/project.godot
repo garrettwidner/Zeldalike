@@ -28,6 +28,8 @@ gamedata="*res://engine/gamedata.gd"
 terrain="*res://engine/terrain.gd"
 coll="*res://engine/collisionmanager.gd"
 DualInput="*res://engine/dualinput.gd"
+steering="*res://engine/steering.gd"
+visualdebug="*res://engine/visualdebug.gd"
 
 [display]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=2]
+[gd_scene load_steps=114 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_objects/sun.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://levels/level_objects/jumpareas/jumparea.png" type="Texture" id=13]
 [ext_resource path="res://levels/level_objects/climb_switch_areas/climb_switch_area.gd" type="Script" id=14]
 [ext_resource path="res://levels/level_objects/sceneblock.gd" type="Script" id=15]
+[ext_resource path="res://enemies/flight_demon/flight_demon.tscn" type="PackedScene" id=16]
 
 [sub_resource type="TileSet" id=1]
 0/name = "cave_shadow.png 0"
@@ -2245,4 +2246,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( -474.44, -96.8899 )
+position = Vector2( -474.44, -53.3951 )
+
+[node name="flight_demon" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1044.39, 1034.1 )
