@@ -4,7 +4,7 @@ extends KinematicBody2D
 var player
 var position_past_player
 var _velocity = Vector2.ZERO
-var move_speed = 40
+var move_speed = 41
 var attack_speed = 80
 var current_speed = 0
 
@@ -18,32 +18,54 @@ var is_attacking = false
 
 var player_left_area = false
 
-var fade_speed = 3
-var should_fade = true
+var fade_speed = 1.2
+var should_fade = false
+
+var base_sense_area_size = 80
+var sense_area_stddv = 1.7
 
 func _ready():
 	$AnimationPlayer.play("idle")
 	current_speed = move_speed
+	
+	set_random_sensearea_size()
 	pass
 	
+func set_random_sensearea_size():
+	$SenseArea/CollisionShape2D.shape = CircleShape2D.new()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	$SenseArea/CollisionShape2D.shape.radius = base_sense_area_size + rng.randfn(0, sense_area_stddv)
+	
+	print("New SenseArea size is: " + String($SenseArea/CollisionShape2D.shape.radius))
+	
 func _physics_process(delta):
+	
+	
+	
+	if should_fade:
+		fade_out_and_disappear(delta)
+	
 	if player != null:
 		if is_attacking:
 			move_towards_position(attack_endpoint)
 			if global_position.distance_to(attack_endpoint) < distance_leeway:
 				end_attack_pattern()
+				resolve_player_left_area()
 		else:
 			move_towards_position(player.global_position)
-			if player_left_area:
-				player = null
-				player_left_area = false
-	
-
+			resolve_player_left_area()
 		pass
 		
 func fade_out_and_disappear(delta):
-	$Sprite.modulate.a = $Sprite.modulate.a - (delta * fade_speed)
-	pass
+	if $ubersprite.modulate.a <= 0:
+		$Particles2D.emitting = false
+		$deathtimer.start()
+		return
+	else:
+		$ubersprite.modulate.a = $ubersprite.modulate.a - (delta * fade_speed)
+#		print($ubersprite.modulate.a)
+	
 
 func move_towards_position(target_position):
 	_velocity = steering.follow(
@@ -54,28 +76,30 @@ func move_towards_position(target_position):
 			)
 	move_and_slide(_velocity)
 	pass
-
+	
+func resolve_player_left_area():
+	if player_left_area:
+		player = null
+		player_left_area = false
+		should_fade = true
 
 func _on_SenseArea_body_entered(body):
 	if body.name == "player":
-		print("Player entered")
+#		print("Player entered")
 		player = body
 		current_speed = move_speed
-	pass # Replace with function body.
 
 
 func _on_SenseArea_body_exited(body):
 	if body.name == "player":
-		print("Player exited (but not cleared)")
+#		print("Player exited (but not cleared)")
 		player_left_area = true
-	pass # Replace with function body.
 
 
 func _on_AttackArea_body_entered(body):
 	if body.name == "player":
-		print("Player entered ATTACK area")
+#		print("Player entered ATTACK area")
 		start_attack_pattern()
-	pass # Replace with function body.
 
 func start_attack_pattern():
 	attack_endpoint = global_position + (_velocity.normalized() * overshoot_distance)
@@ -89,10 +113,7 @@ func end_attack_pattern():
 	current_speed = move_speed
 	$AnimationPlayer.play("idle")
 	rotation = 0
-	if player_left_area:
-		player = null
-		player_left_area = false
 	pass
 
-func _on_AttackArea_body_exited(body):
-	pass # Replace with function body.
+func _on_deathtimer_timeout():
+	queue_free()
