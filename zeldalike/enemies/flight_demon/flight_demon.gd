@@ -1,10 +1,9 @@
-extends KinematicBody2D
-
+extends "res://engine/entity.gd"
 
 var player
 var position_past_player
 var _velocity = Vector2.ZERO
-var move_speed = 41
+var move_speed = 45
 var attack_speed = 80
 var current_speed = 0
 
@@ -47,6 +46,10 @@ func _physics_process(delta):
 		fade_out_and_disappear(delta)
 	
 	if player != null:
+		
+		damage_loop()
+		
+		
 		if is_attacking:
 			move_towards_position(attack_endpoint)
 			if global_position.distance_to(attack_endpoint) < distance_leeway:

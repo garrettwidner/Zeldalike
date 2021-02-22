@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://enemies/flight_demon/flight_demon.gd" type="Script" id=1]
 [ext_resource path="res://enemies/flight_demon/Demon-sheet.png" type="Texture" id=2]
@@ -190,6 +190,8 @@ color_ramp = SubResource( 7 )
 hue_variation = 0.3
 hue_variation_random = 0.23
 
+[sub_resource type="CircleShape2D" id=9]
+
 [node name="flight_demon" type="KinematicBody2D"]
 collision_layer = 64
 collision_mask = 0
@@ -228,6 +230,12 @@ wait_time = 0.4
 
 [node name="Particles2D" type="Particles2D" parent="."]
 process_material = SubResource( 8 )
+
+[node name="hitbox" type="Area2D" parent="."]
+position = Vector2( 0, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource( 9 )
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_entered" from="SenseArea" to="." method="_on_SenseArea_body_entered"]
 [connection signal="body_exited" from="SenseArea" to="." method="_on_SenseArea_body_exited"]

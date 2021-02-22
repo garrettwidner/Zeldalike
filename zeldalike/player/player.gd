@@ -427,6 +427,8 @@ func _physics_process(delta):
 			state_landing(delta)
 		"holding":
 			state_holding(delta)
+		"negating":
+			state_negating(delta)
 		"sackusing":
 			state_sackusing(delta)
 		"bowusing":
@@ -871,6 +873,16 @@ func state_bowusing(delta):
 	else:
 		if $Timer.time_left == 0:
 			set_state_default()
+	pass
+	
+func set_state_negating():
+	state = "negating"
+	pass
+	
+func state_negating(delta):
+	
+	
+	
 	pass
 
 func fire_arrow():
