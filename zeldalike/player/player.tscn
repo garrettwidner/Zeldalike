@@ -1889,7 +1889,7 @@ scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
 vframes = 44
 hframes = 4
-frame = 166
+frame = 47
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false

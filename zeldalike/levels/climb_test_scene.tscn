@@ -911,8 +911,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_left" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1444.58, 1000.24 )
 collision_mask = 2
@@ -1046,8 +1046,8 @@ __meta__ = {
 [node name="Node2D" type="Node2D" parent="hop_areas/ledgedown2"]
 
 [node name="jumparea_bottom_down1" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1464.32, 1018.65 )
 collision_mask = 2
@@ -1075,8 +1075,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_down2" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1176.18, 1084.58 )
 collision_mask = 2
@@ -1338,8 +1338,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up1" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1471.69, 978.901 )
 collision_mask = 2
@@ -1367,8 +1367,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up3" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1568.58, 900.231 )
 collision_mask = 2
@@ -1396,8 +1396,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up4" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1637.33, 965.618 )
 collision_mask = 2
@@ -1425,8 +1425,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_up2" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1175.25, 1027.31 )
 collision_mask = 2
@@ -1506,8 +1506,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_right1" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1499.3, 999.714 )
 collision_mask = 2
@@ -1535,8 +1535,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_right2" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1210.89, 1062.88 )
 collision_mask = 2
@@ -2106,8 +2106,8 @@ __meta__ = {
 }
 
 [node name="jumparea_bottom_left2" type="Area2D" parent="hop_areas" groups=[
-"jumparea",
 "fallarea",
+"jumparea",
 ]]
 position = Vector2( 1155.49, 1050.04 )
 collision_mask = 2

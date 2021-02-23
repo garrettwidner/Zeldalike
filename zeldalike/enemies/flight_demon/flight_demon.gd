@@ -40,7 +40,7 @@ func set_random_sensearea_size():
 	
 func _physics_process(delta):
 	
-	
+	speed = current_speed
 	
 	if should_fade:
 		fade_out_and_disappear(delta)
@@ -77,7 +77,10 @@ func move_towards_position(target_position):
 			target_position,
 			current_speed
 			)
-	move_and_slide(_velocity)
+	movedir = _velocity
+	movement_loop()
+			
+#	move_and_slide(_velocity)
 	pass
 	
 func resolve_player_left_area():

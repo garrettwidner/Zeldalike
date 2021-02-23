@@ -144,6 +144,9 @@ var sword_resource = preload("res://items/sword/sword.tscn")
 var veil_resource
 var shield_resource = preload("res://items/shield/shield.tscn")
 
+var negation_resource = preload("res://items/negation/negation.tscn")
+var negation_held_item
+
 var sun
 
 var min_sun_drain_damping = 0.6
@@ -593,7 +596,7 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("test_1"):
 
-
+		set_state_negating()
 
 #		increase_health(90)
 #		print("TESTING: Health brought back to full")
@@ -853,6 +856,13 @@ func end_food_sack_use():
 #	print("should close out of food sack")
 	pass
 
+func set_state_bowusing():
+	state = "bowusing"
+	bow_is_fired = false
+	staticdir = spritedir
+	switch_anim_static("bowdraw")
+	speed = bowspeed
+
 func state_bowusing(delta):
 	
 	if !bow_is_fired:
@@ -877,11 +887,19 @@ func state_bowusing(delta):
 	
 func set_state_negating():
 	state = "negating"
+	
+	negation_held_item = use_item(negation_resource)
+	
 	pass
 	
 func state_negating(delta):
+	assign_movedir_from_input()
+	set_spritedir()
+	movement_loop()
 	
-	
+	if !Input.is_action_pressed("test_1") && negation_held_item.can_delete:
+		negation_held_item.queue_free()
+		set_state_default()
 	
 	pass
 
@@ -2349,12 +2367,7 @@ func set_state_sackusing():
 #	switch_anim_static("sackusing")
 	pass
 
-func set_state_bowusing():
-	state = "bowusing"
-	bow_is_fired = false
-	staticdir = spritedir
-	switch_anim_static("bowdraw")
-	speed = bowspeed
+
 	
 func set_state_speech_animating():
 	state = "speech_animating"

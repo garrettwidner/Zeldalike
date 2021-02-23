@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 var TYPE : String = "ENEMY"
 var speed : int = 0
+var damage_type : String = "PHYSICAL"
+							#"SPIRITUAL"
 
 var knockdir : Vector2 = dir.CENTER
 
@@ -12,13 +14,19 @@ var spritedir : String = "down"
 var hitstun_timer : int = 0
 var hitstun_amount : int = 10
 var knock_strength : float = 1.5
+var knock_was_parry : bool = false
+var parry_strength : float = 2.5
 export var health : float = 3
 export var maxhealth : float = 3
+
 
 signal health_changed
 signal on_death
 
-var wasdamaged = false
+#These only apply to the very last frame, and reset after that
+var wasdamaged : bool = false
+var received_damage_type = null
+var received_parry : bool = false
 
 func increase_health(amount):
 	if health + amount <= maxhealth:
@@ -82,18 +90,32 @@ func movement_loop():
 	if hitstun_timer == 0:
 		motion = movedir.normalized() * speed
 	else:
-		motion = knockdir.normalized() * speed * knock_strength
+		if knock_was_parry:
+			motion = knockdir.normalized() * speed * parry_strength
+#			print("Applying parry knock")
+		else:
+			motion = knockdir.normalized() * speed * knock_strength
+#			print("Applying nonparry knock")
+			
 	
 	move_and_slide(motion, dir.CENTER)
 	
 func damage_loop():
 	wasdamaged = false
+	received_damage_type = ""
+	received_parry = false
 	if hitstun_timer > 0:
 		hitstun_timer -= 1
 	for area in $hitbox.get_overlapping_areas():
 		var body = area.get_parent()
 		if hitstun_timer == 0 and body.get("DAMAGE") != null and body.get("TYPE") != TYPE && area.name == "hitbox":
 			wasdamaged = true
+			received_damage_type = body.get("damage_type")
+			received_parry = body.get("is_parry")
+			if received_parry: 
+				knock_was_parry = true
+			else:
+				knock_was_parry = false
 			var damage = body.get("DAMAGE")
 #			health -= damage
 #			emit_signal("health_changed", health, damage)
@@ -118,5 +140,7 @@ func use_item(item):
 	add_child(newitem)
 	if get_tree().get_nodes_in_group(str(newitem.get_name(), self)).size() > newitem.maxamount:
 		newitem.queue_free()
+	if newitem != null:
+		return newitem
 	
 	
