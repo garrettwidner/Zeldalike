@@ -155,6 +155,7 @@ inventory={
 2d_physics/layer_4="ground"
 2d_physics/layer_5="mountain"
 2d_physics/layer_6="enemycorral"
+2d_physics/layer_7="parry"
 
 [rendering]
 

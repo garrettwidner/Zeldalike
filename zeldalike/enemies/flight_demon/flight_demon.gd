@@ -68,7 +68,6 @@ func fade_out_and_disappear(delta):
 	else:
 		$ubersprite.modulate.a = $ubersprite.modulate.a - (delta * fade_speed)
 #		print($ubersprite.modulate.a)
-	
 
 func move_towards_position(target_position):
 	_velocity = steering.follow(
