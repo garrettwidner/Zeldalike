@@ -7,7 +7,7 @@
 radius = 3.44311
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 18.6581
+radius = 29.6295
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 80.4615
@@ -24,7 +24,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="oversprite" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.47451 )
+modulate = Color( 0, 0, 0, 0.980392 )
 
 [node name="Sprite" type="Sprite" parent="oversprite"]
 texture = ExtResource( 2 )
