@@ -38,19 +38,6 @@ var line_attack_speed = 100
 var line_attack_duration = .7
 var line_attack_timer = 0
 
-
-var base_alpha = .4
-var max_alpha = .7
-var max_alpha_change = .35
-var old_alpha = 0
-var new_alpha = 0
-
-var alpha_step = 0
-
-var alpha_switch_timer = 0
-var max_alpha_switch_time = 1.6
-var min_alpha_switch_time = .5
-
 var is_positive = false
 
 # get a number of seconds .5 to 1.5 and a new alpha +- 6.8
@@ -62,13 +49,10 @@ var state = "waiting"
 
 func _ready():
 	set_speed(wanderspeed)
-	old_alpha = base_alpha
-	$oversprite.modulate.a = base_alpha
+	$effectanim.play("slow_fade")
 	pass 
 
 func _process(delta):
-	
-	run_alpha_animation(delta)
 	
 	match state:
 		"waiting":
@@ -82,36 +66,6 @@ func _process(delta):
 		"line_attacking":
 			line_attacking(delta)
 	pass
-	
-func run_alpha_animation(delta):
-	var new_modulate = $oversprite.modulate.a + (alpha_step * delta)
-	$oversprite.modulate.a = new_modulate
-	print($oversprite.modulate.a)
-	alpha_switch_timer = alpha_switch_timer - delta
-	if alpha_switch_timer <= 0:
-		$oversprite.modulate.a = new_alpha
-		old_alpha = new_alpha
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-		alpha_switch_timer = rng.randf_range(min_alpha_switch_time, max_alpha_switch_time)
-		print("alpha switched! new time is " + String(alpha_switch_timer))
-		
-		if is_positive:
-			is_positive = false
-			new_alpha = base_alpha + rng.randf_range(0, max_alpha_change)
-		else:
-			is_positive = true
-			new_alpha = base_alpha - rng.randf_range(0, max_alpha_change)
-		if new_alpha > max_alpha:
-			new_alpha = max_alpha
-		
-		print("old alpha is " + String(old_alpha) + " and new alpha is: " + String(new_alpha))
-			
-		var alpha_difference = new_alpha - old_alpha 
-		alpha_step = alpha_difference / alpha_switch_timer
-		print("alpha step is: " + String(alpha_step))
-	pass
-#	print("CURRENT MODULATE: " + String($oversprite.modulate.a))
 	
 # --------WAIT
 func set_state_waiting(time = 0):
@@ -127,6 +81,7 @@ func waiting():
 #---------FLEE
 func set_state_fleeing():
 	state = "fleeing"
+	$effectanim.play("fade_out")
 	pass
 	
 func fleeing(delta):
@@ -143,6 +98,7 @@ func set_state_knocked():
 	state = "knocked"
 	knockdirection = get_direction_towards_player()
 	knocktimer = knockduration
+	$effectanim.play("fast_fade")
 	pass
 	
 func knocked(delta):
@@ -275,7 +231,6 @@ func start_hitfade():
 	pass	
 	
 
-	
-	
-	
-	
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "fast_fade":
+		$effectanim.play("slow_fade")
