@@ -22,4 +22,3 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		is_parry = false
 		can_delete = true
 	
-	pass # Replace with function body.

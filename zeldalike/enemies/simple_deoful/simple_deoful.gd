@@ -11,6 +11,10 @@ var knockduration = .3
 var knockstrength = 105
 var is_knocked = false
 
+#in radians, not degrees
+var max_knockback_rotation = 0.8
+var min_knockback_rotation = 0.2
+
 var wanderspeed : int = 1
 var movespeed : int = 35
 var attackspeed : int = 40
@@ -32,11 +36,13 @@ var line_attack_has_wound_up = false
 var line_attack_direction = Vector2.ZERO
 var line_attack_reverse_direction = Vector2.ZERO
 
-var line_attack_windup_time = .2
+var line_attack_windup_time = .18
 var line_attack_windup_speed = 90
 var line_attack_speed = 100
 var line_attack_duration = .7
 var line_attack_timer = 0
+
+
 
 var is_positive = false
 
@@ -97,8 +103,23 @@ func fleeing(delta):
 func set_state_knocked():
 	state = "knocked"
 	knockdirection = get_direction_towards_player()
+	
+	randomize_knockdirection()
+	
 	knocktimer = knockduration
 	$effectanim.play("fast_fade")
+	pass
+	
+func randomize_knockdirection():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var knock_rotation = rng.randf_range(min_knockback_rotation, max_knockback_rotation)
+	if rng.randi()%2 == 0:
+		knock_rotation = knock_rotation * -1
+	print("Knock rotation is " + String(knock_rotation))
+	knockdirection = knockdirection.rotated(knock_rotation)
+	
+	
 	pass
 	
 func knocked(delta):

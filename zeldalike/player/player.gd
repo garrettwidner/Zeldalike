@@ -147,6 +147,8 @@ var shield_resource = preload("res://items/shield/shield.tscn")
 var negation_resource = preload("res://items/negation/negation.tscn")
 var negation_held_item
 
+onready var rejection = $rejection
+
 var sun
 
 var min_sun_drain_damping = 0.6
@@ -902,7 +904,23 @@ func state_negating(delta):
 		set_state_default()
 	
 	pass
-
+	
+func set_state_rejecting():
+	$rejection/AnimationPlayer.play("flash")
+	pass
+	
+func state_rejecting(delta):
+	
+	
+	
+#	set_speed()
+#	assign_movedir_from_input()
+#	set_directionality(movedir)
+#	damage_loop()
+#	sun_damage_loop(delta)
+#	block_loop(delta)
+	pass
+	
 func fire_arrow():
 	var arrow = arrow_resource.instance()
 	arrow.position = transform.get_origin()

@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.44311
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 resource_name = "fade_out"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -20,8 +20,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 0.447059 ), Color( 0, 0, 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "fast_fade"
 length = 0.8
 tracks/0/type = "value"
@@ -36,8 +48,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 0.447059 ), Color( 0, 0, 0, 0.0588235 ), Color( 0, 0, 0, 0.447059 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.6, 0.6 ), Vector2( 1, 1 ) ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "slow_fade"
 length = 4.0
 loop = true
@@ -53,54 +77,63 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 0.447059 ), Color( 0, 0, 0, 0.184314 ), Color( 0, 0, 0, 0.447059 ), Color( 0, 0, 0, 0.184314 ), Color( 0, 0, 0, 0.447059 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9, 1.9, 3.2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=5]
 radius = 29.6295
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=6]
 radius = 80.4615
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=7]
 radius = 2.0
 
 [node name="simple_deoful" type="KinematicBody2D"]
+modulate = Color( 0, 0, 0, 0.447059 )
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="effectanim" type="AnimationPlayer" parent="."]
-anims/fade_out = SubResource( 7 )
-anims/fast_fade = SubResource( 5 )
-anims/slow_fade = SubResource( 6 )
+anims/fade_out = SubResource( 2 )
+anims/fast_fade = SubResource( 3 )
+anims/slow_fade = SubResource( 4 )
 
 [node name="shapeanim" type="AnimationPlayer" parent="."]
 
 [node name="AttackArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="PerimeterArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PerimeterArea"]
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 4
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 [connection signal="animation_finished" from="effectanim" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_entered" from="PerimeterArea" to="." method="_on_PerimeterArea_body_entered"]

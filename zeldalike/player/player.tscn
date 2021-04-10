@@ -1,24 +1,25 @@
-[gd_scene load_steps=134 format=2]
+[gd_scene load_steps=142 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/Lodan_Recalibrator.png" type="Texture" id=2]
-[ext_resource path="res://items/shield/cross_shield.png" type="Texture" id=3]
-[ext_resource path="res://items/food_sack/food_sack_display.tscn" type="PackedScene" id=4]
-[ext_resource path="res://items/shield/shield.png" type="Texture" id=5]
-[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=6]
-[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=7]
-[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=8]
-[ext_resource path="res://dialogue_test/objects/Plants.png" type="Texture" id=9]
-[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=10]
-[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=11]
-[ext_resource path="res://player/heat_lines.png" type="Texture" id=12]
-[ext_resource path="res://player/heat_lines.gd" type="Script" id=13]
-[ext_resource path="res://sounds/sizzle/sizzle6.wav" type="AudioStream" id=14]
-[ext_resource path="res://sounds/sizzle/sizzleplayer.gd" type="Script" id=15]
-[ext_resource path="res://sounds/player/voiceplayer.gd" type="Script" id=16]
-[ext_resource path="res://sounds/player/oh1.wav" type="AudioStream" id=17]
-[ext_resource path="res://sounds/player/oh2.wav" type="AudioStream" id=18]
-[ext_resource path="res://sounds/player/oh3.wav" type="AudioStream" id=19]
+[ext_resource path="res://items/negation/glow.png" type="Texture" id=3]
+[ext_resource path="res://items/shield/cross_shield.png" type="Texture" id=4]
+[ext_resource path="res://items/food_sack/food_sack_display.tscn" type="PackedScene" id=5]
+[ext_resource path="res://items/shield/shield.png" type="Texture" id=6]
+[ext_resource path="res://player/camera/camerapivot.gd" type="Script" id=7]
+[ext_resource path="res://dialogue_test/crosshairs.png" type="Texture" id=8]
+[ext_resource path="res://dialogue_test/camera_test_sprite.png" type="Texture" id=9]
+[ext_resource path="res://dialogue_test/objects/Plants.png" type="Texture" id=10]
+[ext_resource path="res://player/camera/cameragridsnapper.gd" type="Script" id=11]
+[ext_resource path="res://player/camera/cameracontroller.gd" type="Script" id=12]
+[ext_resource path="res://player/heat_lines.png" type="Texture" id=13]
+[ext_resource path="res://player/heat_lines.gd" type="Script" id=14]
+[ext_resource path="res://sounds/sizzle/sizzle6.wav" type="AudioStream" id=15]
+[ext_resource path="res://sounds/sizzle/sizzleplayer.gd" type="Script" id=16]
+[ext_resource path="res://sounds/player/voiceplayer.gd" type="Script" id=17]
+[ext_resource path="res://sounds/player/oh1.wav" type="AudioStream" id=18]
+[ext_resource path="res://sounds/player/oh2.wav" type="AudioStream" id=19]
+[ext_resource path="res://sounds/player/oh3.wav" type="AudioStream" id=20]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.0072 ), 0.0, 0.0919143, 0, 0, Vector2( 1, 1 ), 3.0002, 0.0, 0, 0 ]
@@ -27,6 +28,41 @@ _data = [ Vector2( 0, 0.0072 ), 0.0, 0.0919143, 0, 0, Vector2( 1, 1 ), 3.0002, 0
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
+
+[sub_resource type="Animation" id=120]
+resource_name = "clear"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=119]
+resource_name = "flash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=121]
+radius = 16.0191
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 4, 3 )
@@ -1777,9 +1813,9 @@ tracks/0/keys = {
 "values": [ 109 ]
 }
 
-[sub_resource type="Animation" id=106]
-length = 2.0
-loop = true
+[sub_resource type="Animation" id=118]
+resource_name = "standing_rejection_down"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -1787,10 +1823,58 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1 ]
+"values": [ 168, 170, 168, 169 ]
+}
+
+[sub_resource type="Animation" id=116]
+resource_name = "standing_rejection_left"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 177, 179, 177, 178 ]
+}
+
+[sub_resource type="Animation" id=106]
+resource_name = "standing_rejection_right"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 174, 175, 174, 176 ]
+}
+
+[sub_resource type="Animation" id=117]
+resource_name = "standing_rejection_up"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 171, 172, 171, 173 ]
 }
 
 [sub_resource type="Animation" id=107]
@@ -1806,7 +1890,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 13 ]
+"values": [ 0, 1, 2, 1 ]
 }
 
 [sub_resource type="Animation" id=108]
@@ -1822,7 +1906,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 9 ]
+"values": [ 12, 13, 14, 13 ]
 }
 
 [sub_resource type="Animation" id=109]
@@ -1838,19 +1922,35 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
+"values": [ 8, 9, 10, 9 ]
+}
+
+[sub_resource type="Animation" id=110]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
 "values": [ 4, 5, 6, 5 ]
 }
 
-[sub_resource type="CircleShape2D" id=110]
+[sub_resource type="CircleShape2D" id=111]
 radius = 50.0
 
-[sub_resource type="RectangleShape2D" id=111]
+[sub_resource type="RectangleShape2D" id=112]
 extents = Vector2( 7, 7 )
 
-[sub_resource type="RectangleShape2D" id=112]
+[sub_resource type="RectangleShape2D" id=113]
 extents = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=113]
+[sub_resource type="Animation" id=114]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -1866,7 +1966,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="RectangleShape2D" id=114]
+[sub_resource type="RectangleShape2D" id=115]
 extents = Vector2( 2.6, 6 )
 
 [node name="player" type="KinematicBody2D"]
@@ -1887,17 +1987,33 @@ fall_damage_curve = SubResource( 1 )
 material = SubResource( 3 )
 scale = Vector2( 1.00401, 0.982659 )
 texture = ExtResource( 2 )
-vframes = 44
+vframes = 48
 hframes = 4
-frame = 47
+frame = 169
+
+[node name="rejection" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="rejection"]
+anims/clear = SubResource( 120 )
+anims/flash = SubResource( 119 )
+
+[node name="Area2D" type="Area2D" parent="rejection"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rejection/Area2D"]
+shape = SubResource( 121 )
 
 [node name="shield_icon" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0.415686 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 offset = Vector2( -1, 3 )
 
-[node name="food_sack_display" parent="." instance=ExtResource( 4 )]
+[node name="food_sack_display" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -2007,10 +2123,14 @@ anims/speakdown = SubResource( 102 )
 anims/speakleft = SubResource( 103 )
 anims/speakright = SubResource( 104 )
 anims/speakup = SubResource( 105 )
-anims/walkdown = SubResource( 106 )
-anims/walkleft = SubResource( 107 )
-anims/walkright = SubResource( 108 )
-anims/walkup = SubResource( 109 )
+anims/standing_rejection_down = SubResource( 118 )
+anims/standing_rejection_left = SubResource( 116 )
+anims/standing_rejection_right = SubResource( 106 )
+anims/standing_rejection_up = SubResource( 117 )
+anims/walkdown = SubResource( 107 )
+anims/walkleft = SubResource( 108 )
+anims/walkright = SubResource( 109 )
+anims/walkup = SubResource( 110 )
 
 [node name="hold_orienter" type="Position2D" parent="."]
 
@@ -2018,7 +2138,7 @@ anims/walkup = SubResource( 109 )
 
 [node name="test_sprite" type="Sprite" parent="hold_orienter/animation_mover"]
 visible = false
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="food_sprite" type="Sprite" parent="hold_orienter/animation_mover"]
 visible = false
@@ -2030,15 +2150,15 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sightbox"]
 visible = false
-shape = SubResource( 110 )
+shape = SubResource( 111 )
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 111 )
+shape = SubResource( 112 )
 
 [node name="pivot" type="Position2D" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="cameraoffset" type="Position2D" parent="pivot"]
 visible = false
@@ -2046,13 +2166,13 @@ position = Vector2( 8, 0 )
 
 [node name="Sprite2" type="Sprite" parent="pivot/cameraoffset"]
 position = Vector2( -8, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="cameraholder" type="Position2D" parent="pivot"]
 
 [node name="test_sprite" type="Sprite" parent="pivot/cameraholder"]
 visible = false
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="pivot/cameraholder"]
 position = Vector2( 8, 0 )
@@ -2066,54 +2186,54 @@ editor_draw_drag_margin = true
 [node name="testparameter" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 48.7541, 0.35849 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="testparameter2" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( -47.6787, 0.35849 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="testparameter3" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 1.43394, -42.3014 )
 rotation = 1.5708
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="testparameter4" type="Sprite" parent="pivot/cameraholder/Camera2D"]
 visible = false
 position = Vector2( 0.35849, 44.4523 )
 rotation = 1.5708
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="cameragridsnapper" type="Position2D" parent="."]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="cameracontroller" type="Position2D" parent="."]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="hopchecker" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hopchecker"]
 position = Vector2( 0, -16 )
-shape = SubResource( 112 )
+shape = SubResource( 113 )
 
 [node name="heat_lines" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 hframes = 3
 frame = 2
 region_rect = Rect2( 0, 0, 16, 16 )
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 
 [node name="anim" type="AnimationPlayer" parent="heat_lines"]
-anims/heat = SubResource( 113 )
+anims/heat = SubResource( 114 )
 
 [node name="sizzleplayer" type="AudioStreamPlayer2D" parent="heat_lines"]
 position = Vector2( 0, 11 )
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 volume_db = -35.0
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 loud_volume = -25.0
 soft_volume = -50.0
 
@@ -2123,16 +2243,17 @@ one_shot = true
 [node name="voiceplayer" type="AudioStreamPlayer2D" parent="."]
 volume_db = -19.904
 pitch_scale = 1.1
-script = ExtResource( 16 )
-ohs = [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ]
+script = ExtResource( 17 )
+ohs = [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ]
 
 [node name="climbbox" type="Area2D" parent="."]
 position = Vector2( -0.0375233, -0.300192 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="climbbox"]
-shape = SubResource( 114 )
+shape = SubResource( 115 )
 __meta__ = {
 "_edit_lock_": true
 }
+[connection signal="animation_finished" from="rejection/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
