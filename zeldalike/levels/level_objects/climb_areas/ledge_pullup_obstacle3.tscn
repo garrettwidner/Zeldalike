@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=78]
+extents = Vector2( 30, 3 )
+
+[node name="ledge_pullup_obstacle3" type="Area2D" groups=[
+"pullup_obstacle",
+]]
+position = Vector2( 1022.63, 770.048 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 3
+shape = SubResource( 78 )
+__meta__ = {
+"_edit_lock_": true
+}

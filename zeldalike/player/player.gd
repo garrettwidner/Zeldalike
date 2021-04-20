@@ -1538,6 +1538,7 @@ func has_pullup_obstacle():
 				if found_area.is_in_group("pullup_obstacle"):
 #					print("Found a pullup_obstacle named: " + found_area.name)
 					return true
+#	print("Found no pullup obstacle")
 	return false
 
 	
