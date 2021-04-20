@@ -1,0 +1,33 @@
+{
+"SceneName": "tutorial_1",
+"eventTarget": {
+	"samson": {
+		"Beginning": {
+			"Name": "SamsonInitial",
+			"Type": "Start",
+			"Flags": {
+				"default" : true
+			}
+		}
+		},
+	"bamson": {
+		"Beginning": {
+			"Name": "BamsonInitial",
+			"Type": "Start",
+			"Flags": {
+				"default" : true
+			}
+		}
+		},
+	"stanley": {
+		"Beginning":{
+			"Name": "StanleyInitial",
+			"Type": "Start",
+			"Flags": {
+				"default" : true
+			}
+		}
+		}
+	}
+}
+}

@@ -1,0 +1,75 @@
+{
+"level": "tutorial_1",
+"data":{
+	"SamsonInitial":{
+		"0" : {
+			"content": "Hey, so, just so you know, J is for jump.",
+			"conditions":
+			{
+				"divert": "1"
+			},
+		},
+		"1" : {
+			"content": "And um, K lets you grab on.",
+			"conditions":
+			{
+				"divert": "2"
+			}
+		},
+		"2" : {
+			"content": "Press J again while you're grabbed on if you need to climb up.",
+			"conditions":
+			{
+				"divert": "3"
+			}
+		},
+		"3" : {
+			"content": "I think that's about all you need to know. Good luck!",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		},
+	},
+	"BamsonInitial":{
+		"0" : {
+			"content": "Hey.",
+			"conditions":
+			{
+				"divert": "1"
+			},
+		},
+		"1" : {
+			"content": "Your name's Jose, right? Well, thanks for playing! Hope you liked it.",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		}
+	},
+	"StanleyInitial":{
+		"0" : {
+			"content": "You know you can re-grab the wall?",
+			"conditions":
+			{
+				"divert": "1"
+			},
+		},
+		"1" : {
+			"content": "Yeah, while you're falling.",
+			"conditions":
+			{
+				"divert": "2"
+			}
+		},
+		"2" : {
+			"content": "You just have to grab a good handhold.",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		},
+	}
+	}
+}
+}
