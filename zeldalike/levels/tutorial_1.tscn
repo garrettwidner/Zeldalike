@@ -901,28 +901,13 @@ position = Vector2( 1345.95, 890.859 )
 spawn_frequency = 15
 cloud_speed = 8
 
-[node name="cloud_spawner20" parent="YSort/objects" instance=ExtResource( 7 )]
-position = Vector2( 1663.5, 837.409 )
-spawn_frequency = 15
-cloud_speed = 8
-
 [node name="cloud_spawner18" parent="YSort/objects" instance=ExtResource( 7 )]
 position = Vector2( 1413.14, 764.646 )
 spawn_frequency = 17
 cloud_speed = 8
 
-[node name="cloud_spawner21" parent="YSort/objects" instance=ExtResource( 7 )]
-position = Vector2( 1650.87, 757.287 )
-spawn_frequency = 17
-cloud_speed = 8
-
 [node name="cloud_spawner2" parent="YSort/objects" instance=ExtResource( 7 )]
 position = Vector2( 1352.46, 801.52 )
-spawn_frequency = 16
-cloud_speed = 8
-
-[node name="cloud_spawner19" parent="YSort/objects" instance=ExtResource( 7 )]
-position = Vector2( 1653.59, 796.426 )
 spawn_frequency = 16
 cloud_speed = 8
 
@@ -1011,19 +996,25 @@ position = Vector2( 41.9663, 341.146 )
 position = Vector2( -289.703, 245.029 )
 
 [node name="cloud" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
-position = Vector2( -81.2251, -85.2864 )
+position = Vector2( -117.623, -54.7124 )
 
 [node name="cloud2" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
-position = Vector2( -259.044, -100.716 )
+position = Vector2( -295.072, -102.329 )
+
+[node name="cloud3" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
+position = Vector2( -225.177, -135.909 )
+
+[node name="cloud11" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
+position = Vector2( -89.8398, -136.785 )
 
 [node name="cloud8" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
-position = Vector2( -149.884, -47.0499 )
+position = Vector2( -113.487, -1.91693 )
 
 [node name="cloud10" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
-position = Vector2( -123.32, -102.732 )
+position = Vector2( -146.205, -99.8193 )
 
 [node name="cloud9" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
-position = Vector2( -38.0095, -105.797 )
+position = Vector2( -73.3036, -105.034 )
 
 [node name="cloud4" parent="YSort/objects/cloudstopper/cloudstopper/cloud" instance=ExtResource( 9 )]
 position = Vector2( -63.3427, -187.189 )
@@ -1038,7 +1029,7 @@ position = Vector2( -224.069, -7.50922 )
 position = Vector2( -272.474, -57.5452 )
 
 [node name="fire_pit" type="StaticBody2D" parent="YSort/objects"]
-position = Vector2( 1798.89, 1007.29 )
+position = Vector2( 1821.82, 1006.61 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/fire_pit"]
 shape = SubResource( 98 )
@@ -1055,7 +1046,7 @@ __meta__ = {
 }
 
 [node name="seat" type="StaticBody2D" parent="YSort/objects"]
-position = Vector2( 1812.64, 1008.79 )
+position = Vector2( 1835.57, 1008.12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/seat"]
 shape = SubResource( 99 )
@@ -1073,7 +1064,7 @@ __meta__ = {
 }
 
 [node name="seat3" type="StaticBody2D" parent="YSort/objects"]
-position = Vector2( 1781.57, 1007.78 )
+position = Vector2( 1804.5, 1007.1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/seat3"]
 shape = SubResource( 99 )
@@ -1091,7 +1082,7 @@ __meta__ = {
 }
 
 [node name="seat2" type="StaticBody2D" parent="YSort/objects"]
-position = Vector2( 1798.99, 1017.33 )
+position = Vector2( 1821.92, 1016.66 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/objects/seat2"]
 position = Vector2( 2.88, 0 )
@@ -1276,7 +1267,7 @@ position = Vector2( 1636.69, 705.656 )
 [node name="berry" type="Node2D" parent="YSort/actors" groups=[
 "interactible",
 ]]
-position = Vector2( 1806.77, 1005.43 )
+position = Vector2( 1828.8, 1005.88 )
 z_index = 20
 script = ExtResource( 18 )
 
@@ -2225,7 +2216,7 @@ __meta__ = {
 }
 
 [node name="spawnpoint" type="Position2D" parent="sceneblocks/sceneblock"]
-position = Vector2( 1413.45, 826.375 )
+position = Vector2( 1325.82, 803.352 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -2303,7 +2294,7 @@ z_index = 90
 texture = ExtResource( 30 )
 
 [node name="Small Fig4" type="Sprite" parent="."]
-position = Vector2( 1844.8, 1006.03 )
+position = Vector2( 1849.52, 988.039 )
 z_index = 90
 texture = ExtResource( 29 )
 

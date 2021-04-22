@@ -14,7 +14,8 @@ func _ready():
 	
 func set_random_texture():
 	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+#	rng.randomize()
+	rng.seed = OS.get_system_time_msecs() * get_instance_id()
 	var rand_int = rng.randi_range(1,3)
 	match rand_int:
 		1:
@@ -42,3 +43,7 @@ func _on_cloud_area_entered(area):
 	
 	if area.is_in_group("cloudstopper"):
 		queue_free()
+
+
+func _on_Timer_timeout():
+	pass # Replace with function body.

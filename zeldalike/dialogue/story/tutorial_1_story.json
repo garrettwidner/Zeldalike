@@ -31,7 +31,7 @@
 			}
 		},
 		"4" : {
-			"content": "So uh... good luck.",
+			"content": "...good luck.",
 			"conditions":
 			{
 				"isEnd": true
