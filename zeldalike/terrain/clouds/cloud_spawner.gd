@@ -8,7 +8,7 @@ export var cloud_speed = 10
 func _ready():
 	spawn_new_cloud()
 	$Timer.start(spawn_frequency)
-	print("Cloud spawner's global position is: " + String(global_position))
+#	print("Cloud spawner's global position is: " + String(global_position))
 	pass
 
 func _process(delta):
@@ -20,7 +20,7 @@ func spawn_new_cloud():
 	c1.speed = cloud_speed
 	self.add_child(c1)
 	c1.global_position = global_position
-	print("Cloud should spawn")
+#	print("Cloud should spawn")
 
 func _on_Timer_timeout():
 	spawn_new_cloud()

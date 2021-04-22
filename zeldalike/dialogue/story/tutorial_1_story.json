@@ -27,6 +27,13 @@
 			"content": "Press J again while you're grabbed on if you need to climb up.",
 			"conditions":
 			{
+				"divert": "4"
+			}
+		},
+		"4" : {
+			"content": "So uh... good luck.",
+			"conditions":
+			{
 				"isEnd": true
 			}
 		},
@@ -107,6 +114,57 @@
 		},
 		"3" : {
 			"content": "You just have to grab a good handhold.",
+			"conditions":
+			{
+				"isEnd": true
+			}
+		},
+	},
+	"BerryInitial":{
+		"0" : {
+			"content": "",
+			"conditions":
+			{
+				"divert": "1"
+			},
+		},
+		"1" : {
+			"content": "Oh hello!",
+			"conditions":
+			{
+				"divert": "2"
+			},
+		},
+		"2" : {
+			"content": "Not many people make it down here.",
+			"conditions":
+			{
+				"divert": "3"
+			}
+		},
+		"3" : {
+			"content": "You must have very strong legs to survive the fall.",
+			"conditions":
+			{
+				"divert": "4"
+			}
+		},
+		"4" : {
+			"content": "...",
+			"conditions":
+			{
+				"divert": "5"
+			}
+		},
+		"5" : {
+			"content": "It's a beautiful day, isn't it?",
+			"conditions":
+			{
+				"divert": "6"
+			}
+		},
+		"6" : {
+			"content": "Please relax with me if you'd like.",
 			"conditions":
 			{
 				"isEnd": true

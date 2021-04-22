@@ -14,7 +14,12 @@ var player
 
 var is_setup = false
 
+var is_stopped_for_TESTING = true
+
 func _ready():
+	if is_stopped_for_TESTING:
+		return
+	
 	player = get_node("../../player")
 	if player != null:
 		player.connect("on_sun_strength_changed", self, "on_sun_changed")
@@ -25,6 +30,9 @@ func _ready():
 		
 	
 func run_setup(player, sun_strength):
+	if is_stopped_for_TESTING:
+		return
+		
 #	print("Setup called on heat_lines script, sun strength is " + String(sun_strength))
 	get_node("anim").play("heat")
 	visible = true
@@ -39,7 +47,9 @@ func run_setup(player, sun_strength):
 	is_setup = true
 	
 func _process(delta):
-	
+	if is_stopped_for_TESTING:
+		return
+		
 	if !is_setup:
 		return
 	

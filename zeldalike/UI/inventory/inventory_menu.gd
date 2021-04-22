@@ -96,9 +96,7 @@ func _ready():
 	pause_menu.hide()
 	play_menu.show()
 	
-#	inventory_ui.hide()
-#	hotbar_1.hide()
-#	hotbar_2.hide()
+
 
 	current_UI_BOX = UI_BOX.INV
 	create_cursor()
@@ -239,34 +237,34 @@ func show_menu():
 	emit_signal("menu_opened")
 	get_tree().paused = true
 
-func _process(delta):
-	if Input.is_action_just_pressed("inventory"):
-		if !is_open:
-			show_menu()
-		else:
-			hide_menu()
-			
-	if Input.is_action_pressed("itemchange"):
-			if Input.is_action_just_pressed("item1"):
-#				print("Should increment hotbar 1")
-				increment_hotbar(1)
-				populate_play_menu()
-			elif Input.is_action_just_pressed("item2"):
-#				print("Should increment hotbar 2")
-				increment_hotbar(2)
-				populate_play_menu()
-			pass
-	
-	if is_open:
-		move_cursor()
-		move_held_icon()
-		
-		
-		if Input.is_action_just_pressed("action"):
-			pick_icon()
-			pass
-		
-		pass
+#func _process(delta):
+#	if Input.is_action_just_pressed("inventory"):
+#		if !is_open:
+#			show_menu()
+#		else:
+#			hide_menu()
+#
+#	if Input.is_action_pressed("itemchange"):
+#			if Input.is_action_just_pressed("item1"):
+##				print("Should increment hotbar 1")
+#				increment_hotbar(1)
+#				populate_play_menu()
+#			elif Input.is_action_just_pressed("item2"):
+##				print("Should increment hotbar 2")
+#				increment_hotbar(2)
+#				populate_play_menu()
+#			pass
+#
+#	if is_open:
+#		move_cursor()
+#		move_held_icon()
+#
+#
+#		if Input.is_action_just_pressed("action"):
+#			pick_icon()
+#			pass
+#
+#		pass
 
 	
 func find_icon_slot(icon_name):

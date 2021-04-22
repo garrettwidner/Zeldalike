@@ -14,7 +14,12 @@ var player
 
 var is_setup = false
 
+var is_stopped_for_TESTING = true
+
 func _ready():
+	if is_stopped_for_TESTING:
+		return
+		
 	player = get_node("../../../player")
 	if player != null:
 		player.connect("on_sun_strength_changed", self, "on_sun_changed")
@@ -25,6 +30,9 @@ func _ready():
 	player.connect("on_initial_sun_check", self, "run_setup")
 		
 func run_setup(player, sun_strength):
+	if is_stopped_for_TESTING:
+		return
+		
 	start_sizzle(sun_strength)
 	is_setup = true
 	
@@ -38,6 +46,9 @@ func start_sizzle(sun_strength):
 	pass
 	
 func _process(delta):
+	if is_stopped_for_TESTING:
+		return
+	
 	if !is_setup:
 		return
 		

@@ -2208,6 +2208,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 119 )
 
 [node name="heat_lines" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( 0, -11 )
 texture = ExtResource( 13 )

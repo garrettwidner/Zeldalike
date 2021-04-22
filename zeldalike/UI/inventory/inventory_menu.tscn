@@ -40,6 +40,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="selected_hotbar_icon_1" type="TextureRect" parent="play_menu"]
+visible = false
 margin_left = 165.139
 margin_top = 3.83973
 margin_right = 197.139
@@ -47,6 +48,7 @@ margin_bottom = 35.8397
 texture = ExtResource( 4 )
 
 [node name="selected_hotbar_icon_2" type="TextureRect" parent="play_menu"]
+visible = false
 margin_left = 192.08
 margin_top = 16.7265
 margin_right = 232.08

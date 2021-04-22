@@ -315,7 +315,7 @@ func run_setup(start_position, start_direction):
 	set_state_default()
 	
 #	$Sprite.texture = test_sprites
-	add_test_items()
+#	add_test_items()
 	
 	
 	shield_icon = $shield_icon

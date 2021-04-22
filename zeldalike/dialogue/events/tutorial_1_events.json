@@ -27,7 +27,16 @@
 				"default" : true
 			}
 		}
+		},
+		"berry": {
+		"Beginning": {
+			"Name": "BerryInitial",
+			"Type": "Start",
+			"Flags": {
+				"default" : true
+			}
 		}
+		},
 	}
 }
 }

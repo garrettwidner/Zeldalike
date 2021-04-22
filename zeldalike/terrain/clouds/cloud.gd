@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed = 8
+export var speed = 8
 
 var cloud1 = preload("res://terrain/clouds/cloud1.png")
 var cloud2 = preload("res://terrain/clouds/cloud2.png")
@@ -9,7 +9,7 @@ var cloud3 = preload("res://terrain/clouds/cloud3.png")
 func _ready():
 	set_random_texture()
 	
-	print("Cloud's starting position is: " + String(global_position))
+#	print("Cloud's starting position is: " + String(global_position))
 	pass
 	
 func set_random_texture():
@@ -38,7 +38,7 @@ func set_texture(new_texture):
 	pass
 
 func _on_cloud_area_entered(area):
-	print("Cloud entered area named " + area.name)
+#	print("Cloud entered area named " + area.name)
 	
 	if area.is_in_group("cloudstopper"):
 		queue_free()

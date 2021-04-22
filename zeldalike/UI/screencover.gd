@@ -18,12 +18,16 @@ var istransitioning = false
 var player
 
 var is_setup = false
+
+var is_off_for_TESTING = true
 	
 func _ready():
 	var scenechanger = get_node("../scenechanger")
 	scenechanger.connect("scene_changed", self, "setup")
 	
 func setup(found_player, sun_strength):
+	if is_off_for_TESTING:
+		return
 #	print("Screencover setup called")
 	player = found_player
 #	print("Setup called on screencover")
@@ -42,6 +46,8 @@ func setup(found_player, sun_strength):
 
 
 func _process(delta):
+	if is_off_for_TESTING:
+		return
 	if !is_setup:
 		return
 #	if Input.is_action_just_pressed("a"):
@@ -60,6 +66,8 @@ func _process(delta):
 	pass
 	
 func on_sun_changed(new_strength):
+	if is_off_for_TESTING:
+		return
 #	print("Screencover notified that sun changed")
 	var base_strength = floor(new_strength)
 	if base_strength > current_brightness_level:
