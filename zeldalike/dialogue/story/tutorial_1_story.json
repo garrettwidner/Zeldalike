@@ -3,28 +3,28 @@
 "data":{
 	"SamsonInitial":{
 		"0" : {
-			"content": "Hey, so, just so you know, J is for jump.",
+			"content": "",
 			"conditions":
 			{
 				"divert": "1"
 			},
 		},
 		"1" : {
-			"content": "And um, K lets you grab on.",
+			"content": "Hey, so, just so you know, J is for jump too.",
 			"conditions":
 			{
 				"divert": "2"
-			}
+			},
 		},
 		"2" : {
-			"content": "Press J again while you're grabbed on if you need to climb up.",
+			"content": "And um, K lets you grab on.",
 			"conditions":
 			{
 				"divert": "3"
 			}
 		},
 		"3" : {
-			"content": "I think that's about all you need to know. Good luck!",
+			"content": "Press J again while you're grabbed on if you need to climb up.",
 			"conditions":
 			{
 				"isEnd": true
@@ -33,36 +33,79 @@
 	},
 	"BamsonInitial":{
 		"0" : {
-			"content": "Hey.",
+			"content": "",
 			"conditions":
 			{
 				"divert": "1"
 			},
 		},
 		"1" : {
-			"content": "Your name's Jose, right? Well, thanks for playing! Hope you liked it.",
+			"content": "Hey.",
+			"conditions":
+			{
+				"divert": "2"
+			},
+		},
+		"2" : {
+			"content": "You made it to the top, that's great!",
+			"conditions":
+			{
+				"divert": "3"
+			}
+		},
+		"3" : {
+			"content": "You have fun?",
+			"conditions":
+			{
+				"divert": "4"
+			}
+		},
+		"4" : {
+			"content": "...Well, anyway...",
+			"conditions":
+			{
+				"divert": "5"
+			}
+		},
+		"5" : {
+			"content": "...I heard you can spin around while you're falling.",
+			"conditions":
+			{
+				"divert": "6"
+			}
+		},
+		"6" : {
+			"content": "I haven't tried it though...",
 			"conditions":
 			{
 				"isEnd": true
 			}
-		}
+		},
+
 	},
 	"StanleyInitial":{
 		"0" : {
-			"content": "You know you can re-grab the wall?",
+			"content": "",
 			"conditions":
 			{
 				"divert": "1"
 			},
 		},
 		"1" : {
-			"content": "Yeah, while you're falling.",
+			"content": "You know you can re-grab the wall?",
 			"conditions":
 			{
 				"divert": "2"
-			}
+			},
 		},
 		"2" : {
+			"content": "Yeah, while you're falling.",
+			"conditions":
+			{
+				"divert": "3"
+			}
+		},
+		"3" : {
 			"content": "You just have to grab a good handhold.",
 			"conditions":
 			{

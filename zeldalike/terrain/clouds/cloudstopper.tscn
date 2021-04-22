@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 300 )
+
+[node name="cloudstopper" type="Area2D" groups=[
+"cloudstopper",
+]]
+position = Vector2( 187.92, 0 )
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

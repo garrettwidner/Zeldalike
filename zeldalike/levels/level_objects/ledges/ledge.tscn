@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://levels/level_objects/ledges/ledges.png" type="Texture" id=1]
+
+[sub_resource type="TileSet" id=56]
+0/name = "ledges.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+
+[node name="ledge" type="TileMap"]
+z_index = 1
+tile_set = SubResource( 56 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 2818112, 0, 1, 2818113, 0, 65536, 2818114, 0, 65537, 2818118, 0, 0, 3145788, 0, 1, 3145789, 0, 65536, 3145790, 0, 65536, 3145791, 0, 65536, 3145792, 0, 65537, 3276854, 0, 1, 3276855, 0, 65537, 3539000, 0, 1, 3539001, 0, 65536, 3539002, 0, 65536, 3539003, 0, 65536, 3539004, 0, 65536, 3539005, 0, 65536, 3539006, 0, 65536, 3539007, 0, 65536, 3539008, 0, 65536, 3539009, 0, 65536, 3539010, 0, 65536, 3539011, 0, 65536, 3539012, 0, 65536, 3539013, 0, 65536, 3539014, 0, 65537, 3801188, 0, 1, 3801189, 0, 65536, 3801190, 0, 65536, 3801191, 0, 65536, 3801192, 0, 65537 )

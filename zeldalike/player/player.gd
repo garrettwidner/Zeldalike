@@ -467,6 +467,20 @@ func get_valid_fall_end_location():
 	pass	
 
 func get_fall_end_location(space_state):
+	
+	if is_on_ledge && current_jumparea.default_fall_location != null:
+#		print("Found a valid set fall location; returning")
+		var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(current_jumparea.default_fall_location)
+		#	print("Jumparea path is " + String(linked_jumparea_path))
+		var linked_jump_area = get_node(full_jumparea_path)
+#		print("Found linked jump area: " + linked_jump_area.name)
+#		print("Location is: " + String(linked_jump_area.global_position))
+		if linked_jump_area.name != "hop_areas":
+			return linked_jump_area.global_position
+		pass
+	
+	
+	
 	#Check for an empty space until you find one
 	var checkdirection = fall_check_direction
 #	print("Checking for fall in direction: " + String(checkdirection))
@@ -598,7 +612,7 @@ func state_default(delta):
 		
 	elif Input.is_action_just_pressed("test_1"):
 
-		set_state_negating()
+#		set_state_negating()
 
 #		increase_health(90)
 #		print("TESTING: Health brought back to full")
