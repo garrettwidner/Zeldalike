@@ -7,7 +7,7 @@
 			"Type": "Start",
 			"Flags": {
 				"default" : true
-			}
+				}
 		}
 		},
 	"bamson": {
@@ -38,5 +38,4 @@
 		}
 		},
 	}
-}
 }

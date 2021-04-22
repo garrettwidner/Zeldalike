@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/376415__inspectorj__wind-synthesized-a.wav-e6702dfa32f513eeb822f9e542344b77.sample"
+
+[deps]
+
+source_file="res://sounds/wind/376415__inspectorj__wind-synthesized-a.wav"
+dest_files=[ "res://.import/376415__inspectorj__wind-synthesized-a.wav-e6702dfa32f513eeb822f9e542344b77.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

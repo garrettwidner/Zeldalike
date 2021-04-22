@@ -17,7 +17,7 @@
 			},
 		},
 		"2" : {
-			"content": "And um, K lets you grab on.",
+			"content": "And K lets you grab on.",
 			"conditions":
 			{
 				"divert": "3"
@@ -88,7 +88,6 @@
 				"isEnd": true
 			}
 		},
-
 	},
 	"StanleyInitial":{
 		"0" : {
@@ -172,5 +171,4 @@
 		},
 	}
 	}
-}
 }
