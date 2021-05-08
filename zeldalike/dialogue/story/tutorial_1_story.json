@@ -1,174 +1,259 @@
 {
-"level": "tutorial_1",
-"data":{
-	"SamsonInitial":{
-		"0" : {
-			"content": "",
-			"conditions":
-			{
-				"divert": "1"
-			},
-		},
-		"1" : {
-			"content": "Hey, so, just so you know, J is for jump too.",
-			"conditions":
-			{
-				"divert": "2"
-			},
-		},
-		"2" : {
-			"content": "And K lets you grab on.",
-			"conditions":
-			{
-				"divert": "3"
-			}
-		},
-		"3" : {
-			"content": "Press J again while you're grabbed on if you need to climb up.",
-			"conditions":
-			{
-				"divert": "4"
-			}
-		},
-		"4" : {
-			"content": "...good luck.",
-			"conditions":
-			{
-				"isEnd": true
-			}
-		},
-	},
-	"BamsonInitial":{
-		"0" : {
-			"content": "",
-			"conditions":
-			{
-				"divert": "1"
-			},
-		},
-		"1" : {
-			"content": "Hey.",
-			"conditions":
-			{
-				"divert": "2"
-			},
-		},
-		"2" : {
-			"content": "You made it to the top, that's great!",
-			"conditions":
-			{
-				"divert": "3"
-			}
-		},
-		"3" : {
-			"content": "You have fun?",
-			"conditions":
-			{
-				"divert": "4"
-			}
-		},
-		"4" : {
-			"content": "...Well, anyway...",
-			"conditions":
-			{
-				"divert": "5"
-			}
-		},
-		"5" : {
-			"content": "...I heard you can spin around while you're falling.",
-			"conditions":
-			{
-				"divert": "6"
-			}
-		},
-		"6" : {
-			"content": "I haven't tried it though...",
-			"conditions":
-			{
-				"isEnd": true
-			}
-		},
-	},
-	"StanleyInitial":{
-		"0" : {
-			"content": "",
-			"conditions":
-			{
-				"divert": "1"
-			},
-		},
-		"1" : {
-			"content": "You know you can re-grab the wall?",
-			"conditions":
-			{
-				"divert": "2"
-			},
-		},
-		"2" : {
-			"content": "Yeah, while you're falling.",
-			"conditions":
-			{
-				"divert": "3"
-			}
-		},
-		"3" : {
-			"content": "You just have to grab a good handhold.",
-			"conditions":
-			{
-				"isEnd": true
-			}
-		},
-	},
-	"BerryInitial":{
-		"0" : {
-			"content": "",
-			"conditions":
-			{
-				"divert": "1"
-			},
-		},
-		"1" : {
-			"content": "Oh hello!",
-			"conditions":
-			{
-				"divert": "2"
-			},
-		},
-		"2" : {
-			"content": "Not many people make it down here.",
-			"conditions":
-			{
-				"divert": "3"
-			}
-		},
-		"3" : {
-			"content": "You must have very strong legs to survive the fall.",
-			"conditions":
-			{
-				"divert": "4"
-			}
-		},
-		"4" : {
-			"content": "...",
-			"conditions":
-			{
-				"divert": "5"
-			}
-		},
-		"5" : {
-			"content": "It's a beautiful day, isn't it?",
-			"conditions":
-			{
-				"divert": "6"
-			}
-		},
-		"6" : {
-			"content": "Please relax with me if you'd like.",
-			"conditions":
-			{
-				"isEnd": true
-			}
-		},
-	}
-	}
+    "level": "tutorial_1",
+    "data": {
+        "SamsonInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Hi! See that ledge over there?",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "Hold J in front of it to crouch down and release to jump.",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "Then make sure to quickly press and hold K. That's how you hold on.",
+                "conditions": {
+                    "divert": "4"
+                }
+            },
+            "4": {
+                "content": "...and to get up the ledge, press J again.",
+                "conditions": {
+                    "divert": "5"
+                }
+            },
+            "5": {
+                "content": "Think of J as jumping or kicking up, and K as clinging or holding on.",
+                "conditions": {
+                    "isEnd": true
+                }
+            },
+        },
+        "BamsonInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Hey!",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "You made it to the top, that's great!",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "You have fun?",
+                "conditions": {
+                    "divert": "4"
+                }
+            },
+            "4": {
+                "content": "...Well, anyway...",
+                "conditions": {
+                    "divert": "5"
+                }
+            },
+            "5": {
+                "content": "...I heard you can spin around while you're falling.",
+                "conditions": {
+                    "divert": "6"
+                }
+            },
+            "6": {
+                "content": "I haven't tried it though...",
+                "conditions": {
+                    "divert": "7"
+                }
+            },
+            "7": {
+                "content": "Oh, you know you can jump off ledges, right?",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        },
+        "StanleyInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "You know you can re-grab the wall?",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "Yeah, while you're falling.",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "You just have to grab a good handhold.",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        },
+        "HarryInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Sup.",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "For big jumps like this you have to find a jump pad. Yeah, like that one over to the right.",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "So you'll jump-cling-jump like you did before, but this time you'll cling and jump again.",
+                "conditions": {
+                    "divert": "4"
+                }
+            },
+            "4": {
+                "content": "...This took me a couple tries to do it the first time, but you'll get the hang of it.",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        },
+        "EleiaInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Hi! You're used to holding down K to cling, right?",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "But what happens if you let go? You fall, right?",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "... no harm in falling if you intend to...",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        },
+        "TebInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Hey. You ever notice how some handholds look different? Either big ones or a buncha little ones like you see up there.",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "The big ones you can jump off of.",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "The buncha little ones you can grab onto but not jump off of.",
+                "conditions": {
+                    "divert": "4"
+                }
+            },
+            "4": {
+                "content": "And see how this wall is darker? That means you can climb across it.",
+                "conditions": {
+                    "divert": "5"
+                }
+            },
+            "5": {
+                "content": "So you can climb from those little handholds to the big one, and jump off that.",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        },
+        "BerryInitial": {
+            "0": {
+                "content": "",
+                "conditions": {
+                    "divert": "1"
+                }
+            },
+            "1": {
+                "content": "Oh hello!",
+                "conditions": {
+                    "divert": "2"
+                }
+            },
+            "2": {
+                "content": "Not many people make it down here.",
+                "conditions": {
+                    "divert": "3"
+                }
+            },
+            "3": {
+                "content": "You must have very strong legs to survive the fall.",
+                "conditions": {
+                    "divert": "4"
+                }
+            },
+            "4": {
+                "content": "...",
+                "conditions": {
+                    "divert": "5"
+                }
+            },
+            "5": {
+                "content": "It's a beautiful day, isn't it?",
+                "conditions": {
+                    "divert": "6"
+                }
+            },
+            "6": {
+                "content": "Please relax with me if you'd like.",
+                "conditions": {
+                    "isEnd": true
+                }
+            }
+        }
+    }
 }

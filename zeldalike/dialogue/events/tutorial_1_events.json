@@ -1,41 +1,68 @@
 {
-"SceneName": "tutorial_1",
-"eventTarget": {
-	"samson": {
-		"Beginning": {
-			"Name": "SamsonInitial",
-			"Type": "Start",
-			"Flags": {
-				"default" : true
-				}
-		}
-		},
-	"bamson": {
-		"Beginning": {
-			"Name": "BamsonInitial",
-			"Type": "Start",
-			"Flags": {
-				"default" : true
-			}
-		}
-		},
-	"stanley": {
-		"Beginning":{
-			"Name": "StanleyInitial",
-			"Type": "Start",
-			"Flags": {
-				"default" : true
-			}
-		}
-		},
-		"berry": {
-		"Beginning": {
-			"Name": "BerryInitial",
-			"Type": "Start",
-			"Flags": {
-				"default" : true
-			}
-		}
-		},
-	}
+    "SceneName": "tutorial_1",
+    "eventTarget": {
+        "samson": {
+            "Beginning": {
+                "Name": "SamsonInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "bamson": {
+            "Beginning": {
+                "Name": "BamsonInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "harry": {
+            "Beginning": {
+                "Name": "HarryInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "teb": {
+            "Beginning": {
+                "Name": "TebInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "eleia": {
+            "Beginning": {
+                "Name": "EleiaInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "stanley": {
+            "Beginning": {
+                "Name": "StanleyInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        },
+        "berry": {
+            "Beginning": {
+                "Name": "BerryInitial",
+                "Type": "Start",
+                "Flags": {
+                    "default": true
+                }
+            }
+        }
+    }
 }

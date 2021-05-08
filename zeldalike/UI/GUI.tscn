@@ -17,6 +17,7 @@ margin_right = 218.0
 [node name="Container" type="Container" parent="HBoxContainer"]
 
 [node name="staminabar" parent="HBoxContainer/Container" instance=ExtResource( 1 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -2.0

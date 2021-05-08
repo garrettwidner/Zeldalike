@@ -96,8 +96,10 @@ func load_file_as_JSON(file_path):
 	assert file.file_exists(file_path)
 	
 	file.open(file_path, file.READ)
-	var filejson = JSON.parse(file.get_as_text())
+	var text = file.get_as_text()
+	var filejson = JSON.parse(text)
 	if filejson.error == 0:
 		return filejson.result
 	else:
+		print("Error in loading file as JSON, returning empty string")
 		return ""

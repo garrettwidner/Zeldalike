@@ -10,6 +10,8 @@ var linked_areas
 export var terrain_string : String
 var terrain_type 
 
+export var default_fall_location : NodePath
+
 #export var connected_object : NodePath
 
 func _ready():

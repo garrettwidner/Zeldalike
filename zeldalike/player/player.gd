@@ -5,6 +5,7 @@ var istrackingenemy : bool = false
 var state = "stopped"
 var walkspeed = 50
 var runspeed = 68
+var midspeed = 58
 var coverspeed = 30
 var bowspeed = 20
 var climbspeed = 25
@@ -468,7 +469,7 @@ func get_valid_fall_end_location():
 
 func get_fall_end_location(space_state):
 	
-	if is_on_ledge && current_jumparea.default_fall_location != null:
+	if current_jumparea.default_fall_location != null:
 #		print("Found a valid set fall location; returning")
 		var full_jumparea_path = get_full_hoparea_path_from_relative_nodepath(current_jumparea.default_fall_location)
 		#	print("Jumparea path is " + String(linked_jumparea_path))
@@ -2065,15 +2066,17 @@ func set_hold_position():
 	pass
 
 func set_speed():
-	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout:
-		speed = runspeed
-		is_running = true
-	else:
-		if stamina_drain_kickout:
-			if Input.is_action_just_released("action"):
-				stamina_drain_kickout = false
-		speed = walkspeed
-		is_running = false
+	speed = midspeed
+	is_running = false
+#	if Input.is_action_pressed("action") && !is_holding && stamina > 0 && !stamina_drain_kickout:
+#		speed = runspeed
+#		is_running = true
+#	else:
+#		if stamina_drain_kickout:
+#			if Input.is_action_just_released("action"):
+#				stamina_drain_kickout = false
+#		speed = walkspeed
+#		is_running = false
 
 func set_veiled_speed():
 	speed = coverspeed
